@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="README.md" />
+    <Content Include="documents\two_poetries.pdf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -67,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
+    <Content Include="resource\icon.ico" />
     <Content Include="templates\template01 - grey\images\avatar.gif" />
     <Content Include="templates\template01 - grey\images\banner_1.gif" />
     <Content Include="templates\template01 - grey\images\banner_2.gif" />
