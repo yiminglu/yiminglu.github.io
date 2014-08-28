@@ -57,6 +57,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\body-bg.jpg" />
+    <Content Include="images\download-button.png" />
+    <Content Include="images\github-button.png" />
+    <Content Include="images\header-bg.jpg" />
+    <Content Include="images\highlight-bg.jpg" />
+    <Content Include="images\sidebar-bg.jpg" />
+    <Content Include="javascripts\main.js" />
     <Content Include="README.md" />
     <Content Include="documents\two_poetries.pdf" />
     <None Include="Web.Debug.config">
@@ -68,7 +75,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
-    <Content Include="resource\icon.ico" />
+    <Content Include="resources\icon.ico" />
+    <Content Include="stylesheets\print.css" />
+    <Content Include="stylesheets\pygment_trac.css" />
+    <Content Include="stylesheets\stylesheet.css" />
     <Content Include="templates\template01 - grey\images\avatar.gif" />
     <Content Include="templates\template01 - grey\images\banner_1.gif" />
     <Content Include="templates\template01 - grey\images\banner_2.gif" />
