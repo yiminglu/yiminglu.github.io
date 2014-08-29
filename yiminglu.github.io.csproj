@@ -57,11 +57,15 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\Luffy.jpg" />
     <Content Include="images\body-bg.jpg" />
     <Content Include="images\download-button.png" />
     <Content Include="images\github-button.png" />
     <Content Include="images\header-bg.jpg" />
+    <Content Include="images\header-bg2.jpg" />
     <Content Include="images\highlight-bg.jpg" />
+    <Content Include="images\Kurosaki-button.png" />
+    <Content Include="images\Kurosaki.png" />
     <Content Include="images\sidebar-bg.jpg" />
     <Content Include="javascripts\main.js" />
     <Content Include="README.md" />
@@ -76,6 +80,8 @@
   <ItemGroup>
     <Content Include="index.html" />
     <Content Include="resources\icon.ico" />
+    <Content Include="resources\Kurosaki.ico" />
+    <Content Include="resources\Kurosaki2.ico" />
     <Content Include="stylesheets\print.css" />
     <Content Include="stylesheets\pygment_trac.css" />
     <Content Include="stylesheets\stylesheet.css" />
