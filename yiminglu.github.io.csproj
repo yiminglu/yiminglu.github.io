@@ -67,9 +67,16 @@
     <Content Include="images\Kurosaki-button.png" />
     <Content Include="images\Kurosaki.png" />
     <Content Include="images\sidebar-bg.jpg" />
+    <Content Include="pages\2014-06\Resume\ViewPDF.html" />
+    <Content Include="pages\2014-06\Resume\index.html" />
+    <Content Include="pages\2014-06\个人简历\index.html" />
+    <Content Include="pages\2014-06\个人简历\ViewPDF.html" />
+    <Content Include="pages\catalogue.html" />
     <Content Include="javascripts\main.js" />
     <Content Include="README.md" />
     <Content Include="documents\two_poetries.pdf" />
+    <Content Include="pages\2014-06\Resume\YimingLU-BUPT.pdf" />
+    <Content Include="pages\2014-06\个人简历\北京邮电大学-路一鸣.pdf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -84,6 +91,7 @@
     <Content Include="resources\Kurosaki2.ico" />
     <Content Include="stylesheets\print.css" />
     <Content Include="stylesheets\pygment_trac.css" />
+    <Content Include="stylesheets\stylesheet-cv.css" />
     <Content Include="stylesheets\stylesheet.css" />
     <Content Include="templates\template01 - grey\images\avatar.gif" />
     <Content Include="templates\template01 - grey\images\banner_1.gif" />
