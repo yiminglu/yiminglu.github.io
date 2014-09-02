@@ -72,7 +72,7 @@
     <Content Include="pages\2014-06\Resume\index.html" />
     <Content Include="pages\2014-06\个人简历\index.html" />
     <Content Include="pages\2014-06\个人简历\ViewPDF.html" />
-    <Content Include="pages\catalogue.html" />
+    <Content Include="pages\index.html" />
     <Content Include="javascripts\main.js" />
     <Content Include="README.md" />
     <Content Include="documents\two_poetries.pdf" />
