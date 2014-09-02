@@ -91,7 +91,6 @@
     <Content Include="resources\Kurosaki2.ico" />
     <Content Include="stylesheets\print.css" />
     <Content Include="stylesheets\pygment_trac.css" />
-    <Content Include="stylesheets\stylesheet-cv.css" />
     <Content Include="stylesheets\stylesheet.css" />
     <Content Include="templates\template01 - grey\images\avatar.gif" />
     <Content Include="templates\template01 - grey\images\banner_1.gif" />
