@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="404.html" />
     <Content Include="images\Luffy.jpg" />
     <Content Include="images\body-bg.jpg" />
     <Content Include="images\download-button.png" />
