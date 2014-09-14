@@ -529,8 +529,8 @@ ul {
 }
 
 ol {
-    list-style: decimal inside;
-    padding-left: 3px;
+    list-style: disc inside;
+    padding-left: 20px;
 }
 
 dl dd {
@@ -1114,6 +1114,19 @@ pre .javascript .function {
         padding-right: 0;
         margin-left: 0;
     }
+
+
+    a.button-center {
+        border: double;
+        text-align: center;
+        padding: 10px 20px;
+        border-width: 1px;
+        letter-spacing: 2px;
+        color: #474747;
+        width: 500px;
+        font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
+    }
+
 }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */

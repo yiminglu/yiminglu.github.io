@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="404.html" />
+    <Content Include="adarkroom\index.html" />
     <Content Include="catalogue\2014\06\index.html" />
     <Content Include="catalogue\2014\09\index.html" />
     <Content Include="catalogue\2014\index.html" />
@@ -87,6 +88,18 @@
     <Content Include="documents\two_poetries.pdf" />
     <Content Include="pages\2014-06\Resume\YimingLU-BUPT.pdf" />
     <Content Include="pages\2014-06\个人简历\北京邮电大学-路一鸣.pdf" />
+    <Content Include="Topics\adarkroom\.project" />
+    <Content Include="Topics\adarkroom\doc\Events.xlsx" />
+    <Content Include="Topics\adarkroom\lang\cn\strings.po" />
+    <Content Include="Topics\adarkroom\lang\es\strings.po" />
+    <Content Include="Topics\adarkroom\lang\fr\strings.po" />
+    <Content Include="Topics\adarkroom\lang\jp\strings.po" />
+    <Content Include="Topics\adarkroom\lang\pl\strings.po" />
+    <Content Include="Topics\adarkroom\lang\ru\strings.po" />
+    <Content Include="Topics\adarkroom\lang\uk\strings.po" />
+    <Content Include="Topics\adarkroom\LICENSE.md" />
+    <Content Include="Topics\adarkroom\README.md" />
+    <Content Include="Topics\adarkroom\tools\po2js.py" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -231,6 +244,69 @@
     <Content Include="templates\template02 - ios7\web\js\jquery.min.js" />
     <Content Include="templates\template02 - ios7\web\js\move-top.js" />
     <Content Include="templates\template02 - ios7\web\js\owl.carousel.js" />
+    <Content Include="Topics\adarkroom\.gitignore" />
+    <Content Include="Topics\adarkroom\browserWarning.html" />
+    <Content Include="Topics\adarkroom\css\dark.css" />
+    <Content Include="Topics\adarkroom\css\main.css" />
+    <Content Include="Topics\adarkroom\css\outside.css" />
+    <Content Include="Topics\adarkroom\css\path.css" />
+    <Content Include="Topics\adarkroom\css\room.css" />
+    <Content Include="Topics\adarkroom\css\ship.css" />
+    <Content Include="Topics\adarkroom\css\space.css" />
+    <Content Include="Topics\adarkroom\css\world.css" />
+    <Content Include="Topics\adarkroom\doc\translation.txt" />
+    <Content Include="Topics\adarkroom\doc\Zones.txt" />
+    <Content Include="Topics\adarkroom\favicon.ico" />
+    <Content Include="Topics\adarkroom\img\adr.png" />
+    <Content Include="Topics\adarkroom\img\chrome.png" />
+    <Content Include="Topics\adarkroom\img\firefox.png" />
+    <Content Include="Topics\adarkroom\img\ie.png" />
+    <Content Include="Topics\adarkroom\img\Logo1.jpg" />
+    <Content Include="Topics\adarkroom\img\opera.png" />
+    <Content Include="Topics\adarkroom\img\safari.png" />
+    <Content Include="Topics\adarkroom\index.html" />
+    <Content Include="Topics\adarkroom\lang\cn\main.css" />
+    <Content Include="Topics\adarkroom\lang\cn\strings.js" />
+    <Content Include="Topics\adarkroom\lang\es\main.css" />
+    <Content Include="Topics\adarkroom\lang\es\strings.js" />
+    <Content Include="Topics\adarkroom\lang\fr\main.css" />
+    <Content Include="Topics\adarkroom\lang\fr\strings.js" />
+    <Content Include="Topics\adarkroom\lang\jp\main.css" />
+    <Content Include="Topics\adarkroom\lang\langs.js" />
+    <Content Include="Topics\adarkroom\lang\pl\strings.js" />
+    <Content Include="Topics\adarkroom\lang\ru\main.css" />
+    <Content Include="Topics\adarkroom\lang\ru\strings.js" />
+    <Content Include="Topics\adarkroom\lang\uk\main.css" />
+    <Content Include="Topics\adarkroom\lang\uk\strings.js" />
+    <Content Include="Topics\adarkroom\lib\base64.js" />
+    <Content Include="Topics\adarkroom\lib\icu.js" />
+    <Content Include="Topics\adarkroom\lib\jquery.color-2.1.2.min.js" />
+    <Content Include="Topics\adarkroom\lib\jquery.event.move.js" />
+    <Content Include="Topics\adarkroom\lib\jquery.event.swipe.js" />
+    <Content Include="Topics\adarkroom\lib\jquery.min.js" />
+    <Content Include="Topics\adarkroom\lib\translate.js" />
+    <Content Include="Topics\adarkroom\mobileWarning.html" />
+    <Content Include="Topics\adarkroom\script\Button.js" />
+    <Content Include="Topics\adarkroom\script\dropbox.js" />
+    <Content Include="Topics\adarkroom\script\engine.js" />
+    <Content Include="Topics\adarkroom\script\events.js" />
+    <Content Include="Topics\adarkroom\script\events\encounters.js" />
+    <Content Include="Topics\adarkroom\script\events\global.js" />
+    <Content Include="Topics\adarkroom\script\events\outside.js" />
+    <Content Include="Topics\adarkroom\script\events\room.js" />
+    <Content Include="Topics\adarkroom\script\events\setpieces.js" />
+    <Content Include="Topics\adarkroom\script\header.js" />
+    <Content Include="Topics\adarkroom\script\localization.js" />
+    <Content Include="Topics\adarkroom\script\notifications.js" />
+    <Content Include="Topics\adarkroom\script\outside.js" />
+    <Content Include="Topics\adarkroom\script\path.js" />
+    <Content Include="Topics\adarkroom\script\prestige.js" />
+    <Content Include="Topics\adarkroom\script\room.js" />
+    <Content Include="Topics\adarkroom\script\scoring.js" />
+    <Content Include="Topics\adarkroom\script\ship.js" />
+    <Content Include="Topics\adarkroom\script\space.js" />
+    <Content Include="Topics\adarkroom\script\state_manager.js" />
+    <Content Include="Topics\adarkroom\script\world.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
