@@ -1,7 +1,4 @@
-﻿/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+﻿
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -18,10 +15,14 @@ time, mark, audio, video {
     margin: 0;
     padding: 0;
     border: 0;
+    outline: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-family: inherit;
     font-size: 100%;
-    font: inherit;
     vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -59,7 +60,7 @@ table {
 body {
     font-size: 15px;
     line-height: 1.5;
-    background: #fafafa url(../images/body-bg.jpg) 0 0 repeat;
+    background: #fafafa url(images/body-bg.jpg) 0 0 repeat;
     font-family: 'Helvetica Neue', Helvetica, Arial, serif;
     font-weight: 400;
     color: #666;
@@ -128,12 +129,12 @@ header {
     }
 
 
-#main-content-cv {
+#main-content-article {
     width: 690px;
     float: left;
 }
 
-    #main-content-cv img {
+    #main-content-article img {
         max-width: 100%;
     }
 
@@ -204,34 +205,6 @@ aside a.button {
     font-size: 21px;
 }
 
-code, pre {
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-    color: #222;
-    margin-bottom: 30px;
-    font-size: 13px;
-}
-
-code {
-    background-color: #f2f8fc;
-    border: solid 1px #dbe7f3;
-    padding: 0 3px;
-}
-
-pre {
-    padding: 15px;
-    background: #fff;
-    text-shadow: none;
-    overflow: auto;
-    border: solid 1px #DDD;
-}
-
-    pre code {
-        color: #2879d0;
-        background-color: #fff;
-        border: none;
-        padding: 0;
-    }
-
 ul, ol, dl {
     margin-bottom: 20px;
 }
@@ -240,12 +213,10 @@ ul, ol, dl {
 /* COMMON STYLES */
 
 hr {
-    height: 1px;
-    line-height: 1px;
-    margin-top: 1em;
-    padding-bottom: 1em;
-    border: none;
-    background: transparent url('../images/hr.png') 0 0 no-repeat;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 2px solid #eee;
 }
 
 table {
@@ -445,21 +416,20 @@ form {
         margin-left: 6em;
     }
 
-.main-title-cv,
-#main-content-cv h1 {
+#main-content-article h1 {
     font-family: 'Helvetica Neue', Helvetica, Arial, serif;
     font-size: 2.8em;
     letter-spacing: -1px;
     color: #474747;
 }
 
-    #main-content-cv h1:before {
+    #main-content-article h1:before {
         content: "";
         color: #000000;
         margin-left: -0.5em;
     }
 
-#main-content-cv h2 {
+#main-content-article h2 {
     font-family: 'Helvetica Neue', Helvetica, Arial, serif;
     font-size: 22px;
     font-weight: bold;
@@ -468,14 +438,14 @@ form {
     padding-top: 1em;
 }
 
-    #main-content-cv h2:before {
+    #main-content-article h2:before {
         content: ">";
         color: #000000;
         padding-right: 0.3em;
         margin-left: -1em;
     }
 
-#main-content-cv h3 {
+#main-content-article h3 {
     font-family: 'Helvetica Neue', Helvetica, Arial, serif;
     font-size: 18px;
     font-weight: bold;
@@ -484,7 +454,13 @@ form {
     color: #474747;
 }
 
-#main-content-cv h4 {
+    #main-content-article h3:before {
+        content: "";
+        padding-right: 0em;
+        margin-left: 0em;
+    }
+
+#main-content-article h4 {
     font-family: 'Helvetica Neue', Helvetica, Arial, serif;
     font-size: 15px;
     font-weight: bold;
@@ -492,17 +468,35 @@ form {
     padding-bottom: 0.5em;
 }
 
-#main-content-cv h5 {
+    #main-content-article h4:before {
+        content: "";
+        padding-right: 0em;
+        margin-left: 0em;
+    }
+
+#main-content-article h5 {
     font-family: 'Helvetica Neue', Helvetica, Arial, serif;
     font-size: 14px;
     color: #474747;
 }
 
-#main-content-cv h6 {
+    #main-content-article h5:before {
+        content: "";
+        padding-right: 0em;
+        margin-left: 0em;
+    }
+
+#main-content-article h6 {
     font-family: 'Helvetica Neue', Helvetica, Arial, serif;
     font-size: .8em;
     color: #474747;
 }
+
+    #main-content-article h6:before {
+        content: "";
+        padding-right: 0em;
+        margin-left: 0em;
+    }
 
 p {
     margin-bottom: 20px;
@@ -517,10 +511,16 @@ p a {
 }
 
 blockquote {
-    font-size: 1.6em;
+    color: #444;
+    font-size: 1em;
     border-left: 10px solid #e9e9e9;
     margin-bottom: 20px;
-    padding: 0 0 0 30px;
+    padding: 0 0 0 40px;
+}
+
+blockquote a {
+    color: #222;
+    font-weight: bold;
 }
 
 ul {
@@ -539,7 +539,7 @@ dl dd {
 }
 
 footer {
-    background: transparent url('../images/hr.png') 0 0 no-repeat;
+    border-top: 2px solid #eee;
     margin-top: 40px;
     padding-top: 20px;
     padding-bottom: 30px;
@@ -748,6 +748,113 @@ p {
 }
 
 
+/* #Code related
+================================================== */
+.highlight pre {
+  background: #444;
+  margin: 0 -20px;
+  padding: 15px 20px;
+  overflow: auto;
+  color: #ccc;
+  line-height: 22.400000000000002px;
+}
+
+.highlight .gutter,
+.highlight .code {
+  color: #666;
+  font-size: 0.85em;
+  font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
+}
+
+.highlight pre {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.highlight td {
+    vertical-align: middle;
+}
+
+.highlight table {
+  margin: 0;
+  width: 100%;
+}
+
+.highlight .gutter pre {
+  text-align: right;
+  padding-right: 15px;
+}
+
+.highlight .code pre {
+  text-align: left;
+  padding-left: 25px;
+}
+
+.highlight .line {
+  height: 22.400000000000002px;
+}
+
+/* # Code color highlight */
+
+pre .comment,
+pre .title {
+  color: #999;
+}
+pre .variable,
+pre .attribute,
+pre .tag,
+pre .regexp,
+pre .ruby .constant,
+pre .xml .tag .title,
+pre .xml .pi,
+pre .xml .doctype,
+pre .html .doctype,
+pre .css .id,
+pre .css .class,
+pre .css .pseudo {
+  color: #f2777a;
+}
+pre .number,
+pre .preprocessor,
+pre .built_in,
+pre .literal,
+pre .params,
+pre .constant {
+  color: #f99157;
+}
+pre .class,
+pre .ruby .class .title,
+pre .css .rules .attribute {
+  color: #9c9;
+}
+pre .string,
+pre .value,
+pre .inheritance,
+pre .header,
+pre .ruby .symbol,
+pre .xml .cdata {
+  color: #9c9;
+}
+pre .css .hexcolor {
+  color: #6cc;
+}
+pre .function,
+pre .python .decorator,
+pre .python .title,
+pre .ruby .function .title,
+pre .ruby .title .keyword,
+pre .perl .sub,
+pre .javascript .title,
+pre .coffeescript .title {
+  color: #69c;
+}
+pre .keyword,
+pre .javascript .function {
+  color: #c9c;
+}
+
+
 /* #Media Queries
 ================================================== */
 
@@ -826,27 +933,27 @@ p {
     }
 
 
-    #main-content-cv {
+    #main-content-article {
         width: 490px;
     }
 
-        #main-content-cv h1:before {
+        #main-content-article h1:before {
             content: "";
             padding-right: 0;
             margin-left: -0.2em;
         }
 
-        #main-content-cv h2:before {
+        #main-content-article h2:before {
             content: "";
             padding-right: 0;
             margin-left: -0.3em;
         }
 
-        #main-content-cv h3:before,
-        #main-content-cv h4:before,
-        #main-content-cv h5:before,
-        #main-content-cv h6:before,
-        #main-content-cv p:before {
+        #main-content-article h3:before,
+        #main-content-article h4:before,
+        #main-content-article h5:before,
+        #main-content-article h6:before,
+        #main-content-article p:before {
             content: none;
             padding-right: 0;
             margin-left: 0;
@@ -920,7 +1027,7 @@ p {
         width: 100% !important;
     }
 
-    #main-content-cv,
+    #main-content-article,
     aside#sidebar {
         float: none;
         width: 100% !important;
@@ -986,23 +1093,23 @@ p {
         margin-left: 3.7em;
     }
 
-    #main-content-cv h1:before {
+    #main-content-article h1:before {
         content: "";
         padding-right: 0;
         margin-left: -0.2em;
     }
 
-    #main-content-cv h2:before {
+    #main-content-article h2:before {
         content: "";
         padding-right: 0;
         margin-left: -0.3em;
     }
 
-    #main-content-cv h3:before,
-    #main-content-cv h4:before,
-    #main-content-cv h5:before,
-    #main-content-cv h6:before,
-    #main-content-cv p:before {
+    #main-content-article h3:before,
+    #main-content-article h4:before,
+    #main-content-article h5:before,
+    #main-content-article h6:before,
+    #main-content-article p:before {
         content: none;
         padding-right: 0;
         margin-left: 0;
