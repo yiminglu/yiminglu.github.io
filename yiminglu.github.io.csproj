@@ -80,7 +80,12 @@
     <Content Include="pages\2014-06\Resume\ViewPDF.html" />
     <Content Include="pages\2014-06\Resume\index.html" />
     <Content Include="pages\2014-06\个人简历\index.html" />
+    <Content Include="pages\2014-06\个人简历\life-1.JPG" />
     <Content Include="pages\2014-06\个人简历\ViewPDF.html" />
+    <Content Include="pages\2014-06\个人简历\work-1-1in.jpg" />
+    <Content Include="pages\2014-06\个人简历\work-1-2in.jpg" />
+    <Content Include="pages\2014-06\个人简历\work-2-1in.jpg" />
+    <Content Include="pages\2014-06\个人简历\work-2-2in.jpg" />
     <Content Include="pages\2014-09\《把时间当作朋友》\index.html" />
     <Content Include="pages\index.html" />
     <Content Include="javascripts\main.js" />
