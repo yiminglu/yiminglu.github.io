@@ -91,8 +91,6 @@
     <Content Include="javascripts\main.js" />
     <Content Include="README.md" />
     <Content Include="documents\two_poetries.pdf" />
-    <Content Include="pages\2014-06\Resume\YimingLU-BUPT.pdf" />
-    <Content Include="pages\2014-06\个人简历\北京邮电大学-路一鸣.pdf" />
     <Content Include="Topics\adarkroom\.project" />
     <Content Include="Topics\adarkroom\doc\Events.xlsx" />
     <Content Include="Topics\adarkroom\lang\cn\strings.po" />
@@ -105,6 +103,8 @@
     <Content Include="Topics\adarkroom\LICENSE.md" />
     <Content Include="Topics\adarkroom\README.md" />
     <Content Include="Topics\adarkroom\tools\po2js.py" />
+    <Content Include="pages\2014-06\个人简历\路一鸣 - 北京邮电大学.pdf" />
+    <Content Include="pages\2014-06\Resume\YimingLU - BUPT.pdf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
