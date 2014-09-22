@@ -80,7 +80,7 @@
     <Content Include="pages\2014-06\Resume\ViewPDF.html" />
     <Content Include="pages\2014-06\Resume\index.html" />
     <Content Include="pages\2014-06\个人简历\index.html" />
-    <Content Include="pages\2014-06\个人简历\life-1.JPG" />
+    <Content Include="pages\2014-06\个人简历\life.jpg" />
     <Content Include="pages\2014-06\个人简历\ViewPDF.html" />
     <Content Include="pages\2014-06\个人简历\work-1-1in.jpg" />
     <Content Include="pages\2014-06\个人简历\work-1-2in.jpg" />
@@ -105,6 +105,8 @@
     <Content Include="Topics\adarkroom\tools\po2js.py" />
     <Content Include="pages\2014-06\个人简历\路一鸣 - 北京邮电大学.pdf" />
     <Content Include="pages\2014-06\Resume\YimingLU - BUPT.pdf" />
+    <Content Include="pages\2014-06\个人简历\路一鸣 - 北京邮电大学2.pdf" />
+    <Content Include="pages\2014-06\Resume\YimingLU - BUPT2.pdf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
