@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="404.html" />
-    <Content Include="ADarkRoom\index.html" />
     <Content Include="AudioAndVideo\Burning.mp3" />
     <Content Include="AudioAndVideo\GranTorino_Sample.jpg" />
     <Content Include="AudioAndVideo\index.html" />
