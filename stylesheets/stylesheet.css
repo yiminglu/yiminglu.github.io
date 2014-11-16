@@ -128,12 +128,6 @@ header {
         max-width: 100%;
     }
 
-
-#main-content-article {
-    width: 690px;
-    float: left;
-}
-
     #main-content-article img {
         max-width: 100%;
     }
@@ -929,11 +923,6 @@ pre .javascript .function {
         content: "";
         padding-right: 0em;
         margin-left: 3.7em;
-    }
-
-
-    #main-content-article {
-        width: 490px;
     }
 
         #main-content-article h1:before {
