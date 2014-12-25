@@ -923,8 +923,8 @@ pre .javascript .function {
 
     #main-content-cata h4 {
         font-family: 'Helvetica Neue', Helvetica, Arial, serif;
-        font-size: 1.4em;
-        font-weight: bold;
+        font-size: 1.2em;
+        font-weight: normal;
         margin-top: 0px;
         margin-bottom: 10px;
         padding-top: 5px;
@@ -1108,7 +1108,7 @@ pre .javascript .function {
 
     #main-content-cata h3 {
         font-size: 1.4em;
-        font-weight: bold;
+        font-weight: normal;
         margin-top: 0px;
         margin-bottom: 0px;
         padding-top: 10px;
@@ -1125,8 +1125,8 @@ pre .javascript .function {
 
     #main-content-cata h4 {
         font-family: 'Helvetica Neue', Helvetica, Arial, serif;
-        font-size: 1.4em;
-        font-weight: bold;
+        font-size: 1em;
+        font-weight: normal;
         margin-top: 0px;
         margin-bottom: 10px;
         padding-top: 5px;
