@@ -176,9 +176,13 @@ article .article-meta time {
   display: block;
 }
 article .article-meta .article-category {
+  color: #999;
   font-weight: bold;
   position: relative;
   float: right;
+}
+article .article-meta .article-category a {
+  color: #999;
 }
 article .article-inner {
   margin-top: 10px;
@@ -356,6 +360,7 @@ article footer {
   min-height: 16px;
 }
 article footer a {
+  font-weight: bold;
   color: #999;
 }
 article footer a:hover {
@@ -376,6 +381,7 @@ article footer .tags {
 article footer .article-tag-list-item {
   float: left;
   margin-right: 10px;
+  list-style-type: none;
 }
 article #article-nav {
   zoom: 1;
