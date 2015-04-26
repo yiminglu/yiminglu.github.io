@@ -280,7 +280,7 @@ Suspendisse id sem consectetuer libero luctus adipiscing.
 </code></pre><p>你也可以选择性地在两个方括号中间加上一个空格：</p>
 <pre><code>This <span class="keyword">is</span> [an example] [<span class="property">id</span>] <span class="keyword">reference</span>-style link.
 </code></pre><p>接着，在文件的任意处，你可以把这个标记的链接内容定义出来：</p>
-<pre><code>[<span class="link_reference">id</span>]:<span class="link_url"> http://example.com/  "Optional Title Here"</span>
+<pre><code><span class="attr_selector">[id]</span>: <span class="rule"><span class="attribute">http</span>:<span class="value">//example.com/  <span class="string">"Optional Title Here"</span></span></span>
 </code></pre><p>链接内容定义的形式为：</p>
 <pre><code>方括号（前面可以选择性地加上至多三个空格来缩进），里面输入链接文字
 接着一个冒号
@@ -293,7 +293,7 @@ Suspendisse id sem consectetuer libero luctus adipiscing.
 [<span class="link_reference">foo</span>]:<span class="link_url"> http://example.com/  (Optional Title Here)</span>
 </code></pre><p>请注意：有一个已知的问题是Markdown.pl 1.0.1会忽略单引号包起来的链接title。</p>
 <p>链接网址也可以用方括号包起来：</p>
-<pre><code>[<span class="link_reference">id</span>]:<span class="link_url"> &lt;http://example.com/&gt;  "Optional Title Here"</span>
+<pre><code><span class="attr_selector">[id]</span>: &lt;<span class="rule"><span class="attribute">http</span>:<span class="value">//example.com/&gt;  <span class="string">"Optional Title Here"</span></span></span>
 </code></pre><p>你也可以把title属性放到下一行，也可以加一些缩进，若网址太长的话，这样会比较好看：</p>
 <pre><code>[id]<span class="symbol">:</span> <span class="symbol">http:</span>/<span class="regexp">/example.com/longish</span><span class="regexp">/path/to</span><span class="regexp">/resource/here</span>
     <span class="string">"Optional Title Here"</span>
@@ -311,11 +311,11 @@ Suspendisse id sem consectetuer libero luctus adipiscing.
 <pre><code>[<span class="link_reference">Daring Fireball</span>]:<span class="link_url"> http://daringfireball.net/</span>
 </code></pre><p>链接的定义可以放在文件中的任何一个地方，我比较偏好直接放在链接出现段落的后面，你也可以把它放在文件最后面，就像是注解一样。</p>
 <p>下面是一个参考式链接的范例：</p>
-<pre><code>I <span class="built_in">get</span> <span class="number">10</span> times more traffic <span class="built_in">from</span> [Google] [<span class="number">1</span>] than <span class="built_in">from</span> [Yahoo] [<span class="number">2</span>] <span class="operator">or</span> [MSN] [<span class="number">3</span>].
+<pre><code><span class="name">I</span> <span class="atom">get</span> <span class="number">10</span> <span class="atom">times</span> <span class="atom">more</span> <span class="atom">traffic</span> <span class="atom">from</span> [<span class="name">Google</span>] [<span class="number">1</span>] <span class="atom">than</span> <span class="atom">from</span> [<span class="name">Yahoo</span>] [<span class="number">2</span>] <span class="atom">or</span> [<span class="name">MSN</span>] [<span class="number">3</span>].
 
-  [<span class="number">1</span>]: <span class="keyword">http</span>://google.com/        <span class="string">"Google"</span>
-  [<span class="number">2</span>]: <span class="keyword">http</span>://search.yahoo.com/  <span class="string">"Yahoo Search"</span>
-  [<span class="number">3</span>]: <span class="keyword">http</span>://search.msn.com/    <span class="string">"MSN Search"</span>
+  [<span class="number">1</span>]: <span class="atom">http</span>://<span class="atom">google</span>.<span class="atom">com</span>/        <span class="string">"Google"</span>
+  [<span class="number">2</span>]: <span class="atom">http</span>://<span class="atom">search</span>.<span class="atom">yahoo</span>.<span class="atom">com</span>/  <span class="string">"Yahoo Search"</span>
+  [<span class="number">3</span>]: <span class="atom">http</span>://<span class="atom">search</span>.<span class="atom">msn</span>.<span class="atom">com</span>/    <span class="string">"MSN Search"</span>
 </code></pre><p>如果改成用链接名称的方式写：</p>
 <pre><code>I get 10 times more traffic from [<span class="link_label">Google</span>][<span class="link_reference"></span>] than from
 [<span class="link_label">Yahoo</span>][<span class="link_reference"></span>] or [<span class="link_label">MSN</span>][<span class="link_reference"></span>].
@@ -348,7 +348,7 @@ __double underscores__
 <p>如果要在文字前后直接插入普通的星号或底线，你可以用反斜线：</p>
 <pre><code><span class="string">\*this</span> text <span class="keyword">is</span> surrounded <span class="keyword">by</span> literal asterisks<span class="string">\*</span>
 </code></pre><h3 id="代码">代码</h3><p>如果要标记一小段行内代码，你可以用反引号把它包起来（<code>` </code>），例如：</p>
-<pre><code>Use <span class="operator">the</span> `printf()` <span class="function"><span class="keyword">function</span>.</span>
+<pre><code><span class="keyword">Use</span> the `printf()` <span class="function"><span class="keyword">function</span>.</span>
 </code></pre><p>会产生：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span>Use the <span class="tag">&lt;<span class="title">code</span>&gt;</span>printf()<span class="tag">&lt;/<span class="title">code</span>&gt;</span> function.<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>如果要在代码区段内插入反引号，你可以用多个反引号来开启和结束代码区段：</p>
