@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>My Vim config | Yiming @ github.io</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Vim (a contraction of Vi IMproved) is free and open source software and is a widely-used editor.Nowadays, almost all Vi is soft-linked to vim so that we can type vi to use vim.
+
+Vim’s beauty.Part of V">
+<meta property="og:type" content="article">
+<meta property="og:title" content="My Vim config">
+<meta property="og:url" content="http://yiminglu.github.io/2015/04/MyViConfig/index.html">
+<meta property="og:site_name" content="Yiming @ github.io">
+<meta property="og:description" content="Vim (a contraction of Vi IMproved) is free and open source software and is a widely-used editor.Nowadays, almost all Vi is soft-linked to vim so that we can type vi to use vim.
+
+Vim’s beauty.Part of V">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="My Vim config">
+<meta name="twitter:description" content="Vim (a contraction of Vi IMproved) is free and open source software and is a widely-used editor.Nowadays, almost all Vi is soft-linked to vim so that we can type vi to use vim.
+
+Vim’s beauty.Part of V">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ github.io" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="post-MyViConfig" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/MyViConfig/" class="article-date">
+  <p><time datetime="2015-04-25T08:47:00.000Z" itemprop="datePublished">2015/04/25</time></p>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Develop/">Develop</a>
+  </div>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/2015/04/MyViConfig/">
+        My Vim config
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Vim (a contraction of Vi IMproved) is free and open source software and is a widely-used editor.<br>Nowadays, almost all Vi is soft-linked to vim so that we can type vi to use vim.</p>
+</blockquote>
+<h1 id="Vim’s_beauty-">Vim’s beauty.</h1><p>Part of Vim’s power is that it can be extensively customized. The basic interface can be controlled by the many options available, and the user can define personalized key mappings—often called macros—or abbreviations to automate sequences of keystrokes, or even call internal or user defined functions.</p>
+<p>There are many plugins available that will extend or add new functionality to Vim. These complex scripts are usually written in Vim’s internal scripting language vimscript. Vim also supports scripting using Lua, Perl, Python, Racket, Ruby, and Tcl.</p>
+<p>There is one git resource <a href="https://github.com/ma6174/vim/" target="_blank" rel="external"><a href="https://github.com/ma6174/vim/" target="_blank" rel="external">https://github.com/ma6174/vim/</a></a> telling many settings and plugins for vim. I’ll take the commonly used ones from them.</p>
+<h1 id="Personalize_the_simple_options">Personalize the simple options</h1><p>Like bash or git, vi/vim has also got a config file, aka ‘.vimrc’ in your home folder <code>~</code>. Try to configure your vi/vim file to make it more comfortable.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.vimrc                     <span class="comment"># vi your vi profile.</span></span><br></pre></td></tr></table></figure>
+<h2 id="Configure_display_settings">Configure display settings</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="type">number</span>                      <span class="string">" show line number "</span></span><br><span class="line"><span class="keyword">set</span> ruler                       <span class="string">" show buttom ruler "</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> cul                         <span class="string">" show subline to current line "</span></span><br><span class="line"><span class="string">" set cuc "</span>                     <span class="string">" show current column "</span></span><br><span class="line">color torte                     <span class="string">" Color styles : [ron, desert, torte, ...] "</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> scrolloff=<span class="number">5</span>                 <span class="string">" 5 buffered lines to scroll in the editor. "</span></span><br><span class="line"><span class="keyword">set</span> cmdheight=<span class="number">1</span>                 <span class="string">" command line height "</span></span><br><span class="line"><span class="string">" set laststatus=2 "</span>            <span class="string">" always show status line "</span></span><br></pre></td></tr></table></figure>
+<h2 id="Set_syntax_on">Set syntax on</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">syntax <span class="function_start"><span class="keyword">on</span></span>                       <span class="string">" syntax for codes "</span></span><br></pre></td></tr></table></figure>
+<p>We can set dictionary for different types of files.</p>
+<h2 id="Set_tab_to_4_spaces">Set tab to 4 spaces</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">ts</span>=<span class="number">4</span> <span class="keyword">sts</span>=<span class="number">4</span> <span class="keyword">sw</span>=<span class="number">4</span> et          <span class="string">" set stop = 4 "</span></span><br><span class="line"><span class="string">"set tabstop=4 "</span></span><br><span class="line"><span class="string">"set shiftwidth=4 "</span></span><br><span class="line"><span class="string">"set softtabstop=4 "</span></span><br><span class="line"><span class="string">"set expandtab "</span>                <span class="string">" use spaces to replace a tab "</span></span><br><span class="line"></span><br><span class="line"><span class="string">"set ts=4 sts=4 sw=4 noet "</span>     <span class="string">" use tab occupies 4 spaces "</span></span><br></pre></td></tr></table></figure>
+<h2 id="Set_auto_indent">Set auto indent</h2><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> autoindent                  <span class="string">" auto indent "</span></span><br><span class="line"><span class="string">"set smartindent"</span>               <span class="string">" smart indent "</span></span><br></pre></td></tr></table></figure>
+<h2 id="Highlight_tabs_and_tailing_spaces">Highlight tabs and tailing spaces</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="type">list</span>                        <span class="string">" show tabs and spaces "</span></span><br><span class="line"><span class="keyword">set</span> lcs=<span class="constant">tab</span>:\|\ ,nbsp:%,trail:- <span class="string">" set display style of tabs and spaces. "</span></span><br></pre></td></tr></table></figure>
+<h2 id="Close_sound_when_error_typing">Close sound when error typing</h2><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> noerrorbells</span><br><span class="line"><span class="keyword">set</span> novisualbell</span><br></pre></td></tr></table></figure>
+<h2 id="Set_auto-complete">Set auto-complete</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set complete=.,w,<span class="tag">b</span>,k,t,<span class="tag">i</span></span><br><span class="line">set completeopt=preview,<span class="tag">menu</span>    <span class="string">" Preview auto-complete words in menu "</span></span><br></pre></td></tr></table></figure>
+<h2 id="Search_settings">Search settings</h2><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> ignorecase</span><br><span class="line"><span class="keyword">set</span> hlsearch                    <span class="string">" Highlight search "</span></span><br><span class="line"><span class="keyword">set</span> incsearch</span><br></pre></td></tr></table></figure>
+<h2 id="Switch_between_tabs">Switch between tabs</h2><p>We can open tabs using <code>vi -p File1[ File2]...</code></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map &lt;<span class="constant">S-Left&gt;</span> <span class="symbol">:tabp&lt;CR&gt;</span>          <span class="string">" Switch to prevous tab "</span></span><br><span class="line">map &lt;<span class="constant">S-Right&gt;</span> <span class="symbol">:tabn&lt;CR&gt;</span>         <span class="string">" Switch to next tab "</span></span><br></pre></td></tr></table></figure>
+<h2 id="Other_settings">Other settings</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">" <span class="operator"><span class="keyword">set</span> nocompatible <span class="string">"            "</span> <span class="keyword">Close</span> compatible vi <span class="string">"</span><br><span class="line">set mouse=a                     "</span> Fully enable mouse <span class="string">"</span><br><span class="line">set autoread                    "</span> Auto <span class="keyword">read</span> <span class="keyword">when</span> file <span class="keyword">is</span> <span class="keyword">changed</span> <span class="keyword">by</span> other editors <span class="string">"</span><br><span class="line">"</span><span class="keyword">set</span> autowrite <span class="string">"                "</span> Auto save <span class="string">"</span><br><span class="line">set confirm                     "</span> Confirm <span class="keyword">when</span> processing un-saved <span class="keyword">or</span> readonly files <span class="string">"</span><br><span class="line">set nobackup                    "</span> <span class="keyword">No</span> <span class="keyword">backup</span> file <span class="string">"</span><br><span class="line">set noswapfile                  "</span> <span class="keyword">No</span> swap file <span class="string">"</span></span></span><br></pre></td></tr></table></figure>
+<h1 id="Use_functions_to_do_more">Use functions to do more</h1><h2 id="Run_and_Debug_code">Run and Debug code</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">" Set file types. "</span></span><br><span class="line">au BufNewFile,BufRead *<span class="class">.md</span> set filetype=markdown</span><br><span class="line"></span><br><span class="line">map &lt;C-r&gt; :call <span class="function"><span class="title">CompileAndRun</span><span class="params">()</span></span>&lt;CR&gt;</span><br><span class="line">func! <span class="function"><span class="title">CompileAndRun</span><span class="params">()</span></span></span><br><span class="line">    exec <span class="string">"w"</span></span><br><span class="line">    <span class="keyword">if</span> &amp;filetype == <span class="string">'c'</span></span><br><span class="line">        exec <span class="string">"!gcc % -o %&lt; &amp;&amp; time ./%&lt;"</span></span><br><span class="line">    elseif &amp;filetype == <span class="string">'cpp'</span></span><br><span class="line">        exec <span class="string">"!g++ % -o %&lt; &amp;&amp; time ./%&lt;"</span></span><br><span class="line">    elseif &amp;filetype == <span class="string">'java'</span></span><br><span class="line">        exec <span class="string">"!javac % &amp;&amp; !time java %&lt;"</span></span><br><span class="line">    elseif &amp;filetype == <span class="string">'sh'</span></span><br><span class="line">        exec <span class="string">"!time bash %"</span></span><br><span class="line">    elseif &amp;filetype == <span class="string">'python'</span></span><br><span class="line">        exec <span class="string">"!time python %"</span></span><br><span class="line">    elseif &amp;filetype == <span class="string">'html'</span></span><br><span class="line">        exec <span class="string">"!open -a 'Google Chrome' % &amp;"</span></span><br><span class="line">    elseif &amp;filetype == <span class="string">'go'</span></span><br><span class="line">        exec <span class="string">"!time go run %"</span></span><br><span class="line">    elseif &amp;filetype == <span class="string">'markdown'</span></span><br><span class="line">        exec <span class="string">"!~/.vim/markdown.pl % &gt; %.html &amp;&amp; open -a 'Google Chrome' %.html"</span></span><br><span class="line">    endif</span><br><span class="line">endfunc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">" Debug for C/C++ files "</span></span><br><span class="line">map &lt;C-b&gt; :call <span class="function"><span class="title">RunGDB</span><span class="params">()</span></span>&lt;CR&gt;</span><br><span class="line">func! <span class="function"><span class="title">RunGDB</span><span class="params">()</span></span></span><br><span class="line">    exec <span class="string">"w"</span></span><br><span class="line">    <span class="keyword">if</span> &amp;filetype == <span class="string">'c'</span></span><br><span class="line">        exec <span class="string">"!gcc % -o -g %&lt; &amp;&amp; gdb ./%&lt;"</span></span><br><span class="line">    elseif &amp;filetype == <span class="string">'cpp'</span></span><br><span class="line">        exec <span class="string">"!g++ % -o -g %&lt; &amp;&amp; gdb ./%&lt;"</span></span><br><span class="line">    endif</span><br><span class="line">endfunc</span><br></pre></td></tr></table></figure>
+<p>In function <code>CompileAndRun</code>, we use a perl script <code>~/.vim/markdown.pl</code> to transfer markdown files to html.<br>Download <a href="markdown.pl">this file</a> and save it to <code>~/.vim/markdown.pl</code>.</p>
+<h1 id="Add_some_plugins">Add some plugins</h1><p>Still under construction.</p>
+<h1 id="After_all">After all</h1><p>Merge all used scripts above, we will get this.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set number&#10;set ruler&#10;set cul&#10;color torte&#10;set scrolloff=5&#10;set cmdheight=1&#10;&#10;syntax on&#10;set ts=4 sts=4 sw=4 et&#10;&#10;set autoindent&#10;set smartindent&#10;&#10;set list&#10;set lcs=tab:\|\ ,nbsp:%,trail:-&#10;&#10;set noerrorbells&#10;set novisualbell&#10;&#10;set complete=.,w,b,k,t,i&#10;set completeopt=preview,menu&#10;&#10;set ignorecase&#10;set hlsearch&#10;set incsearch&#10;&#10;map &#60;S-Left&#62; :tabp&#60;CR&#62;&#10;map &#60;S-Right&#62; :tabn&#60;CR&#62;&#10;&#10;set nocompatible&#10;set mouse=a&#10;set autoread&#10;set confirm&#10;set nobackup&#10;set noswapfile&#10;&#10;&#10;au BufNewFile,BufRead *.md set filetype=markdown&#10;&#10;map &#60;C-r&#62; :call CompileAndRun()&#60;CR&#62;&#10;func! CompileAndRun()&#10;    exec &#34;w&#34;&#10;    if &#38;filetype == &#39;c&#39;&#10;        exec &#34;!gcc % -o %&#60; &#38;&#38; time ./%&#60;&#34;&#10;    elseif &#38;filetype == &#39;cpp&#39;&#10;        exec &#34;!g++ % -o %&#60; &#38;&#38; time ./%&#60;&#34;&#10;    elseif &#38;filetype == &#39;java&#39;&#10;        exec &#34;!javac % &#38;&#38; !time java %&#60;&#34;&#10;    elseif &#38;filetype == &#39;sh&#39;&#10;        exec &#34;!time bash %&#34;&#10;    elseif &#38;filetype == &#39;python&#39;&#10;        exec &#34;!time python %&#34;&#10;    elseif &#38;filetype == &#39;html&#39;&#10;        exec &#34;!open -a &#39;Google Chrome&#39; % &#38;&#34;&#10;    elseif &#38;filetype == &#39;go&#39;&#10;        exec &#34;!time go run %&#34;&#10;    elseif &#38;filetype == &#39;markdown&#39;&#10;        exec &#34;!~/.vim/markdown.pl % &#62; %.html &#38;&#38; open -a &#39;Google Chrome&#39; %.html&#34;&#10;    endif&#10;endfunc&#10;&#10;&#10;map &#60;C-b&#62; :call RunGDB()&#60;CR&#62;&#10;func! RunGDB()&#10;    exec &#34;w&#34;&#10;    if &#38;filetype == &#39;c&#39;&#10;        exec &#34;!gcc % -o -g %&#60; &#38;&#38; gdb ./%&#60;&#34;&#10;    elseif &#38;filetype == &#39;cpp&#39;&#10;        exec &#34;!g++ % -o -g %&#60; &#38;&#38; gdb ./%&#60;&#34;&#10;    endif&#10;endfunc</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/9ResponsiveDesignPrinciples/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&laquoNewer</strong>
+      <div class="article-nav-title">
+        
+          9 Basic Principles of Responsive Web Design
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/01/Crossroads/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older&raquo</strong>
+      <div class="article-nav-title">Crossroads</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://yiminglu.github.io/2015/04/MyViConfig/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+  </div>
+</body>
+</html>
