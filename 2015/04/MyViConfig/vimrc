@@ -1,0 +1,72 @@
+set number
+set ruler
+set cul
+color torte
+set scrolloff=5
+set cmdheight=1
+
+syntax on
+set ts=4 sts=4 sw=4 et
+
+set autoindent
+set smartindent
+
+set list
+set lcs=tab:\|\ ,nbsp:%,trail:-
+
+set noerrorbells
+set novisualbell
+
+set complete=.,w,b,k,t,i
+set completeopt=preview,menu
+
+set ignorecase
+set hlsearch
+set incsearch
+
+map <S-Left> :tabp<CR>
+map <S-Right> :tabn<CR>
+
+set nocompatible
+set mouse=a
+set autoread
+set confirm
+set nobackup
+set noswapfile
+
+
+au BufNewFile,BufRead *.md set filetype=markdown
+
+map <C-r> :call CompileAndRun()<CR>
+func! CompileAndRun()
+    exec "w"
+    if &filetype == 'c'
+        exec "!gcc % -o %< && time ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %< && time ./%<"
+    elseif &filetype == 'java'
+        exec "!javac % && !time java %<"
+    elseif &filetype == 'sh'
+        exec "!time bash %"
+    elseif &filetype == 'python'
+        exec "!time python %"
+    elseif &filetype == 'html'
+        exec "!open -a 'Google Chrome' % &"
+    elseif &filetype == 'go'
+        exec "!time go run %"
+    elseif &filetype == 'markdown'
+        exec "!~/.vim/markdown.pl % > %.html && open -a 'Google Chrome' %.html"
+    endif
+endfunc
+
+
+map <C-b> :call RunGDB()<CR>
+func! RunGDB()
+    exec "w"
+    if &filetype == 'c'
+        exec "!gcc % -o -g %< && gdb ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o -g %< && gdb ./%<"
+    endif
+endfunc
+
