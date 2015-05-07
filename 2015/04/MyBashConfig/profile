@@ -1,0 +1,14 @@
+alias ls='ls -G'
+alias ll='ls -l -G -h'
+alias la='ls -a -G'
+
+alias hexorun='hexo clean && hexo g && hexo s'
+
+alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+
+__git4ps1() {
+    git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/ <\1>/'
+}
+
+export PS1="\[\033[37m\]\u@\h \[\033[00m\]\W\[\033[33m\]\$(__git4ps1)\[\033[00m\] $ "
+export PS2="\[\033[37m\] ->\[\033[00m\] "

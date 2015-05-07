@@ -1,11 +1,12 @@
 set number
 set ruler
 set cul
-color torte
 set scrolloff=5
 set cmdheight=1
 
 syntax on
+colo jellybeans
+
 set ts=4 sts=4 sw=4 et
 
 set autoindent
@@ -69,4 +70,5 @@ func! RunGDB()
         exec "!g++ % -o -g %< && gdb ./%<"
     endif
 endfunc
+
 
