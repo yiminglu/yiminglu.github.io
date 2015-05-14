@@ -1,3 +1,5 @@
+export BASH_HISTORY=5000
+
 alias ls='ls -G'
 alias ll='ls -l -G -h'
 alias la='ls -a -G'
