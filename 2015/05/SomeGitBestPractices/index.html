@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Some Git Best Practices | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Git is a distributed revision control system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds fo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Some Git Best Practices">
+<meta property="og:url" content="http://seasonsroad.com/2015/05/SomeGitBestPractices/index.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="Git is a distributed revision control system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds fo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Some Git Best Practices">
+<meta name="twitter:description" content="Git is a distributed revision control system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds fo">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="post-SomeGitBestPractices" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/SomeGitBestPractices/" class="article-date">
+  <p><time datetime="2015-05-14T07:51:00.000Z" itemprop="datePublished">2015/05/14</time></p>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Develop/">Develop</a>
+  </div>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/2015/05/SomeGitBestPractices/">
+        Some Git Best Practices
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><a href="https://github.com/git/git" target="_blank" rel="external">Git</a> is a distributed revision control system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds for Linux kernel development in 2005, and has since become the most widely adopted version control system for software development.</p>
+</blockquote>
+<h1 id="Know_more,_do_better">Know more, do better</h1><p>If we use git more, and get more familiar with it, it really helps a lot. Let’s note some best practices down here.</p>
+<h2 id="Set_useful_git_alias">Set useful git alias</h2><p>Check <a href="/2015/05/SomeGitAlias/">this post</a> to set useful git alias, making your life easier and happier when using git.</p>
+<h2 id="About_a_remote_host_(CRUD)">About a remote host (CRUD)</h2><p>List all your remote hosts. <code>-v</code> shows the url for remote host.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote [-v]</span><br></pre></td></tr></table></figure>
+<p>Show the detailed information for remote host(such as origin). Add, Remove and Rename a host.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git remote show &lt;host&gt;                  <span class="comment"># [R]</span></span><br><span class="line">$ git remote add &lt;host&gt; &lt;url&gt;             <span class="comment"># [C]</span></span><br><span class="line">$ git remote rm &lt;host&gt;                    <span class="comment"># [D]</span></span><br><span class="line">$ git remote rename &lt;host&gt; &lt;new-host&gt;     <span class="comment"># [U]</span></span><br></pre></td></tr></table></figure>
+<h2 id="Fetch_from_remote_host">Fetch from remote host</h2><p>Once there’re commits from remote host, we can fetch them in <em>all branches</em> from remote host.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch &lt;host&gt;</span><br></pre></td></tr></table></figure>
+<p>We can also fetch <em>a specific branch</em> from remote host. With <code>git branch</code> you can get all the local branches, and with <code>git branch -r</code> you can get all the remote branches.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch &lt;host&gt; &lt;branch&gt;</span><br></pre></td></tr></table></figure>
+<p>We can also fetch some branch which has no corresponding local branch created. We do this to create a local branch based this remote branch.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b &lt;<span class="built_in">local</span>-branch&gt; origin/&lt;remote-local&gt;</span><br></pre></td></tr></table></figure>
+<p>Also, if you don’t want to merge a remote branch without creating a local branch for it, do this:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git merge origin/master</span><br><span class="line"><span class="comment"># Or</span></span><br><span class="line">$ git rebase origin/master</span><br></pre></td></tr></table></figure>
+<p>This two commands do the same to merge a remote branch(<code>origin/master</code>) into current branch.</p>
+<h2 id="Pull_from_remote_host">Pull from remote host</h2><p>The default <code>git pull</code> command pulls all the remote branches corresponding to local ones. The full command can pull a remote branch and merge it to a local branch.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull [--rebase] &lt;host&gt; &lt;remote-branch&gt;:&lt;<span class="built_in">local</span>-branch&gt;</span><br></pre></td></tr></table></figure>
+<p>This command pulls <code>&lt;remote-branch&gt;</code> from <code>&lt;host&gt;</code>, and merges it to <code>&lt;local-branch&gt;</code>. With <code>--rebase</code> option, we can rebase the local commits to top of this branch.</p>
+<h2 id="Push_to_remote_host">Push to remote host</h2><p>We should know that there’re 2 push mode: <code>simple</code> &amp; <code>matching</code>. Before git 2.0, we use ‘matching’ as default which pushes all the matching local branches to remote. Now we use ‘simple’ as default to push only current branch to remote. But we can config it:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global push.default matching</span><br><span class="line"><span class="comment"># Or</span></span><br><span class="line">$ git config --global push.default simple</span><br></pre></td></tr></table></figure>
+<p>The full comand pushes a local branch to remote branch of a remote host.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push &lt;host&gt; &lt;<span class="built_in">local</span>-branch&gt;:&lt;remote-branch&gt;</span><br></pre></td></tr></table></figure>
+<p>If we don’t specify the <code>&lt;local-branch&gt;</code>, we just push an empty branch to remote, just like removing remote branch commits, which means <code>git push &lt;host&gt; :&lt;remote-branch&gt;</code> equals to <code>git push &lt;host&gt; --delete &lt;remote-branch&gt;</code>.</p>
+<p>If we don’t specify the <code>&lt;remote-branch&gt;</code>, we will push <code>&lt;local-branch&gt;</code> to the matching branch of it.</p>
+<p>If we don’t specify any branch, we will push all the branches to the matching branches of them on <code>&lt;host&gt;</code>. Just like this command without —all.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push [--all] &lt;host&gt;</span><br></pre></td></tr></table></figure>
+<p>If we use <code>--all</code>, we could push all the branches. If some of them don’t have the matching branches on <code>&lt;host&gt;</code> will create them.</p>
+<p>If we want to force push the local changes, usually when we update some commits already pushed, check this <a href="#force-push">best practice</a>.</p>
+<h2 id="Do_with_your_submodules">Do with your submodules</h2><p>Process all your submodules with this command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule [...]</span><br></pre></td></tr></table></figure>
+<p>You can do <code>init</code>/<code>deinit</code>, <code>add</code>, <code>status</code>, <code>update</code>, etc.</p>
+<p>If you want to run git commands within each submodule, do this:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach [git <span class="built_in">command</span>]</span><br></pre></td></tr></table></figure>
+<h1 id="Best_practices!!">Best practices!!</h1><h2 id="Rebase_to_an_old_commit"><a name="rebase">Rebase to an old commit</a></h2><p>Rebase to an old commit:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i HEAD~n</span><br></pre></td></tr></table></figure>
+<p>Edit the <code>pick</code> before any commit your want to base to <code>reword</code> or <code>r</code>. </p>
+<p>If you want to continue to HEAD, use this command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase --continue</span><br></pre></td></tr></table></figure>
+<h2 id="Amend_commits_locally">Amend commits locally</h2><p>If this commit is HEAD commit, use this to amend it:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend</span><br></pre></td></tr></table></figure>
+<p>Then amend your commit message!</p>
+<p>If this commit is not HEAD, <a href="#rebase">rebase</a> it and amend.</p>
+<h2 id="Reset_commits_locally">Reset commits locally</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD~n [--hard]</span><br></pre></td></tr></table></figure>
+<p>With the <code>--hard</code> option, you can reset all the commit with all its changes. Or you can save all your changes.</p>
+<h2 id="Move_one_older_commit_to_HEAD">Move one older commit to HEAD</h2><p>This is maybe a little tricky. We have to use a test branch to backup the git stack, then rebase to remove the very change:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch <span class="built_in">test</span></span><br><span class="line">$ git rebase --onto HEAD~n HEAD~(n-<span class="number">1</span>) HEAD</span><br></pre></td></tr></table></figure>
+<p>This way comes from the git <a href="http://git-scm.com/docs/git-rebase#_description" target="_blank" rel="external">help man page</a>.</p>
+<blockquote>
+<p>A range of commits could also be removed with rebase. If we have the following situation:</p>
+<p>E—-F—-G—-H—-I—-J  topicA</p>
+<p>then the command</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase --onto topicA~<span class="number">5</span> topicA~<span class="number">3</span> topicA</span><br></pre></td></tr></table></figure>
+<p>would result in the removal of commits F and G:</p>
+<p>E’—-H’—-I’—-J’  topicA</p>
+</blockquote>
+<p>After you stash this commit, you can cherry-pick it from the test branch to master branch:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git cherry-pick XXXXXX</span><br><span class="line"></span><br><span class="line">$ git branch -D <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<p>Get the <code>XXXXXX</code> with <code>git log</code> in test branch.</p>
+<h2 id="Check_in(push)_an_old_commit">Check in(push) an old commit</h2><p>Use <a href="#rebase">rebase</a> to go to this very old commit, use <code>git push</code>, you’ll get this message:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">fatal:</span> <span class="constant">You</span> are <span class="keyword">not</span> currently on a branch.</span><br><span class="line"><span class="constant">To</span> push the history leading to the current (detached <span class="constant">HEAD</span>)</span><br><span class="line">state now, use</span><br><span class="line"></span><br><span class="line">    git push origin <span class="constant">HEAD</span><span class="symbol">:&lt;name-of-remote-branch&gt;</span></span><br></pre></td></tr></table></figure>
+<p>So you can do this very command to push commits before this base. After that, you go back to continue.</p>
+<h2 id="Force_push_to_update_remote_origin(CRITICAL!)"><a name="force-push">Force push to update remote origin(CRITICAL!)</a></h2><p>This may not be a good practice. But in some critical circumstances, this may be the savior.</p>
+<p>Amend the commits you’ve all ready pushed, and force to push them to replace the repo.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push <span class="operator">-f</span></span><br></pre></td></tr></table></figure>
+<h2 id=""> </h2>
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/05/SomeGitAlias/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older&raquo</strong>
+      <div class="article-nav-title">Some Usually Used Git Alias</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/2015/05/SomeGitBestPractices/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

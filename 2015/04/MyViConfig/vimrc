@@ -23,12 +23,16 @@ set novisualbell
 set complete=.,w,b,k,t,i
 set completeopt=preview,menu
 
+setlocal spell spelllang=en_us
+
 set ignorecase
 set hlsearch
 set incsearch
 
 map <S-Left> :tabp<CR>
 map <S-Right> :tabn<CR>
+
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 set nocompatible
 set mouse=a
@@ -40,7 +44,7 @@ set noswapfile
 
 au BufNewFile,BufRead *.md set filetype=markdown
 
-map <C-r> :call CompileAndRun()<CR>
+map <F8> :call CompileAndRun()<CR>
 func! CompileAndRun()
     exec "w"
     if &filetype == 'c'
@@ -63,7 +67,7 @@ func! CompileAndRun()
 endfunc
 
 
-map <C-b> :call RunGDB()<CR>
+map <F5> :call RunGDB()<CR>
 func! RunGDB()
     exec "w"
     if &filetype == 'c'
@@ -74,15 +78,20 @@ func! RunGDB()
 endfunc
 
 
-
 execute pathogen#infect()
 
 
-
 map <C-n> :NERDTreeToggle <CR>
-map <C-m> :NERDTree <CR>
+
+let g:NERDTreeWinSize=40
+
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+
+let g:ctrlp_working_path_mode = 'ra'
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
