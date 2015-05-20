@@ -1,5 +1,0 @@
-if [ -f ~/.profile ]; then
-    source ~/.profile
-fi
-
-# Add your own profile here!
