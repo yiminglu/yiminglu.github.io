@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Vundle vs. Pathogen | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="A compare between vundle and pathogen. Which is better for vim plugins management.
+
+Most people just want an answer. Yes, vundle is better.
+PathogenPathogen created a new way to organize vim plugins,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vundle vs. Pathogen">
+<meta property="og:url" content="http://seasonsroad.com/2015/05/VundleVsPathogen/index.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="A compare between vundle and pathogen. Which is better for vim plugins management.
+
+Most people just want an answer. Yes, vundle is better.
+PathogenPathogen created a new way to organize vim plugins,">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vundle vs. Pathogen">
+<meta name="twitter:description" content="A compare between vundle and pathogen. Which is better for vim plugins management.
+
+Most people just want an answer. Yes, vundle is better.
+PathogenPathogen created a new way to organize vim plugins,">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="post-VundleVsPathogen" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/VundleVsPathogen/" class="article-date">
+  <p><time datetime="2015-05-21T07:32:23.000Z" itemprop="datePublished">2015/05/21</time></p>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Reprint/">Reprint</a>
+  </div>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/2015/05/VundleVsPathogen/">
+        Vundle vs. Pathogen
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>A compare between vundle and pathogen. Which is better for vim plugins management.</p>
+</blockquote>
+<p>Most people just want an answer. Yes, vundle is better.</p>
+<h1 id="Pathogen">Pathogen</h1><p>Pathogen created a new way to organize vim plugins, it provides the possibility to make vim plugins a bundle.</p>
+<p>The original vim plugin system is somewhat a centered plugin system, but pathogen makes it a distributing system. The original way:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim/</span><br><span class="line">    syntax/</span><br><span class="line">        <span class="tag">html</span><span class="class">.vim</span></span><br><span class="line">    indent/</span><br><span class="line">        <span class="tag">html</span>.vim</span><br></pre></td></tr></table></figure>
+<p>The pathogen way:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim/bundle/</span><br><span class="line">    html/</span><br><span class="line">        syntax/</span><br><span class="line">            <span class="tag">html</span><span class="class">.vim</span></span><br><span class="line">        indent/</span><br><span class="line">            <span class="tag">html</span>.vim</span><br></pre></td></tr></table></figure></p>
+<p>Now, you can take <code>html</code> as a bundle (or app), you need not copy every file to the right directory, everything is well maintained by the plugin creator.</p>
+<p>It’s almost the end of the world, the vim plugin system should be distributed. And I’m glad that so many plugins are compatible with pathogen.</p>
+<h1 id="Vundle">Vundle</h1><p>At that time, I knew vundle, and I mentioned it in the post, but I didn’t try it. I wish if only I had tried it.</p>
+<p>Vundle is inspired by Pathogen, it can do everything pathogen can do, it is compatible with pathogen, which means if a plugin declares it supporting pathogen, it supports vundle.</p>
+<p>But vundle does more, it improved the way to get and update vim plugins. I mentioned in my post, that I was trying git-submodule with pathogen, it was brilliant, but vundle is more elegant:</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">set nocompatible               <span class="string">" be iMproved</span></span><br><span class="line">filetype off                   <span class="string">" required!</span></span><br><span class="line"></span><br><span class="line">set rtp+=~/.vim/bundle/vundle/</span><br><span class="line">call vundle<span class="preprocessor">#rc()</span></span><br><span class="line"></span><br><span class="line"><span class="string">" let Vundle manage Vundle</span></span><br><span class="line"><span class="string">" required! </span></span><br><span class="line">Bundle 'gmarik/vundle'</span><br><span class="line"></span><br><span class="line"><span class="string">" My Bundles here:</span></span><br><span class="line"><span class="string">"</span></span><br><span class="line"><span class="string">" original repos on github</span></span><br><span class="line">Bundle 'tpope/vim-fugitive'</span><br><span class="line">Bundle 'Lokaltog/vim-easymotion'</span><br><span class="line">Bundle 'rstacruz/sparkup', &#123;'rtp': 'vim/'&#125;</span><br><span class="line">Bundle 'tpope/vim-rails.git'</span><br><span class="line"><span class="string">" vim-scripts repos</span></span><br><span class="line">Bundle 'L9'</span><br><span class="line">Bundle 'FuzzyFinder'</span><br><span class="line"><span class="string">" non github repos</span></span><br><span class="line">Bundle 'git:<span class="comment">//git.wincent.com/command-t.git'</span></span><br></pre></td></tr></table></figure>
+<p>Launch vim and run <code>:BundleInstall</code>, everything will be ready for you. All things you should do is trying it.</p>
+<p>Save my words, save your time, head over to <a href="https://github.com/gmarik/Vundle.vim" target="_blank" rel="external">Vundle</a> immediately.</p>
+<blockquote>
+<p>Reprinted from <a href="http://lepture.com/en/2012/vundle-vs-pathogen" target="_blank" rel="external">lepture.com</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vim/">Vim</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/05/SomeGitBestPractices/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older&raquo</strong>
+      <div class="article-nav-title">Some Git Best Practices</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/2015/05/VundleVsPathogen/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>
