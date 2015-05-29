@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Case Study: Grep Operator, Part Three | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Our shiny new “grep operator” is working great, but part of writing Vimscript is being considerate and making your users’ lives easier.  We can do two more things to make our operator play nicely in t">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Case Study: Grep Operator, Part Three">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/34.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="Our shiny new “grep operator” is working great, but part of writing Vimscript is being considerate and making your users’ lives easier.  We can do two more things to make our operator play nicely in t">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Case Study: Grep Operator, Part Three">
+<meta name="twitter:description" content="Our shiny new “grep operator” is working great, but part of writing Vimscript is being considerate and making your users’ lives easier.  We can do two more things to make our operator play nicely in t">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/34.html">
+        Case Study: Grep Operator, Part Three
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Our shiny new “grep operator” is working great, but part of writing Vimscript is being considerate and making your users’ lives easier.  We can do two more things to make our operator play nicely in the Vim ecosystem.</p>
+<h2 id="Saving_Registers">Saving Registers</h2><p>By yanking the text into the unnamed register we destroy anything that was previously in there.</p>
+<p>This isn’t very nice to our users, so let’s save the contents of that register before we yank and restore it after we’ve done.  Change the code to look like this:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">nnoremap &lt;leader&gt;g :set operatorfunc=GrepOperator&lt;cr&gt;g@</span><br><span class="line"></span><br><span class="line">vnoremap &lt;leader&gt;g :&lt;c-u&gt;call GrepOperator(visualmode())&lt;cr&gt;</span><br><span class="line"></span><br><span class="line">function! GrepOperator(type)</span><br><span class="line"></span><br><span class="line">let saved_unnamed_register = @@</span><br><span class="line"></span><br><span class="line">if a:type ==# 'v'</span><br><span class="line"></span><br><span class="line">    normal! `&lt;v`&gt;y</span><br><span class="line"></span><br><span class="line">elseif a:type ==# 'char'</span><br><span class="line"></span><br><span class="line">    normal! `[v`]y</span><br><span class="line"></span><br><span class="line">else</span><br><span class="line"></span><br><span class="line">    return</span><br><span class="line"></span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">silent execute "grep! -R " . shellescape(@@) . " ."</span><br><span class="line"></span><br><span class="line">copen</span><br><span class="line"></span><br><span class="line">let @@ = saved_unnamed_register</span><br><span class="line"></span><br><span class="line">endfunction</span><br></pre></td></tr></table></figure>
+<p>We’ve added two <code>let</code> statements at the top and bottom of the function.  The first saves the contents of <code>@@</code> into a variable and the second restores it.</p>
+<p>Write and source the file.  Make sure it works by yanking some text, then pressing <code>&lt;leader&gt;giw</code> to run our operator, then pressing <code>p</code> to paste the text you yanked before.</p>
+<p>When writing Vim plugins you should <em>always</em> strive to save and restore any settings or registers your code modifies so you don’t surprise and confuse your users.</p>
+<h2 id="Namespacing">Namespacing</h2><p>Our script created a function named <code>GrepOperator</code> in the global namespace. This probably isn’t a big deal, but when you’re writing Vimscript it’s far better to be safe than sorry.</p>
+<p>We can avoid polluting the global namespace by tweaking a couple of lines in our code.  Edit the file to look like this:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">nnoremap &lt;leader&gt;g :set operatorfunc=&lt;SID&gt;GrepOperator&lt;cr&gt;g@</span><br><span class="line"></span><br><span class="line">vnoremap &lt;leader&gt;g :&lt;c-u&gt;call &lt;SID&gt;GrepOperator(visualmode())&lt;cr&gt;</span><br><span class="line"></span><br><span class="line">function! s:GrepOperator(type)</span><br><span class="line"></span><br><span class="line">let saved_unnamed_register = @@</span><br><span class="line"></span><br><span class="line">if a:type ==# 'v'</span><br><span class="line"></span><br><span class="line">    normal! `&lt;v`&gt;y</span><br><span class="line"></span><br><span class="line">elseif a:type ==# 'char'</span><br><span class="line"></span><br><span class="line">    normal! `[v`]y</span><br><span class="line"></span><br><span class="line">else</span><br><span class="line"></span><br><span class="line">    return</span><br><span class="line"></span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">silent execute "grep! -R " . shellescape(@@) . " ."</span><br><span class="line"></span><br><span class="line">copen</span><br><span class="line"></span><br><span class="line">let @@ = saved_unnamed_register</span><br><span class="line"></span><br><span class="line">endfunction</span><br></pre></td></tr></table></figure>
+<p>The first three lines of the script have changed.  First, we modified the function name to start with <code>s:</code> which places it in the current script’s namespace.</p>
+<p>We also modified the mappings and prepended the <code>GrepOperator</code> function name with <code>&lt;SID&gt;</code> so they could find the function.  If we hadn’t done this they would have tried to find the function in the global namespace, which wouldn’t have worked.</p>
+<p>Congratulations, our <code>grep-operator.vim</code> script is not only extremely useful, but it’s also a considerate Vimscript citizen!</p>
+<h2 id="Exercises">Exercises</h2><p>Read <code>:help &lt;SID&gt;</code>.</p>
+<p>Treat yourself to a snack.  You deserve it!</p>
+<p><a href="33.html">« Previous</a><a style="float:right" href="35.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/34.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

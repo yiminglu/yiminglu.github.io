@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Leaders | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="We’ve learned how to map keys in a way that won’t make us want to tear our hair out later, but you might have noticed one more problem.
+Every time we do something like :nnoremap &amp;lt;space&amp;gt; dd we’ve">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Leaders">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/06.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="We’ve learned how to map keys in a way that won’t make us want to tear our hair out later, but you might have noticed one more problem.
+Every time we do something like :nnoremap &amp;lt;space&amp;gt; dd we’ve">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Leaders">
+<meta name="twitter:description" content="We’ve learned how to map keys in a way that won’t make us want to tear our hair out later, but you might have noticed one more problem.
+Every time we do something like :nnoremap &amp;lt;space&amp;gt; dd we’ve">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/06.html">
+        Leaders
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>We’ve learned how to map keys in a way that won’t make us want to tear our hair out later, but you might have noticed one more problem.</p>
+<p>Every time we do something like <code>:nnoremap &lt;space&gt; dd</code> we’ve overwritten what <code>&lt;space&gt;</code> normally does.  What if we need that key later?</p>
+<p>There are a bunch of keys that you don’t normally need in your day-to-day Vim usage.  <code>-</code>, <code>H</code>, <code>L</code>, <code>&lt;space&gt;</code>, <code>&lt;cr&gt;</code>, and <code>&lt;bs&gt;</code> do things that you almost never need (in normal mode, of course).  Depending on how you work you may find others that you never use.</p>
+<p>Those are safe to map, but that only gives us six keys to work with.  What happened to Vim’s legendary customizability?</p>
+<h2 id="Mapping_Key_Sequences">Mapping Key Sequences</h2><p>Unlike Emacs, Vim makes it easy to map more than just single keys.  Run these commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap -d dd</span><br><span class="line"></span><br><span class="line">:nnoremap -c ddO</span><br></pre></td></tr></table></figure>
+<p>Try them out by typing <code>-d</code> and <code>-c</code> (quickly) in normal mode.  The first creates a custom mapping to delete a line, while the second “clears” a line and puts you into insert mode.</p>
+<p>This means you can pick a key that you don’t care about (like <code>-</code>) as a “prefix” key and create mappings on top of it.  It means you’ll have to type an extra key to activate the mappings, but one extra keystroke can easily be absorbed into muscle memory.</p>
+<p>If you think this might be a good idea, you’re right, and it turns out that Vim already has mechanisms for this “prefix” key!</p>
+<h2 id="Leader">Leader</h2><p>Vim calls this “prefix” key the “leader”.  You can set your leader key to whatever you like.  Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:let mapleader = "-"</span><br></pre></td></tr></table></figure>
+<p>You can replace <code>-</code> with any key you like.  I personally like <code>,</code> even though it shadows a useful function, because it’s very easy to type.</p>
+<p>When you’re creating new mappings you can use <code>&lt;leader&gt;</code> to mean “whatever I have my leader key set to”.  Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap &lt;leader&gt;d dd</span><br></pre></td></tr></table></figure>
+<p>Now try it out by pressing your leader key and then <code>d</code>.  Vim will delete the current line.</p>
+<p>Why bother with setting <code>&lt;leader&gt;</code> at all, though?  Why not just include your “prefix” key directly in your mapping commands?  There are three good reasons.</p>
+<p>First of all, you may decide you need the normal function of your leader later on down the road.  Defining it in one place makes it easy to change later.</p>
+<p>Second, when someone else is looking at your <code>~/.vimrc</code> file they’ll immediately know what you mean when you say <code>&lt;leader&gt;</code>.  They can simply copy your mapping into their own <code>~/.vimrc</code> if they like it even if they use a different leader.</p>
+<p>Finally, many Vim plugins create mappings that start with <code>&lt;leader&gt;</code>.  If you’ve already got it set up they’ll work properly and will feel familiar right out of the box.</p>
+<h2 id="Local_Leader">Local Leader</h2><p>Vim has a second “leader” key called “local leader”.  This is meant to be a prefix for mappings that only take effect for certain types of files, like Python files or HTML files.</p>
+<p>We’ll talk about how to make mappings for specific types of files later in the book, but you can go ahead and set your “localleader” now:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:let maplocalleader = "\\"</span><br></pre></td></tr></table></figure>
+<p>Notice that we have to use <code>\\</code> and not just <code>\</code> because <code>\</code> is the escape character in Vimscript strings.  You’ll learn more about this later.</p>
+<p>Now you can use <code>&lt;localleader&gt;</code> in mappings and it will work just like <code>&lt;leader&gt;</code> does (except for resolving to a different key, of course).</p>
+<p>Feel free to change this key to something else if you don’t like backslash.</p>
+<h2 id="Exercises">Exercises</h2><p>Read <code>:help mapleader</code>.</p>
+<p>Read <code>:help maplocalleader</code>.</p>
+<p>Set <code>mapleader</code> and <code>maplocalleader</code> in your <code>~/.vimrc</code> file.</p>
+<p>Convert all the mappings you added to your <code>~/.vimrc</code> file in the previous chapters to be prefixed with <code>&lt;leader&gt;</code> so they don’t shadow existing commands.</p>
+<p><a href="05.html">« Previous</a><a style="float:right" href="07.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/06.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Editing Your Vimrc | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Before we move on to learning more Vimscript, let’s find a way to make it easier to add new mappings to our ~/.vimrc file.
+Sometimes you’re coding away furiously at a problem and realize a new mapping">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Editing Your Vimrc">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/07.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="Before we move on to learning more Vimscript, let’s find a way to make it easier to add new mappings to our ~/.vimrc file.
+Sometimes you’re coding away furiously at a problem and realize a new mapping">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Editing Your Vimrc">
+<meta name="twitter:description" content="Before we move on to learning more Vimscript, let’s find a way to make it easier to add new mappings to our ~/.vimrc file.
+Sometimes you’re coding away furiously at a problem and realize a new mapping">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/07.html">
+        Editing Your Vimrc
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Before we move on to learning more Vimscript, let’s find a way to make it easier to add new mappings to our <code>~/.vimrc</code> file.</p>
+<p>Sometimes you’re coding away furiously at a problem and realize a new mapping would make your editing easier.  You should add it to your <code>~/.vimrc</code> file right then and there to make sure you don’t forget, but you <em>don’t</em> want to lose your concentration.</p>
+<p>The idea of this chapter is that you want to make it easier to make it easier to edit text.</p>
+<p>That’s not a typo.  Read it again.</p>
+<p>The idea of this chapter is that you want to (make it easier to (make it easier to (edit text))).</p>
+<h2 id="Editing_Mapping">Editing Mapping</h2><p>Let’s add a mapping that will open your <code>~/.vimrc</code> file in a split so you can quickly edit it and get back to coding.  Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap &lt;leader&gt;ev :vsplit $MYVIMRC&lt;cr&gt;</span><br></pre></td></tr></table></figure>
+<p>I like to think of this command as “<strong>e</strong>dit my <strong>v</strong>imrc file”.</p>
+<p><code>$MYVIMRC</code> is a special Vim variable that points to your <code>~/.vimrc</code> file.  Don’t worry about that for right now, just trust me that it works.</p>
+<p><code>:vsplit</code> opens a new vertical split.  If you’d prefer a horizontal split you can replace it with <code>:split</code>.</p>
+<p>Take a minute and think through that command in your mind.  The goal is: “open my <code>~/.vimrc</code> file in a new split”.  Why does it work?  Why is every single piece of that mapping necessary?</p>
+<p>With that mapping you can open up your <code>~/.vimrc</code> file with three keystrokes. Once you use it a few times it will burn its way into your muscle memory and take less than half a second to type.</p>
+<p>When you’re in the middle of coding and come up with a new mapping that would save you time it’s now trivial to add it to your <code>~/.vimrc</code> file.</p>
+<h2 id="Sourcing_Mapping">Sourcing Mapping</h2><p>Once you’ve added a mapping to your <code>~/.vimrc</code> file, it doesn’t immediately take effect.  Your <code>~/.vimrc</code> file is only read when you start Vim.  This means you need to also run the command manually to make it work in the current session, which is a pain.</p>
+<p>Let’s add a mapping to make this easier:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap &lt;leader&gt;sv :source $MYVIMRC&lt;cr&gt;</span><br></pre></td></tr></table></figure>
+<p>I like to think of this command as “<strong>s</strong>ource my <strong>v</strong>imrc file”.</p>
+<p>The <code>source</code> command tells Vim to take the contents of the given file and execute it as Vimscript.</p>
+<p>Now you can easily add new mappings during the heat of coding:</p>
+<ul>
+<li>Use <code>&lt;leader&gt;ev</code> to open the file. <em> Add the mapping. </em> Use <code>:wq&lt;cr&gt;</code> (or <code>ZZ</code>) to write the file and close the split, bringing you<br>back to where you were. * Use <code>&lt;leader&gt;sv</code> to source the file and make our changes take effect.</li>
+</ul>
+<p>That’s eight keystrokes plus whatever it takes to define the mapping.  It’s very little overhead, which reduces the chance of breaking focus.</p>
+<h2 id="Exercises">Exercises</h2><p>Add mappings to “edit my <code>~/.vimrc</code>“ and “source my <code>~/.vimrc</code>“ to your <code>~/.vimrc</code> file.</p>
+<p>Try them out a few times, adding dummy mappings each time.</p>
+<p>Read <code>:help myvimrc</code>.</p>
+<p><a href="06.html">« Previous</a><a style="float:right" href="08.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/07.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

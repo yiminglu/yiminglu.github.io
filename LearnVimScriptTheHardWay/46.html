@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Advanced Syntax Highlighting | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="So far we’ve defined some simple syntax highlighting for Potion files: keywords and functions.
+If you didn’t do the exercises in the last chapter, you need to go back and do them.  I’m going to assume">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Advanced Syntax Highlighting">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/46.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="So far we’ve defined some simple syntax highlighting for Potion files: keywords and functions.
+If you didn’t do the exercises in the last chapter, you need to go back and do them.  I’m going to assume">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Advanced Syntax Highlighting">
+<meta name="twitter:description" content="So far we’ve defined some simple syntax highlighting for Potion files: keywords and functions.
+If you didn’t do the exercises in the last chapter, you need to go back and do them.  I’m going to assume">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/46.html">
+        Advanced Syntax Highlighting
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>So far we’ve defined some simple syntax highlighting for Potion files: keywords and functions.</p>
+<p>If you didn’t do the exercises in the last chapter, you need to go back and do them.  I’m going to assume you did them.</p>
+<p>In fact, you should go back and do <em>any</em> exercises you skipped.  Even if you think you don’t need them, you <em>need</em> to do them for this book to be effective. Please trust me on this.</p>
+<h2 id="Highlighting_Comments">Highlighting Comments</h2><p>One obvious part of Potion that we need to highlight is comments.  The problem is that Potion comments start with <code>#</code> which is (almost always) not in <code>iskeyword</code>.</p>
+<p>If you don’t know what <code>iskeyword</code> means, you didn’t listen to me.  Go back and <em>do the damn exercises</em>.  I’m not just throwing useless busywork at you when I write the exercises for each chapter.  You <em>really</em> need to do them to understand the book.</p>
+<p>Because <code>#</code> isn’t a keyword character we need to use a regular expression to match it (and the rest of the comment).  We’ll do this with <code>syntax match</code> instead of <code>syntax keyword</code>.  Add the following lines to your syntax file:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">syntax</span> <span class="built_in">match</span> potionComment <span class="string">"\v#.*$"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">highlight</span> link potionComment Comment</span><br></pre></td></tr></table></figure>
+<p>I’m not going to tell you where to put them in the file any more.  You’re a programmer: use your judgement.</p>
+<p>Close and reopen <code>factorial.pn</code>.  Add a comment somewhere in the file and you’ll see that it’s highlighted as a comment.</p>
+<p>The second line is simple: it tells Vim to highlight anything in the <code>potionComment</code> syntax group as a <code>Comment</code>.</p>
+<p>The first line is something new.  We use <code>syntax match</code> which tells Vim to match <em>regexes</em> instead of literal keywords.</p>
+<p>Notice that the regular expression we’re using starts with <code>\v</code> which tells Vim to use “very magic” mode.  Reread the chapter on basic regular expressions if you’re not sure what that means.</p>
+<p>In this particular case the “very magic” mode isn’t necessary.  But in the future we might change this regex and wonder why it’s not working, so I’d recommend <em>always</em> using “very magic” regexes for consistency.</p>
+<p>As for the regex itself, it’s fairly simple: comments start with a hash and include all characters from there to the end of the line.</p>
+<p>If you need a refresher course on regular expressions you should take a look at <a href="http://regex.learncodethehardway.org/" target="_blank" rel="external">Learn Regex the Hard Way</a> by Zed Shaw.</p>
+<h2 id="Highlighting_Operators">Highlighting Operators</h2><p>Another part of Potion we need regexes to highlight is operators.  Add the following to your syntax file:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">syntax</span> <span class="built_in">match</span> potionOperator <span class="string">"\v\*"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> <span class="built_in">match</span> potionOperator <span class="string">"\v/"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> <span class="built_in">match</span> potionOperator <span class="string">"\v\+"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> <span class="built_in">match</span> potionOperator <span class="string">"\v-"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> <span class="built_in">match</span> potionOperator <span class="string">"\v\?"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> <span class="built_in">match</span> potionOperator <span class="string">"\v\*\="</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> <span class="built_in">match</span> potionOperator <span class="string">"\v/\="</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> <span class="built_in">match</span> potionOperator <span class="string">"\v\+\="</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> <span class="built_in">match</span> potionOperator <span class="string">"\v-\="</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">highlight</span> link potionOperator Operator</span><br></pre></td></tr></table></figure>
+<p>Close and reopen <code>factorial.pn</code>.  Notice that the <code>*=</code> in the factorial function is now highlighted.</p>
+<p>The first thing you probably noticed about this hunk of code is that I put each regex on its own line instead of grouping them like I did with keywords.  This is because <code>syntax match</code> does <em>not</em> support multiple groups on a single line.</p>
+<p>You should also note that I used <code>\v</code> at the beginning of every regular expression, even when it wasn’t strictly necessary.  I prefer to keep my regex syntax consistent when writing Vimscript, even if it means a few extra characters.</p>
+<p>You might be wondering why I didn’t use a regex like <code>&quot;\v-\=?&quot;</code> to match both <code>-</code> <em>and</em> <code>-=</code> in one line.  You can absolutely do that if you want to.  It will work just fine.  I just tend to think of <code>-</code> and <code>-=</code> as separate operators, so I put them on separate lines.</p>
+<p>Defining those operators as separate matches simplifies the regexes at the cost of some extra verbosity.  I prefer doing it like that, but you may feel differently.  Use your judgement.</p>
+<p>I also never defined <code>=</code> as an operator.  We’ll do that in a second, but I wanted to avoid it for now so I could teach you a lesson.</p>
+<p>Because I used separate regexes for <code>-</code> and <code>-=</code> I had to define <code>-=</code> <em>after</em> <code>-</code>!</p>
+<p>If I did it in the opposite order and used <code>-=</code> in a Potion file, Vim would match <code>-</code> (and highlight it, of course) and only <code>=</code> would remain for matching. This shows when you’re building groups with <code>syntax match</code> each group “consumes” pieces of the file that can’t be matched later.</p>
+<p>This is an oversimplification, but I don’t want to get bogged down in the details just yet.  For now, your rule of thumb should be to match larger groups after smaller groups later because groups defined <em>later</em> have priority over groups defined <em>earlier</em>.</p>
+<p>Let’s go ahead and add <code>=</code> as an operator, now that we’ve had our lesson:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">syntax</span> <span class="built_in">match</span> potionOperator <span class="string">"\v\="</span></span><br></pre></td></tr></table></figure>
+<p>Take a second and think about where you need to put this in the syntax file. Reread the last few paragraphs if you need a hint.</p>
+<h2 id="Exercises">Exercises</h2><p>Read <code>:help syn-match</code>.</p>
+<p>Read <code>:help syn-priority</code>.</p>
+<p>We didn’t make <code>:</code> an operator in our example.  Read the Potion docs and make a conscious decision about whether to make <code>:</code> an operator.  If you decide to do so, add it to the syntax file.</p>
+<p>Do the same for <code>.</code> and <code>/</code>.</p>
+<p>Add a syntax group <code>potionNumber</code> that highlights numbers.  Link it to the highlight group <code>Number</code>.  Remember that Potion supports numbers like <code>2</code>, <code>0xffaf</code>, <code>123.23</code>, <code>1e-2</code>, and <code>1.9956e+2</code>.  Remember to balance the time it takes to handle edge cases with the amount of time those edge cases will actually be used.</p>
+<p><a href="45.html">« Previous</a><a style="float:right" href="47.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/46.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

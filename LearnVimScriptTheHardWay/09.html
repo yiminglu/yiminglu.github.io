@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>More Mappings | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="I know we’ve talked a lot about mappings so far, but we’re going to practice them again now.  Mappings are one of the easiest and fastest ways to make your Vim editing more productive so it’s good to">
+<meta property="og:type" content="website">
+<meta property="og:title" content="More Mappings">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/09.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="I know we’ve talked a lot about mappings so far, but we’re going to practice them again now.  Mappings are one of the easiest and fastest ways to make your Vim editing more productive so it’s good to">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="More Mappings">
+<meta name="twitter:description" content="I know we’ve talked a lot about mappings so far, but we’re going to practice them again now.  Mappings are one of the easiest and fastest ways to make your Vim editing more productive so it’s good to">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/09.html">
+        More Mappings
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>I know we’ve talked a lot about mappings so far, but we’re going to practice them again now.  Mappings are one of the easiest and fastest ways to make your Vim editing more productive so it’s good to focus on them quite a bit.</p>
+<p>One concept that has showed up in several examples but that we haven’t explicitly talked about is mapping a sequence of multiple keys.</p>
+<p>Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap jk dd</span><br></pre></td></tr></table></figure>
+<p>Now make sure you’re in normal mode and press <code>j</code> followed quickly by <code>k</code>.  Vim will delete the current line.</p>
+<p>Now try pressing only <code>j</code> and waiting for a bit.  If you don’t press <code>k</code> quickly after the <code>j</code>, Vim decides that you don’t want to activate the mapping and instead runs the normal <code>j</code> functionality (moving down a line).</p>
+<p>This mapping will make it painful to move around, so let’s remove it.  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nunmap jk</span><br></pre></td></tr></table></figure>
+<p>Now typing <code>jk</code> in normal mode will move down and then up a line as usual.</p>
+<h2 id="A_More_Complicated_Mapping">A More Complicated Mapping</h2><p>You’ve seen a bunch of simple mappings so far, so it’s time to look at something with a bit more meat to it.  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap &lt;leader&gt;" viw&lt;esc&gt;a"&lt;esc&gt;hbi"&lt;esc&gt;lel</span><br></pre></td></tr></table></figure>
+<p>Now <em>that’s</em> an interesting mapping!  First, go ahead and try it out.  Enter normal mode, put your cursor over a word in your text and type <code>&lt;leader&gt;&quot;</code>.  Vim will surround the word in double quotes!</p>
+<p>How does this work?  Let’s split it apart into pieces and think of what each one does:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">viw&#60;esc&#62;a&#34;&#60;esc&#62;hbi&#34;&#60;esc&#62;lel</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>viw</code>: visually select the current word <em> <code>&lt;esc&gt;</code>: exit visual mode, which leaves the cursor on the last character of<br>the word </em> <code>a</code>: enter insert mode <em>after</em> the current character <em> <code>&quot;</code>: insert a <code>&quot;</code> into the text, because we’re in insert mode </em> <code>&lt;esc&gt;</code>: return to normal mode <em> <code>h</code>: move left one character </em> <code>b</code>: move back to the beginning of the word <em> <code>i</code>: enter insert mode </em>before<em> the current character </em> <code>&quot;</code>: insert a <code>&quot;</code> into the text again <em> <code>&lt;esc&gt;</code>: return to normal mode </em> <code>l</code>: move right, which puts our cursor on the first character of the word <em> <code>e</code>: move to the end of the word </em> <code>l</code>: move right, which puts our cursor over the ending quote</li>
+</ul>
+<p>Remember: because we used <code>nnoremap</code> instead of <code>nmap</code> it doesn’t matter if you’ve mapped any of the keys in this sequence to something else.  Vim will use the default functionality for all of them.</p>
+<p>Hopefully you can see how much potential Vim’s mappings have, as well as how unreadable they can become.</p>
+<h2 id="Exercises">Exercises</h2><p>Create a mapping similar to the one we just looked at, but for single quotes instead of double quotes.</p>
+<p>Try using <code>vnoremap</code> to add a mapping that will wrap whatever text you have <em>visually selected</em> in quotes.  You’ll probably need the <code>`&lt;</code> and <code>`&gt;</code> commands for this, so read up on them with <code>:help `&lt;</code>.</p>
+<p>Map <code>H</code> in normal mode to go to the beginning of the current line.  Since <code>h</code> moves left you can think of <code>H</code> as a “stronger” <code>h</code>.</p>
+<p>Map <code>L</code> in normal mode to go to the end of the current line. Since <code>l</code> moves right you can think of <code>L</code> as a “stronger” <code>l</code>.</p>
+<p>Find out what commands you just overwrote by reading <code>:help H</code> and <code>:help L</code>. Decide whether you care about them.</p>
+<p>Add all of these mappings to your <code>~/.vimrc</code> file, making sure to use your “edit my <code>~/.vimrc</code>“ and “source my <code>~/.vimrc</code>“ mappings to do so.</p>
+<p><a href="08.html">« Previous</a><a style="float:right" href="10.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/09.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

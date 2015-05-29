@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Normal | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="So far we’ve covered some of the most useful Vimscript commands, but what about all the stuff you do on a daily basis in normal mode?  Can we somehow use all the knowledge we have from editing text in">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Normal">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/29.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="So far we’ve covered some of the most useful Vimscript commands, but what about all the stuff you do on a daily basis in normal mode?  Can we somehow use all the knowledge we have from editing text in">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Normal">
+<meta name="twitter:description" content="So far we’ve covered some of the most useful Vimscript commands, but what about all the stuff you do on a daily basis in normal mode?  Can we somehow use all the knowledge we have from editing text in">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/29.html">
+        Normal
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>So far we’ve covered some of the most useful Vimscript commands, but what about all the stuff you do on a daily basis in normal mode?  Can we somehow use all the knowledge we have from editing text in our scripting?</p>
+<p>The answer is: “of course”.  We’ve seen the <code>normal</code> command before, and now it’s time to revisit it in a bit more detail.  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:normal G</span><br></pre></td></tr></table></figure>
+<p>Vim will move your cursor to the last line in the current file, just like pressing <code>G</code> in normal mode would.  Now run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:normal ggdd</span><br></pre></td></tr></table></figure>
+<p>Vim will move to the first line in the file (<code>gg</code>) and then delete it (<code>dd</code>).</p>
+<p>The <code>normal</code> command simply takes a sequence of keys and pretends they were typed in normal mode.  Seems simple enough.</p>
+<h2 id="Avoiding_Mappings">Avoiding Mappings</h2><p>Run the following command to map the <code>G</code> key to something else:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap G dd</span><br></pre></td></tr></table></figure>
+<p>Now pressing <code>G</code> in normal mode will delete a line.  Try this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:normal G</span><br></pre></td></tr></table></figure>
+<p>Vim will delete the current line.  The <code>normal</code> command will take into account any mappings that exist.</p>
+<p>This means that we need something like the <code>nnoremap</code> version of <code>nmap</code> for <code>normal</code>, otherwise we’ll never be able to use it since we can’t know what keys our users have mapped.</p>
+<p>Luckily Vim has a <code>normal!</code> command that does exactly this.  Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:normal! G</span><br></pre></td></tr></table></figure>
+<p>This time Vim moves to the bottom of the file even though <code>G</code> has been mapped.</p>
+<p>When writing Vim scripts you should <strong>always</strong> use <code>normal!</code>, and <strong>never</strong> use plain old <code>normal</code>.  You can’t trust what keys your users will have mapped in their <code>~/.vimrc</code> files.</p>
+<h2 id="Special_Characters">Special Characters</h2><p>If you play around with <code>normal!</code> long enough you’ll probably notice a problem. Try the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:normal! /foo&lt;cr&gt;</span><br></pre></td></tr></table></figure>
+<p>At first glance it may seem like this should perform a search for <code>foo</code>, but you’ll see that it doesn’t work.  The problem is that <code>normal!</code> doesn’t parse special character sequences like <code>&lt;cr&gt;</code>.</p>
+<p>In this case Vim thinks you wanted to search for the character sequence “f, o, o, left angle bracket, c, r, right angle bracket”, and doesn’t realize that you even pressed return to perform the search!  We’ll talk about how to get around this in the next chapter.</p>
+<h2 id="Exercises">Exercises</h2><p>Read <code>:help normal</code>.  The end of it will hint at the topic of the next chapter.</p>
+<h2 id="Extra_Credit">Extra Credit</h2><p>If you’re not feeling up for a challenge, skip this section.  If you are, good luck!</p>
+<p>Recall what <code>:help normal</code> said about undo.  Try to make a mapping that will delete two lines but let you undo each deletion separately.  <code>nnoremap &lt;leader&gt;d dddd</code> is a good place to start.</p>
+<p>You won’t actually need <code>normal!</code> for this (<code>nnoremap</code> will suffice), but it illustrates a good point: sometimes reading about one Vim command can spark an interest in something unrelated.</p>
+<p>If you’ve never used the <code>helpgrep</code> command you’ll probably need it now.  Read <code>:help helpgrep</code>.  Pay attention to the parts about how to navigate between the matches.</p>
+<p>Don’t worry about patterns yet, we’re going to cover them soon.  For now it’s enough to know that you can use something like <code>foo.*bar</code> to find lines containing that regex in the documentation.</p>
+<p>Unfortunately <code>helpgrep</code> can be frustrating at times because you need to know what words to search for before you can find them!  I’ll cut you some slack and tell you that in this case you’re looking for a way to break Vim’s undo sequence manually, so that the two deletes in your mapping can be undone separately.</p>
+<p>In the future, be pragmatic.  Sometimes Google is quicker and easier when you don’t know exactly what you’re after.</p>
+<p><a href="28.html">« Previous</a><a style="float:right" href="30.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/29.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

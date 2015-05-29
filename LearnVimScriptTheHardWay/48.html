@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Basic Folding | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="If you’ve never used code folding in Vim, you don’t know what you’re missing. Read :help usr_28 and spend some time playing around with it in your normal work.  Come back to this chapter once you’ve g">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Basic Folding">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/48.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="If you’ve never used code folding in Vim, you don’t know what you’re missing. Read :help usr_28 and spend some time playing around with it in your normal work.  Come back to this chapter once you’ve g">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Basic Folding">
+<meta name="twitter:description" content="If you’ve never used code folding in Vim, you don’t know what you’re missing. Read :help usr_28 and spend some time playing around with it in your normal work.  Come back to this chapter once you’ve g">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/48.html">
+        Basic Folding
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>If you’ve never used code folding in Vim, you don’t know what you’re missing. Read <code>:help usr_28</code> and spend some time playing around with it in your normal work.  Come back to this chapter once you’ve got it in your fingers.</p>
+<h2 id="Types_of_Folding">Types of Folding</h2><p>Vim supports six different ways of defining how your text should be folded.</p>
+<h3 id="Manual">Manual</h3><p>You create the folds by hand and they’re stored in RAM by Vim.  When you close Vim they go away and you have to recreate them the next time you edit the file.</p>
+<p>This method can be handy if you combine it with some custom mappings to make it easy to create folds.  We won’t do that in this book, but keep it in the back of your mind in case you run across a case where it could be handy.</p>
+<h3 id="Marker">Marker</h3><p>Vim folds your code based on characters in the actual text.</p>
+<p>Usually these characters are put in comments (like <code>// {*3</code>), but in some languages you can get away with using something in the language’s syntax itself, like <code>{</code> and <code>}</code> in Javascript files.</p>
+<p>It may seem ugly to clutter up your code with comments that are purely for your text editor, but the advantage is that it lets you hand-craft folds for a specific file.  This can be really nice if you’re working with a large file that you want to organize in a very specific way.</p>
+<h3 id="Diff">Diff</h3><p>A special folding mode used when diff’ing files.  We won’t talk about this one at all because Vim automatically handles it.</p>
+<h3 id="Expr">Expr</h3><p>This lets you use a custom piece of Vimscript to define where folds occur.  It’s the most powerful method, but also requires the most work.  We’ll talk about this in the next chapter.</p>
+<h3 id="Indent">Indent</h3><p>Vim uses your code’s indentation to determine folds.  Lines at the same indentation level fold together, and lines with only whitespace (and blank lines) are simply folded with their neighbors.</p>
+<p>This is essentially free to use because your code is already indented; all you have to do is turn it on.  This will be our first method of adding folding to Potion files.</p>
+<h2 id="Potion_Folding">Potion Folding</h2><p>Let’s take a look at our sample Potion file once again:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">factorial = (<span class="keyword">n</span>):</span><br><span class="line"></span><br><span class="line"><span class="keyword">total</span> = 1</span><br><span class="line"></span><br><span class="line"><span class="keyword">n</span> to 1 (i):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">total</span> *= i.</span><br><span class="line"></span><br><span class="line"><span class="keyword">total</span>.</span><br><span class="line"></span><br><span class="line">10 times (i):</span><br><span class="line"></span><br><span class="line">i string <span class="keyword">print</span></span><br><span class="line"></span><br><span class="line">'! is: ' <span class="keyword">print</span></span><br><span class="line"></span><br><span class="line">factorial (i) string <span class="keyword">print</span></span><br><span class="line"></span><br><span class="line"><span class="string">"\n"</span> <span class="keyword">print</span>.</span><br></pre></td></tr></table></figure>
+<p>The bodies of the function and loop are both indented.  This means we can get some basic folding with very little effort by using indent folding.</p>
+<p>Before we start, go ahead and add a comment above the <code>total *= i.</code> line so we have a nice multiple-line inner block to test with.  You’ll learn why we need to do this when you do the exercises, but for now just trust me.  The file should now look like this:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">factorial = (<span class="keyword">n</span>):</span><br><span class="line"></span><br><span class="line"><span class="keyword">total</span> = 1</span><br><span class="line"></span><br><span class="line"><span class="keyword">n</span> to 1 (i):</span><br><span class="line"></span><br><span class="line">    # Multiply the running <span class="keyword">total</span>.</span><br><span class="line"></span><br><span class="line">    <span class="keyword">total</span> *= i.</span><br><span class="line"></span><br><span class="line"><span class="keyword">total</span>.</span><br><span class="line"></span><br><span class="line">10 times (i):</span><br><span class="line"></span><br><span class="line">i string <span class="keyword">print</span></span><br><span class="line"></span><br><span class="line">'! is: ' <span class="keyword">print</span></span><br><span class="line"></span><br><span class="line">factorial (i) string <span class="keyword">print</span></span><br><span class="line"></span><br><span class="line"><span class="string">"\n"</span> <span class="keyword">print</span>.</span><br></pre></td></tr></table></figure>
+<p>Create an <code>ftplugin</code> folder in your Potion plugin’s repository, and create a <code>potion</code> folder inside that.  Finally, create a <code>folding.vim</code> file inside of <em>that</em>.</p>
+<p>Remember that Vim will run the code in this file whenever it sets a buffer’s <code>filetype</code> to <code>potion</code> (because it’s in a folder named <code>potion</code>).</p>
+<p>Putting all folding-related code into its own file is generally a good idea and will help us keep the various functionality of our plugin organized.</p>
+<p>Add the following line to this file:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">setlocal</span> foldmethod=<span class="built_in">indent</span></span><br></pre></td></tr></table></figure>
+<p>Close Vim and open the <code>factorial.pn</code> file again.  Play around with the new folding with <code>zR</code>, <code>zM</code>, and <code>za</code>.</p>
+<p>One line of Vimscript gave us some useful folding!  That’s pretty cool!</p>
+<p>You might notice that the lines inside the inner loop of the <code>factorial</code> function aren’t folded even though they’re indented.  What’s going on?</p>
+<p>It turns out that by default Vim will ignore lines beginning with a <code>#</code> character when using <code>indent</code> folding.  This works great when editing C files (where <code>#</code> signals a preprocessor directive) but isn’t very helpful when you’re editing other types of files.</p>
+<p>Let’s add one more line to the <code>ftplugin/potion/folding.vim</code> file to fix this:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">setlocal</span> foldmethod=<span class="built_in">indent</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">setlocal</span> foldignore=</span><br></pre></td></tr></table></figure>
+<p>Close and reopen <code>factorial.pn</code> and now the inner block will be folded properly.</p>
+<h2 id="Exercises">Exercises</h2><p>Read <code>:help foldmethod</code>.</p>
+<p>Read <code>:help fold-manual</code>.</p>
+<p>Read <code>:help fold-marker</code> and <code>:help foldmarker</code>.</p>
+<p>Read <code>:help fold-indent</code>.</p>
+<p>Read <code>:help fdl</code> and <code>:help foldlevelstart</code>.</p>
+<p>Read <code>:help foldminlines</code>.</p>
+<p>Read <code>:help foldignore</code>.</p>
+<p><a href="47.html">« Previous</a><a style="float:right" href="49.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/48.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

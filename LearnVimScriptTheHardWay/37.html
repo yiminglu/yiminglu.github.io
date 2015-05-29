@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Dictionaries | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="The last type of Vimscript variable we’ll talk about is the dictionary. Vimscript dictionaries are similar to Python’s dicts, Ruby’s hashes, and Javascript’s objects.
+Dictionaries are created using cu">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dictionaries">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/37.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="The last type of Vimscript variable we’ll talk about is the dictionary. Vimscript dictionaries are similar to Python’s dicts, Ruby’s hashes, and Javascript’s objects.
+Dictionaries are created using cu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dictionaries">
+<meta name="twitter:description" content="The last type of Vimscript variable we’ll talk about is the dictionary. Vimscript dictionaries are similar to Python’s dicts, Ruby’s hashes, and Javascript’s objects.
+Dictionaries are created using cu">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/37.html">
+        Dictionaries
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>The last type of Vimscript variable we’ll talk about is the dictionary. Vimscript dictionaries are similar to Python’s dicts, Ruby’s hashes, and Javascript’s objects.</p>
+<p>Dictionaries are created using curly brackets.  Values are heterogeneous, but <em>keys are always coerced to strings</em>.  You didn’t think things were going to be <em>completely</em> sane, did you?</p>
+<p>Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echo &#123;'a': 1, 100: 'foo'&#125;</span><br></pre></td></tr></table></figure>
+<p>Vim displays <code>{&#39;a&#39;: 1, &#39;100&#39;: &#39;foo&#39;}</code>, which shows that Vimscript does indeed coerce keys to strings while leaving values alone.</p>
+<p>Vimscript avoids the stupidity of the Javascript standard and lets you use a comma after the last element in a dictionary.  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echo &#123;'a': 1, 100: 'foo',&#125;</span><br></pre></td></tr></table></figure>
+<p>Once again Vim displays <code>{&#39;a&#39;: 1, &#39;100&#39;: &#39;foo&#39;}</code>.  You should <em>always</em> use the trailing comma in your dictionaries, <em>especially</em> when they’re defined on multiple lines, because it will make adding new entries less error-prone.</p>
+<h2 id="Indexing">Indexing</h2><p>To look up a key in a dictionary you use the same syntax as most languages.  Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echo &#123;'a': 1, 100: 'foo',&#125;['a']</span><br></pre></td></tr></table></figure>
+<p>Vim displays <code>1</code>.  Try it with a non-string index:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echo &#123;'a': 1, 100: 'foo',&#125;[100]</span><br></pre></td></tr></table></figure>
+<p>Vim coerces the index to a string before performing the lookup, which makes sense since keys can only ever be strings.</p>
+<p>Vimscript also supports the Javascript-style “dot” lookup when the key is a string consisting only of letters, digits and/or underscores.  Try the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:echo &#123;'a': 1, 100: 'foo',&#125;.a</span><br><span class="line"></span><br><span class="line">:echo &#123;'a': 1, 100: 'foo',&#125;.100</span><br></pre></td></tr></table></figure>
+<p>Vim displays the correct element in both cases.  How you choose to index your dictionaries is a matter of taste and style.</p>
+<h2 id="Assigning_and_Adding">Assigning and Adding</h2><p>Adding entries to dictionaries is done by simply assigning them like variables. Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">:let foo = &#123;'a': 1&#125;</span><br><span class="line"></span><br><span class="line">:let foo.a = 100</span><br><span class="line"></span><br><span class="line">:let foo.b = 200</span><br><span class="line"></span><br><span class="line">:echo foo</span><br></pre></td></tr></table></figure>
+<p>Vim displays <code>{&#39;a&#39;: 100, &#39;b&#39;: 200}</code>, which shows that assigning and adding entries both work the same way.</p>
+<h2 id="Removing_Entries">Removing Entries</h2><p>There are two ways to remove entries from a dictionary.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">:let test = remove(foo, 'a')</span><br><span class="line"></span><br><span class="line">:unlet foo.b</span><br><span class="line"></span><br><span class="line">:echo foo</span><br><span class="line"></span><br><span class="line">:echo test</span><br></pre></td></tr></table></figure>
+<p>Vim displays <code>{}</code> and <code>100</code>.  The <code>remove</code> function will remove the entry with the given key from the given dictionary and return the removed value.  The <code>unlet</code> command also removes dictionary entries, but you can’t use the value.</p>
+<p>You cannot remove nonexistent entries from a dictionary.  Try running this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:unlet foo["asdf"]</span><br></pre></td></tr></table></figure>
+<p>Vim throws an error.</p>
+<p>The choice of <code>remove</code> or <code>unlet</code> is mostly a matter of personal taste.  If pressed I’d recommend using <code>remove</code> everywhere because it’s more flexible than <code>unlet</code>.  <code>remove</code> can do anything <code>unlet</code> can do but the reverse isn’t true, so you can always be consistent if you use <code>remove</code>.</p>
+<h2 id="Dictionary_Functions">Dictionary Functions</h2><p>Like lists, Vim has a number of built-in functions for working with dictionaries.  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:echom get(&#123;'a': 100&#125;, 'a', 'default')</span><br><span class="line"></span><br><span class="line">:echom get(&#123;'a': 100&#125;, 'b', 'default')</span><br></pre></td></tr></table></figure>
+<p>Vim displays <code>100</code> and <code>default</code>, just like the <code>get</code> function for lists.</p>
+<p>You can also check if a given key is present in a given dictionary.  Run this commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:echom has_key(&#123;'a': 100&#125;, 'a')</span><br><span class="line"></span><br><span class="line">:echom has_key(&#123;'a': 100&#125;, 'b')</span><br></pre></td></tr></table></figure>
+<p>Vim displays <code>1</code> and <code>0</code>.  Remember that Vimscript treats <code>0</code> as falsy and any other number as truthy.</p>
+<p>You can pull the key-value pairs out of a dictionary with <code>items</code>.  Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echo items(&#123;'a': 100, 'b': 200&#125;)</span><br></pre></td></tr></table></figure>
+<p>Vim will display a nested list that looks something like <code>[[&#39;a&#39;, 100], [&#39;b&#39;, 200]]</code>.  As far as I can tell Vimscript dictionaries are <em>not</em> guaranteed to be ordered, so don’t expect that the items you get out of an <code>items</code> call will be in a specific order!</p>
+<p>You can get just the keys or just the values with the <code>keys</code> and <code>values</code> functions.  They work as expected — look them up.</p>
+<h2 id="Exercises">Exercises</h2><p>Read <code>:help Dictionary</code>.  All of it.  Notice the capital <code>D</code>.</p>
+<p>Read <code>:help get()</code>.</p>
+<p>Read <code>:help has_key()</code>.</p>
+<p>Read <code>:help items()</code>.</p>
+<p>Read <code>:help keys()</code>.</p>
+<p>Read <code>:help values()</code>.</p>
+<p><a href="36.html">« Previous</a><a style="float:right" href="38.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/37.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

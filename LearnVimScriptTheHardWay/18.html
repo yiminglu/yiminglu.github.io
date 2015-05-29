@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Responsible Coding | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="So far we’ve covered a bunch of Vim commands that let you customize Vim quickly. All of them except for autocommand groups were single-line commands that you can add to your ~/.vimrc file in seconds.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Responsible Coding">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/18.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="So far we’ve covered a bunch of Vim commands that let you customize Vim quickly. All of them except for autocommand groups were single-line commands that you can add to your ~/.vimrc file in seconds.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Responsible Coding">
+<meta name="twitter:description" content="So far we’ve covered a bunch of Vim commands that let you customize Vim quickly. All of them except for autocommand groups were single-line commands that you can add to your ~/.vimrc file in seconds.">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/18.html">
+        Responsible Coding
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>So far we’ve covered a bunch of Vim commands that let you customize Vim quickly. All of them except for autocommand groups were single-line commands that you can add to your <code>~/.vimrc</code> file in seconds.</p>
+<p>In the next part of the book we’re going to dive into Vimscript as a real programming language, but before we do that I want to talk a bit about how to stay sane while writing large amounts of Vimscript.</p>
+<h2 id="Commenting">Commenting</h2><p>Vimscript is extremely powerful, but has grown organically over the years into a twisty maze ready to ensnare unwary programmers who enter it.</p>
+<p>Options and commands are often terse and hard to read, and working around compatibility issues can increase the complexity of your code.  Writing a plugin and allowing for user customization introduces another entire layer above that!</p>
+<p>Be defensive when writing anything that takes more than a few lines of Vimscript.  Add a comment explaining what it does, and if there is a relevant help topic, mention it in the comment!</p>
+<p>This not only benefits you when you try to maintain it months or years later, but also helps other people understand it if you share your <code>~/.vimrc</code> file on Bitbucket or GitHub (which I highly recommend).</p>
+<h2 id="Grouping">Grouping</h2><p>Our mappings for editing and sourcing <code>~/.vimrc</code> have made it quick and easy to add new things to it on the fly.  Unfortunately this also makes it easy for it to grow out of control and become hard to navigate.</p>
+<p>One way to combat this is to use Vim’s code folding capabilities and group lines into sections.  If you’ve never used Vim’s folding you should look into it as soon as you can.  Some people (myself included) find it indispensable in our day to day coding.</p>
+<p>First we need to set up folding for Vimscript files.  Add the following lines to your <code>~/.vimrc</code> file:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">augroup</span> filetype_vim</span><br><span class="line"></span><br><span class="line">autocmd!</span><br><span class="line"></span><br><span class="line"><span class="keyword">autocmd</span> FileType <span class="keyword">vim</span> <span class="keyword">setlocal</span> foldmethod=marker</span><br><span class="line"></span><br><span class="line"><span class="keyword">augroup</span> END</span><br></pre></td></tr></table></figure>
+<p>This will tell Vim to use the <code>marker</code> method of folding for any Vimscript files.</p>
+<p>Go ahead and run <code>:setlocal foldmethod=marker</code> in the window with your <code>~/.vimrc</code> file now.  Sourcing the file won’t work, because Vim has already set the FileType for this file and the autocommand only fires when that happens.  In the future you won’t need to do it manually.</p>
+<p>Now add lines before and after that autocommand group so that it looks like this:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">augroup</span> filetype_vim</span><br><span class="line"></span><br><span class="line">autocmd!</span><br><span class="line"></span><br><span class="line"><span class="keyword">autocmd</span> FileType <span class="keyword">vim</span> <span class="keyword">setlocal</span> foldmethod=marker</span><br><span class="line"></span><br><span class="line"><span class="keyword">augroup</span> END</span><br></pre></td></tr></table></figure>
+<p>Return to normal mode, put your cursor on any of those lines and type <code>za</code>.  Vim will fold the lines starting at the one containing <code>{*3</code> and ending at the one containing <code>}*3</code>.  Typing <code>za</code> again will unfold the lines.</p>
+<p>You may think that adding explicit comments to source code that describe folding is ugly at first.  I thought the same way when I first saw it.  For most files I still think it’s wrong.  Not everyone uses the same editor, so littering your code with folding comments is just noisy to anyone else looking at the code in something other than Vim.</p>
+<p>Vimscript files are special case, though.  It’s highly unlikely that someone who doesn’t use Vim will be reading your code, and it’s especially important to group things explicitly and thoughtfully when writing Vimscript so you don’t go crazy.</p>
+<p>Try these explicit folds out for a while.  You might grow to love them.</p>
+<h2 id="Short_Names">Short Names</h2><p>Vim allows you to use abbreviated names for most commands and options.  For example, both of these commands do exactly the same thing:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:setlocal wrap</span><br><span class="line"></span><br><span class="line">:setl wrap</span><br></pre></td></tr></table></figure>
+<p>I’d like to <em>strongly</em> caution you against using these abbreviations in your <code>~/.vimrc</code> file and in plugins that you write.  Vimscript is terse and cryptic enough to begin with; shortening things further is only going to make it even harder to read.  Even if <em>you</em> know what a certain short command means, someone else reading your code might not.</p>
+<p>With that said, the abbreviated forms are <em>great</em> for running commands manually in the middle of coding.  No one will ever see them again after you press return, so there’s no reason to press more keys than you have to.</p>
+<h2 id="Exercises">Exercises</h2><p>Go through your entire <code>~/.vimrc</code> file and arrange the lines into related groups.  Some places to start might be: “Basic Settings”, “FileType-specific settings”, “Mappings”, and “Status Line”.  Add folding markers with headings to each section.</p>
+<p>Find out how to make Vim fold everything automatically the first time you open the file.  Look at <code>:help foldlevelstart</code> for a good place to start.</p>
+<p>Go through your <code>~/.vimrc</code> file and change any abbreviated commands and options to their full names.</p>
+<p>Look through your <code>~/.vimrc</code> file and make sure you don’t have any sensitive information inside.  Create a git or Mercurial repository, move the file into it, and symlink that file to <code>~/.vimrc</code>.</p>
+<p>Commit the repository you just made and put it on Bitbucket or GitHub so other people can see it and get ideas for their own.  Be sure to commit and push the repository fairly often so your changes are recorded.</p>
+<p>If you use Vim on more than one machine, clone down that repository and symlink the file there as well.  This will make it simple and easy to use the exact same Vim configuration on all machines you work with.</p>
+<p><a href="17.html">« Previous</a><a style="float:right" href="19.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/18.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

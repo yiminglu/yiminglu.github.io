@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Detecting Filetypes | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Let’s create a Potion file we can use as a sample as we’re working on our plugin.  Create a factorial.pn file somewhere and put the following Potion code inside it:
+12345678910111213141516171819factor">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Detecting Filetypes">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/44.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="Let’s create a Potion file we can use as a sample as we’re working on our plugin.  Create a factorial.pn file somewhere and put the following Potion code inside it:
+12345678910111213141516171819factor">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Detecting Filetypes">
+<meta name="twitter:description" content="Let’s create a Potion file we can use as a sample as we’re working on our plugin.  Create a factorial.pn file somewhere and put the following Potion code inside it:
+12345678910111213141516171819factor">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/44.html">
+        Detecting Filetypes
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Let’s create a Potion file we can use as a sample as we’re working on our plugin.  Create a <code>factorial.pn</code> file somewhere and put the following Potion code inside it:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">factorial = (<span class="keyword">n</span>):</span><br><span class="line"></span><br><span class="line"><span class="keyword">total</span> = 1</span><br><span class="line"></span><br><span class="line"><span class="keyword">n</span> to 1 (i):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">total</span> *= i.</span><br><span class="line"></span><br><span class="line"><span class="keyword">total</span>.</span><br><span class="line"></span><br><span class="line">10 times (i):</span><br><span class="line"></span><br><span class="line">i string <span class="keyword">print</span></span><br><span class="line"></span><br><span class="line">'! is: ' <span class="keyword">print</span></span><br><span class="line"></span><br><span class="line">factorial (i) string <span class="keyword">print</span></span><br><span class="line"></span><br><span class="line"><span class="string">"\n"</span> <span class="keyword">print</span>.</span><br></pre></td></tr></table></figure>
+<p>This code creates a simple factorial function and calls it ten times, printing the results each time.  Go ahead and run it with <code>potion factorial.pn</code>.  The output should look like this:</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>! <span class="keyword">is</span>: <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span>! <span class="keyword">is</span>: <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span>! <span class="keyword">is</span>: <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="number">3</span>! <span class="keyword">is</span>: <span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span>! <span class="keyword">is</span>: <span class="number">24</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span>! <span class="keyword">is</span>: <span class="number">120</span></span><br><span class="line"></span><br><span class="line"><span class="number">6</span>! <span class="keyword">is</span>: <span class="number">720</span></span><br><span class="line"></span><br><span class="line"><span class="number">7</span>! <span class="keyword">is</span>: <span class="number">5040</span></span><br><span class="line"></span><br><span class="line"><span class="number">8</span>! <span class="keyword">is</span>: <span class="number">40320</span></span><br><span class="line"></span><br><span class="line"><span class="number">9</span>! <span class="keyword">is</span>: <span class="number">362880</span></span><br></pre></td></tr></table></figure>
+<p>If you don’t get this output, or you get an error, stop and figure out what’s gone wrong.  The code should work exactly as-is.</p>
+<p>Take some time to understand how the code works.  Refer to the Potion docs liberally.  It’s not critical to understanding Vimscript but it will make you a better programmer.</p>
+<h2 id="Detecting_Potion_Files">Detecting Potion Files</h2><p>Open <code>factorial.pn</code> in Vim and run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set filetype?</span><br></pre></td></tr></table></figure>
+<p>Vim will display <code>filetype=</code> because it doesn’t know what a <code>.pn</code> file is yet. Let’s fix that.</p>
+<p>Create <code>ftdetect/potion.vim</code> in your plugin’s repo.  Put the following lines into it:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">au</span> BufNewFile,BufRead *.pn <span class="keyword">set</span> <span class="keyword">filetype</span>=potion</span><br></pre></td></tr></table></figure>
+<p>This creates a single autocommand: a command to set the filetype of <code>.pn</code> files to <code>potion</code>.  Pretty straightforward.</p>
+<p>Notice that we <em>didn’t</em> use an autocommand group like we usually would.  Vim automatically wraps the contents of <code>ftdetect/*.vim</code> files in autocommand groups for you, so you don’t need to worry about it.</p>
+<p>Close the <code>factorial.pn</code> file and reopen it.  Now run the previous command again:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set filetype?</span><br></pre></td></tr></table></figure>
+<p>This time Vim displays <code>filetype=potion</code>.  When Vim started up it loaded the autocommand group inside <code>~/.vim/bundle/potion/ftdetect/potion.vim</code>, and when it opened <code>factorial.pn</code> the autocommand fired, setting the <code>filetype</code> to <code>potion</code>.</p>
+<p>Now that we’ve taught Vim to recognize Potion files we can move on to actually creating some useful behavior in our plugin.</p>
+<h2 id="Exercises">Exercises</h2><p>Read <code>:help ft</code>.  Don’t worry if you don’t understand everything there.</p>
+<p>Read <code>:help setfiletype</code>.</p>
+<p>Modify the Potion plugin’s <code>ftdetect/potion.vim</code> script to use <code>setfiletype</code> instead of <code>set filetype</code>.</p>
+<p><a href="43.html">« Previous</a><a style="float:right" href="45.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/44.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

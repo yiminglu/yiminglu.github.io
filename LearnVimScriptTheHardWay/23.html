@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Functions | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Like most programming languages, Vimscript has functions.  Let’s take a look at how to create them, and then talk about some of their quirks.
+Run the following command:
+1:function meow()
+You might thi">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Functions">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/23.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="Like most programming languages, Vimscript has functions.  Let’s take a look at how to create them, and then talk about some of their quirks.
+Run the following command:
+1:function meow()
+You might thi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Functions">
+<meta name="twitter:description" content="Like most programming languages, Vimscript has functions.  Let’s take a look at how to create them, and then talk about some of their quirks.
+Run the following command:
+1:function meow()
+You might thi">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/23.html">
+        Functions
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Like most programming languages, Vimscript has functions.  Let’s take a look at how to create them, and then talk about some of their quirks.</p>
+<p>Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:function meow()</span><br></pre></td></tr></table></figure>
+<p>You might think this would start defining a function named <code>meow</code>. Unfortunately this is not the case, and we’ve already run into one of Vimscript’s quirks.</p>
+<p><strong>Vimscript functions <em>must</em> start with a capital letter if they are unscoped!</strong></p>
+<p>Even if you <em>do</em> add a scope to a function (we’ll talk about that later) you may as well capitalize the first letter of function names anyway.  Most Vimscript coders seem to do it, so don’t break the convention.</p>
+<p>Okay, let’s define a function for real this time.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:function Meow()</span><br><span class="line"></span><br><span class="line">:  echom "Meow!"</span><br><span class="line"></span><br><span class="line">:endfunction</span><br></pre></td></tr></table></figure>
+<p>This time Vim will happily define the function.  Let’s try running it:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:call Meow()</span><br></pre></td></tr></table></figure>
+<p>Vim will display <code>Meow!</code> as expected.</p>
+<p>Let’s try returning a value.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:function GetMeow()</span><br><span class="line"></span><br><span class="line">:  return "Meow String!"</span><br><span class="line"></span><br><span class="line">:endfunction</span><br></pre></td></tr></table></figure>
+<p>Now try it out by running this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echom GetMeow()</span><br></pre></td></tr></table></figure>
+<p>Vim will call the function and give the result to <code>echom</code>, which will display <code>Meow String!</code>.</p>
+<h2 id="Calling_Functions">Calling Functions</h2><p>We can already see that there are two different ways of calling functions in Vimscript.</p>
+<p>When you want to call a function directly you use the <code>call</code> command.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:call Meow()</span><br><span class="line"></span><br><span class="line">:call GetMeow()</span><br></pre></td></tr></table></figure>
+<p>The first will display <code>Meow!</code> but the second doesn’t display anything. The return value is thrown away when you use <code>call</code>, so this is only useful when the function has side effects.</p>
+<p>The second way to call functions is in expressions.  You don’t need to use <code>call</code> in this case, you can just name the function.  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echom GetMeow()</span><br></pre></td></tr></table></figure>
+<p>As we saw before, this calls <code>GetMeow</code> and passes the return value to <code>echom</code>.</p>
+<h2 id="Implicit_Returning">Implicit Returning</h2><p>Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echom Meow()</span><br></pre></td></tr></table></figure>
+<p>This will display two lines: <code>Meow!</code> and <code>0</code>.  The first obviously comes from the <code>echom</code> inside of <code>Meow</code>.  The second shows us that if a Vimscript function doesn’t return a value, it implicitly returns <code>0</code>.  Let’s use this to our advantage.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">:function TextwidthIsTooWide()</span><br><span class="line"></span><br><span class="line">:  if &amp;l:textwidth &gt;# 80</span><br><span class="line"></span><br><span class="line">:    return 1</span><br><span class="line"></span><br><span class="line">:  endif</span><br><span class="line"></span><br><span class="line">:endfunction</span><br></pre></td></tr></table></figure>
+<p>This function uses a lot of important concepts we’ve seen before:</p>
+<ul>
+<li><code>if</code> statements <em> Treating options as variables </em> Localizing those option variables * Case-sensitive comparisons</li>
+</ul>
+<p>If any of those sound unfamiliar you should go back a few chapters and read about them.</p>
+<p>We’ve now defined a function that will tell us if the <code>textwidth</code> setting is “too wide” in the current buffer (because 80 characters is, of course, the correct width for anything but HTML).</p>
+<p>Let’s try using it.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">:set textwidth=80</span><br><span class="line"></span><br><span class="line">:if TextwidthIsTooWide()</span><br><span class="line"></span><br><span class="line">:  echom "WARNING: Wide text!"</span><br><span class="line"></span><br><span class="line">:endif</span><br></pre></td></tr></table></figure>
+<p>What did we do here?</p>
+<ul>
+<li>First we set the <code>textwidth</code> globally to <code>80</code>. <em> The we ran an if statement that checked if <code>TextwidthIsTooWide()</code> was truthy. </em> This wound up not being the case, so the <code>if</code>‘s body wasn’t executed.</li>
+</ul>
+<p>Because we never explicitly returned a value, Vim returned <code>0</code> from the function, which is falsy.  Let’s try changing that.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">:setlocal textwidth=100</span><br><span class="line"></span><br><span class="line">:if TextwidthIsTooWide()</span><br><span class="line"></span><br><span class="line">:  echom "WARNING: Wide text!"</span><br><span class="line"></span><br><span class="line">:endif</span><br></pre></td></tr></table></figure>
+<p>This time the <code>if</code> statement in the function executes its body, returns <code>1</code>, and so the <code>if</code> we manually typed in executes <em>its</em> body.</p>
+<h2 id="Exercises">Exercises</h2><p>Read <code>:help :call</code>.  Ignore anything about “ranges” for now.  How many arguments can you pass to a function?  Is this surprising?</p>
+<p>Read the first paragraph of <code>:help E124</code> and find out what characters you’re allowed to use in function names.  Are underscores okay?  Dashes?  Accented characters?  Unicode characters?  If it’s not clear from the documentation just try them out and see.</p>
+<p>Read <code>:help return</code>.  What’s the “short form” of that command (which I told you to never use)?  Is it what you expected?  If not, why not?</p>
+<p><a href="22.html">« Previous</a><a style="float:right" href="24.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/23.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

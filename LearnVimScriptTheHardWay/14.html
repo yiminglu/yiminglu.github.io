@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Autocommand Groups | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="A few chapters ago we learned about autocommands.  Run the following command:
+1:autocmd BufWrite * :echom &quot;Writing buffer!&quot;
+Now write the current buffer with :write and run :messages to view the messa">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Autocommand Groups">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/14.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="A few chapters ago we learned about autocommands.  Run the following command:
+1:autocmd BufWrite * :echom &quot;Writing buffer!&quot;
+Now write the current buffer with :write and run :messages to view the messa">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Autocommand Groups">
+<meta name="twitter:description" content="A few chapters ago we learned about autocommands.  Run the following command:
+1:autocmd BufWrite * :echom &quot;Writing buffer!&quot;
+Now write the current buffer with :write and run :messages to view the messa">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/14.html">
+        Autocommand Groups
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>A few chapters ago we learned about autocommands.  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:autocmd BufWrite * :echom "Writing buffer!"</span><br></pre></td></tr></table></figure>
+<p>Now write the current buffer with <code>:write</code> and run <code>:messages</code> to view the message log.  You should see the <code>Writing buffer!</code> message in the list.</p>
+<p>Now write the current buffer again and run <code>:messages</code> to view the message log. You should see the <code>Writing buffer!</code> message in the list twice.</p>
+<p>Now run the exact same autocommand again:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:autocmd BufWrite * :echom "Writing buffer!"</span><br></pre></td></tr></table></figure>
+<p>Write the current buffer one more time and run <code>:messages</code>.  You will see the <code>Writing buffer!</code> message in the list <em>four</em> times.  What happened?</p>
+<p>When you create an autocommand like this Vim has no way of knowing if you want it to replace an existing one.  In our case, Vim created two <em>separate</em> autocommands that each happen to do the same thing.</p>
+<h2 id="The_Problem">The Problem</h2><p>Now that you know it’s possible to create duplicate autocommands, you may be thinking: “So what?  Just don’t do that!”</p>
+<p>The problem is that sourcing your <code>~/.vimrc</code> file rereads the entire file, including any autocommands you’ve defined!  This means that every time you source your <code>~/.vimrc</code> you’ll be duplicating autocommands, which will make Vim run slower because it executes the same commands over and over.</p>
+<p>To simulate this, try running the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:autocmd BufWrite * :sleep 200m</span><br></pre></td></tr></table></figure>
+<p>Now write the current buffer.  You may or may not notice a slight sluggishness in Vim’s writing time.  Now run the command three more times:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:autocmd BufWrite * :sleep 200m</span><br><span class="line"></span><br><span class="line">:autocmd BufWrite * :sleep 200m</span><br><span class="line"></span><br><span class="line">:autocmd BufWrite * :sleep 200m</span><br></pre></td></tr></table></figure>
+<p>Write the file again.  This time the slowness will be more apparent.</p>
+<p>Obviously you won’t have any autocommands that do nothing but sleep, but the <code>~/.vimrc</code> of a seasoned Vim user can easily reach 1,000 lines, many of which will be autocommands.  Combine that with autocommands defined in any installed plugins and it can definitely affect performance.</p>
+<h2 id="Grouping_Autocommands">Grouping Autocommands</h2><p>Vim has a solution to the problem.  The first step is to group related autocommands into named groups.</p>
+<p>Open a fresh instance of Vim to clear out the autocommands from before, then run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">:augroup testgroup</span><br><span class="line"></span><br><span class="line">:    autocmd BufWrite * :echom "Foo"</span><br><span class="line"></span><br><span class="line">:    autocmd BufWrite * :echom "Bar"</span><br><span class="line"></span><br><span class="line">:augroup END</span><br></pre></td></tr></table></figure>
+<p>The indentation in the middle two lines is insignificant.  You don’t have to type it if you don’t want to.</p>
+<p>Write a buffer and check <code>:messages</code>.  You should see both <code>Foo</code> and <code>Bar</code>.  Now run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:augroup testgroup</span><br><span class="line"></span><br><span class="line">:    autocmd BufWrite * :echom "Baz"</span><br><span class="line"></span><br><span class="line">:augroup END</span><br></pre></td></tr></table></figure>
+<p>Try to guess what will happen when you write the buffer again.  Once you have a guess in mind, write the buffer and check <code>:messages</code> to see if you were correct.</p>
+<h2 id="Clearing_Groups">Clearing Groups</h2><p>What happened when you wrote the file?  Was it what you expected?</p>
+<p>If you thought Vim would replace the group, you can see that you guessed wrong.  Don’t worry, most people think the same thing at first (I know I did).</p>
+<p>When you use <code>augroup</code> multiple times Vim will <em>combine</em> the groups each time.</p>
+<p>If you want to <em>clear</em> a group you can use <code>autocmd!</code> inside the group.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">:augroup testgroup</span><br><span class="line"></span><br><span class="line">:    autocmd!</span><br><span class="line"></span><br><span class="line">:    autocmd BufWrite * :echom "Cats"</span><br><span class="line"></span><br><span class="line">:augroup END</span><br></pre></td></tr></table></figure>
+<p>Now try writing your file and checking <code>:messages</code>.  This time Vim only echoed <code>Cats</code> when you wrote the file.</p>
+<h2 id="Using_Autocommands_in_Your_Vimrc">Using Autocommands in Your Vimrc</h2><p>Now that we know how to group autocommands and clear those groups, we can use this to add autocommands to <code>~/.vimrc</code> that don’t add a duplicate every time we source it.</p>
+<p>Add the following to your <code>~/.vimrc</code> file:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">augroup</span> filetype_html</span><br><span class="line"></span><br><span class="line">autocmd!</span><br><span class="line"></span><br><span class="line"><span class="keyword">autocmd</span> FileType html <span class="keyword">nnoremap</span> &lt;<span class="keyword">buffer</span>&gt; &lt;localleader&gt;<span class="keyword">f</span> Vatzf</span><br><span class="line"></span><br><span class="line"><span class="keyword">augroup</span> END</span><br></pre></td></tr></table></figure>
+<p>We enter the <code>filetype_html</code> group, immediately clear it, define an autocommand, and leave the group.  If we source <code>~/.vimrc</code> again the clearing will prevent Vim from adding duplicate autocommands.</p>
+<h2 id="Exercises">Exercises</h2><p>Go through your <code>~/.vimrc</code> file and wrap <em>every</em> autocommand you have in groups like this.  You can put multiple autocommands in the same group if it makes sense to you.</p>
+<p>Try to figure out what the mapping in the last example does.</p>
+<p>Read <code>:help autocmd-groups</code>.</p>
+<p><a href="13.html">« Previous</a><a style="float:right" href="15.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/14.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

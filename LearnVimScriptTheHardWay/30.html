@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Execute Normal! | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Now that we’ve seen execute and normal! we can talk about a common Vimscript idiom in more detail.  Run the following command:
+1:execute &quot;normal! gg/foo\&amp;lt;cr&amp;gt;dd&quot;
+This will move to the top of the">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Execute Normal!">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/30.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="Now that we’ve seen execute and normal! we can talk about a common Vimscript idiom in more detail.  Run the following command:
+1:execute &quot;normal! gg/foo\&amp;lt;cr&amp;gt;dd&quot;
+This will move to the top of the">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Execute Normal!">
+<meta name="twitter:description" content="Now that we’ve seen execute and normal! we can talk about a common Vimscript idiom in more detail.  Run the following command:
+1:execute &quot;normal! gg/foo\&amp;lt;cr&amp;gt;dd&quot;
+This will move to the top of the">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/30.html">
+        Execute Normal!
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Now that we’ve seen <code>execute</code> and <code>normal!</code> we can talk about a common Vimscript idiom in more detail.  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:execute "normal! gg/foo\&lt;cr&gt;dd"</span><br></pre></td></tr></table></figure>
+<p>This will move to the top of the file, search for the first occurrence of <code>foo</code>, and delete the line that contains it.</p>
+<p>Previously we tried to use <code>normal!</code> with a search command but couldn’t enter the return needed to actually perform the search.  Combining <code>normal!</code> with <code>execute</code> fixes that problem.</p>
+<p><code>execute</code> lets you build commands programmatically, so you can use Vim’s normal string escape sequences to generate the non-printing characters you need.  Try the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:execute "normal! mqA;\&lt;esc&gt;`q"</span><br></pre></td></tr></table></figure>
+<p>What does this do?  Let’s break it apart:</p>
+<ul>
+<li><code>:execute &quot;normal! ...&quot;</code>: run the sequence of commands as if they were entered<br>in normal mode, ignoring all mappings, and replacing string escape sequences<br>with their results. <em> <code>mq</code>: store the current location in mark “q”. </em> <code>A</code>: move to the end of the current line and enter insert mode after the last<br>character. <em> <code>;</code>: we’re now in insert mode, so just put a literal semicolon in the file. </em> <code>\&lt;esc&gt;</code>: this is a string escape sequence which resolves to a press of the<br>escape key, which takes us out of insert mode. * <code>`q</code>: return to the exact location of mark “q”.</li>
+</ul>
+<p>It looks a bit scary but it’s actually quite useful: it puts a semicolon at the end of the current line while leaving your cursor in place.  A mapping for this could come in handy if you forget a semicolon when writing Javascript, C, or any other language with semicolons as statement terminators.</p>
+<h2 id="Exercises">Exercises</h2><p>Read <code>:help expr-quote</code> again (you’ve seen it before) to remind yourself how to use string escapes to pass special characters to <code>normal!</code> with <code>execute</code>.</p>
+<p>Put down this book for a while before you go on to the next chapter.  Get a sandwich or a cup of coffee, feed your pets if you have them, and relax for a bit before continuing.</p>
+<p><a href="29.html">« Previous</a><a style="float:right" href="31.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/30.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

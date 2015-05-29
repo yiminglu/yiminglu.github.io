@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Variable Scoping | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="So far Vimscript’s variables may seem familiar if you come from a dynamic language like Python or Ruby.  For the most part variables act like you would expect, but Vim adds a certain twist to variable">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Variable Scoping">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/20.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="So far Vimscript’s variables may seem familiar if you come from a dynamic language like Python or Ruby.  For the most part variables act like you would expect, but Vim adds a certain twist to variable">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Variable Scoping">
+<meta name="twitter:description" content="So far Vimscript’s variables may seem familiar if you come from a dynamic language like Python or Ruby.  For the most part variables act like you would expect, but Vim adds a certain twist to variable">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/20.html">
+        Variable Scoping
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>So far Vimscript’s variables may seem familiar if you come from a dynamic language like Python or Ruby.  For the most part variables act like you would expect, but Vim adds a certain twist to variables: scoping.</p>
+<p>Open two different files in separate splits, then go into one of them and run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:let b:hello = "world"</span><br><span class="line"></span><br><span class="line">:echo b:hello</span><br></pre></td></tr></table></figure>
+<p>As expected, Vim displays <code>world</code>.  Now switch to the other buffer and run the <code>echo</code> command again:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echo b:hello</span><br></pre></td></tr></table></figure>
+<p>This time Vim throws an error, saying it can’t find the variable.</p>
+<p>When we used <code>b:</code> in the variable name we told Vim that the variable <code>hello</code> should be local to the current buffer.</p>
+<p>Vim has many different scopes for variables, but we need to learn a little more about Vimscript before we can take advantage of the rest.  For now, just remember that when you see a variable that start with a character and a colon that it’s describing a scoped variable.</p>
+<h2 id="Exercises">Exercises</h2><p>Skim over the list of scopes in <code>:help internal-variables</code>.  Don’t worry if you don’t know what some of them mean, just take a look and keep them in the back of your mind.</p>
+<p><a href="19.html">« Previous</a><a style="float:right" href="21.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/20.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Function Arguments | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Vimscript functions can, of course, take arguments.  Run the following commands:
+1234567:function DisplayName(name):  echom &quot;Hello!  My name is:&quot;:  echom a:name:endfunction
+Run the function:
+1:call Di">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Function Arguments">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/24.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="Vimscript functions can, of course, take arguments.  Run the following commands:
+1234567:function DisplayName(name):  echom &quot;Hello!  My name is:&quot;:  echom a:name:endfunction
+Run the function:
+1:call Di">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Function Arguments">
+<meta name="twitter:description" content="Vimscript functions can, of course, take arguments.  Run the following commands:
+1234567:function DisplayName(name):  echom &quot;Hello!  My name is:&quot;:  echom a:name:endfunction
+Run the function:
+1:call Di">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/24.html">
+        Function Arguments
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Vimscript functions can, of course, take arguments.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">:function DisplayName(name)</span><br><span class="line"></span><br><span class="line">:  echom "Hello!  My name is:"</span><br><span class="line"></span><br><span class="line">:  echom a:name</span><br><span class="line"></span><br><span class="line">:endfunction</span><br></pre></td></tr></table></figure>
+<p>Run the function:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:call DisplayName("Your Name")</span><br></pre></td></tr></table></figure>
+<p>Vim will display two lines: <code>Hello!  My name is:</code> and <code>Your Name</code>.</p>
+<p>Notice the <code>a:</code> in the name of the variable that we passed to the <code>echom</code> command.  This represents a variable scope, which we talked about in an earlier chapter.</p>
+<p>Let’s remove this scope prefix and see how Vim reacts.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">:function UnscopedDisplayName(name)</span><br><span class="line"></span><br><span class="line">:  echom "Hello!  My name is:"</span><br><span class="line"></span><br><span class="line">:  echom name</span><br><span class="line"></span><br><span class="line">:endfunction</span><br><span class="line"></span><br><span class="line">:call UnscopedDisplayName("Your Name")</span><br></pre></td></tr></table></figure>
+<p>This time Vim complains that it can’t find the variable <code>name</code>.</p>
+<p>When you write a Vimscript function that takes arguments you <em>always</em> need to prefix those arguments with <code>a:</code> when you use them to tell Vim that they’re in the argument scope.</p>
+<h2 id="Varargs">Varargs</h2><p>Vimscript functions can optionally take variable-length argument lists like Javascript and Python.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">:function Varg(...)</span><br><span class="line"></span><br><span class="line">:  echom a:0</span><br><span class="line"></span><br><span class="line">:  echom a:1</span><br><span class="line"></span><br><span class="line">:  echo a:000</span><br><span class="line"></span><br><span class="line">:endfunction</span><br><span class="line"></span><br><span class="line">:call Varg("a", "b")</span><br></pre></td></tr></table></figure>
+<p>This function shows us several things, so let’s look at each one individually.</p>
+<p>The <code>...</code> in the function definition tells Vim that this function can take any number of arguments.  This is like a <code>*args</code> argument in a Python function.</p>
+<p>The first line of the function echoes the message <code>a:0</code> and displays <code>2</code>.  When you define a function that takes a variable number of arguments in Vim, <code>a:0</code> will be set to the number of extra arguments you were given.  In this case we passed two arguments to <code>Varg</code> so Vim displayed <code>2</code>.</p>
+<p>The second line echoes <code>a:1</code> which displays <code>a</code>.  You can use <code>a:1</code>, <code>a:2</code>, etc to refer to each extra argument your function receives.  If we had used <code>a:2</code> Vim would have displayed “b”.</p>
+<p>The third line is a bit trickier.  When a function has varargs, <code>a:000</code> will be set to a list containing all the extra arguments that were passed.  We haven’t looked at lists quite yet, so don’t worry about this too much.  You can’t use <code>echom</code> with a list, which is why we used <code>echo</code> instead for that line.</p>
+<p>You can use varargs together with regular arguments too.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">:function Varg2(foo, ...)</span><br><span class="line"></span><br><span class="line">:  echom a:foo</span><br><span class="line"></span><br><span class="line">:  echom a:0</span><br><span class="line"></span><br><span class="line">:  echom a:1</span><br><span class="line"></span><br><span class="line">:  echo a:000</span><br><span class="line"></span><br><span class="line">:endfunction</span><br><span class="line"></span><br><span class="line">:call Varg2("a", "b", "c")</span><br></pre></td></tr></table></figure>
+<p>We can see that Vim puts <code>&quot;a&quot;</code> into the named argument <code>a:foo</code>, and the rest are put into the list of varargs.</p>
+<h2 id="Assignment">Assignment</h2><p>Try running the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">:function Assign(foo)</span><br><span class="line"></span><br><span class="line">:  let a:foo = "Nope"</span><br><span class="line"></span><br><span class="line">:  echom a:foo</span><br><span class="line"></span><br><span class="line">:endfunction</span><br><span class="line"></span><br><span class="line">:call Assign("test")</span><br></pre></td></tr></table></figure>
+<p>Vim will throw an error, because you can’t reassign argument variables.  Now run these commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">:function AssignGood(foo)</span><br><span class="line"></span><br><span class="line">:  let foo_tmp = a:foo</span><br><span class="line"></span><br><span class="line">:  let foo_tmp = "Yep"</span><br><span class="line"></span><br><span class="line">:  echom foo_tmp</span><br><span class="line"></span><br><span class="line">:endfunction</span><br><span class="line"></span><br><span class="line">:call AssignGood("test")</span><br></pre></td></tr></table></figure>
+<p>This time the function works, and Vim displays <code>Yep</code>.</p>
+<h2 id="Exercises">Exercises</h2><p>Read the first two paragraphs of <code>:help function-argument</code>.</p>
+<p>Read <code>:help local-variables</code>.</p>
+<p><a href="23.html">« Previous</a><a style="float:right" href="25.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/24.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

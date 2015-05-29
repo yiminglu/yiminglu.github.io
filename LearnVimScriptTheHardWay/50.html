@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Section Movement Theory | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="If you’ve never used Vim’s section movement commands ([[, ]], [] and ][) take a second and read the help for them now.  Go ahead and read :help section as well.
+Confused yet?  That’s okay, so was I th">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Section Movement Theory">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/50.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="If you’ve never used Vim’s section movement commands ([[, ]], [] and ][) take a second and read the help for them now.  Go ahead and read :help section as well.
+Confused yet?  That’s okay, so was I th">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Section Movement Theory">
+<meta name="twitter:description" content="If you’ve never used Vim’s section movement commands ([[, ]], [] and ][) take a second and read the help for them now.  Go ahead and read :help section as well.
+Confused yet?  That’s okay, so was I th">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/50.html">
+        Section Movement Theory
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>If you’ve never used Vim’s section movement commands (<code>[[</code>, <code>]]</code>, <code>[]</code> and <code>][</code>) take a second and read the help for them now.  Go ahead and read <code>:help section</code> as well.</p>
+<p>Confused yet?  That’s okay, so was I the first time I read that stuff.  We’re going to take a quick detour from writing code to learn about how these movements work, and then in the next chapter we’ll make our Potion plugin support them.</p>
+<h2 id="Nroff_Files">Nroff Files</h2><p>The four “section movement” commands are conceptually meant to move around between “sections” of a file.</p>
+<p>All of these commands are designed to work with <a href="http://en.wikipedia.org/wiki/Nroff" target="_blank" rel="external">nroff files</a> by default. Nroff is a language like LaTeX or Markdown — it’s used to write text that will be reformatted later (it’s actually the format used by UNIX man pages).</p>
+<p>Nroff files use a certain set of “macros” to define “section headings”.  For example, here’s an excerpt from the <code>awk</code> man page:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.SH NAME                                                     ***&#10;&#10;awk \- pattern-directed scanning and processing language&#10;&#10;.SH SYNOPSIS                                                 ***&#10;&#10;.B awk&#10;&#10;[&#10;&#10;.BI \-F&#10;&#10;.I fs&#10;&#10;]&#10;&#10;[&#10;&#10;.BI \-v&#10;&#10;.I var=value&#10;&#10;]&#10;&#10;[&#10;&#10;.I &#39;prog&#39;&#10;&#10;|&#10;&#10;.BI \-f&#10;&#10;.I progfile&#10;&#10;]&#10;&#10;[&#10;&#10;.I file ...&#10;&#10;]&#10;&#10;.SH DESCRIPTION                                              ***&#10;&#10;.I Awk&#10;&#10;scans each input&#10;&#10;.I file&#10;&#10;for lines that match ...</span><br></pre></td></tr></table></figure>
+<p>The lines starting with <code>.SH</code> are section headings.  I’ve marked them with <code>***</code>.  The four section movement commands will move your cursor between these section heading lines.</p>
+<p>Vim considers any line starting with <code>.</code> and one of the nroff heading macros to be a section header, <em>even when you’re not editing an nroff file</em>!</p>
+<p>You can change the macros by changing the <code>sections</code> setting, but Vim still requires a period at the beginning of the line, and the macros must be pairs of characters, so that setting doesn’t add enough flexibility for Potion files.</p>
+<h2 id="Braces">Braces</h2><p>Section movement commands <em>also</em> look for one more thing: an opening or closing curly brace (<code>{</code> or <code>}</code>) as the first character on a line.</p>
+<p><code>[[</code> and <code>]]</code> look for opening braces, while <code>[]</code> and <code>][</code> look for closing braces.</p>
+<p>This extra “hack” allows you to move between sections of C-like languages easily.  However, these rules are always the same no matter what type of file you’re in!</p>
+<p>Put the following into a buffer:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Test</span>           A B</span><br><span class="line"></span><br><span class="line"><span class="keyword">Test</span></span><br><span class="line"></span><br><span class="line">.<span class="keyword">SH</span> Hello      A B</span><br><span class="line"></span><br><span class="line"><span class="keyword">Test</span></span><br><span class="line"></span><br><span class="line">&#123;              A</span><br><span class="line"></span><br><span class="line"><span class="keyword">Test</span></span><br><span class="line"></span><br><span class="line">&#125;                B</span><br><span class="line"></span><br><span class="line"><span class="keyword">Test</span></span><br><span class="line"></span><br><span class="line">.<span class="keyword">H</span> World       A B</span><br><span class="line"></span><br><span class="line"><span class="keyword">Test</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Test</span>           A B</span><br></pre></td></tr></table></figure>
+<p>Now run <code>:set filetype=basic</code> to tell Vim that this is a BASIC file, and try the section movement comments.</p>
+<p>The <code>[[</code> and <code>]]</code> commands will move between the lines marked <code>A</code>, while <code>[]</code> and <code>][</code> move between the lines marked <code>B</code>.</p>
+<p>This shows us that Vim always uses these same two rules for section movement, even for languages where neither one makes sense (like BASIC)!</p>
+<h2 id="Exercises">Exercises</h2><p>Read <code>:help section</code> again, now that you know the story of section movement.</p>
+<p>Read <code>:help sections</code> just for the fun of it.</p>
+<p><a href="49.html">« Previous</a><a style="float:right" href="51.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/50.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

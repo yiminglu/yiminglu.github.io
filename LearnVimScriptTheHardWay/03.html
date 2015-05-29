@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Basic Mapping | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="If there’s one feature of Vimscript that will let you bend Vim to your will more than any other, it’s the ability to map keys.  Mapping keys lets you tell Vim:
+
+When I press this key, I want you to do">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Basic Mapping">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/03.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="If there’s one feature of Vimscript that will let you bend Vim to your will more than any other, it’s the ability to map keys.  Mapping keys lets you tell Vim:
+
+When I press this key, I want you to do">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Basic Mapping">
+<meta name="twitter:description" content="If there’s one feature of Vimscript that will let you bend Vim to your will more than any other, it’s the ability to map keys.  Mapping keys lets you tell Vim:
+
+When I press this key, I want you to do">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/03.html">
+        Basic Mapping
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>If there’s one feature of Vimscript that will let you bend Vim to your will more than any other, it’s the ability to map keys.  Mapping keys lets you tell Vim:</p>
+<blockquote>
+<p>When I press this key, I want you to do this stuff instead of whatever you &gt; would normally do.</p>
+</blockquote>
+<p>We’re going to start off by mapping keys in normal mode.  We’ll talk about how to map keys in insert and other modes in the next chapter.</p>
+<p>Type a few lines of text into a file, then run:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:map - x</span><br></pre></td></tr></table></figure>
+<p>Put your cursor somewhere in the text and press <code>-</code>.  Notice how Vim deleted the character under the cursor, just like if you had pressed <code>x</code>.</p>
+<p>We already have a key for “delete the character under the cursor”, so let’s change that mapping to something slightly more useful.  Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:map - dd</span><br></pre></td></tr></table></figure>
+<p>Now put your cursor on a line somewhere and press <code>-</code> again.  This time Vim deletes the entire line, because that’s what <code>dd</code> does.</p>
+<h2 id="Special_Characters">Special Characters</h2><p>You can use <code>&lt;keyname&gt;</code> to tell Vim about special keys.  Try running this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:map &lt;space&gt; viw</span><br></pre></td></tr></table></figure>
+<p>Put your cursor on a word in your text and press the space bar.  Vim will visually select the word.</p>
+<p>You can also map modifier keys like Ctrl and Alt.  Run this:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:map &lt;c-d&gt; dd</span><br></pre></td></tr></table></figure>
+<p>Now pressing <code>Ctrl+d</code> on your keyboard will run <code>dd</code>.</p>
+<h2 id="Commenting">Commenting</h2><p>Remember in the first lesson where we talked about comments?  Mapping keys is one of the places where Vim comments don’t work.  Try running this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:map &lt;space&gt; viw " Select word</span><br></pre></td></tr></table></figure>
+<p>If you try pressing space now, something horrible will almost certainly happen. Why?</p>
+<p>When you press the space bar now, Vim thinks you want it to do what <code>viw&lt;space&gt;&quot;&lt;space&gt;Select&lt;space&gt;word</code> would do.  Obviously this isn’t what we want.</p>
+<p>If you look closely at the effect of this mapping you might notice something strange.  Take a few minutes to try to figure out exactly what happens when you use it, and <em>why</em> that happens.</p>
+<p>Don’t worry if you don’t get it right away — we’ll talk about it more soon.</p>
+<h2 id="Exercises">Exercises</h2><p>Map the <code>-</code> key to “delete the current line, then paste it below the one we’re on now”.  This will let you move lines downward in your file with one keystroke.</p>
+<p>Add that mapping command to your <code>~/.vimrc</code> file so you can use it any time you start Vim.</p>
+<p>Figure out how to map the <code>_</code> key to move the line up instead of down.</p>
+<p>Add that mapping to your <code>~/.vimrc</code> file too.</p>
+<p>Try to guess how you might remove a mapping and reset a key to its normal function.</p>
+<p><a href="02.html">« Previous</a><a style="float:right" href="04.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/03.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

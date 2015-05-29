@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Case Study: Grep Operator, Part One | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="In this chapter and the next we’re going to walk through creating a fairly complicated piece of Vimscript.  We’ll talk about several things we haven’t seen before, as well as how some of the things we">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Case Study: Grep Operator, Part One">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/32.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="In this chapter and the next we’re going to walk through creating a fairly complicated piece of Vimscript.  We’ll talk about several things we haven’t seen before, as well as how some of the things we">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Case Study: Grep Operator, Part One">
+<meta name="twitter:description" content="In this chapter and the next we’re going to walk through creating a fairly complicated piece of Vimscript.  We’ll talk about several things we haven’t seen before, as well as how some of the things we">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/32.html">
+        Case Study: Grep Operator, Part One
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>In this chapter and the next we’re going to walk through creating a fairly complicated piece of Vimscript.  We’ll talk about several things we haven’t seen before, as well as how some of the things we’ve studied fit together in practice.</p>
+<p>As you work through this case study make sure to look up anything unfamiliar with <code>:help</code>.  If you coast through without fully understanding everything, you won’t learn much.</p>
+<h2 id="Grep">Grep</h2><p>If you’ve never used <code>:grep</code> you should take a minute to read <code>:help :grep</code> and <code>:help :make</code> now.  Read <code>:help quickfix-window</code> if you’ve never used the quickfix window before.</p>
+<p>In a nutshell: <code>:grep ...</code> will run an external grep program with any arguments you give, parse the result, and fill the quickfix list so you can jump to results inside Vim.</p>
+<p>Our example is going to make <code>:grep</code> easier to invoke by adding a “grep operator” you can use with any of Vim’s built-in (or custom!) motions to select the text you want to search for.</p>
+<h2 id="Usage">Usage</h2><p>The first thing you should think about when creating any non-trivial piece of Vimscript is: “how will this functionality be used?”.  Try to come up with a smooth, easy, intuitive way to invoke it.</p>
+<p>In this case I’ll do that step for you:</p>
+<ul>
+<li>We’re going to create a “grep operator” and bind it to <code>&lt;leader&gt;g</code>.  <em> It will act like any other Vim operator and take a motion (like <code>w</code> or <code>i{</code>).  </em> It will perform the search immediately and open the quickfix window to show<br>the results. <em> It will </em>not* jump to the first result, because that can be jarring if the<br>first result isn’t what you’re expecting.</li>
+</ul>
+<p>Some examples of how you might end up using it:</p>
+<ul>
+<li><code>&lt;leader&gt;giw</code>: Grep for the word under the cursor. <em> <code>&lt;leader&gt;giW</code>: Grep for the WORD under the cursor. </em> <code>&lt;leader&gt;gi&#39;</code>: Grep for the contents of the single-quoted string you’re<br>currently in. * <code>viwe&lt;leader&gt;g</code>: Visually select a word, extend the selection to the end of<br>the word after it, then grep for the selected text.</li>
+</ul>
+<p>There are many, <em>many</em> other ways to use this.  It may seem like it will take a lot of coding, but actually all we need to do is implement the “operator” functionality and Vim will handle the rest.</p>
+<h2 id="A_Preliminary_Sketch">A Preliminary Sketch</h2><p>One thing that’s sometimes helpful when writing tricky bits of Vimscript is to simplify your goal and implement <em>that</em> to get an idea of the “shape” your final solution will take.</p>
+<p>Let’s simplify our goal to: “create a mapping to search for the word under the cursor”.  This is useful but should be easier, so we can get something running much faster.  We’ll map this to <code>&lt;leader&gt;g</code> for now.</p>
+<p>We’ll start with a skeleton of the mapping and fill it in as we go.  Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap &lt;leader&gt;g :grep -R something .&lt;cr&gt;</span><br></pre></td></tr></table></figure>
+<p>If you’ve read <code>:help grep</code> this should be pretty easy to understand.  We’ve looked at lots of mappings before, and there’s nothing new here.</p>
+<p>Obviously we’re not done yet, so let’s refine this mapping until it meets our simplified goal.</p>
+<h2 id="The_Search_Term">The Search Term</h2><p>First we need to search for the word under the cursor, not the string <code>something</code>.  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap &lt;leader&gt;g :grep -R &lt;cword&gt; .&lt;cr&gt;</span><br></pre></td></tr></table></figure>
+<p>Now try it out.  <code>&lt;cword&gt;</code> is a special bit of text you can use in Vim’s command-line mode, and Vim will replace it with “the word under the cursor” before running the command.</p>
+<p>You can use <code>&lt;cWORD&gt;</code> to get a WORD instead of a word.  Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap &lt;leader&gt;g :grep -R &lt;cWORD&gt; .&lt;cr&gt;</span><br></pre></td></tr></table></figure>
+<p>Now try the mapping when your cursor is over something like <code>foo-bar</code>.  Vim will grep for <code>foo-bar</code> instead of just part of the word.</p>
+<p>There’s still a problem with our search term: if there are any special shell characters in it Vim will happily pass them along to the external grep command, which will explode (or worse: do something terrible).</p>
+<p>Go ahead and try this to make sure it breaks.  Type <code>foo;ls</code> into a file and run the mapping while your cursor is over it.  The grep command will fail, and Vim will actually run an <code>ls</code> command as well!  Clearly this could be bad if the word contained a command more dangerous than <code>ls</code>.</p>
+<p>To try to fix this we’ll quote the argument in the grep call.  Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap &lt;leader&gt;g :grep -R '&lt;cWORD&gt;' .&lt;cr&gt;</span><br></pre></td></tr></table></figure>
+<p>Most shells treat single-quoted text as (almost) literal, so our mapping is much more robust now.</p>
+<h2 id="Escaping_Shell_Command_Arguments">Escaping Shell Command Arguments</h2><p>There’s still one more problem with the search term.  Try the mapping on the word <code>that&#39;s</code>.  It won’t work, because the single quote inside the word interferes with the quotes in the grep command!</p>
+<p>To get around this we can use Vim’s <code>shellescape</code> function.  Read <code>:help escape()</code> and <code>:help shellescape()</code> to see how it works (it’s pretty simple).</p>
+<p>Because <code>shellescape()</code> works on Vim strings, we’ll need to dynamically build the command with <code>execute</code>.  First run the following command to transform the <code>:grep</code> mapping into <code>:execute &quot;...&quot;</code> form:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap &lt;leader&gt;g :execute "grep -R '&lt;cWORD&gt;' ."&lt;cr&gt;</span><br></pre></td></tr></table></figure>
+<p>Try it out and make sure it still works.  If not, find any typos and fix them. Then run the following command, which uses <code>shellescape</code> to fix the search term:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap &lt;leader&gt;g :execute "grep -R " . shellescape("&lt;cWORD&gt;") . " ."&lt;cr&gt;</span><br></pre></td></tr></table></figure>
+<p>Try it out by running it on a normal word like <code>foo</code>.  It will work properly. Now try it out on a word with a quote in it, like <code>that&#39;s</code>.  It still doesn’t work!  What happened?</p>
+<p>The problem is that Vim performed the <code>shellescape()</code> call <em>before</em> it expanded out special strings like <code>&lt;cWORD&gt;</code> in the command line.  So Vim shell-escaped the literal string <code>&quot;&lt;cWORD&gt;&quot;</code> (which did nothing but add single quotes to it) and then concatenated it with the strings of our <code>grep</code> command.</p>
+<p>You can see this by running the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echom shellescape("&lt;cWORD&gt;")</span><br></pre></td></tr></table></figure>
+<p>Vim will output <code>&#39;&lt;cWORD&gt;&#39;</code>.  Note that those quotes are actually part of the string.  Vim has prepared it for use as a shell command argument.</p>
+<p>To fix this we’ll use the <code>expand()</code> function to force the expansion of <code>&lt;cWORD&gt;</code> into the actual string <em>before</em> it gets passed to <code>shellescape</code>.</p>
+<p>Let’s break this apart and see how it works, in steps.  Put your cursor over a word with a quote, like <code>that&#39;s</code>, and run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echom expand("&lt;cWORD&gt;")</span><br></pre></td></tr></table></figure>
+<p>Vim outputs <code>that&#39;s</code> because <code>expand(&quot;&lt;cWORD&gt;&quot;)</code> will return the current word under the cursor as a Vim string.  Now let’s add <code>shellescape</code> back in:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echom shellescape(expand("&lt;cWORD&gt;"))</span><br></pre></td></tr></table></figure>
+<p>This time Vim outputs <code>&#39;that&#39;\&#39;&#39;s&#39;</code>.  If this looks a little funny, you probably haven’t had the pleasure of wrapping your brain around shell-quoting in all its insane glory.  For now, don’t worry about it.  Just trust the Vim has taken the string from <code>expand</code> and escaped it properly.</p>
+<p>Now that we know how to get a fully-escaped version of the word under the cursor, it’s time to concatenate it into our mapping!  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap &lt;leader&gt;g :exe "grep -R " . shellescape(expand("&lt;cWORD&gt;")) . " ."&lt;cr&gt;</span><br></pre></td></tr></table></figure>
+<p>Try it out.  This mapping won’t break if the word we’re searching for happens to contain strange characters.</p>
+<p>The process of starting with a trivial bit of Vimscript and transforming it little-by-little into something closer to your goal is one you’ll find yourself using often.</p>
+<h2 id="Cleanup">Cleanup</h2><p>There are still a couple of small things to take care of before our mapping is finished.  First, we said that we don’t want to go to the first result automatically, and we can use <code>grep!</code> instead of plain <code>grep</code> to do that.  Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap &lt;leader&gt;g :execute "grep! -R " . shellescape(expand("&lt;cWORD&gt;")) . " ."&lt;cr&gt;</span><br></pre></td></tr></table></figure>
+<p>Try it out again and nothing will seem to happen.  Vim has filled the quickfix window with the results, but we haven’t opened it yet.  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap &lt;leader&gt;g :execute "grep! -R " . shellescape(expand("&lt;cWORD&gt;")) . " ."&lt;cr&gt;:copen&lt;cr&gt;</span><br></pre></td></tr></table></figure>
+<p>Now try the mapping and you’ll see that Vim automatically opens the quickfix window with the search results.  All we did was tack <code>:copen&lt;cr&gt;</code> onto the end of our mapping.</p>
+<p>As the finishing touch we’ll remove all the grep output Vim displays while searching.  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nnoremap &lt;leader&gt;g :silent execute "grep! -R " . shellescape(expand("&lt;cWORD&gt;")) . " ."&lt;cr&gt;:copen&lt;cr&gt;</span><br></pre></td></tr></table></figure>
+<p>We’re done, so try it out and admire your hard work!  The <code>silent</code> command just runs the command that follows it while hiding any messages it would normally display.</p>
+<h2 id="Exercises">Exercises</h2><p>Add the mapping we just created to your <code>~/.vimrc</code> file.</p>
+<p>Read <code>:help :grep</code> if you didn’t read it before.</p>
+<p>Read <code>:help cword</code>.</p>
+<p>Read <code>:help cnext</code> and <code>:help cprevious</code>.  Try them out after using your new grep mapping.</p>
+<p>Set up mappings for <code>:cnext</code> and <code>:cprevious</code> to make it easier to quickly run through matches.</p>
+<p>Read <code>:help expand</code>.</p>
+<p>Read <code>:help copen</code>.</p>
+<p>Add a height to the <code>:copen</code> command in the mapping we created to make sure the quickfix window is opened to whatever height you prefer.</p>
+<p>Read <code>:help silent</code>.</p>
+<p><a href="31.html">« Previous</a><a style="float:right" href="33.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/32.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

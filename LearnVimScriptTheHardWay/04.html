@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Modal Mapping | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="In the last chapter we talked about how to map keys in Vim.  We used the map command which made the keys work in normal mode.  If you played around a bit before moving on to this chapter, you may have">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Modal Mapping">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/04.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="In the last chapter we talked about how to map keys in Vim.  We used the map command which made the keys work in normal mode.  If you played around a bit before moving on to this chapter, you may have">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Modal Mapping">
+<meta name="twitter:description" content="In the last chapter we talked about how to map keys in Vim.  We used the map command which made the keys work in normal mode.  If you played around a bit before moving on to this chapter, you may have">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/04.html">
+        Modal Mapping
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>In the last chapter we talked about how to map keys in Vim.  We used the <code>map</code> command which made the keys work in normal mode.  If you played around a bit before moving on to this chapter, you may have noticed that the mappings also took effect in visual mode.</p>
+<p>You can be more specific about when you want mappings to apply by using <code>nmap</code>, <code>vmap</code>, and <code>imap</code>.  These tell Vim to only use the mapping in normal, visual, or insert mode respectively.</p>
+<p>Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:nmap \ dd</span><br></pre></td></tr></table></figure>
+<p>Now put your cursor in your text file, make sure you’re in normal mode, and press <code>\</code>.  Vim will delete the current line.</p>
+<p>Now enter visual mode and try pressing <code>\</code>.  Nothing will happen, because we told Vim to only use that mapping in normal mode (and <code>\</code> doesn’t do anything by default).</p>
+<p>Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:vmap \ U</span><br></pre></td></tr></table></figure>
+<p>Enter visual mode and select some text, then press <code>\</code>.  Vim will convert the text to uppercase!</p>
+<p>Try the <code>\</code> key a few times in normal and visual modes and notice that it now does something completely different depending on which mode you’re in.</p>
+<h2 id="Muscle_Memory">Muscle Memory</h2><p>At first the idea of mapping the same key to do different things depending on which mode you’re in may sound like a terrible idea.  Why would you want to have to stop and think which mode you’re in before pressing the key?  Wouldn’t that negate any time you save from the mapping itself?</p>
+<p>In practice it turns out that this isn’t really a problem.  Once you start using Vim often you won’t be thinking about the individual keys you’re typing any more.  You’ll think: “delete a line” and not “press <code>dd</code>“.  Your fingers and brain will learn your mappings and the keys themselves will become subconscious.</p>
+<h2 id="Insert_Mode">Insert Mode</h2><p>Now that we’ve covered how to map keys in normal and visual mode, let’s move on to insert mode.  Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:imap &lt;c-d&gt; dd</span><br></pre></td></tr></table></figure>
+<p>You might think that this would let you press <code>Ctrl+d</code> whenever you’re in insert mode to delete the current line.  This would be handy because you wouldn’t need to go back into normal mode to cut out lines.</p>
+<p>Go ahead and try it.  It won’t work — instead it will just put two <code>d</code>s in your file!  That’s pretty useless.</p>
+<p>The problem is that Vim is doing exactly what we told it to.  We said: “when I press <code>&lt;c-d&gt;</code> I want you to do what pressing <code>d</code> and <code>d</code> would normally do”. Well, normally when you’re in insert mode and press the <code>d</code> key twice, you get two <code>d</code>s in a row!</p>
+<p>To make this mapping do what we intended we need to be very explicit.  Run this command to change the mapping:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:imap &lt;c-d&gt; &lt;esc&gt;dd</span><br></pre></td></tr></table></figure>
+<p>The <code>&lt;esc&gt;</code> is our way of telling Vim to press the Escape key, which will take us out of insert mode.</p>
+<p>Now try the mapping.  It works, but notice how you’re now back in normal mode. This makes sense because we told Vim that <code>&lt;c-d&gt;</code> should exit insert mode and delete a line, but we never told it to go back into insert mode.</p>
+<p>Run one more command to fix the mapping once and for all:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:imap &lt;c-d&gt; &lt;esc&gt;ddi</span><br></pre></td></tr></table></figure>
+<p>The <code>i</code> at the end enters insert mode, and our mapping is finally complete.</p>
+<h2 id="Exercises">Exercises</h2><p>Set up a mapping so that you can press <code>&lt;c-u&gt;</code> to convert the current word to uppercase when you’re in insert mode.  Remember that <code>U</code> in visual mode will uppercase the selection.  I find this mapping extremely useful when I’m writing out the name of a long constant like <code>MAX_CONNECTIONS_ALLOWED</code>.  I type out the constant in lower case and then uppercase it with the mapping instead of holding shift the entire time.</p>
+<p>Add that mapping to your <code>~/.vimrc</code> file.</p>
+<p>Set up a mapping so that you can uppercase the current word with <code>&lt;c-u&gt;</code> when in <em>normal</em> mode.  This will be slightly different than the previous mapping because you don’t need to enter normal mode.  You should end up back in normal mode at the end instead of in insert mode as well.</p>
+<p>Add that mapping to your <code>~/.vimrc</code> file.</p>
+<p><a href="03.html">« Previous</a><a style="float:right" href="05.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/04.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

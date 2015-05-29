@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Conditionals | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Every programming language has a way to branch, and in Vimscript that method is the if statement.  The if statement is the core of branching in Vim. There’s no unless statement like Ruby, so any decis">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Conditionals">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/21.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="Every programming language has a way to branch, and in Vimscript that method is the if statement.  The if statement is the core of branching in Vim. There’s no unless statement like Ruby, so any decis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Conditionals">
+<meta name="twitter:description" content="Every programming language has a way to branch, and in Vimscript that method is the if statement.  The if statement is the core of branching in Vim. There’s no unless statement like Ruby, so any decis">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/21.html">
+        Conditionals
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Every programming language has a way to branch, and in Vimscript that method is the <code>if</code> statement.  The <code>if</code> statement is the core of branching in Vim. There’s no <code>unless</code> statement like Ruby, so any decision making you do in your coding will be done with <code>if</code>s.</p>
+<p>Before we talk about Vim’s <code>if</code> statement we need to take a short detour to talk about syntax so we’re all on the same page.</p>
+<h2 id="Multiple-Line_Statements">Multiple-Line Statements</h2><p>Sometimes you can’t fit a piece of Vimscript on a single line of code.  We saw this when we talked about autocommand groups.  Here’s a chunk of code we used before:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:augroup testgroup</span><br><span class="line"></span><br><span class="line">:    autocmd BufWrite * :echom "Baz"</span><br><span class="line"></span><br><span class="line">:augroup END</span><br></pre></td></tr></table></figure>
+<p>You can write this as three separate lines in a Vimscript file, which is ideal, but it gets tedious to write this way when running commands manually.  Instead you can separate each line with a pipe character (<code>|</code>).  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echom "foo" | echom "bar"</span><br></pre></td></tr></table></figure>
+<p>Vim will treat that as two separate commands.  Use <code>:messages</code> to check the log if you didn’t see both lines appear.</p>
+<p>For the rest of this book if you want to manually run a command but don’t want to bother typing in the newlines and colons, feel free to put it all on one line separated by pipes.</p>
+<h2 id="Basic_If">Basic If</h2><p>Now that we’ve got that out of the way, run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:if 1</span><br><span class="line"></span><br><span class="line">:    echom "ONE"</span><br><span class="line"></span><br><span class="line">:endif</span><br></pre></td></tr></table></figure>
+<p>Vim will display <code>ONE</code>, because the integer <code>1</code> is “truthy”.  Now try these commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:if 0</span><br><span class="line"></span><br><span class="line">:    echom "ZERO"</span><br><span class="line"></span><br><span class="line">:endif</span><br></pre></td></tr></table></figure>
+<p>Vim will <em>not</em> display <code>ZERO</code> because the integer <code>0</code> is “falsy”.  Let’s see how strings behave.  Run these commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:if "something"</span><br><span class="line"></span><br><span class="line">:    echom "INDEED"</span><br><span class="line"></span><br><span class="line">:endif</span><br></pre></td></tr></table></figure>
+<p>The results may surprise you.  Vim does <em>not</em> necessarily treat a non-empty string as “truthy”, so it will not display anything!</p>
+<p>Let’s dive a bit further down the rabbit hole.  Run these commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:if "9024"</span><br><span class="line"></span><br><span class="line">:    echom "WHAT?!"</span><br><span class="line"></span><br><span class="line">:endif</span><br></pre></td></tr></table></figure>
+<p>This time Vim <em>does</em> display the text!  What’s going on here?</p>
+<p>To try to wrap our heads around what’s going on, run the following three commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:echom "hello" + 10</span><br><span class="line"></span><br><span class="line">:echom "10hello" + 10</span><br><span class="line"></span><br><span class="line">:echom "hello10" + 10</span><br></pre></td></tr></table></figure>
+<p>The first command causes Vim to echo <code>10</code>, the second command echoes <code>20</code>, and the third echoes <code>10</code> again!</p>
+<p>After observing all of these commands we can draw a few informed conclusions about Vimscript:</p>
+<ul>
+<li>Vim will try to coerce variables (and literals) when necessary.  When <code>10 +
+&quot;20foo&quot;</code> is evaluated Vim will convert <code>&quot;20foo&quot;</code> to an integer (which<br>results in <code>20</code>) and then add it to <code>10</code>. <em> Strings that start with a number are coerced to that number, otherwise they’re<br>coerced to <code>0</code>. </em> Vim will execute the body of an <code>if</code> statement when its condition evaluates to<br>a non-zero integer, <em>after</em> all coercion takes place.</li>
+</ul>
+<h2 id="Else_and_Elseif">Else and Elseif</h2><p>Vim, like Python, supports both “else” and “else if” clauses.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">:if 0</span><br><span class="line"></span><br><span class="line">:    echom "if"</span><br><span class="line"></span><br><span class="line">:elseif "nope!"</span><br><span class="line"></span><br><span class="line">:    echom "elseif"</span><br><span class="line"></span><br><span class="line">:else</span><br><span class="line"></span><br><span class="line">:    echom "finally!"</span><br><span class="line"></span><br><span class="line">:endif</span><br></pre></td></tr></table></figure>
+<p>Vim echoes <code>finally!</code> because both of the previous conditions evaluate to zero, which is falsy.</p>
+<h2 id="Exercises">Exercises</h2><p>Drink a beer to console yourself about Vim’s coercion of strings to integers.</p>
+<p><a href="20.html">« Previous</a><a style="float:right" href="22.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/21.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

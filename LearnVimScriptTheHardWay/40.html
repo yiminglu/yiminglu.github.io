@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Paths | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Vim is a text editor, and text editors (usually) work with text files.  Text files live on filesystems, and to specify files we use paths.  Vimscript has a few built-in utilities that can be extremely">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Paths">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/40.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="Vim is a text editor, and text editors (usually) work with text files.  Text files live on filesystems, and to specify files we use paths.  Vimscript has a few built-in utilities that can be extremely">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Paths">
+<meta name="twitter:description" content="Vim is a text editor, and text editors (usually) work with text files.  Text files live on filesystems, and to specify files we use paths.  Vimscript has a few built-in utilities that can be extremely">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/40.html">
+        Paths
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Vim is a text editor, and text editors (usually) work with text files.  Text files live on filesystems, and to specify files we use paths.  Vimscript has a few built-in utilities that can be extremely helpful when you need to work with paths.</p>
+<h2 id="Absolute_Paths">Absolute Paths</h2><p>Sometimes it’s handy to be able to get the absolute path of a certain file for use with external scripts.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:echom expand('%')</span><br><span class="line"></span><br><span class="line">:echom expand('%:p')</span><br><span class="line"></span><br><span class="line">:echom fnamemodify('foo.txt', ':p')</span><br></pre></td></tr></table></figure>
+<p>The first command displays the relative path of whatever file you’re currently editing.  <code>%</code> means “the current file”.  Vim supports a bunch of other strings you can use with <code>expand()</code> as well.</p>
+<p>The second command displays the full, absolute path of that file.  The <code>:p</code> in the string tells Vim that you want the absolute path.  There are a ton of other modifiers you can use.</p>
+<p>The third command displays an absolute path to the file <code>foo.txt</code> in the current directory, regardless of whether that file actually exists.  <code>fnamemodify()</code> is a Vim function that’s more flexible than <code>expand()</code> in that you can specify any file name, not just one of <code>expand()</code>‘s special strings.</p>
+<h2 id="Listing_Files">Listing Files</h2><p>You might also want to get a listing of files in a specific directory.  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echo globpath('.', '*')</span><br></pre></td></tr></table></figure>
+<p>Vim will display all of the files and directories in the current directory.  The <code>globpath()</code> function returns a string, with each name separated by a newline. To get a list you’ll need to <code>split()</code> it yourself.  Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echo split(globpath('.', '*'), '\n')</span><br></pre></td></tr></table></figure>
+<p>This time Vim displays a Vimscript list containing each path.  If you’ve got newlines in your filenames you’re on your own, sorry.</p>
+<p><code>globpath()</code>‘s wildcards work mostly as you would expect.  Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echo split(globpath('.', '*.txt'), '\n')</span><br></pre></td></tr></table></figure>
+<p>Vim displays a list of all <code>.txt</code> files in the current directory.</p>
+<p>You can recursively list files with <code>**</code>.  Run this command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echo split(globpath('.', '**'), '\n')</span><br></pre></td></tr></table></figure>
+<p>Vim will list all files and directories under the current directory.</p>
+<p><code>globpath()</code> is <em>extremely</em> powerful.  You’ll learn more when you complete this chapter’s exercises.</p>
+<h2 id="Exercises">Exercises</h2><p>Read <code>:help expand()</code>.</p>
+<p>Read <code>:help fnamemodify()</code>.</p>
+<p>Read <code>:help filename-modifiers</code>.</p>
+<p>Read <code>:help simplify()</code>.</p>
+<p>Read <code>:help resolve()</code>.</p>
+<p>Read <code>:help globpath()</code>.</p>
+<p>Read <code>:help wildcards</code>.</p>
+<p><a href="39.html">« Previous</a><a style="float:right" href="41.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/40.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

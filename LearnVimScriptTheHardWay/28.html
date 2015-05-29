@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Execute | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="The execute command is used to evaluate a string as if it were a Vimscript command.  We saw it in an earlier chapter, but now that we know a bit more about Vimscript Strings we’re going to take anothe">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Execute">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/28.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="The execute command is used to evaluate a string as if it were a Vimscript command.  We saw it in an earlier chapter, but now that we know a bit more about Vimscript Strings we’re going to take anothe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Execute">
+<meta name="twitter:description" content="The execute command is used to evaluate a string as if it were a Vimscript command.  We saw it in an earlier chapter, but now that we know a bit more about Vimscript Strings we’re going to take anothe">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/28.html">
+        Execute
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>The <code>execute</code> command is used to evaluate a string as if it were a Vimscript command.  We saw it in an earlier chapter, but now that we know a bit more about Vimscript Strings we’re going to take another look.</p>
+<h2 id="Basic_Execution">Basic Execution</h2><p>Run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:execute "echom 'Hello, world!'"</span><br></pre></td></tr></table></figure>
+<p>Vim evaluates <code>echom &#39;Hello, world!&#39;</code> as a command and dutifully echoes it to the screen and message log.  Execute is a very powerful tool because it lets you build commands out of arbitrary strings.</p>
+<p>Let’s try a more useful example.  Prepare by opening a file in Vim, then using <code>:edit foo.txt</code> in the same window to open a new buffer.  Now run the following command:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:execute "rightbelow vsplit " . bufname("#")</span><br></pre></td></tr></table></figure>
+<p>Vim will open the first file in a vertical split to the right of the second file.  What happened here?</p>
+<p>First, Vim builds the command string by concatenating <code>&quot;rightbelow vsplit &quot;</code> with the result of the <code>bufname(&quot;#&quot;)</code> call.</p>
+<p>We’ll look at the function more later, but for now just trust that it returns the path of the previous buffer.  You can play with it using <code>echom</code> if you want to see for yourself.</p>
+<p>Once <code>bufname</code> is evaluated Vim the string <code>&quot;rightbelow vsplit bar.txt&quot;</code>.  The <code>execute</code> command evaluates this as a Vimscript command which opens the split with the file.</p>
+<h2 id="Is_Execute_Dangerous?">Is Execute Dangerous?</h2><p>In most programming languages the use of such an “eval” construct to evaluate strings as program code is frowned upon (to put it lightly).  Vimscript’s <code>execute</code> command doesn’t have the same stigma for two reasons.</p>
+<p>First, most Vimscript code only ever takes input from a single person: the user. If the user wants to input a tricky string that will cause an <code>execute</code> command to do something bad, well, it’s their computer!  Contrast this with other languages, where programs constantly take input from untrusted users.  Vim is a unique environment where the normal security concerns simply aren’t common.</p>
+<p>The second reason is that because Vimscript has sometimes arcane and tricky syntax, <code>execute</code> is often the easiest, most straightforward way to get something done.  In most other languages using an “eval” construct won’t usually save you much typing, but in Vimscript it can collapse many lines into a single one.</p>
+<h2 id="Exercises">Exercises</h2><p>Skim <code>:help execute</code> to get an idea of some of the things you can and can’t use <code>execute</code> for.  Don’t dive too deeply yet — we’re going to revisit it very soon.</p>
+<p>Read <code>:help leftabove</code>, <code>:help rightbelow</code>, <code>:help :split</code>, and <code>:help :vsplit</code> (notice the extra colon in the last two topics).</p>
+<p>Add a mapping to your <code>~/.vimrc</code> file that opens the previous buffer in a split of your choosing (vertical/horizontal, above/below/left/right).</p>
+<p><a href="27.html">« Previous</a><a style="float:right" href="29.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/28.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

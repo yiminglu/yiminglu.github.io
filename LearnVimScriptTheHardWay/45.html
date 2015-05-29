@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Basic Syntax Highlighting | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Now that we’ve gotten the boilerplate out of the way it’s time to start writing some useful code for our Potion plugin.  We’ll start with some simple syntax highlighting.
+Create a syntax/potion.vim fi">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Basic Syntax Highlighting">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/45.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="Now that we’ve gotten the boilerplate out of the way it’s time to start writing some useful code for our Potion plugin.  We’ll start with some simple syntax highlighting.
+Create a syntax/potion.vim fi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Basic Syntax Highlighting">
+<meta name="twitter:description" content="Now that we’ve gotten the boilerplate out of the way it’s time to start writing some useful code for our Potion plugin.  We’ll start with some simple syntax highlighting.
+Create a syntax/potion.vim fi">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/45.html">
+        Basic Syntax Highlighting
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Now that we’ve gotten the boilerplate out of the way it’s time to start writing some useful code for our Potion plugin.  We’ll start with some simple syntax highlighting.</p>
+<p>Create a <code>syntax/potion.vim</code> file in your plugin’s repo.  Put the following code into the file:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">exists</span>(<span class="string">"b:current_syntax"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">finish</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echom</span> <span class="string">"Our syntax highlighting code will go here."</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="variable">b:current_syntax</span> = <span class="string">"potion"</span></span><br></pre></td></tr></table></figure>
+<p>Close Vim, and then open your <code>factorial.pn</code> file.  You may or may not see the message, depending on whether you have any other plugins that perform commands after this one gets run.  If you run <code>:messages</code> you’ll definitely see that the file was indeed loaded.</p>
+<p><strong>Note:</strong>  Whenever I tell you to open the Potion file I want you to do it in a <em>new Vim window/instance</em> instead of in a split/tab.  Opening a new Vim window causes Vim to reload all your bundled files for that window, whereas using a split does not.</p>
+<p>The lines at the beginning and end of the file are a convention that prevents it from being loaded if syntax highlighting has already been enabled for this buffer.</p>
+<h2 id="Highlighting_Keywords">Highlighting Keywords</h2><p>For the rest of this chapter we’ll ignore the <code>if</code> and <code>let</code> boilerplate at the beginning and end of the file.  Don’t remove those lines, just forget about them.</p>
+<p>Replace the placeholder <code>echom</code> in the file with the following code:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">syntax</span> keyword potionKeyword <span class="keyword">to</span> times</span><br><span class="line"></span><br><span class="line"><span class="keyword">highlight</span> link potionKeyword Keyword</span><br></pre></td></tr></table></figure>
+<p>Close the <code>factorial.pn</code> file and reopen it.  The <code>to</code> and <code>times</code> words will be highlighted as keywords in your color scheme!</p>
+<p>These two lines show the basic structure of simple syntax highlighting in Vim. To highlight a piece of syntax:</p>
+<ul>
+<li>You first define a “chunk” of syntax using <code>syntax keyword</code> or a related<br>command (which we’ll talk about later). * You then link “chunks” to highlighting groups.  A highlighting group is<br>something you define in a color scheme, for example “function names should be<br>blue”.<br> This lets plugin authors define the “chunks” of syntax in ways that make sense to them, and then link them to common highlighting groups.  It also lets color scheme creators define colors for a common set of programming constructs so they don’t need to know about individual languages.</li>
+</ul>
+<p>Potion has a bunch of other keywords that we haven’t used in our toy program, so let’s edit our syntax file to highlight those too:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">syntax</span> keyword potionKeyword loop times <span class="keyword">to</span> <span class="keyword">while</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> keyword potionKeyword <span class="keyword">if</span> elsif <span class="keyword">else</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> keyword potionKeyword class <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">highlight</span> link potionKeyword Keyword</span><br></pre></td></tr></table></figure>
+<p>First of all: the last line hasn’t changed.  We’re still telling Vim that anything in the <code>potionKeyword</code> syntax group should be highlighted as a <code>Keyword</code>.</p>
+<p>We’ve now got three lines, each starting with <code>syntax keyword potionKeyword</code>. This shows that running this command multiple times doesn’t <em>reset</em> the syntax group — it adds to it!  This lets you define groups piecemeal.</p>
+<p>How you define your groups is up to you:</p>
+<ul>
+<li>You might just toss everything onto one line and be done with it. <em> You might prefer to break the lines up so they fit within 80 columns to make<br>them easier to read. </em> You could have a separate line for each item in a group, to make diffs looks<br>nicer. * You could do what I’ve done here and group related items together.</li>
+</ul>
+<h2 id="Highlighting_Functions">Highlighting Functions</h2><p>Another standard Vim highlighting group is <code>Function</code>.  Let’s add some of the built-in Potion functions to our highlighting script.  Edit the guts of your syntax file so it looks like this:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">syntax</span> keyword potionKeyword loop times <span class="keyword">to</span> <span class="keyword">while</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> keyword potionKeyword <span class="keyword">if</span> elsif <span class="keyword">else</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> keyword potionKeyword class <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> keyword potionFunction <span class="keyword">print</span> <span class="built_in">join</span> <span class="built_in">string</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">highlight</span> link potionKeyword Keyword</span><br><span class="line"></span><br><span class="line"><span class="keyword">highlight</span> link potionFunction Function</span><br></pre></td></tr></table></figure>
+<p>Close and reopen <code>factorial.pn</code> and you’ll see that the built-in potion functions are now highlighted.</p>
+<p>This works exactly the same way as keyword highlighting.  We’ve defined a new syntax group and linked it to a different highlighting group.</p>
+<h2 id="Exercises">Exercises</h2><p>Think about why the <code>if exists</code> and <code>let</code> lines at the beginning and end of the file are useful.  If you can’t figure it out, don’t worry about it.  I had to ask Tim Pope to be sure.</p>
+<p>Skim over <code>:help syn-keyword</code>.  Pay close attention to the part that mentions <code>iskeyword</code>.</p>
+<p>Read <code>:help iskeyword</code>.</p>
+<p>Read <code>:help group-name</code> to get an idea of some common highlighting groups that color scheme authors frequently use.</p>
+<p><a href="44.html">« Previous</a><a style="float:right" href="46.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/45.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

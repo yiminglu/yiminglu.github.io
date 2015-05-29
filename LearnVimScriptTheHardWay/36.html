@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Looping | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="You might be surprised to realize that we’ve gone through thirty five chapters of a programming language book without even mentioning loops!  Vimscript offers so many other options for performing acti">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Looping">
+<meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/36.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="You might be surprised to realize that we’ve gone through thirty five chapters of a programming language book without even mentioning loops!  Vimscript offers so many other options for performing acti">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Looping">
+<meta name="twitter:description" content="You might be surprised to realize that we’ve gone through thirty five chapters of a programming language book without even mentioning loops!  Vimscript offers so many other options for performing acti">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="http://weibo.com/u/2168765080">Weibo</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/LearnVimScriptTheHardWay/36.html">
+        Looping
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>You might be surprised to realize that we’ve gone through thirty five chapters of a programming language book without even mentioning loops!  Vimscript offers so many other options for performing actions on text (<code>normal!</code>, etc) that loops aren’t as necessary as they are in most other languages.</p>
+<p>Even so, you’ll definitely need them some day, so now we’ll take a look at the two main kinds of loops Vim supports.</p>
+<h2 id="For_Loops">For Loops</h2><p>The first kind of loop is the <code>for</code> loop.  This may seem odd if you’re used to Java, C or Javascript <code>for</code> loops, but turns out to be quite elegant.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">:let c = 0</span><br><span class="line"></span><br><span class="line">:for i in [1, 2, 3, 4]</span><br><span class="line"></span><br><span class="line">:  let c += i</span><br><span class="line"></span><br><span class="line">:endfor</span><br><span class="line"></span><br><span class="line">:echom c</span><br></pre></td></tr></table></figure>
+<p>Vim displays <code>10</code>, which is the result of adding together each element in the list.  Vimscript <code>for</code> loops iterate over lists (or dictionaries, which we’ll cover later).</p>
+<p>There’s no equivalent to the C-style <code>for (int i = 0; i &lt; foo; i++)</code> loop form in Vimscript.  This might seem bad at first, but in practice you’ll never miss it.</p>
+<h2 id="While_Loops">While Loops</h2><p>Vim also supports the classic <code>while</code> loop.  Run the following commands:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">:let c = 1</span><br><span class="line"></span><br><span class="line">:let total = 0</span><br><span class="line"></span><br><span class="line">:while c &lt;= 4</span><br><span class="line"></span><br><span class="line">:  let total += c</span><br><span class="line"></span><br><span class="line">:  let c += 1</span><br><span class="line"></span><br><span class="line">:endwhile</span><br><span class="line"></span><br><span class="line">:echom total</span><br></pre></td></tr></table></figure>
+<p>Once again Vim displays <code>10</code>.  This loop should be familiar to just about anyone who’s programmed before, so we won’t spend any time on it.  You won’t use it very often.  Keep it in the back of your mind for the rare occasions that you want it.</p>
+<h2 id="Exercises">Exercises</h2><p>Read <code>:help for</code>.</p>
+<p>Read <code>:help while</code>.</p>
+<p><a href="35.html">« Previous</a><a style="float:right" href="37.html">Next »</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+    </footer>
+  </div>
+  
+</article>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/LearnVimScriptTheHardWay/36.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>
