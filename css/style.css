@@ -354,7 +354,7 @@ article .article-entry hr {
   border-bottom: 1px dotted #ccc;
 }
 article .article-entry a {
-  color: #888;
+  color: #777;
   font-weight: bold;
 }
 article .article-entry a:hover {
@@ -413,9 +413,10 @@ article footer {
 }
 article footer a {
   font-weight: bold;
-  color: #481;
+  color: #777;
 }
 article footer a:hover {
+  color: #481;
   text-decoration: underline;
 }
 article footer a:before {
@@ -685,7 +686,7 @@ article #article-nav .article-nav-title {
   font-size: 100%;
 }
 .entry .gist .gist-file .gist-meta a {
-  color: #481;
+  color: #777;
 }
 .entry .gist .gist-file .gist-meta a:visited {
   color: #481;

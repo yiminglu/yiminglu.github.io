@@ -8,9 +8,9 @@
   <meta name="description" content="New android systems have the ext4 format. This tutorial will help you to create a flashable ZIP from FTF firmware.
 Step 1Download the Stock Firmware you want (FTF-File, aka Firmware.ftf).
 Step 2Rename">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="How to create a CWM flashable ZIP file from FTF Firmware?">
-<meta property="og:url" content="http://seasonsroad.com/FTFtoZIP/index.html">
+<meta property="og:url" content="http://seasonsroad.com/2015/05/FTFtoZIP/index.html">
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="New android systems have the ext4 format. This tutorial will help you to create a flashable ZIP from FTF firmware.
 Step 1Download the Stock Firmware you want (FTF-File, aka Firmware.ftf).
@@ -61,7 +61,19 @@ Step 2Rename">
   </div>
 </header>
       <div class="inner">
-        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-FTFtoZIP" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/FTFtoZIP/" class="article-date">
+  <p><time datetime="2015-05-31T03:24:30.000Z" itemprop="datePublished">2015/05/31</time></p>
+</a>
+
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+    </div>
   
   <div class="article-inner">
     
@@ -69,7 +81,7 @@ Step 2Rename">
         
   
     <h1 class="article-title" itemprop="name">
-      <a href="/FTFtoZIP/index.html">
+      <a href="/2015/05/FTFtoZIP/">
         How to create a CWM flashable ZIP file from FTF Firmware?
       </a>
     </h1>
@@ -88,10 +100,10 @@ Step 2Rename">
 <h2 id="Step_4">Step 4</h2><p>Open Flashtool go to “Tools” -&gt; “Sin Editor” -&gt; Choose the extracted system.sin and push “extract” Data and get a <code>system.ext4</code> file.</p>
 <h2 id="Step_5">Step 5</h2><p>Mount <code>system.ext4</code> (With Fuse-Ext2, <a href="http://omaimac.blogspot.com/2012/10/how-to-mount-ext4-linux-partition-on-mac.html" target="_blank" rel="external">TUTORIAL</a>) and put the files inside into a folder named <code>system</code>.</p>
 <h2 id="Step_6">Step 6</h2><p>Download the <a href="META-INF.zip">META-INF File</a> and extract it to <code>META-INF</code> folder.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip META-INF.zip</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>Now we can even use a GUI tool, named <a href="http://forum.xda-developers.com/showthread.php?p=28706056#post28706056" target="_blank" rel="external">Aroma</a>, to do some multi-selections and radio-buttons.</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip META-INF.zip</span><br></pre></td></tr></table></figure>
 <h2 id="Step_7">Step 7</h2><p>Now we have your two folders: <code>system</code> and <code>META-INF</code>. Just ZIP them!</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ zip -roZ store Firmware.zip system META-INF</span><br></pre></td></tr></table></figure>
 <ul>
@@ -104,14 +116,35 @@ Step 2Rename">
 
       
     </div>
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/">undefined</a></li></ul>
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FTF/">FTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROM/">ROM</a></li></ul>
 
-    </footer>
+      </footer>
+    
   </div>
   
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/05/VundleVsPathogen/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older&raquo</strong>
+      <div class="article-nav-title">Vundle vs. Pathogen</div>
+    </a>
+  
+</nav>
+
+  
 </article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 
 </section>
       </div>
@@ -130,7 +163,7 @@ Step 2Rename">
 <script>
   var disqus_shortname = 'ymlu';
   
-  var disqus_url = 'http://seasonsroad.com/FTFtoZIP/index.html';
+  var disqus_url = 'http://seasonsroad.com/2015/05/FTFtoZIP/';
   
   (function(){
     var dsq = document.createElement('script');
