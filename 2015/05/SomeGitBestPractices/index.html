@@ -121,7 +121,14 @@
 <p>You can do <code>init</code>/<code>deinit</code>, <code>add</code>, <code>status</code>, <code>update</code>, etc.</p>
 <p>If you want to run git commands within each submodule, do this:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach [git <span class="built_in">command</span>]</span><br></pre></td></tr></table></figure>
-<h1 id="Best_practices!!">Best practices!!</h1><h2 id="Rebase_to_an_old_commit"><a name="rebase">Rebase to an old commit</a></h2><p>Rebase to an old commit:</p>
+<h1 id="Best_practices!!">Best practices!!</h1><h2 id="Who_has_touched_the_file?">Who has touched the file?</h2><p>If the file is a code file, we can use <code>git blame</code> to check the file change.</p>
+<p>If the file is a binary file, or we just want to find all the commits related to this file, use this command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> [-p] file</span><br></pre></td></tr></table></figure>
+<p>And, if this file is renamed or even deleted, we should use <code>--follow</code> on <code>git log</code> to continue listing the history of a file beyond renames:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> [-p] --follow -- file</span><br></pre></td></tr></table></figure>
+<p><code>--</code> is used to separate paths from revisions, like this:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git &lt;<span class="built_in">command</span>&gt; [&lt;revision&gt;...] -- [&lt;file&gt;...]</span><br></pre></td></tr></table></figure>
+<h2 id="Rebase_to_an_old_commit"><a name="rebase">Rebase to an old commit</a></h2><p>Rebase to an old commit:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i HEAD~n</span><br></pre></td></tr></table></figure>
 <p>Edit the <code>pick</code> before any commit your want to base to <code>reword</code> or <code>r</code>. </p>
 <p>If you want to continue to HEAD, use this command:</p>
@@ -152,7 +159,7 @@
 <h2 id="Force_push_to_update_remote_origin(CRITICAL!)"><a name="force-push">Force push to update remote origin(CRITICAL!)</a></h2><p>This may not be a good practice. But in some critical circumstances, this may be the savior.</p>
 <p>Amend the commits you’ve all ready pushed, and force to push them to replace the repo.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push <span class="operator">-f</span></span><br></pre></td></tr></table></figure>
-<h2 id=""> </h2>
+
       
     </div>
     
