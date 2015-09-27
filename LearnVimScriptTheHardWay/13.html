@@ -13,6 +13,7 @@ Open your foo and bar fil">
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="That last chapter was a monster, so let’s tackle something easier.  We’ve seen how to define buffer-local mappings and options, so let’s apply the same idea to abbreviations.
 Open your foo and bar fil">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Buffer-Local Abbreviations">
 <meta name="twitter:description" content="That last chapter was a monster, so let’s tackle something easier.  We’ve seen how to define buffer-local mappings and options, so let’s apply the same idea to abbreviations.
@@ -78,7 +79,7 @@ Open your foo and bar fil">
 <p>Open your <code>foo</code> and <code>bar</code> files again, switch to <code>foo</code>, and run the following command:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:iabbrev &lt;buffer&gt; --- &amp;mdash;</span><br></pre></td></tr></table></figure>
 <p>While still in <code>foo</code> enter insert mode and type the following text:</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello <span class="comment">--- world.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello --- world.</span><br></pre></td></tr></table></figure>
 <p>Vim will replace the <code>---</code> for you.  Now switch to <code>bar</code> and try it.  It should be no surprise that it’s not replaced, because we defined the abbreviation to be local to the <code>foo</code> buffer.</p>
 <h2 id="Autocommands_and_Abbreviations">Autocommands and Abbreviations</h2><p>Let’s pair up these buffer-local abbreviations with autocommands to set them to make ourselves a little “snippet” system.</p>
 <p>Run the following commands:</p>

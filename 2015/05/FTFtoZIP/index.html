@@ -15,6 +15,7 @@ Step 2Rename">
 <meta property="og:description" content="New android systems have the ext4 format. This tutorial will help you to create a flashable ZIP from FTF firmware.
 Step 1Download the Stock Firmware you want (FTF-File, aka Firmware.ftf).
 Step 2Rename">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How to create a CWM flashable ZIP file from FTF Firmware?">
 <meta name="twitter:description" content="New android systems have the ext4 format. This tutorial will help you to create a flashable ZIP from FTF firmware.
@@ -107,7 +108,7 @@ Step 2Rename">
 <ul>
 <li><code>-r</code> or <code>--recurse-paths</code><br>  Travel the directory structure recursively</li>
 <li><code>-o</code> or <code>--latest-time</code><br>  Set the “last modified” time of the zip archive to the latest (oldest) “last modified” time found among the entries in the zip archive.</li>
-<li><code>--compression-method cm</code> or <code>-Z cm</code><br>  Set the default compression method.  Currently the main methods supported by zip are store and deflate.<br>  <strong>Important: You have to set the compression to “Store”</strong></li>
+<li><code>--compression-method cm</code> or <code>-Z cm</code><br>  Set the default compression method.  Currently the main methods supported by zip are store and deflate.<br>  <strong>Important: In some cases, you have to set the compression to “Store”</strong> to be supported by some recoveries.</li>
 </ul>
 <h2 id="Step_8">Step 8</h2><p>Push the zip File to SD-Card and flash it with recovery.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb push Firmware.zip /sdcard/Firmware.zip</span><br></pre></td></tr></table></figure>

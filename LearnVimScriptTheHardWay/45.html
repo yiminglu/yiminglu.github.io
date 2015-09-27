@@ -13,6 +13,7 @@ Create a syntax/potion.vim fi">
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="Now that we’ve gotten the boilerplate out of the way it’s time to start writing some useful code for our Potion plugin.  We’ll start with some simple syntax highlighting.
 Create a syntax/potion.vim fi">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Basic Syntax Highlighting">
 <meta name="twitter:description" content="Now that we’ve gotten the boilerplate out of the way it’s time to start writing some useful code for our Potion plugin.  We’ll start with some simple syntax highlighting.
@@ -91,7 +92,7 @@ Create a syntax/potion.vim fi">
 <p>Potion has a bunch of other keywords that we haven’t used in our toy program, so let’s edit our syntax file to highlight those too:</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">syntax</span> keyword potionKeyword loop times <span class="keyword">to</span> <span class="keyword">while</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> keyword potionKeyword <span class="keyword">if</span> elsif <span class="keyword">else</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">syntax</span> keyword potionKeyword class <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">highlight</span> link potionKeyword Keyword</span><br></pre></td></tr></table></figure>
 <p>First of all: the last line hasn’t changed.  We’re still telling Vim that anything in the <code>potionKeyword</code> syntax group should be highlighted as a <code>Keyword</code>.</p>
-<p>We’ve now got three lines, each starting with <code>syntax keyword potionKeyword</code>. This shows that running this command multiple times doesn’t <em>reset</em> the syntax group — it adds to it!  This lets you define groups piecemeal.</p>
+<p>We’ve now got three lines, each starting with <code>syntax keyword potionKeyword</code>. This shows that running this command multiple times doesn’t <em>reset</em> the syntax group – it adds to it!  This lets you define groups piecemeal.</p>
 <p>How you define your groups is up to you:</p>
 <ul>
 <li>You might just toss everything onto one line and be done with it. <em> You might prefer to break the lines up so they fit within 80 columns to make<br>them easier to read. </em> You could have a separate line for each item in a group, to make diffs looks<br>nicer. * You could do what I’ve done here and group related items together.</li>

@@ -13,6 +13,7 @@
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="NodeJS最大的卖点——事件机制和异步IO，对开发者并不是透明的。开发者需要按异步方式编写代码才用得上这个卖点，而这一点也遭到了一些NodeJS反对者的抨击。但不管怎样，异步编程确实是NodeJS最大的特点，没有掌握异步编程就不能说是真正学会了NodeJS。本章将介绍与异步编程相关的各种知识。
 回调在代码中，异步编程的直接体现就是回调。异步编程依托于回调来实现，但不能说使用了回调后程序就异步化了">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="异步编程">
 <meta name="twitter:description" content="NodeJS最大的卖点——事件机制和异步IO，对开发者并不是透明的。开发者需要按异步方式编写代码才用得上这个卖点，而这一点也遭到了一些NodeJS反对者的抨击。但不管怎样，异步编程确实是NodeJS最大的特点，没有掌握异步编程就不能说是真正学会了NodeJS。本章将介绍与异步编程相关的各种知识。
@@ -100,7 +101,7 @@ console.<span class="built_in">log</span>(<span class="string">'hello'</span>);
 hello
 </code></pre><p>可以看到，以上代码中的回调函数仍然先于后续代码执行。JS本身是单线程运行的，不可能在一段代码还未结束运行时去运行别的代码，因此也就不存在异步执行的概念。</p>
 <p>但是，如果某个函数做的事情是创建一个别的线程或进程，并与JS主线程并行地做一些事情，并在事情做完后通知JS主线程，那情况又不一样了。我们接着看看以下代码。</p>
-<pre><code>setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+<pre><code>setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
     <span class="built_in">console</span>.log(<span class="string">'world'</span>);
 }, <span class="number">1000</span>);
 
@@ -111,7 +112,7 @@ hello
 world
 </code></pre><p>这次可以看到，回调函数后于后续代码执行了。如同上边所说，JS本身是单线程的，无法异步执行，因此我们可以认为<code>setTimeout</code>这类JS规范之外的由运行环境提供的特殊函数做的事情是创建一个平行线程后立即返回，让JS主进程可以接着执行后续代码，并在收到平行进程的通知后再执行回调函数。除了<code>setTimeout</code>、<code>setInterval</code>这些常见的，这类函数还包括NodeJS提供的诸如<code>fs.readFile</code>之类的异步API。</p>
 <p>另外，我们仍然回到JS是单线程运行的这个事实上，这决定了JS在执行完一段代码之前无法执行包括回调函数在内的别的代码。也就是说，即使平行线程完成工作了，通知JS主线程执行回调函数了，回调函数也要等到JS主线程空闲时才能开始执行。以下就是这么一个例子。</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">heavyCompute</span><span class="params">(n)</span> </span>{
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">heavyCompute</span>(<span class="params">n</span>) </span>{
     <span class="keyword">var</span> count = <span class="number">0</span>,
         i, j;
 
@@ -124,7 +125,7 @@ world
 
 <span class="keyword">var</span> t = <span class="keyword">new</span> <span class="built_in">Date</span>();
 
-setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
     <span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Date</span>() - t);
 }, <span class="number">1000</span>);
 
@@ -184,7 +185,7 @@ for<span class="function"> (</span>; i &lt; len; ++i<span class="function">)</sp
 }</span>)</span>)</span><span class="comment">;</span></span></span>
 </code></pre><p>可以看到，与异步串行遍历的版本相比，以上代码并行处理所有数组成员，并通过计数器变量来判断什么时候所有数组成员都处理完毕了。</p>
 <h4 id="异常处理">异常处理</h4><p>JS自身提供的异常捕获和处理机制——<code>try..catch..</code>，只能用于同步执行的代码。以下是一个例子。</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">sync</span><span class="params">(fn)</span> </span>{
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">sync</span>(<span class="params">fn</span>) </span>{
     <span class="keyword">return</span> fn();
 }
 
@@ -221,27 +222,27 @@ TypeError: object is <span class="keyword">not</span> a <span class="function"><
     <span class="title">at</span> <span class="title">null._onTimeout</span> <span class="params">(/home/user/test.js:4:13)</span></span>
     at Timer.listOnTimeout [as ontimeout] (timers.js:<span class="number">110</span>:<span class="number">15</span>)
 </code></pre><p>因为代码执行路径被打断了，我们就需要在异常冒泡到断点之前用<code>try</code>语句把异常捕获住，并通过回调函数传递被捕获的异常。于是我们可以像下边这样改造上边的例子。</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">async</span><span class="params">(fn, callback)</span> </span>{
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">async</span>(<span class="params">fn, callback</span>) </span>{
     <span class="comment">// Code execution path breaks here.</span>
-    setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span>　</span>{
+    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>)　</span>{
         <span class="keyword">try</span> {
-            <span class="keyword">callback</span>(<span class="literal">null</span>, fn());
+            callback(<span class="literal">null</span>, fn());
         } <span class="keyword">catch</span> (err) {
-            <span class="keyword">callback</span>(err);
+            callback(err);
         }
     }, <span class="number">0</span>);
 }
 
-async(<span class="literal">null</span>, <span class="function"><span class="keyword">function</span> <span class="params">(err, data)</span> </span>{
+<span class="keyword">async</span>(<span class="literal">null</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err, data</span>) </span>{
     <span class="keyword">if</span> (err) {
-        console.log(<span class="string">'Error: %s'</span>, err.message);
+        <span class="built_in">console</span>.log(<span class="string">'Error: %s'</span>, err.message);
     } <span class="keyword">else</span> {
         <span class="comment">// Do something.</span>
     }
 });
 
 -- Console ------------------------------
-Error: object is not a <span class="function"><span class="keyword">function</span></span>
+<span class="built_in">Error</span>: object is not a <span class="function"><span class="keyword">function</span></span>
 </code></pre><p>可以看到，异常再次被捕获住了。在NodeJS中，几乎所有异步API都按照以上方式设计，回调函数中第一个参数都是<code>err</code>。因此我们在编写自己的异步函数时，也可以按照这种方式来处理异常，与NodeJS的设计风格保持一致。</p>
 <p>有了异常处理方式后，我们接着可以想一想一般我们是怎么写代码的。基本上，我们的代码都是做一些事情，然后调用一个函数，然后再做一些事情，然后再调用一个函数，如此循环。如果我们写的是同步代码，只需要在代码入口点写一个<code>try</code>语句就能捕获所有冒泡上来的异常，示例如下。</p>
 <pre><code><span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">()</span> </span>{
@@ -295,11 +296,11 @@ main(<span class="function"><span class="keyword">function</span> <span class="p
 <p>   <strong>官方文档： </strong> <a href="http://nodejs.org/api/domain.html" target="_blank" rel="external">http://nodejs.org/api/domain.html</a></p>
 </blockquote>
 <p>NodeJS提供了<code>domain</code>模块，可以简化异步代码的异常处理。在介绍该模块之前，我们需要首先理解“域”的概念。简单的讲，一个域就是一个JS运行环境，在一个运行环境中，如果一个异常没有被捕获，将作为一个全局异常被抛出。NodeJS通过<code>process</code>对象提供了捕获全局异常的方法，示例代码如下</p>
-<pre><code>process.on(<span class="string">'uncaughtException'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(err)</span> </span>{
+<pre><code>process.on(<span class="string">'uncaughtException'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>{
     <span class="built_in">console</span>.log(<span class="string">'Error: %s'</span>, err.message);
 });
 
-setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">(fn)</span> </span>{
+setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params">fn</span>) </span>{
     fn();
 });
 

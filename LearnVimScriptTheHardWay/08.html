@@ -11,6 +11,7 @@
 <meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/08.html">
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="Vim has a feature called “abbreviations” that feel similar to mappings but are meant for use in insert, replace, and command modes.  They’re extremely flexible and powerful, but we’re just going to co">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Abbreviations">
 <meta name="twitter:description" content="Vim has a feature called “abbreviations” that feel similar to mappings but are meant for use in insert, replace, and command modes.  They’re extremely flexible and powerful, but we’re just going to co">
@@ -75,12 +76,12 @@
 <p>We’re only going to worry about insert mode abbreviations in this book. Run the following command:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:iabbrev adn and</span><br></pre></td></tr></table></figure>
 <p>Now enter insert mode and type:</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">One</span> adn <span class="keyword">two</span>.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">One adn two.</span><br></pre></td></tr></table></figure>
 <p>As soon as you hit space after typing the <code>adn</code> Vim will replace it with <code>and</code>.</p>
 <p>Correcting typos like this is a great use for abbreviations.  Run these commands:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:iabbrev waht what</span><br><span class="line"></span><br><span class="line">:iabbrev tehn then</span><br></pre></td></tr></table></figure>
 <p>Now enter insert mode again and type:</p>
-<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Well</span>, <span class="type">I</span> don't know waht we should <span class="keyword">do</span> tehn.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Well, I don&#39;t know waht we should do tehn.</span><br></pre></td></tr></table></figure>
 <p>Notice how <em>both</em> abbreviations were substituted, even though you didn’t type a space after the second one.</p>
 <h2 id="Keyword_Characters">Keyword Characters</h2><p>Vim will substitute an abbreviation when you type any “non-keyword character” after an abbreviation.  “Non-keyword character” means any character not in the <code>iskeyword</code> option.  Run this command:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set iskeyword?</span><br></pre></td></tr></table></figure>
@@ -99,8 +100,8 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:inoremap ssig -- &lt;cr&gt;Steve Losh&lt;cr&gt;steve@stevelosh.com</span><br></pre></td></tr></table></figure>
 <p>This is a <em>mapping</em> intended to let you insert your signature quickly.  Try it out by entering insert mode and typing <code>ssig</code>.</p>
 <p>It seems to work great, but there’s a problem.  Try entering insert mode and typing this text:</p>
-<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">Larry</span> <span class="variable">Lessig</span> wrote the book <span class="string">"Remix"</span>.</span><br></pre></td></tr></table></figure>
-<p>You’ll notice that Vim has expanded the <code>ssig</code> in Larry’s name!  Mappings don’t take into account what characters come before or after the map — they only look at the specific sequence that you mapped to.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Larry Lessig wrote the book &#34;Remix&#34;.</span><br></pre></td></tr></table></figure>
+<p>You’ll notice that Vim has expanded the <code>ssig</code> in Larry’s name!  Mappings don’t take into account what characters come before or after the map – they only look at the specific sequence that you mapped to.</p>
 <p>Remove the mapping and replace it with an abbreviation by running the following commands:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:iunmap ssig</span><br><span class="line"></span><br><span class="line">:iabbrev ssig -- &lt;cr&gt;Steve Losh&lt;cr&gt;steve@stevelosh.com</span><br></pre></td></tr></table></figure>
 <p>Now try out the abbreviation again.</p>

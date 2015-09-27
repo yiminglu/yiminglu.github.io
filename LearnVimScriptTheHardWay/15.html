@@ -13,6 +13,7 @@ An operator is">
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="In this chapter we’re going to explore one more rabbit hole in Vim’s mapping system: “operator-pending mappings”.  Let’s step back for a second and make sure we’re clear on vocabulary.
 An operator is">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Operator-Pending Mappings">
 <meta name="twitter:description" content="In this chapter we’re going to explore one more rabbit hole in Vim’s mapping system: “operator-pending mappings”.  Let’s step back for a second and make sure we’re clear on vocabulary.
@@ -77,15 +78,15 @@ An operator is">
         <p>In this chapter we’re going to explore one more rabbit hole in Vim’s mapping system: “operator-pending mappings”.  Let’s step back for a second and make sure we’re clear on vocabulary.</p>
 <p>An operator is a command that waits for you to enter a movement command, and then does something on the text between where you currently are and where the movement would take you.</p>
 <p>Some examples of operators are <code>d</code>, <code>y</code>, and <code>c</code>.  For example:</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Keys   Operator   Movement</span><br><span class="line"></span><br><span class="line"><span class="comment">----   --------   -------------</span></span><br><span class="line"></span><br><span class="line">dw     Delete     <span class="built_in">to</span> next <span class="built_in">word</span></span><br><span class="line"></span><br><span class="line">ci(    Change     inside parens</span><br><span class="line"></span><br><span class="line">yt,    Yank       <span class="keyword">until</span> <span class="constant">comma</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Keys   Operator   Movement&#10;&#10;----   --------   -------------&#10;&#10;dw     Delete     to next word&#10;&#10;ci(    Change     inside parens&#10;&#10;yt,    Yank       until comma</span><br></pre></td></tr></table></figure>
 <h2 id="Movement_Mappings">Movement Mappings</h2><p>Vim lets you create new movements that work with all existing commands.  Run the following command:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:onoremap p i(</span><br></pre></td></tr></table></figure>
 <p>Now type the following text into a buffer:</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> person.get_pets(<span class="class"><span class="keyword">type</span></span>=<span class="string">"cat"</span>, fluffy_only=True)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return person.get_pets(type=&#34;cat&#34;, fluffy_only=True)</span><br></pre></td></tr></table></figure>
 <p>Put your cursor on the word “cat” and type <code>dp</code>.  What happened?  Vim deleted all the text inside the parentheses.  You can think of this new movement as “parameters”.</p>
 <p>The <code>onoremap</code> command tells Vim that when it’s waiting for a movement to give to an operator and it sees <code>p</code>, it should treat it like <code>i(</code>.  When we ran <code>dp</code> it was like saying “delete parameters”, which Vim translates to “delete inside parentheses”.</p>
 <p>We can use this new mapping immediately with all operators.  Type the same text as before into the buffer (or simply undo the change):</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> person.get_pets(<span class="class"><span class="keyword">type</span></span>=<span class="string">"cat"</span>, fluffy_only=True)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return person.get_pets(type=&#34;cat&#34;, fluffy_only=True)</span><br></pre></td></tr></table></figure>
 <p>Put your cursor on the word “cat” and type <code>cp</code>.  What happened?  Vim deleted all the text inside the parentheses, but this time it left you in insert mode because you used “change” instead of “delete”.</p>
 <p>Let’s try another example.  Run the following command:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:onoremap b /return&lt;cr&gt;</span><br></pre></td></tr></table></figure>
@@ -107,7 +108,7 @@ An operator is">
 <p>Let’s make a companion “inside last parentheses” (“previous” would be a better word, but it would shadow the “paragraph” movement).  Run the following command:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:onoremap il( :&lt;c-u&gt;normal! F)vi(&lt;cr&gt;</span><br></pre></td></tr></table></figure>
 <p>Try it out on some text of your own to make sure it works.</p>
-<p>So how do these mappings work?  First, the <code>&lt;c-u&gt;</code> is something special that you can ignore for now — just trust me that it needs to be there to make the mappings work in all cases.  If we remove that we’re left with:</p>
+<p>So how do these mappings work?  First, the <code>&lt;c-u&gt;</code> is something special that you can ignore for now – just trust me that it needs to be there to make the mappings work in all cases.  If we remove that we’re left with:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:normal! F)vi(&lt;cr&gt;</span><br></pre></td></tr></table></figure>
 <p><code>:normal!</code> is something we’ll talk about in a later chapter, but for now it’s enough to know that it is a command used to simulate pressing keys in normal mode.  For example, running <code>:normal! dddd</code> will delete two lines, just like pressing <code>dddd</code>.  The <code>&lt;cr&gt;</code> at the end of the mapping is what executes the <code>:normal!</code> command.</p>
 <p>So now we know that the mapping is essentially just running the last block of keys:</p>

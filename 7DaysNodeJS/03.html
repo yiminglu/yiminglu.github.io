@@ -13,6 +13,7 @@
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="让前端觉得如获神器的不是NodeJS能做网络编程，而是NodeJS能够操作文件。小至文件查找，大至代码编译，几乎没有一个前端工具不操作文件。换个角度讲，几乎也只需要一些数据处理逻辑，再加上一些文件操作，就能够编写出大多数前端工具。本章将介绍与之相关的NodeJS内置模块。
 开门红NodeJS提供了基本的文件操作API，但是像文件拷贝这种高级功能就没有提供，因此我们先拿文件拷贝程序练手。与copy命">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文件操作">
 <meta name="twitter:description" content="让前端觉得如获神器的不是NodeJS能做网络编程，而是NodeJS能够操作文件。小至文件查找，大至代码编译，几乎没有一个前端工具不操作文件。换个角度讲，几乎也只需要一些数据处理逻辑，再加上一些文件操作，就能够编写出大多数前端工具。本章将介绍与之相关的NodeJS内置模块。
@@ -79,11 +80,11 @@
 <h4 id="小文件拷贝">小文件拷贝</h4><p>我们使用NodeJS内置的<code>fs</code>模块简单实现这个程序如下。</p>
 <pre><code><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);
 
-<span class="function"><span class="keyword">function</span> <span class="title">copy</span><span class="params">(src, dst)</span> </span>{
+<span class="function"><span class="keyword">function</span> <span class="title">copy</span>(<span class="params">src, dst</span>) </span>{
     fs.writeFileSync(dst, fs.readFileSync(src));
 }
 
-<span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">(argv)</span> </span>{
+<span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params">argv</span>) </span>{
     copy(argv[<span class="number">0</span>], argv[<span class="number">1</span>]);
 }
 
@@ -95,11 +96,11 @@ main(process.argv.slice(<span class="number">2</span>));
 <h4 id="大文件拷贝">大文件拷贝</h4><p>上边的程序拷贝一些小文件没啥问题，但这种一次性把所有文件内容都读取到内存中后再一次性写入磁盘的方式不适合拷贝大文件，内存会爆仓。对于大文件，我们只能读一点写一点，直到完成拷贝。因此上边的程序需要改造如下。</p>
 <pre><code><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);
 
-<span class="function"><span class="keyword">function</span> <span class="title">copy</span><span class="params">(src, dst)</span> </span>{
+<span class="function"><span class="keyword">function</span> <span class="title">copy</span>(<span class="params">src, dst</span>) </span>{
     fs.createReadStream(src).pipe(fs.createWriteStream(dst));
 }
 
-<span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">(argv)</span> </span>{
+<span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params">argv</span>) </span>{
     copy(argv[<span class="number">0</span>], argv[<span class="number">1</span>]);
 }
 
@@ -110,15 +111,15 @@ main(process.argv.slice(<span class="number">2</span>));
 <p>   <strong>官方文档： </strong> <a href="http://nodejs.org/api/buffer.html" target="_blank" rel="external">http://nodejs.org/api/buffer.html</a></p>
 </blockquote>
 <p>JS语言自身只有字符串数据类型，没有二进制数据类型，因此NodeJS提供了一个与<code>String</code>对等的全局构造函数<code>Buffer</code>来提供对二进制数据的操作。除了可以读取文件得到<code>Buffer</code>的实例外，还能够直接构造，例如：</p>
-<pre><code>var bin = new Buffer([ <span class="number">0x68</span>, <span class="number">0x65</span>, <span class="number">0x6c</span>, <span class="number">0x6c</span>, <span class="number">0x6f</span> ])<span class="comment">;</span>
+<pre><code>var bin = <span class="keyword">new</span> Buffer([ <span class="number">0x68</span>, <span class="number">0x65</span>, <span class="number">0x6c</span>, <span class="number">0x6c</span>, <span class="number">0x6f</span> ]);
 </code></pre><p><code>Buffer</code>与字符串类似，除了可以用<code>.length</code>属性得到字节长度外，还可以用<code>[index]</code>方式读取指定位置的字节，例如：</p>
-<pre><code>bin<span class="attr_selector">[0]</span>; <span class="comment">// =&gt; 0x68;</span>
+<pre><code>bin[<span class="number">0</span>]; <span class="comment">// =&gt; 0x68;</span>
 </code></pre><p><code>Buffer</code>与字符串能够互相转化，例如可以使用指定编码将二进制数据转化为字符串：</p>
 <pre><code><span class="keyword">var</span> str = bin.toString(<span class="string">'utf-8'</span>); <span class="comment">// =&gt; "hello"</span>
 </code></pre><p>或者反过来，将字符串转换为指定编码下的二进制数据：</p>
 <pre><code><span class="keyword">var</span> bin = <span class="keyword">new</span> Buffer(<span class="string">'hello'</span>, <span class="string">'utf-8'</span>); <span class="comment">// =&gt; &lt;Buffer 68 65 6c 6c 6f&gt;</span>
 </code></pre><p><code>Buffer</code>与字符串有一个重要区别。字符串是只读的，并且对字符串的任何修改得到的都是一个新字符串，原字符串保持不变。至于<code>Buffer</code>，更像是可以做指针操作的C语言数组。例如，可以用<code>[index]</code>方式直接修改某个位置的字节。</p>
-<pre><code><span class="attribute">bin[0] </span>=<span class="string"> 0x48;</span>
+<pre><code>bin[<span class="number">0</span>] = <span class="number">0x48</span>;
 </code></pre><p>而<code>.slice</code>方法也不是返回一个新的<code>Buffer</code>，而更像是返回了指向原<code>Buffer</code>中间的某个位置的指针，如下所示。</p>
 <pre><code>[ <span class="number">0x68</span>, <span class="number">0x65</span>, <span class="number">0x6c</span>, <span class="number">0x6c</span>, <span class="number">0x6f</span> ]
     ^           ^
@@ -131,13 +132,13 @@ var <span class="sub"><span class="keyword">sub</span> = bin.slice(2);</span>
 <span class="sub"><span class="keyword">sub</span>[0] = 0x65;</span>
 console.<span class="keyword">log</span>(bin); <span class="regexp">//</span> =&gt; &lt;Buffer <span class="number">68</span> <span class="number">65</span> <span class="number">65</span> <span class="number">6</span>c <span class="number">6</span>f&gt;
 </code></pre><p>也因此，如果想要拷贝一份<code>Buffer</code>，得首先创建一个新的<code>Buffer</code>，并通过<code>.copy</code>方法把原<code>Buffer</code>中的数据复制过去。这个类似于申请一块新的内存，并把已有内存中的数据复制过去。以下是一个例子。</p>
-<pre><code><span class="keyword">var</span> bin = <span class="keyword">new</span> Buffer([ <span class="number">0x68</span>, <span class="number">0x65</span>, <span class="number">0x6c</span>, <span class="number">0x6c</span>, <span class="number">0x6f</span> ]);
-<span class="keyword">var</span> dup = <span class="keyword">new</span> Buffer(bin.length);
+<pre><code>var bin = <span class="keyword">new</span> Buffer([ <span class="number">0x68</span>, <span class="number">0x65</span>, <span class="number">0x6c</span>, <span class="number">0x6c</span>, <span class="number">0x6f</span> ]);
+var dup = <span class="keyword">new</span> Buffer(bin.length);
 
 bin.copy(dup);
 dup[<span class="number">0</span>] = <span class="number">0x48</span>;
-<span class="built_in">console</span>.log(bin); <span class="comment">// =&gt; &lt;Buffer 68 65 6c 6c 6f&gt;</span>
-<span class="built_in">console</span>.log(dup); <span class="comment">// =&gt; &lt;Buffer 48 65 65 6c 6f&gt;</span>
+console.<span class="built_in">log</span>(bin); <span class="comment">// =&gt; &lt;Buffer 68 65 6c 6c 6f&gt;</span>
+console.<span class="built_in">log</span>(dup); <span class="comment">// =&gt; &lt;Buffer 48 65 65 6c 6f&gt;</span>
 </code></pre><p>总之，<code>Buffer</code>将JS的数据处理能力从字符串扩展到了任意二进制数据。</p>
 <h4 id="Stream（数据流）">Stream（数据流）</h4><blockquote>
 <p>   <strong>官方文档： </strong> <a href="http://nodejs.org/api/stream.html" target="_blank" rel="external">http://nodejs.org/api/stream.html</a></p>
@@ -263,11 +264,11 @@ console.log(cache);  <span class="comment">// =&gt; { "foo/bar": 2 }</span>
 <p><code>path</code>模块提供的其余方法也不多，稍微看一下官方文档就能全部掌握。</p>
 <h3 id="遍历目录">遍历目录</h3><p>遍历目录是操作文件时的一个常见需求。比如写一个程序，需要找到并处理指定目录下的所有JS文件时，就需要遍历整个目录。</p>
 <h4 id="递归算法">递归算法</h4><p>遍历目录时一般使用递归算法，否则就难以编写出简洁的代码。递归算法与数学归纳法类似，通过不断缩小问题的规模来解决问题。以下示例说明了这种方法。</p>
-<pre><code>function factorial(<span class="keyword">n</span>) {
-    <span class="keyword">if</span> (<span class="keyword">n</span> === 1) {
-        <span class="keyword">return</span> 1;
+<pre><code><span class="function">function <span class="title">factorial</span><span class="params">(n)</span> </span>{
+    <span class="keyword">if</span> (n === <span class="number">1</span>) {
+        <span class="keyword">return</span> <span class="number">1</span>;
     } <span class="keyword">else</span> {
-        <span class="keyword">return</span> <span class="keyword">n</span> * factorial(<span class="keyword">n</span> - 1);
+        <span class="keyword">return</span> <span class="function">n * <span class="title">factorial</span><span class="params">(n - <span class="number">1</span>)</span></span>;
     }
 }
 </code></pre><p>上边的函数用于计算N的阶乘（N!）。可以看到，当N大于1时，问题简化为计算N乘以N-1的阶乘。当N等于1时，问题达到最小规模，不需要再简化，因此直接返回1。</p>
@@ -300,14 +301,14 @@ D   E   F
 </span>        y.js
     z.css
 </code></pre><p>使用以下代码遍历该目录时，得到的输入如下。</p>
-<pre><code>travel(<span class="string">'/home/user'</span>, function <span class="keyword">(pathname) {</span>
+<pre><code>travel(<span class="string">'/home/user'</span>, function (pathname) {
     console.log(pathname);
-<span class="keyword">}</span>);
+});
 
 ------------------------
-/<span class="literal">home</span>/<span class="keyword">user</span>/foo/x.js
-/<span class="literal">home</span>/<span class="keyword">user</span>/bar/y.js
-/<span class="literal">home</span>/<span class="keyword">user</span>/z.css
+<span class="regexp">/home/u</span>ser<span class="regexp">/foo/</span>x.js
+<span class="regexp">/home/u</span>ser<span class="regexp">/bar/y</span>.js
+<span class="regexp">/home/u</span>ser<span class="regexp">/z.css</span>
 </code></pre><h4 id="异步遍历">异步遍历</h4><p>如果读取目录或读取文件状态时使用的是异步API，目录遍历函数实现起来会有些复杂，但原理完全相同。<code>travel</code>函数的异步版本如下。</p>
 <pre><code><span class="function"><span class="keyword">function</span> <span class="title">travel</span><span class="params">(dir, callback, finish)</span> </span>{
     fs.readdir(dir, <span class="function"><span class="keyword">function</span> <span class="params">(err, files)</span> </span>{
@@ -341,19 +342,19 @@ D   E   F
 <span class="code">    FF FE       UTF16LE</span>
 <span class="code">    EF BB BF    UTF8</span>
 </code></pre><p>因此，我们可以根据文本文件头几个字节等于啥来判断文件是否包含BOM，以及使用哪种Unicode编码。但是，BOM字符虽然起到了标记文件编码的作用，其本身却不属于文件内容的一部分，如果读取文本文件时不去掉BOM，在某些使用场景下就会有问题。例如我们把几个JS文件合并成一个文件后，如果文件中间含有BOM字符，就会导致浏览器JS语法错误。因此，使用NodeJS读取文本文件时，一般需要去掉BOM。例如，以下代码实现了识别和去除UTF8 BOM的功能。</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">readText</span><span class="params">(pathname)</span> </span>{
-    <span class="keyword">var</span> bin = fs.readFileSync(pathname);
+<pre><code><span class="label">function</span> readText(pathname) {
+    var <span class="keyword">bin </span>= fs.readFileSync(pathname)<span class="comment">;</span>
 
-    <span class="keyword">if</span> (bin[<span class="number">0</span>] === <span class="number">0xEF</span> &amp;&amp; bin[<span class="number">1</span>] === <span class="number">0xBB</span> &amp;&amp; bin[<span class="number">2</span>] === <span class="number">0xBF</span>) {
-        bin = bin.slice(<span class="number">3</span>);
-    }
+    <span class="preprocessor">if</span> (<span class="keyword">bin[0] </span>=== <span class="number">0xEF</span> &amp;&amp; <span class="keyword">bin[1] </span>=== <span class="number">0xBB</span> &amp;&amp; <span class="keyword">bin[2] </span>=== <span class="number">0xBF</span>) {
+        <span class="keyword">bin </span>= <span class="keyword">bin.slice(3);
+</span>    }
 
-    <span class="keyword">return</span> bin.toString(<span class="string">'utf-8'</span>);
-}
+    return <span class="keyword">bin.toString('utf-8');
+</span>}
 </code></pre><h4 id="GBK转UTF8">GBK转UTF8</h4><p>NodeJS支持在读取文本文件时，或者在<code>Buffer</code>转换为字符串时指定文本编码，但遗憾的是，GBK编码不在NodeJS自身支持范围内。因此，一般我们借助<code>iconv-lite</code>这个三方包来转换编码。使用NPM下载该包后，我们可以按下边方式编写一个读取GBK文本文件的函数。</p>
 <pre><code><span class="keyword">var</span> iconv = <span class="built_in">require</span>(<span class="string">'iconv-lite'</span>);
 
-<span class="function"><span class="keyword">function</span> <span class="title">readGBKText</span><span class="params">(pathname)</span> </span>{
+<span class="function"><span class="keyword">function</span> <span class="title">readGBKText</span>(<span class="params">pathname</span>) </span>{
     <span class="keyword">var</span> bin = fs.readFileSync(pathname);
 
     <span class="keyword">return</span> iconv.decode(bin, <span class="string">'gbk'</span>);

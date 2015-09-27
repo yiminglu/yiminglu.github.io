@@ -11,6 +11,7 @@
 <meta property="og:url" content="http://seasonsroad.com/RouteBeyondVPN/index.html">
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="Nowadays, I’m working in a corp environment. BTW, we have a wired VPN network to somewhere outside the GFW. And we also have a wireless network inside the GFW, witch means we can go to some websites m">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Route Beyond VPN">
 <meta name="twitter:description" content="Nowadays, I’m working in a corp environment. BTW, we have a wired VPN network to somewhere outside the GFW. And we also have a wireless network inside the GFW, witch means we can go to some websites m">
@@ -86,7 +87,7 @@
 <h2 id="Get_the_connected_Gateways-">Get the connected Gateways.</h2><p>In MacOS, there’s a bash command to get all the conneted Gateways(the script we downloaded has this command):</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -nr | grep <span class="string">'^default'</span> | grep -v <span class="string">'ppp'</span> | sed <span class="string">'s/default *\([0-9\.]*\) .*/\1/'</span></span><br></pre></td></tr></table></figure>
 <p>Through this command, we get all the gateways except the ppp ones, and you should be able to find which gateway is for a certain network.<br>So we get these gateways:</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">wired</span> network:    <span class="number">10.20.0.1</span></span><br><span class="line">wireless network: <span class="number">10.20.10.1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wired network:    10.20.0.1&#10;wireless network: 10.20.10.1</span><br></pre></td></tr></table></figure>
 <h2 id="Route_all_the_IPs!">Route all the IPs!</h2><p>We are going to modify the scripts we downloaded.</p>
 <p>Modify this line:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OLDGW=`netstat -nr | grep <span class="string">'^default'</span> | grep -v <span class="string">'ppp'</span> | sed <span class="string">'s/default *\([0-9\.]*\) .*/\1/'</span><span class="number">180</span>`</span><br></pre></td></tr></table></figure></p>
 <p>Into:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OLDGW=<span class="variable">$1</span></span><br></pre></td></tr></table></figure></p>

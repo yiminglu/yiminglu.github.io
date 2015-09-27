@@ -13,6 +13,7 @@ So far we’ve used map, nmap, vmap, and imap to create key mappings that will s
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="Get ready, because things are about to get a little wild.
 So far we’ve used map, nmap, vmap, and imap to create key mappings that will save time.  These work, but they have a downside.  Run the follow">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Strict Mapping">
 <meta name="twitter:description" content="Get ready, because things are about to get a little wild.
@@ -108,7 +109,7 @@ So far we’ve used map, nmap, vmap, and imap to create key mappings that will s
 <li><p>Move down a line.</p>
 </li>
 <li><p><code>dd</code> is mapped, so perform the mapping, and so on.</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">This mapping can never finish running!  Go ahead <span class="keyword">and</span> remove <span class="keyword">this</span> terrible thing <span class="reserved">with</span> the following <span class="attribute">command</span>:</span><br><span class="line"></span><br><span class="line">`<span class="javascript"></span>``<span class="javascript"></span>`vim</span><br><span class="line">:nunmap dd</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;This mapping can never finish running!  Go ahead and remove this terrible thing with the following command:&#10;&#10;````vim&#10;:nunmap dd</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="Side_Effects">Side Effects</h2><p>One downside of the <code>*map</code> commands is the danger of recursing.  Another is that their behavior can change if you install a plugin that maps keys they depend on.</p>

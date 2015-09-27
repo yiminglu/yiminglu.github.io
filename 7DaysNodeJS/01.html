@@ -13,6 +13,7 @@
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="什么是NodeJSJS是脚本语言，脚本语言都需要一个解析器才能运行。对于写在HTML页面里的JS，浏览器充当了解析器的角色。而对于需要独立运行的JS，NodeJS就是一个解析器。
 每一种解析器都是一个运行环境，不但允许JS定义各种数据结构，进行各种计算，还允许JS使用运行环境提供的内置对象和方法做一些事情。例如运行在浏览器中的JS的用途是操作DOM，浏览器就提供了document之类的内置对象。而">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NodeJS基础">
 <meta name="twitter:description" content="什么是NodeJSJS是脚本语言，脚本语言都需要一个解析器才能运行。对于写在HTML页面里的JS，浏览器充当了解析器的角色。而对于需要独立运行的JS，NodeJS就是一个解析器。
@@ -97,10 +98,10 @@
 </ol>
 <h3 id="如何运行">如何运行</h3><p>打开终端，键入<code>node</code>进入命令交互模式，可以输入一条代码语句后立即执行并显示结果，例如：</p>
 <pre><code>$ node
-&gt; <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);
+&gt; console.<span class="built_in">log</span>(<span class="string">'Hello World!'</span>)<span class="comment">;</span>
 Hello World!
 </code></pre><p>如果要运行一大段代码的话，可以先写一个JS文件再运行。例如有以下<code>hello.js</code>。</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">hello</span><span class="params">()</span> </span>{
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params"></span>) </span>{
     <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);
 }
 hello();
@@ -123,19 +124,19 @@ $ sudo chmod +s <span class="regexp">/usr/</span>local<span class="regexp">/bin/
 
 <span class="comment">// foo1至foo4中保存的是同一个模块的导出对象。</span>
 </code></pre><p>另外，可以使用以下方式加载和使用一个JSON文件。</p>
-<pre><code><span class="built_in">var</span> <span class="built_in">data</span> <span class="subst">=</span> <span class="keyword">require</span>(<span class="string">'./data.json'</span>);
+<pre><code><span class="built_in">var</span> <span class="built_in">data</span> = <span class="keyword">require</span>(<span class="string">'./data.json'</span>);
 </code></pre><h4 id="exports">exports</h4><p><code>exports</code>对象是当前模块的导出对象，用于导出模块公有方法和属性。别的模块通过<code>require</code>函数使用当前模块时得到的就是当前模块的<code>exports</code>对象。以下例子中导出了一个公有方法。</p>
-<pre><code>exports.hello = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+<pre><code>exports.hello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
     <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);
 };
 </code></pre><h4 id="module">module</h4><p>通过<code>module</code>对象可以访问到当前模块的一些相关信息，但最多的用途是替换当前模块的导出对象。例如模块导出对象默认是一个普通对象，如果想改成一个函数的话，可以使用以下方式。</p>
-<pre><code><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+<pre><code><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
     <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);
 };
 </code></pre><p>以上代码中，模块默认导出对象被替换为一个函数。</p>
 <h4 id="模块初始化">模块初始化</h4><p>一个模块中的JS代码仅在模块第一次被使用时执行一次，并在执行过程中初始化模块的导出对象。之后，缓存起来的导出对象被重复利用。</p>
 <h4 id="主模块">主模块</h4><p>通过命令行参数传递给NodeJS以启动程序的模块被称为主模块。主模块负责调度组成整个程序的其它模块完成工作。例如通过以下命令启动程序时，<code>main.js</code>就是主模块。</p>
-<pre><code>$ <span class="keyword">node</span> <span class="keyword">main</span>.js
+<pre><code><span class="variable">$ </span>node main.js
 </code></pre><h4 id="完整示例">完整示例</h4><p>例如有以下目录。</p>
 <pre><code>-<span class="ruby"> /home/user/hello/
 </span>    -<span class="ruby"> util/
@@ -151,14 +152,14 @@ $ sudo chmod +s <span class="regexp">/usr/</span>local<span class="regexp">/bin/
 exports.<span class="built_in">count</span> = <span class="built_in">count</span>;
 </code></pre><p>该模块内部定义了一个私有变量<code>i</code>，并在<code>exports</code>对象导出了一个公有方法<code>count</code>。</p>
 <p>主模块<code>main.js</code>内容如下：</p>
-<pre><code><span class="reserved">var</span> counter1 = <span class="built_in">require</span>(<span class="string">'./util/counter'</span>);
-<span class="reserved">var</span>    counter2 = <span class="built_in">require</span>(<span class="string">'./util/counter'</span>);
+<pre><code><span class="keyword">var</span> counter1 = <span class="built_in">require</span>(<span class="string">'./util/counter'</span>);
+<span class="keyword">var</span>    counter2 = <span class="built_in">require</span>(<span class="string">'./util/counter'</span>);
 
 <span class="built_in">console</span>.log(counter1.count());
 <span class="built_in">console</span>.log(counter2.count());
 <span class="built_in">console</span>.log(counter2.count());
 </code></pre><p>运行该程序的结果如下：</p>
-<pre><code>$ <span class="keyword">node</span> <span class="keyword">main</span>.js
+<pre><code>$ node main.js
 <span class="number">1</span>
 <span class="number">2</span>
 <span class="number">3</span>

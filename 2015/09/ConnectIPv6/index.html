@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Connect IPv6 with IPv4 via tunnel | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="With IPv6 you can do a lot of things. This is a how-to article for users who only have IPv4 and want to connect IPv6.
+Prerequisites
+You should have a public address that’s ping reachable.
+
+Steps to co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Connect IPv6 with IPv4 via tunnel">
+<meta property="og:url" content="http://seasonsroad.com/2015/09/ConnectIPv6/index.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="With IPv6 you can do a lot of things. This is a how-to article for users who only have IPv4 and want to connect IPv6.
+Prerequisites
+You should have a public address that’s ping reachable.
+
+Steps to co">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Connect IPv6 with IPv4 via tunnel">
+<meta name="twitter:description" content="With IPv6 you can do a lot of things. This is a how-to article for users who only have IPv4 and want to connect IPv6.
+Prerequisites
+You should have a public address that’s ping reachable.
+
+Steps to co">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="post-ConnectIPv6" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/09/ConnectIPv6/" class="article-date">
+  <p><time datetime="2015-09-27T09:28:00.000Z" itemprop="datePublished">2015/09/27</time></p>
+</a>
+
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>
+  </div>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/2015/09/ConnectIPv6/">
+        Connect IPv6 with IPv4 via tunnel
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>With IPv6 you can do a lot of things. This is a how-to article for users who only have IPv4 and want to connect IPv6.</p>
+<h2 id="Prerequisites">Prerequisites</h2><ul>
+<li>You should have a public address that’s ping reachable.</li>
+</ul>
+<h2 id="Steps_to_connect">Steps to connect</h2><ol>
+<li><p>Register to <a href="http://www.tunnelbroker.net/" target="_blank" rel="external">Tunnel Broker</a> and login this website.</p>
+</li>
+<li><p>Click ‘Create Regular Tunnel’ link inside User Functions panel below Account Menu.</p>
+</li>
+<li><p>Configure your tunnel and create it.</p>
+<ul>
+<li>IPv4 Endpoint is the v4 IP you used to connect Internet. (Remember the IP you use, take it as ‘PUBLIC-IP’.)</li>
+<li>If you’re inside NAT or router, you can try to use Baidu/Google and search IP. Then you’ll know your IP address. Usually, you can use the IP under the input box.</li>
+<li>Make sure your IP is ping reachable. Or Tunnel Broker won’t create any tunnel for you.</li>
+<li>Try to choose a server that’s nearest to you. However, you can just choose one you like if you have no idea which is nearer.</li>
+</ul>
+</li>
+<li><p>Once you create a tunnel, you’ll get the Tunnel Details panel.</p>
+</li>
+<li><p>Connect to the tunnel you created.</p>
+<ul>
+<li>Tunnel Broker helps a lot in connect the tunnel they host with your specific platform.</li>
+<li>In ‘Example Configurations’ tab, you can select your OS.</li>
+<li>Ensure to read all the tips/NOTEs below the configuration. (You may need sudo to run the command)</li>
+<li><strong>IMPORTANT:</strong> If you’re inside an NAT or router, you need to change the ‘PUBLIC-IP’ in the commands to your own inner IP address.</li>
+</ul>
+</li>
+<li><p>After steps above, you’ve created a network interface named <code>gif0</code>.</p>
+<ul>
+<li>You can shut down this tunnel by <code>sudo ifconfig gif0 down</code> or open it with <code>sudo ifconfig gif0 up</code>.</li>
+</ul>
+</li>
+<li><p>Now you have the tunnel. And you still need to update your DNS server to resolve your domain names to IPv6 addresses.</p>
+<ul>
+<li>Use Google IPv4 DNS: 8.8.8.8 (google-public-dns-a.google.com) &amp; 8.8.4.4 (google-public-dns-b.google.com)</li>
+<li>Use Google IPv6 DNS: 2001:4860:4860::8888 &amp; 2001:4860:4860::8844</li>
+<li>Use OpenDNS IPv4: 208.67.222.222 (Resolver1.OpenDNS.com), 208.67.220.220 (Resolver2.OpenDNS.com), 208.67.222.220 (Resolver3.OpenDNS.com) &amp; 208.67.220.222 (Resolver4.OpenDNS.com)</li>
+<li>Use OpenDNS IPv6: 2620:0:ccc::2 &amp; 2620:0:ccd::2</li>
+</ul>
+</li>
+<li><p>You may need to flush your DNS.</p>
+<ul>
+<li>Windows: <code>ipconfig /flushdns</code></li>
+<li>Mac OSX: <code>sudo discoveryutil mdnsflushcache;sudo discoveryutil udnsflushcaches;say flushed</code></li>
+</ul>
+</li>
+<li><p>Test it now!</p>
+<ul>
+<li><a href="http://www.test-ipv6.com/" target="_blank" rel="external">test-ipv6.com</a></li>
+<li><a href="http://ipv6-test.com/" target="_blank" rel="external">ipv6-test.com</a></li>
+<li><a href="https://ipv6.google.com/" target="_blank" rel="external">ipv6.google.com</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="After_all">After all</h2><p>Now you should have the ability to access IPv6. Go surf the Internet with IPv6 then!</p>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IPv6/">IPv6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tunnel/">Tunnel</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/06/10MostCommonJavaScriptMistakes/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older&raquo</strong>
+      <div class="article-nav-title">10 Most Common JavaScript Mistakes</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2015 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://seasonsroad.com/2015/09/ConnectIPv6/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>

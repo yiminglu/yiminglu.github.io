@@ -11,6 +11,7 @@
 <meta property="og:url" content="http://seasonsroad.com/2015/06/SomeGitWays/index.html">
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="Git is a distributed revision control system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds fo">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Some Git Ways">
 <meta name="twitter:description" content="Git is a distributed revision control system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds fo">
@@ -88,12 +89,15 @@
 </blockquote>
 <p>Except <a href="/2015/05/SomeGitBestPractices/">Best Practises</a>, we still have some ways to resolve problems or exceptions from Git.</p>
 <h2 id="fatal:_the_remote_end_hung_up_unexpectedly">fatal: the remote end hung up unexpectedly</h2><p>Accurs when pushing commits, maybe coused by pushing a too large buffer.</p>
-<h4 id="Fix:">Fix:</h4><pre><code>1. Add this into `.git/config`
-<span class="comment"><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[http]</span></span><br><span class="line"><span class="setting">postBuffer = <span class="value"><span class="number">524288000</span></span></span></span><br></pre></td></tr></table></figure></span>
+<h4 id="Fix:">Fix:</h4><ol>
+<li><p>Add this into <code>.git/config</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[http]</span><br><span class="line">postBuffer = <span class="number">524288000</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Run git command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config http.postBuffer <span class="number">524288000</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 
-2. Run git command:
-<span class="comment"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config http.postBuffer <span class="number">524288000</span></span><br></pre></td></tr></table></figure></span>
-</code></pre>
       
     </div>
     

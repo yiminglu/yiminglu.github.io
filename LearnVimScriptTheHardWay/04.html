@@ -11,6 +11,7 @@
 <meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/04.html">
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="In the last chapter we talked about how to map keys in Vim.  We used the map command which made the keys work in normal mode.  If you played around a bit before moving on to this chapter, you may have">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Modal Mapping">
 <meta name="twitter:description" content="In the last chapter we talked about how to map keys in Vim.  We used the map command which made the keys work in normal mode.  If you played around a bit before moving on to this chapter, you may have">
@@ -86,7 +87,7 @@
 <h2 id="Insert_Mode">Insert Mode</h2><p>Now that we’ve covered how to map keys in normal and visual mode, let’s move on to insert mode.  Run this command:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:imap &lt;c-d&gt; dd</span><br></pre></td></tr></table></figure>
 <p>You might think that this would let you press <code>Ctrl+d</code> whenever you’re in insert mode to delete the current line.  This would be handy because you wouldn’t need to go back into normal mode to cut out lines.</p>
-<p>Go ahead and try it.  It won’t work — instead it will just put two <code>d</code>s in your file!  That’s pretty useless.</p>
+<p>Go ahead and try it.  It won’t work – instead it will just put two <code>d</code>s in your file!  That’s pretty useless.</p>
 <p>The problem is that Vim is doing exactly what we told it to.  We said: “when I press <code>&lt;c-d&gt;</code> I want you to do what pressing <code>d</code> and <code>d</code> would normally do”. Well, normally when you’re in insert mode and press the <code>d</code> key twice, you get two <code>d</code>s in a row!</p>
 <p>To make this mapping do what we intended we need to be very explicit.  Run this command to change the mapping:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:imap &lt;c-d&gt; &lt;esc&gt;dd</span><br></pre></td></tr></table></figure>

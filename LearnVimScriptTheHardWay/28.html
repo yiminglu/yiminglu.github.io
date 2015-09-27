@@ -11,6 +11,7 @@
 <meta property="og:url" content="http://seasonsroad.com/LearnVimScriptTheHardWay/28.html">
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="The execute command is used to evaluate a string as if it were a Vimscript command.  We saw it in an earlier chapter, but now that we know a bit more about Vimscript Strings we’re going to take anothe">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Execute">
 <meta name="twitter:description" content="The execute command is used to evaluate a string as if it were a Vimscript command.  We saw it in an earlier chapter, but now that we know a bit more about Vimscript Strings we’re going to take anothe">
@@ -84,7 +85,7 @@
 <h2 id="Is_Execute_Dangerous?">Is Execute Dangerous?</h2><p>In most programming languages the use of such an “eval” construct to evaluate strings as program code is frowned upon (to put it lightly).  Vimscript’s <code>execute</code> command doesn’t have the same stigma for two reasons.</p>
 <p>First, most Vimscript code only ever takes input from a single person: the user. If the user wants to input a tricky string that will cause an <code>execute</code> command to do something bad, well, it’s their computer!  Contrast this with other languages, where programs constantly take input from untrusted users.  Vim is a unique environment where the normal security concerns simply aren’t common.</p>
 <p>The second reason is that because Vimscript has sometimes arcane and tricky syntax, <code>execute</code> is often the easiest, most straightforward way to get something done.  In most other languages using an “eval” construct won’t usually save you much typing, but in Vimscript it can collapse many lines into a single one.</p>
-<h2 id="Exercises">Exercises</h2><p>Skim <code>:help execute</code> to get an idea of some of the things you can and can’t use <code>execute</code> for.  Don’t dive too deeply yet — we’re going to revisit it very soon.</p>
+<h2 id="Exercises">Exercises</h2><p>Skim <code>:help execute</code> to get an idea of some of the things you can and can’t use <code>execute</code> for.  Don’t dive too deeply yet – we’re going to revisit it very soon.</p>
 <p>Read <code>:help leftabove</code>, <code>:help rightbelow</code>, <code>:help :split</code>, and <code>:help :vsplit</code> (notice the extra colon in the last two topics).</p>
 <p>Add a mapping to your <code>~/.vimrc</code> file that opens the previous buffer in a split of your choosing (vertical/horizontal, above/below/left/right).</p>
 <p><a href="27.html">« Previous</a><a style="float:right" href="29.html">Next »</a></p>

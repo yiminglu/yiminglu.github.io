@@ -11,6 +11,7 @@
 <meta property="og:url" content="http://seasonsroad.com/2015/05/SomeGitBestPractices/index.html">
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="Git is a distributed revision control system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds fo">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Some Git Best Practices">
 <meta name="twitter:description" content="Git is a distributed revision control system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds fo">
@@ -110,7 +111,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push &lt;host&gt; &lt;<span class="built_in">local</span>-branch&gt;:&lt;remote-branch&gt;</span><br></pre></td></tr></table></figure>
 <p>If we don’t specify the <code>&lt;local-branch&gt;</code>, we just push an empty branch to remote, just like removing remote branch commits, which means <code>git push &lt;host&gt; :&lt;remote-branch&gt;</code> equals to <code>git push &lt;host&gt; --delete &lt;remote-branch&gt;</code>.</p>
 <p>If we don’t specify the <code>&lt;remote-branch&gt;</code>, we will push <code>&lt;local-branch&gt;</code> to the matching branch of it.</p>
-<p>If we don’t specify any branch, we will push all the branches to the matching branches of them on <code>&lt;host&gt;</code>. Just like this command without —all.</p>
+<p>If we don’t specify any branch, we will push all the branches to the matching branches of them on <code>&lt;host&gt;</code>. Just like this command without –all.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push [--all] &lt;host&gt;</span><br></pre></td></tr></table></figure>
 <p>If we use <code>--all</code>, we could push all the branches. If some of them don’t have the matching branches on <code>&lt;host&gt;</code> will create them.</p>
 <p>If we want to force push the local changes, usually when we update some commits already pushed, check this <a href="#force-push">best practice</a>.</p>
@@ -142,17 +143,17 @@
 <p>This way comes from the git <a href="http://git-scm.com/docs/git-rebase#_description" target="_blank" rel="external">help man page</a>.</p>
 <blockquote>
 <p>A range of commits could also be removed with rebase. If we have the following situation:</p>
-<p>E—-F—-G—-H—-I—-J  topicA</p>
+<p>E—F—G—H—I—J  topicA</p>
 <p>then the command</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase --onto topicA~<span class="number">5</span> topicA~<span class="number">3</span> topicA</span><br></pre></td></tr></table></figure>
 <p>would result in the removal of commits F and G:</p>
-<p>E’—-H’—-I’—-J’  topicA</p>
+<p>E’—H’—I’—J’  topicA</p>
 </blockquote>
 <p>After you stash this commit, you can cherry-pick it from the test branch to master branch:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git cherry-pick XXXXXX</span><br><span class="line"></span><br><span class="line">$ git branch -D <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
 <p>Get the <code>XXXXXX</code> with <code>git log</code> in test branch.</p>
 <h2 id="Check_in(push)_an_old_commit">Check in(push) an old commit</h2><p>Use <a href="#rebase">rebase</a> to go to this very old commit, use <code>git push</code>, you’ll get this message:</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">fatal:</span> <span class="constant">You</span> are <span class="keyword">not</span> currently on a branch.</span><br><span class="line"><span class="constant">To</span> push the history leading to the current (detached <span class="constant">HEAD</span>)</span><br><span class="line">state now, use</span><br><span class="line"></span><br><span class="line">    git push origin <span class="constant">HEAD</span><span class="symbol">:&lt;name-of-remote-branch&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal: You are not currently on a branch.&#10;To push the history leading to the current (detached HEAD)&#10;state now, use&#10;&#10;    git push origin HEAD:&#60;name-of-remote-branch&#62;</span><br></pre></td></tr></table></figure>
 <p>So you can do this very command to push commits before this base. After that, you go back to continue.</p>
 <h2 id="Force_push_to_update_remote_origin(CRITICAL!)"><a name="force-push">Force push to update remote origin(CRITICAL!)</a></h2><p>This may not be a good practice. But in some critical circumstances, this may be the savior.</p>
 <p>Amend the commits you’ve all ready pushed, and force to push them to replace the repo.</p>

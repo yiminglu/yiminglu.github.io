@@ -15,6 +15,7 @@ You should see the pa">
 <meta property="og:description" content="Vim allows you to customize the text in the status line at the bottom of each window.  This is done through the statusline option.  Run the following command:
 1:set statusline=%f
 You should see the pa">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Status Lines">
 <meta name="twitter:description" content="Vim allows you to customize the text in the status line at the bottom of each window.  This is done through the statusline option.  Run the following command:
@@ -96,11 +97,11 @@ You should see the pa">
 <p>By default the padding spaces are added on the left side of the value.  Run this command:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set statusline=Current:\ %4l\ Total:\ %4L</span><br></pre></td></tr></table></figure>
 <p>Your status line will now look like this:</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Current:</span>   <span class="number">12</span> <span class="string">Total:</span>  <span class="number">223</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Current:   12 Total:  223</span><br></pre></td></tr></table></figure>
 <p>You can use <code>-</code> to place padding on the right instead of the left.  Run this command:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set statusline=Current:\ %-4l\ Total:\ %-4L</span><br></pre></td></tr></table></figure>
 <p>Your status line will now look like this:</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Current:</span> <span class="number">12</span>   <span class="string">Total:</span> <span class="number">223</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Current: 12   Total: 223</span><br></pre></td></tr></table></figure>
 <p>This looks much nicer because the numbers are next to their labels.</p>
 <p>For codes that result in a number you can tell Vim to pad with zeros instead of spaces.  Run the following command:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set statusline=%04l</span><br></pre></td></tr></table></figure>
@@ -110,10 +111,10 @@ You should see the pa">
 <p><code>%F</code> displays the <em>full</em> path to the current file.  Now run this command to change the maximum width:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:set statusline=%.20F</span><br></pre></td></tr></table></figure>
 <p>The path will be truncated if necessary, looking something like this:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;hapters/17.markdown</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;hapters/17.markdown</span><br></pre></td></tr></table></figure>
 <p>This can be useful for preventing paths and other long codes from taking up the entire line.</p>
 <h2 id="General_Format">General Format</h2><p>The general format for a code in a status line is shown in <code>:help statusline</code>:</p>
-<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%-<span class="number">0</span><span class="list">&#123;minwid&#125;</span>.<span class="list">&#123;maxwid&#125;</span><span class="list">&#123;item&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%-0&#123;minwid&#125;.&#123;maxwid&#125;&#123;item&#125;</span><br></pre></td></tr></table></figure>
 <p>Everything except the <code>%</code> and the item is optional.</p>
 <h2 id="Splitting">Splitting</h2><p>We’re not going to cover status lines in too much detail here (Vim’s own documentation on them is very extensive if you want to learn more), but there’s one more simple code that can be very useful immediately.  Run the following commands:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">:set statusline=%f         " Path to the file</span><br><span class="line"></span><br><span class="line">:set statusline+=%=        " Switch to the right side</span><br><span class="line"></span><br><span class="line">:set statusline+=%l        " Current line</span><br><span class="line"></span><br><span class="line">:set statusline+=/         " Separator</span><br><span class="line"></span><br><span class="line">:set statusline+=%L        " Total lines</span><br></pre></td></tr></table></figure>

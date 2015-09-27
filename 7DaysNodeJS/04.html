@@ -13,6 +13,7 @@
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="不了解网络编程的程序员不是好前端，而NodeJS恰好提供了一扇了解网络编程的窗口。通过NodeJS，除了可以编写一些服务端程序来协助前端开发和测试外，还能够学习一些HTTP协议与Socket协议的相关知识，这些知识在优化前端性能和排查前端故障时说不定能派上用场。本章将介绍与之相关的NodeJS内置模块。
 开门红NodeJS本来的用途是编写高性能Web服务器。我们首先在这里重复一下官方文档里的例子，">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络操作">
 <meta name="twitter:description" content="不了解网络编程的程序员不是好前端，而NodeJS恰好提供了一扇了解网络编程的窗口。通过NodeJS，除了可以编写一些服务端程序来协助前端开发和测试外，还能够学习一些HTTP协议与Socket协议的相关知识，这些知识在优化前端性能和排查前端故障时说不定能派上用场。本章将介绍与之相关的NodeJS内置模块。
@@ -78,7 +79,7 @@
 <h3 id="开门红">开门红</h3><p>NodeJS本来的用途是编写高性能Web服务器。我们首先在这里重复一下官方文档里的例子，使用NodeJS内置的<code>http</code>模块简单实现一个HTTP服务器。</p>
 <pre><code><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);
 
-http.createServer(<span class="function"><span class="keyword">function</span> <span class="params">(request, response)</span> </span>{
+http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">request, response</span>) </span>{
     response.writeHead(<span class="number">200</span>, { <span class="string">'Content-Type'</span>: <span class="string">'text-plain'</span> });
     response.end(<span class="string">'Hello World\n'</span>);
 }).listen(<span class="number">8124</span>);
@@ -108,17 +109,17 @@ http.createServer(<span class="function"><span class="keyword">function</span> <
 
 <span class="nginx"><span class="title">Hello</span> World</span>
 </code></pre><p>可以看到，空行之上是请求头，之下是请求体。HTTP请求在发送给服务器时，可以认为是按照从头到尾的顺序一个字节一个字节地以数据流方式发送的。而<code>http</code>模块创建的HTTP服务器在接收到完整的请求头后，就会调用回调函数。在回调函数中，除了可以使用<code>request</code>对象访问请求头数据外，还能把<code>request</code>对象当作一个只读数据流来访问请求体数据。以下是一个例子。</p>
-<pre><code>http.createServer(<span class="function"><span class="keyword">function</span> <span class="params">(request, response)</span> </span>{
+<pre><code>http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">request, response</span>) </span>{
     <span class="keyword">var</span> body = [];
 
     <span class="built_in">console</span>.log(request.method);
     <span class="built_in">console</span>.log(request.headers);
 
-    request.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(chunk)</span> </span>{
+    request.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">chunk</span>) </span>{
         body.push(chunk);
     });
 
-    request.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+    request.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
         body = Buffer.concat(body);
         <span class="built_in">console</span>.log(body.toString());
     });
@@ -170,17 +171,17 @@ request.end();
 </code></pre><p>可以看到，<code>.request</code>方法创建了一个客户端，并指定请求目标和请求头数据。之后，就可以把<code>request</code>对象当作一个只写数据流来写入请求体数据和结束请求。另外，由于HTTP请求中<code>GET</code>请求是最常见的一种，并且不需要请求体，因此<code>http</code>模块也提供了以下便捷API。</p>
 <pre><code>http.<span class="keyword">get</span>(<span class="string">'http://www.example.com/'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(response)</span> </span>{});
 </code></pre><p>当客户端发送请求并接收到完整的服务端响应头时，就会调用回调函数。在回调函数中，除了可以使用<code>response</code>对象访问响应头数据外，还能把<code>response</code>对象当作一个只读数据流来访问响应体数据。以下是一个例子。</p>
-<pre><code>http.get(<span class="string">'http://www.example.com/'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(response)</span> </span>{
+<pre><code>http.get(<span class="string">'http://www.example.com/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>{
     <span class="keyword">var</span> body = [];
 
     <span class="built_in">console</span>.log(response.statusCode);
     <span class="built_in">console</span>.log(response.headers);
 
-    response.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(chunk)</span> </span>{
+    response.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">chunk</span>) </span>{
         body.push(chunk);
     });
 
-    response.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+    response.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
         body = Buffer.concat(body);
         <span class="built_in">console</span>.log(body.toString());
     });
@@ -298,12 +299,12 @@ http://www.example.com/baz
 <p>   <strong>官方文档： </strong> <a href="http://nodejs.org/api/querystring.html" target="_blank" rel="external">http://nodejs.org/api/querystring.html</a></p>
 </blockquote>
 <p><code>querystring</code>模块用于实现URL参数字符串与参数对象的互相转换，示例如下。</p>
-<pre><code><span class="filename">querystring.parse('foo=bar&amp;baz=qux&amp;baz=quux&amp;corge');
+<pre><code>querystring.parse(<span class="string">'foo=bar&amp;baz=qux&amp;baz=quux&amp;corge'</span>);
 /* =&gt;
-{ foo</span>: <span class="string">'bar'</span>, baz: [<span class="string">'qux'</span>, <span class="string">'quux'</span>], corge: <span class="string">''</span> }
+{ foo: <span class="string">'bar'</span>, baz: [<span class="string">'qux'</span>, <span class="string">'quux'</span>], corge: <span class="string">''</span> }
 */
 
-<span class="filename">querystring.stringify({ foo</span>: <span class="string">'bar'</span>, baz: [<span class="string">'qux'</span>, <span class="string">'quux'</span>], corge: <span class="string">''</span> });
+querystring.stringify({ foo: <span class="string">'bar'</span>, baz: [<span class="string">'qux'</span>, <span class="string">'quux'</span>], corge: <span class="string">''</span> });
 /* =&gt;
 <span class="string">'foo=bar&amp;baz=qux&amp;baz=quux&amp;corge='</span>
 */
@@ -346,18 +347,18 @@ http://www.example.com/baz
         }
     };
 
-http.request(options, <span class="function"><span class="keyword">function</span> <span class="params">(response)</span> </span>{
+http.request(options, <span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>{
     <span class="keyword">var</span> body = [];
 
-    response.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(chunk)</span> </span>{
+    response.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">chunk</span>) </span>{
         body.push(chunk);
     });
 
-    response.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+    response.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
         body = Buffer.concat(body);
 
         <span class="keyword">if</span> (response.headers[<span class="string">'content-encoding'</span>] === <span class="string">'gzip'</span>) {
-            zlib.gunzip(body, <span class="function"><span class="keyword">function</span> <span class="params">(err, data)</span> </span>{
+            zlib.gunzip(body, <span class="function"><span class="keyword">function</span> (<span class="params">err, data</span>) </span>{
                 <span class="built_in">console</span>.log(data.toString());
             });
         } <span class="keyword">else</span> {
@@ -387,7 +388,7 @@ http.request(options, <span class="function"><span class="keyword">function</spa
         host: <span class="string">'www.example.com'</span>
     };
 
-<span class="keyword">var</span> client = net.connect(options, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+<span class="keyword">var</span> client = net.connect(options, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
         client.write([
             <span class="string">'GET / HTTP/1.1'</span>,
             <span class="string">'User-Agent: curl/7.26.0'</span>,
@@ -398,7 +399,7 @@ http.request(options, <span class="function"><span class="keyword">function</spa
         ].join(<span class="string">'\n'</span>));
     });
 
-client.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(data)</span> </span>{
+client.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>{
     <span class="built_in">console</span>.log(data.toString());
     client.end();
 });

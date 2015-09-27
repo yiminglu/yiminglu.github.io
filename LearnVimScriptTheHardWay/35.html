@@ -13,6 +13,7 @@ Vimscript lists are ordered, het">
 <meta property="og:site_name" content="Yiming @ SeasonsRoad">
 <meta property="og:description" content="We’ve worked a lot with variables so far, but we haven’t talked about aggregates at all yet!  Vim has two main aggregate types, and we’ll look at the first now: lists.
 Vimscript lists are ordered, het">
+<meta property="og:updated_time" content="2015-09-27T13:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lists">
 <meta name="twitter:description" content="We’ve worked a lot with variables so far, but we haven’t talked about aggregates at all yet!  Vim has two main aggregate types, and we’ll look at the first now: lists.
@@ -103,7 +104,7 @@ Vimscript lists are ordered, het">
 <p>Vim displays <code>cd</code> (using a negative index silently resulted in an empty string).</p>
 <h2 id="Concatenation">Concatenation</h2><p>You can combine Vim lists with <code>+</code>.  Try this command:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:echo ['a', 'b'] + ['c']</span><br></pre></td></tr></table></figure>
-<p>Vim, unsurprisingly, displays <code>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</code>.  There’s not much else to say here — Vimscript lists are surprisingly sane compared to the rest of the language.</p>
+<p>Vim, unsurprisingly, displays <code>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</code>.  There’s not much else to say here – Vimscript lists are surprisingly sane compared to the rest of the language.</p>
 <h2 id="List_Functions">List Functions</h2><p>Vim has a number of built-in functions for working with lists.  Run these commands:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:let foo = ['a']</span><br><span class="line"></span><br><span class="line">:call add(foo, 'b')</span><br><span class="line"></span><br><span class="line">:echo foo</span><br></pre></td></tr></table></figure>
 <p>Vim mutates the list <code>foo</code> in-place to append <code>&#39;b&#39;</code> and displays <code>[&#39;a&#39;, &#39;b&#39;]</code>. Now run this command:</p>

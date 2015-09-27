@@ -755,6 +755,13 @@ figure.highlight .code {
 figure.highlight .code .line {
   height: 1.3em;
 }
+figure.highlight.plain .gutter {
+  display: none;
+}
+figure.highlight.plain .code {
+  padding-left: 0px;
+  border-left: 0px;
+}
 pre .comment,
 pre .template_comment,
 pre .diff .header,
