@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Single Point of Truth | Yiming @ SeasonsRoad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Last afternoon, we encountered a bit of down time on our site. Before anybody told us, we didn’t even know what’s going on.
+We did a deployment for just dark launch of some feature, and it is supposed">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Single Point of Truth">
+<meta property="og:url" content="http://blog.seasonsroad.com/2016/11/Single-Point-of-Truth/index.html">
+<meta property="og:site_name" content="Yiming @ SeasonsRoad">
+<meta property="og:description" content="Last afternoon, we encountered a bit of down time on our site. Before anybody told us, we didn’t even know what’s going on.
+We did a deployment for just dark launch of some feature, and it is supposed">
+<meta property="og:image" content="http://blog.seasonsroad.com/problems.png">
+<meta property="og:image" content="http://blog.seasonsroad.com/comments.jpg">
+<meta property="og:image" content="http://blog.seasonsroad.com/geo-impact.png">
+<meta property="og:image" content="http://blog.seasonsroad.com/missing-asset.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Single Point of Truth">
+<meta name="twitter:description" content="Last afternoon, we encountered a bit of down time on our site. Before anybody told us, we didn’t even know what’s going on.
+We did a deployment for just dark launch of some feature, and it is supposed">
+  
+    <link rel="alternative" href="/atom.xml" title="Yiming @ SeasonsRoad" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-nav" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Good Morning!</a>
+      </h1>
+      <nav id="main-nav">
+        <ul class="mod-head__ul">
+        
+          <li class="main-nav-link"><a href="/">Home</a></li>
+        
+          <li class="main-nav-link"><a href="/links.html">Links</a></li>
+        
+          <li class="main-nav-link"><a href="https://github.com/yiminglu">Github</a></li>
+        
+          <li class="main-nav-link"><a href="/about.html">About</a></li>
+        
+        </ul>
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="inner">
+        <section id="main"><article id="post-Single-Point-of-Truth" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/Single-Point-of-Truth/" class="article-date">
+  <p><time datetime="2016-11-18T01:33:19.000Z" itemprop="datePublished">2016/11/18</time></p>
+</a>
+
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Architect/">Architect</a>
+  </div>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <a href="/2016/11/Single-Point-of-Truth/">
+        Single Point of Truth
+      </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Last afternoon, we encountered a bit of down time on our site. Before anybody told us, we didn’t even know what’s going on.</p>
+<p>We did a deployment for just dark launch of some feature, and it is supposed not to break anything or affect any User Experience. After that, we fixed a small bug and did another deployment. Then we did some sanity check and made it a successful deployment. After that, we continued working on other things.</p>
+<p>We didn’t know anything before one colleague from US side HipChated us, that a lot of users reported that they can’t even open our site, and see some JavaScript error. The colleague also shot us a <a href="http://downdetector.com/status/hulu" target="_blank" rel="external">link</a>.</p>
+<p><img src="problems.png" alt="Reported problems"></p>
+<p>WTF? Java(Script) error?</p>
+<p><img src="comments.jpg" alt="Comments on the down detector page"></p>
+<p>One thing occurred to me that, most time for our site, JavaScript error means missing asset. But we still cannot believe this is true.</p>
+<p>From the down detector, we find that most problems are from East Coast. So it might be something wrong with one of our DCs.</p>
+<p><img src="geo-impact.png" alt="Geo Impact"></p>
+<p>So I connected to our VPN for this DC, and opened our site, and find that there is one JS 404, just like I guessed.</p>
+<p><img src="missing-asset.png" alt="Missing asset"></p>
+<p>I quickly copied things so that it works again. The down time is over.</p>
+<p>But I wonder why. Why can’t I find the asset?? We dig into that, only to find that the built outputs are different in different data centers. We did a diff and find that there is a value not the same in the huge JS file, which causing the JS manifest/md5 not the same. So I know the reason.</p>
+<p>We did compilation on different servers with Nginx, and copy the built assets into the local folder to be directly served by Nginx. The output of the compilation contains 2 part: JS part and rails server part.</p>
+<p>And during the compilation, there is a backend call encountered inconsistency issue in different data centers. And they get different values back which is built into the JS part. But we only use only one data center as the running rails server, they just trying to get the assets built in its manifest list which does not exist in other data centers.</p>
+<p>From this incident, we know that:</p>
+<ul>
+<li>We are trying to do SPOT, b/c we have rails server part done with SPOT.</li>
+<li>We should have done better and have JS part done with SPOT.</li>
+</ul>
+<p>Nowadays, more and more systems are distributed. Single Point of Truth becomes so important. If you haven’t done it well for your distributed systems, you might encounter unexpected disasters one day as we had..</p>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SPOT/">SPOT</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/09/GoChaseOurDreams/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older&raquo</strong>
+      <div class="article-nav-title">Go Chase Our Dreams, Guys!</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+	<div id="footer-info" class="inner">
+	&copy; 2016 Yiming LU<br>
+	Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+	Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+	</div>
+  </div>
+</footer>
+    </div>
+    
+<script>
+  var disqus_shortname = 'ymlu';
+  
+  var disqus_url = 'http://blog.seasonsroad.com/2016/11/Single-Point-of-Truth/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </div>
+</body>
+</html>
