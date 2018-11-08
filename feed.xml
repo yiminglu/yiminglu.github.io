@@ -1,0 +1,976 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SeasonsRoad</title>
+    <link>https://seasonsroad.com/</link>
+    <description>SeasonsRoad is the blog for interesting things happening around.</description>
+    
+    <lastBuildDate>Wed, 07 Nov 2018 00:00:00 +0800</lastBuildDate>
+    <generator>Hugo v0.50</generator>
+    <atom:link href="https://seasonsroad.com/feed.xml" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Migrate the Blog to HTTPS</title>
+        <link>https://seasonsroad.com/post/2018/migration-to-https.html</link>
+        <pubDate>Wed, 07 Nov 2018 00:00:00 +0800</pubDate>
+        <description><![CDATA[<p>I have this idea for a long time when we migrate <a href="https://www.hulu.com/">hulu.com</a> to https.</p>
+
+<p>I tried a few other free cert signature solution. None of them works very well. When I saw <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a> a few days ago, I had the same idea. I was firstly attracted by the design of the main site of Let&rsquo;s Encrypt. So, I decided to give it a try.</p>
+
+<p>With the easy steps of <a href="https://certbot.eff.org/">certbot</a>, I configured my VPS with Nginx on Ubuntu 16.04. It was so easy to use certbot to renew the certificates automatically. With the support of certbot, I could do it once and for all. It&rsquo;s really a good solution.</p>
+
+<p>And now my site is fully secured.</p>
+
+<p><center><p><img src="/post/2018/migration-to-https/cert.png" alt="The Cert" style="width: 485px;"/></p></center></p>
+
+<p>All of a sudden, my blog goes https. It now looks really nice. At least, Chrome won&rsquo;t say it&rsquo;s unsecure. 😂</p>
+
+<p><center><p><img src="/post/2018/migration-to-https/secure.png" alt="Secure" style="width: 333px;"/></p></center></p>
+
+<p><br /></p>
+
+<p>P.S.</p>
+
+<p>I even updated my blog to the same style.</p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2018/migration-to-https.html</guid>
+      </item><item>
+        <title>The Blog as a PWA</title>
+        <link>https://seasonsroad.com/post/2018/pwa-integration.html</link>
+        <pubDate>Wed, 08 Aug 2018 00:00:00 +0800</pubDate>
+        <description><![CDATA[
+
+<h2 id="what-is-pwa">What is PWA</h2>
+
+<p><strong>PWA</strong> is short for <strong>Progressive Web Applications</strong>. If you want to learn more about the basics of PWA, go check the <a href="https://developers.google.com/web/progressive-web-apps/">Google PWA official website</a>.</p>
+
+<p>Also, I did a brief intro to PWA in the CORP as tech share a while before. The content mainly comes from the PWA official site and the <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">offline cookbook</a>. Check it out if you desire.</p>
+
+<div class="with-ratio ratio-w5h3" style="max-width: 700px;"><div class="content"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQD3Q6gdHlqp7DSfzXlV5cLFhRTjGmXSqhT1xVjbT8hDgvohWR4pQgy01Bmh2w5XoYQSxyvNbw5O34y/embed?start=false&loop=false&delayms=3000" frameborder="0" width="100%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></div></div>
+
+<h2 id="apply-pwa-features-to-the-blog">Apply PWA Features to The Blog</h2>
+
+<p>I want to apply these beautiful PWA features to the blog, so that I can add the app to my home screen and browse the blogs offline. Now, let&rsquo;s go through how to do that step-by-step.</p>
+
+<h3 id="first-of-all-generate-the-service-worker-javascript">First of all, Generate the Service Worker JavaScript</h3>
+
+<ul>
+<li><p>I need to generate the <strong>Service Worker JavaScript</strong>, <code>sw.js</code>, with all my content and pre-cache the pages into the cache. This way, when service worker is installed, everything has been pre-cached. It will enable the full off-line mode by all the pre-cached files. This is the so-called <strong>install</strong> step of PWA life-circle.</p>
+
+<pre><code class="language-javascript">const cacheName = 'sr-precache-##REVISION##';
+
+const PrecacheList = ##PRECACHE_LIST##;
+
+self.addEventListener('install', function(e) {
+  console.log('[SW] Install');
+  e.waitUntil(
+    caches.open(cacheName).then(function(cache) {
+      console.log('[SW] Caching all files.');
+      cache.addAll(PrecacheList);
+      console.log('[SW] SkipWaiting');
+      return self.skipWaiting();
+    })
+  );
+});
+</code></pre>
+
+<p>There will be a post-build script to replace <code>##PRECACHE_LIST##</code> with the files in my <code>public</code> folder after I generated my site. The script will also replace <code>##REVISION##</code> with the git sha of <code>origin/master</code>.</p>
+
+<p>Also, as you can see, there is a command <code>self.skipWaiting()</code> to tell SW to skip waiting, meaning the service worker activates as soon as it&rsquo;s finished installing, even for updating.</p></li>
+
+<li><p>Then, I would want SW to use these pre-cached files for the requests. So I added lines to customize the <strong>fetch</strong> event in <code>sw.js</code>.</p>
+
+<pre><code class="language-javascript">self.addEventListener('fetch', function(e) {
+  e.respondWith(
+    caches.match(e.request).then(function(response) {
+      return response || fetch(e.request);
+    })
+  );
+});
+</code></pre>
+
+<p>This is a very basic cache strategy, serving from cache and then network, a.k.a, <strong>cache-first</strong>.</p></li>
+
+<li><p>After the steps above, the web app now works when offline. However, there are still issues.</p>
+
+<ul>
+<li>The cache will be invalid after I update the site, I need to remove the invalid cache.</li>
+<li>SW will wait for all the tabs to close so that the new <code>sw.js</code> could apply to the tabs.</li>
+</ul>
+
+<p>So, I need to update the <strong>activate</strong> step so that I can fix these issues.</p>
+
+<pre><code class="language-javascript">self.addEventListener('activate', function(e) {
+  console.log('[SW] Activate');
+  e.waitUntil(
+    caches.keys().then(function(keyList) {
+      return Promise.all(keyList.map(function(key) {
+        if (key !== cacheName) {
+          console.log('[SW] Removing old cache', key);
+          return caches.delete(key);
+        }
+      }));
+    })
+  );
+  return self.clients.claim();
+});
+</code></pre>
+
+<p>Since every update will change the git sha, I will get a unique new sha whenever there is an update. Then I just need to delete caches which is not the latest one.</p>
+
+<p>Also, with <code>self.clients.claim()</code>, I can take control of uncontrolled clients/tabs within my service worker once it&rsquo;s activated.</p></li>
+</ul>
+
+<p>With all these steps above, the basic <code>sw.js</code> is initialized.</p>
+
+<h3 id="let-s-register-the-service-worker-javascript">Let&rsquo;s Register The Service Worker JavaScript</h3>
+
+<p>It&rsquo;s easy to do this. Just test the browser to see if it supports SW, and register if so.</p>
+
+<pre><code class="language-javascript">if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').then(function(){
+    console.log('Service Worker Registered');
+  });
+}
+</code></pre>
+
+<h3 id="create-the-web-app-manifest">Create The Web App Manifest</h3>
+
+<p>The <a href="https://developers.google.com/web/fundamentals/web-app-manifest/">web app manifest</a> is a simple JSON file that tells the browser about your web application and how it should behave when &lsquo;installed&rsquo; on the user&rsquo;s mobile device or desktop. Having a manifest is required by Chrome to show the <strong>Add to Home Screen</strong> prompt.</p>
+
+<ul>
+<li>Add <code>name</code> &amp; <code>short_name</code>
+
+<ul>
+<li>The <code>name</code> is used in the <strong>Add to Home Screen</strong> prompt, while the <code>short_name</code> is used as the app name after being added to home screen.</li>
+</ul></li>
+<li>Add Icons
+
+<ul>
+<li>Ah.. I just used the <code>Preview</code> app on Mac to create my PNG icons.</li>
+</ul></li>
+<li>Add <code>start_url</code> &amp; <code>scope</code>
+
+<ul>
+<li>The <code>start_url</code> is the url when the app is launched as a fresh start after being added to home screen.</li>
+</ul></li>
+<li>Add <code>backgrou_color</code> &amp; <code>theme_color</code>
+
+<ul>
+<li>These two will affect the Android Chrome header color and the app splash screen after being added to home screen.</li>
+</ul></li>
+<li>Add <code>display</code>
+
+<ul>
+<li>If you want the immersive experience, try <code>standalone</code>(with only status bar) or even <code>fullscreen</code>(no status bar).</li>
+</ul></li>
+</ul>
+
+<p>Now, let&rsquo;s register this configuration file in the <code>&lt;head&gt;</code> tag of all the pages.</p>
+
+<pre><code class="language-html">&lt;link rel=&quot;manifest&quot; href=&quot;/manifest.json&quot;&gt;
+</code></pre>
+
+<h3 id="it-is-not-enough-yet">It is NOT Enough, Yet</h3>
+
+<ul>
+<li><p>For iOS</p>
+
+<p>As we all know, PWA is not an Android only feature, it also works on iOS with iOS 11.3. However, you can barely find it on <a href="https://support.apple.com/en-bn/HT208067#113">iOS 11.3 release notes</a>, even Google says <a href="https://medium.com/@firt/progressive-web-apps-on-ios-are-here-d00430dee3a7#b0e7">PWA is firstly introduced by Steve Jobs</a>. And in this medium post, there are a huge ton of useful information about PWA on iOS.</p>
+
+<ul>
+<li>The Icons for iOS
+
+<ul>
+<li>If you are looking for Apple official doc, <a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">here it goes</a>.</li>
+</ul></li>
+<li>The Splash Screen for iOS
+
+<ul>
+<li>Check more details <a href="https://medium.com/appscope/adding-custom-ios-splash-screens-to-your-progressive-web-app-41a9b18bdca3">here</a></li>
+<li><a href="https://appsco.pe/developer/splash-screens">Splash Screen Genertor</a></li>
+</ul></li>
+<li>Status Bar Style
+
+<ul>
+<li>More details <a href="https://dev.to/oskarlarsson/designing-native-like-progressive-web-apps-for-ios-510o">here</a></li>
+</ul></li>
+</ul>
+
+<p>Why Google and Apple always do the same thing in a different way? And why Google is doing the standard way and Apple is doing the non-standard way? (Or, at least Google is making his way the standard way. This is the reason why we need to be open, instead of locking ourselves into a cage which looks big, but will become smaller and smaller.)</p></li>
+
+<li><p>Client Tracking</p>
+
+<p>With Google Analytics, I can track my blog visits very easily. Google has done really nice shits. (PWA is one of the shits!)</p></li>
+
+<li><p>Local Dev</p>
+
+<p>Actually, when you initialized the PWA, you don&rsquo;t need it for dev mode when writing posts or updating blog styles. The cache will breake some functions of the auto-reload logic.</p></li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>So, here it comes, the PWA for the blog.</p>
+
+<p><center><p><img src="/post/2018/pwa-integration/pwa.gif" alt="The Blog PWA" style="width: 320px; border: 1px solid black;"/></p></center></p>
+
+<p>PWA is going to change rules of the game, hopefully, if and only if it will be more and more improved and applied. And it did really pushing the web to the next milestone.</p>
+
+<p>PS:</p>
+
+<p>This is not a post to praise Google. Actually, Apple is also doing great. A lot of people love iPhones. BTW, I love Mac. Even Microsoft is trying its best to serve bests apps on iOS/Android, when WinPhone has been dying.</p>
+
+<p>I mean, every company has its good side, and bad side as well. Maybe they are saying &ldquo;don&rsquo;t be evil&rdquo;, while they are doing the evilest things.</p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2018/pwa-integration.html</guid>
+      </item><item>
+        <title>Single Point of Truth</title>
+        <link>https://seasonsroad.com/post/2016/spot.html</link>
+        <pubDate>Fri, 18 Nov 2016 00:00:00 +0800</pubDate>
+        <description><![CDATA[<p>Last afternoon, we encountered a bit of down time on our site. Before anybody told us, we didn&rsquo;t even know what&rsquo;s going on.</p>
+
+<p>We did a deployment for just dark launch of some feature, and it is supposed not to break anything or affect any User Experience. After that, we fixed a small bug and did another deployment. Then we did some sanity check and made it a successful deployment. After that, we continued working on other things.</p>
+
+<p>We didn&rsquo;t know anything before one colleague from US side HipChated us, that a lot of users reported that they can&rsquo;t even open our site, and see some JavaScript error. The colleague also shot us a <a href="http://downdetector.com/status/hulu">link</a>.</p>
+
+<p><center><p><img src="/post/2016/spot/problems.png" alt="Reported problems" style="width: 392px;"/></p></center></p>
+
+<p>WTF? Java(Script) error?</p>
+
+<p><center><p><img src="/post/2016/spot/comments-1.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
+<center><p><img src="/post/2016/spot/comments-2.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
+<center><p><img src="/post/2016/spot/comments-3.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
+<center><p><img src="/post/2016/spot/comments-4.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center></p>
+
+<p>One thing occurred to me that, most time for our site, JavaScript error means missing asset. But we still cannot believe this is true.</p>
+
+<p>From the down detector, we find that most problems are from East Coast. So it might be something wrong with one of our data centers.</p>
+
+<p><center><p><img src="/post/2016/spot/geo-impact.png" alt="Geo Impact" style="width: 917px;"/></p></center></p>
+
+<p>So I connected to our VPN for this data center, and opened our site, and find that there is one JS 404, just like I guessed.</p>
+
+<p><center><p><img src="/post/2016/spot/missing-asset.png" alt="Missing asset" style="width: 867px;"/></p></center></p>
+
+<p>I quickly copied things so that it works again. The down time is over.</p>
+
+<p>But I wonder why. Why can&rsquo;t I find the asset?? We dig into that, only to find that the built outputs are different in different data centers. We did a diff and find that there is a value not the same in the huge JS file, which causing the JS manifest/md5 not the same. So I know the reason.</p>
+
+<p>We did compilation on different servers with Nginx, and copy the built assets into the local folder to be directly served by Nginx. The output of the compilation contains 2 part: JS part and rails server part.</p>
+
+<p>And during the compilation, there is a backend call encountered inconsistency issue in different data centers. And they get different values back which is built into the JS part. But we only use only one data center as the running rails server, they just trying to get the assets built in its manifest list which does not exist in other data centers.</p>
+
+<p>From this incident, we know that:</p>
+
+<ul>
+<li>We are trying to do SPOT, b/c we have rails server part done with SPOT.</li>
+<li>We should have done better and have JS part done with SPOT.</li>
+</ul>
+
+<p>Nowadays, more and more systems are distributed. Single Point of Truth becomes so important. If you haven&rsquo;t done it well for your distributed systems, you might encounter unexpected disasters one day as we had..</p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2016/spot.html</guid>
+      </item><item>
+        <title>Connect IPv6 with IPv4 via tunnel</title>
+        <link>https://seasonsroad.com/post/2015/connect-ipv6.html</link>
+        <pubDate>Sun, 27 Sep 2015 00:00:00 +0800</pubDate>
+        <description><![CDATA[
+
+<p>With IPv6 you can do a lot of things. This is a how-to article for users who only have IPv4 and want to connect IPv6.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+<li>You should have a public address that&rsquo;s ping reachable.</li>
+</ul>
+
+<h2 id="steps-to-connect">Steps to connect</h2>
+
+<ol>
+<li><p>Register to <a href="http://www.tunnelbroker.net/">Tunnel Broker</a> and login this website.</p></li>
+
+<li><p>Click &lsquo;Create Regular Tunnel&rsquo; link inside User Functions panel below Account Menu.</p></li>
+
+<li><p>Configure your tunnel and create it.</p>
+
+<ul>
+<li>IPv4 Endpoint is the v4 IP you used to connect Internet. (Remember the IP you use, take it as &lsquo;PUBLIC-IP&rsquo;.)</li>
+<li>If you&rsquo;re inside NAT or router, you can try to use Baidu/Google and search IP. Then you&rsquo;ll know your IP address. Usually, you can use the IP under the input box.</li>
+<li>Make sure your IP is ping reachable. Or Tunnel Broker won&rsquo;t create any tunnel for you.</li>
+<li>Try to choose a server that&rsquo;s nearest to you. However, you can just choose one you like if you have no idea which is nearer.</li>
+</ul></li>
+
+<li><p>Once you create a tunnel, you&rsquo;ll get the Tunnel Details panel.</p></li>
+
+<li><p>Connect to the tunnel you created.</p>
+
+<ul>
+<li>Tunnel Broker helps a lot in connect the tunnel they host with your specific platform.</li>
+<li>In &lsquo;Example Configurations&rsquo; tab, you can select your OS.</li>
+<li>Ensure to read all the tips/NOTEs below the configuration. (You may need sudo to run the command)</li>
+<li><strong>IMPORTANT:</strong> If you&rsquo;re inside an NAT or router, you need to change the &lsquo;PUBLIC-IP&rsquo; in the commands to your own inner IP address.</li>
+</ul></li>
+
+<li><p>After steps above, you&rsquo;ve created a network interface named <code>gif0</code>.</p>
+
+<ul>
+<li>You can shut down this tunnel by <code>sudo ifconfig gif0 down</code> or open it with <code>sudo ifconfig gif0 up</code>.</li>
+</ul></li>
+
+<li><p>Now you have the tunnel. And you still need to update your DNS server to resolve your domain names to IPv6 addresses.</p>
+
+<ul>
+<li>Use Google IPv4 DNS: 8.8.8.8 (google-public-dns-a.google.com) &amp; 8.8.4.4 (google-public-dns-b.google.com)</li>
+<li>Use Google IPv6 DNS: 2001:4860:4860::8888 &amp; 2001:4860:4860::8844</li>
+<li>Use OpenDNS IPv4: 208.67.222.222 (Resolver1.OpenDNS.com), 208.67.220.220 (Resolver2.OpenDNS.com), 208.67.222.220 (Resolver3.OpenDNS.com) &amp; 208.67.220.222 (Resolver4.OpenDNS.com)</li>
+<li>Use OpenDNS IPv6: 2620:0:ccc::2 &amp; 2620:0:ccd::2</li>
+</ul></li>
+
+<li><p>You may need to flush your DNS.</p>
+
+<ul>
+<li>Windows: <code>ipconfig /flushdns</code></li>
+<li>Mac OSX: <code>dscacheutil -flushcache</code></li>
+</ul></li>
+
+<li><p>Test it now!</p>
+
+<ul>
+<li><a href="http://www.test-ipv6.com/">test-ipv6.com</a></li>
+<li><a href="http://ipv6-test.com/">ipv6-test.com</a></li>
+<li><a href="https://ipv6.google.com/">ipv6.google.com</a></li>
+</ul></li>
+</ol>
+
+<h2 id="after-all">After all</h2>
+
+<p>Now you should have the ability to access IPv6. Go surf the Internet with IPv6 then!</p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2015/connect-ipv6.html</guid>
+      </item><item>
+        <title>Go Chase Our Dreams, Guys!</title>
+        <link>https://seasonsroad.com/post/2015/go-chase-our-dreams.html</link>
+        <pubDate>Sun, 27 Sep 2015 00:00:00 +0800</pubDate>
+        <description><![CDATA[<p>We had fun together. We learned things together. We made it together.</p>
+
+<p>We&rsquo;re boys. We&rsquo;re friends. And we&rsquo;re dreamers.</p>
+
+<p>More action, less words.
+So guys, let&rsquo;s move fast and chase our dreams!</p>
+
+<p><center><p><img src="/post/2015/go-chase-our-dreams/01.jpg" alt="1325" style="width: 580px;"/></p></center></p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2015/go-chase-our-dreams.html</guid>
+      </item><item>
+        <title>Some Git Best Practices</title>
+        <link>https://seasonsroad.com/post/2015/git-best-practices.html</link>
+        <pubDate>Mon, 01 Jun 2015 00:00:00 +0800</pubDate>
+        <description><![CDATA[
+
+<blockquote>
+<p><a href="https://github.com/git/git">Git</a> is a distributed revision control system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds for Linux kernel development in 2005, and has since become the most widely adopted version control system for software development.</p>
+</blockquote>
+
+<h1 id="know-more-do-better">Know more, do better</h1>
+
+<p>If we use git more, and get more familiar with it, it really helps a lot. Let&rsquo;s note some best practices down here.</p>
+
+<h2 id="set-useful-git-alias">Set useful git alias</h2>
+
+<p>Check <a href="/2015/05/SomeGitAlias/">this post</a> to set useful git alias, making your life easier and happier when using git.</p>
+
+<h2 id="about-a-remote-host-crud">About a remote host (CRUD)</h2>
+
+<p>List all your remote hosts. <code>-v</code> shows the url for remote host.</p>
+
+<pre><code class="language-bash">$ git remote [-v]
+</code></pre>
+
+<p>Show the detailed information for remote host(such as origin). Add, Remove and Rename a host.</p>
+
+<pre><code class="language-bash">$ git remote show &lt;host&gt;                  # [R]
+$ git remote add &lt;host&gt; &lt;url&gt;             # [C]
+$ git remote rm &lt;host&gt;                    # [D]
+$ git remote rename &lt;host&gt; &lt;new-host&gt;     # [U]
+</code></pre>
+
+<h2 id="fetch-from-remote-host">Fetch from remote host</h2>
+
+<p>Once there&rsquo;re commits from remote host, we can fetch them in <em>all branches</em> from remote host.</p>
+
+<pre><code class="language-bash">$ git fetch &lt;host&gt;
+</code></pre>
+
+<p>We can also fetch <em>a specific branch</em> from remote host. With <code>git branch</code> you can get all the local branches, and with <code>git branch -r</code> you can get all the remote branches.</p>
+
+<pre><code class="language-bash">$ git fetch &lt;host&gt; &lt;branch&gt;
+</code></pre>
+
+<p>We can also fetch some branch which has no corresponding local branch created. We do this to create a local branch based this remote branch.</p>
+
+<pre><code class="language-bash">$ git checkout -b &lt;local-branch&gt; origin/&lt;remote-local&gt;
+</code></pre>
+
+<p>Also, if you don&rsquo;t want to merge a remote branch without creating a local branch for it, do this:</p>
+
+<pre><code class="language-bash">$ git merge origin/master
+# Or
+$ git rebase origin/master
+</code></pre>
+
+<p>This two commands do the same to merge a remote branch(<code>origin/master</code>) into current branch.</p>
+
+<h2 id="pull-from-remote-host">Pull from remote host</h2>
+
+<p>The default <code>git pull</code> command pulls all the remote branches corresponding to local ones. The full command can pull a remote branch and merge it to a local branch.</p>
+
+<pre><code class="language-bash">$ git pull [--rebase] &lt;host&gt; &lt;remote-branch&gt;:&lt;local-branch&gt;
+</code></pre>
+
+<p>This command pulls <code>&lt;remote-branch&gt;</code> from <code>&lt;host&gt;</code>, and merges it to <code>&lt;local-branch&gt;</code>. With <code>--rebase</code> option, we can rebase the local commits to top of this branch.</p>
+
+<h2 id="push-to-remote-host">Push to remote host</h2>
+
+<p>We should know that there&rsquo;re 2 push mode: <code>simple</code> &amp; <code>matching</code>. Before git 2.0, we use &lsquo;matching&rsquo; as default which pushes all the matching local branches to remote. Now we use &lsquo;simple&rsquo; as default to push only current branch to remote. But we can config it:</p>
+
+<pre><code class="language-bash">$ git config --global push.default matching
+# Or
+$ git config --global push.default simple
+</code></pre>
+
+<p>The full comand pushes a local branch to remote branch of a remote host.</p>
+
+<pre><code class="language-bash">$ git push &lt;host&gt; &lt;local-branch&gt;:&lt;remote-branch&gt;
+</code></pre>
+
+<p>If we don&rsquo;t specify the <code>&lt;local-branch&gt;</code>, we just push an empty branch to remote, just like removing remote branch commits, which means <code>git push &lt;host&gt; :&lt;remote-branch&gt;</code> equals to <code>git push &lt;host&gt; --delete &lt;remote-branch&gt;</code>.</p>
+
+<p>If we don&rsquo;t specify the <code>&lt;remote-branch&gt;</code>, we will push <code>&lt;local-branch&gt;</code> to the matching branch of it.</p>
+
+<p>If we don&rsquo;t specify any branch, we will push all the branches to the matching branches of them on <code>&lt;host&gt;</code>. Just like this command without &ndash;all.</p>
+
+<pre><code class="language-bash">$ git push [--all] &lt;host&gt;
+</code></pre>
+
+<p>If we use <code>--all</code>, we could push all the branches. If some of them don&rsquo;t have the matching branches on <code>&lt;host&gt;</code> will create them.</p>
+
+<p>If we want to force push the local changes, usually when we update some commits already pushed, check this <a href="#force-push">best practice</a>.</p>
+
+<h2 id="do-with-your-submodules">Do with your submodules</h2>
+
+<p>Process all your submodules with this command:</p>
+
+<pre><code class="language-bash">git submodule [...]
+</code></pre>
+
+<p>You can do <code>init</code>/<code>deinit</code>, <code>add</code>, <code>status</code>, <code>update</code>, etc.</p>
+
+<p>If you want to run git commands within each submodule, do this:</p>
+
+<pre><code class="language-bash">git submodule foreach [git command]
+</code></pre>
+
+<h1 id="best-practices">Best practices!!</h1>
+
+<h2 id="who-has-touched-the-file">Who has touched the file?</h2>
+
+<p>If the file is a code file, we can use <code>git blame</code> to check the file change.</p>
+
+<p>If the file is a binary file, or we just want to find all the commits related to this file, use this command:</p>
+
+<pre><code class="language-bash">$ git log [-p] file
+</code></pre>
+
+<p>And, if this file is renamed or even deleted, we should use <code>--follow</code> on <code>git log</code> to continue listing the history of a file beyond renames:</p>
+
+<pre><code class="language-bash">$ git log [-p] --follow -- file
+</code></pre>
+
+<p><code>--</code> is used to separate paths from revisions, like this:</p>
+
+<pre><code class="language-bash">git &lt;command&gt; [&lt;revision&gt;...] -- [&lt;file&gt;...]
+</code></pre>
+
+<h2 id="a-name-rebase-rebase-to-an-old-commit"><a name="rebase"/>Rebase to an old commit</h2>
+
+<p>Rebase to an old commit:</p>
+
+<pre><code class="language-bash">$ git rebase -i HEAD~n
+</code></pre>
+
+<p>Edit the <code>pick</code> before any commit your want to base to <code>reword</code> or <code>r</code>.</p>
+
+<p>If you want to continue to HEAD, use this command:</p>
+
+<pre><code class="language-bash">$ git rebase --continue
+</code></pre>
+
+<h2 id="amend-commits-locally">Amend commits locally</h2>
+
+<p>If this commit is HEAD commit, use this to amend it:</p>
+
+<pre><code class="language-bash">$ git commit --amend
+</code></pre>
+
+<p>Then amend your commit message!</p>
+
+<p>If this commit is not HEAD, <a href="#rebase">rebase</a> it and amend.</p>
+
+<h2 id="reset-commits-locally">Reset commits locally</h2>
+
+<pre><code class="language-bash">$ git reset HEAD~n [--hard]
+</code></pre>
+
+<p>With the <code>--hard</code> option, you can reset all the commit with all its changes. Or you can save all your changes.</p>
+
+<h2 id="move-one-older-commit-to-head">Move one older commit to HEAD</h2>
+
+<p>This is maybe a little tricky. We have to use a test branch to backup the git stack, then rebase to remove the very change:</p>
+
+<pre><code class="language-bash">$ git branch test
+$ git rebase --onto HEAD~n HEAD~(n-1) HEAD
+</code></pre>
+
+<p>This way comes from the git <a href="http://git-scm.com/docs/git-rebase#_description">help man page</a>.</p>
+
+<blockquote>
+<p>A range of commits could also be removed with rebase. If we have the following situation:</p>
+
+<p>E&mdash;F&mdash;G&mdash;H&mdash;I&mdash;J  topicA</p>
+
+<p>then the command</p>
+
+<pre><code class="language-bash"> $ git rebase --onto topicA~5 topicA~3 topicA
+</code></pre>
+
+<p>would result in the removal of commits F and G:</p>
+
+<p>E&rsquo;&mdash;H&rsquo;&mdash;I&rsquo;&mdash;J&rsquo;  topicA</p>
+</blockquote>
+
+<p>After you stash this commit, you can cherry-pick it from the test branch to master branch:</p>
+
+<pre><code class="language-bash">$ git cherry-pick XXXXXX
+
+$ git branch -D test
+</code></pre>
+
+<p>Get the <code>XXXXXX</code> with <code>git log</code> in test branch.</p>
+
+<h2 id="check-in-push-an-old-commit">Check in(push) an old commit</h2>
+
+<p>Use <a href="#rebase">rebase</a> to go to this very old commit, use <code>git push</code>, you&rsquo;ll get this message:</p>
+
+<pre><code>fatal: You are not currently on a branch.
+To push the history leading to the current (detached HEAD)
+state now, use
+
+    git push origin HEAD:&lt;name-of-remote-branch&gt;
+
+</code></pre>
+
+<p>So you can do this very command to push commits before this base. After that, you go back to continue.</p>
+
+<h2 id="a-name-force-push-force-push-to-update-remote-origin-critical"><a name="force-push"/>Force push to update remote origin(CRITICAL!)</h2>
+
+<p>This may not be a good practice. But in some critical circumstances, this may be the savior.</p>
+
+<p>Amend the commits you&rsquo;ve all ready pushed, and force to push them to replace the repo.</p>
+
+<pre><code class="language-bash">$ git push -f
+</code></pre>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2015/git-best-practices.html</guid>
+      </item><item>
+        <title>How to create a CWM flashable ZIP file from FTF Firmware</title>
+        <link>https://seasonsroad.com/post/2015/ftf-to-zip.html</link>
+        <pubDate>Sun, 31 May 2015 00:00:00 +0800</pubDate>
+        <description><![CDATA[
+
+<p>New android systems have the ext4 format. This tutorial will help you to create a flashable ZIP from FTF firmware. Basically, this is for my Sony Android devices.</p>
+
+<h2 id="step-1">Step 1</h2>
+
+<p>Download the Stock Firmware you want (FTF-File, aka Firmware.ftf).</p>
+
+<h2 id="step-2">Step 2</h2>
+
+<p>Rename the <code>Firmware.ftf</code> to <code>Firmware.zip</code>.</p>
+
+<pre><code class="language-bash">$ mv Firmware.ftf Firmware.zip
+</code></pre>
+
+<h2 id="step-3">Step 3</h2>
+
+<p>Extract the <code>system.zip</code> to <code>SomeFolder</code>.</p>
+
+<pre><code class="language-bash">unzip system.zip -d SomeFolder
+</code></pre>
+
+<h2 id="step-4">Step 4</h2>
+
+<p>Open Flashtool go to &ldquo;Tools&rdquo; -&gt; &ldquo;Sin Editor&rdquo; -&gt; Choose the extracted system.sin and push &ldquo;extract&rdquo; Data and get a <code>system.ext4</code> file.</p>
+
+<h2 id="step-5">Step 5</h2>
+
+<p>Mount <code>system.ext4</code> (With Fuse-Ext2, <a href="http://omaimac.blogspot.com/2012/10/how-to-mount-ext4-linux-partition-on-mac.html">TUTORIAL</a>) and put the files inside into a folder named <code>system</code>.</p>
+
+<h2 id="step-6">Step 6</h2>
+
+<p>Download the <a href="/post/2015/ftf-to-zip/META-INF.zip">META-INF File</a> and extract it to <code>META-INF</code> folder.</p>
+
+<pre><code class="language-bash">unzip META-INF.zip
+</code></pre>
+
+<blockquote>
+<p>Now we can even use a GUI tool, named <a href="http://forum.xda-developers.com/showthread.php?p=28706056#post28706056">Aroma</a>, to do some multi-selections and radio-buttons.</p>
+</blockquote>
+
+<h2 id="step-7">Step 7</h2>
+
+<p>Now we have your two folders: <code>system</code> and <code>META-INF</code>. Just ZIP them!</p>
+
+<pre><code class="language-bash">$ zip -roZ store Firmware.zip system META-INF
+</code></pre>
+
+<ul>
+<li><code>-r</code> or <code>--recurse-paths</code>
+Travel the directory structure recursively</li>
+<li><code>-o</code> or <code>--latest-time</code>
+Set the &ldquo;last modified&rdquo; time of the zip archive to the latest (oldest) &ldquo;last modified&rdquo; time found among the entries in the zip archive.</li>
+<li><code>--compression-method cm</code> or <code>-Z cm</code>
+Set the default compression method.  Currently the main methods supported by zip are store and deflate.
+<strong>Important: In some cases, you have to set the compression to &ldquo;Store&rdquo;</strong> to be supported by some recoveries.</li>
+</ul>
+
+<h2 id="step-8">Step 8</h2>
+
+<p>Push the zip File to SD-Card and flash it with recovery.</p>
+
+<pre><code class="language-bash">adb push Firmware.zip /sdcard/Firmware.zip
+</code></pre>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2015/ftf-to-zip.html</guid>
+      </item><item>
+        <title>9 Basic Principles of Responsive Web Design</title>
+        <link>https://seasonsroad.com/post/2015/responsive-design.html</link>
+        <pubDate>Wed, 29 Apr 2015 00:00:00 +0800</pubDate>
+        <description><![CDATA[
+
+<p>Responsive web design is a great solution to our multi-screen problem, but getting into it from the print perspective is difficult. No fixed page size, no millimetres or inches, no physical constraints to fight against. Designing in pixels for Desktop and Mobile only is also the past, as more and more gadgets can open up a website. Therefore, let&rsquo;s clarify some basic principles of responsive web design here to embrace the fluid web, instead of fighting it. To keep it simple we&rsquo;ll focus on layouts (yes, responsive goes way deeper than that and if you want to learn more <a href="http://bradfrost.com/blog/post/the-principles-of-adaptive-design/">this</a> is a good start).</p>
+
+<h1 id="responsive-vs-adaptive-web-design">Responsive vs Adaptive web design</h1>
+
+<p>It might seem the same but it isn&rsquo;t. Both approaches complement each other, so there is no right or wrong way to do it. Let the content decide.</p>
+
+<p><center><p><img src="/post/2015/responsive-design/Responsive-vs-Adaptive.gif" alt="Responsive-vs-Adaptive" style="width: 580px;"/></p></center></p>
+
+<h1 id="the-flow">The flow</h1>
+
+<p>As screen sizes become smaller, content starts to take up more vertical space and anything below will be pushed down, it&rsquo;s called the flow. That might be tricky to grasp if you are used to design with pixels and points, but makes total sense when you get used to it.</p>
+
+<p><center><p><img src="/post/2015/responsive-design/Flow-vs-Static.gif" alt="Flow-vs-Static" style="width: 580px;"/></p></center></p>
+
+<h1 id="relative-units">Relative units</h1>
+
+<p>The canvas can be a desktop, mobile screen or anything in between. Pixel density can also vary, so we need units that are flexible and work everywhere. That&rsquo;s where relative units like percents come in handy. So making something 50% wide means it will always take half of the screen (or viewport, which is the size of the opened browser window).</p>
+
+<p><center><p><img src="/post/2015/responsive-design/Relative-Units-vs-Static-Units.gif" alt="Relative-Units-vs-Static-Units" style="width: 580px;"/></p></center></p>
+
+<h1 id="breakpoints">Breakpoints</h1>
+
+<p>Breakpoints allow the layout to change at predefined points, i.e. having 3 columns on a desktop, but only 1 column on a mobile device. Most CSS properties can be changed from one breakpoint to another. Usually where you put one depends on the content. If a sentence breaks, you might need to add a breakpoint. But use them with caution – it can get messy quickly when it&rsquo;s difficult to understand what is influencing what.</p>
+
+<p><center><p><img src="/post/2015/responsive-design/With-Breakpoints-vs-Without-Breakpoints.gif" alt="With-Breakpoints-vs-Without-Breakpoints" style="width: 580px;"/></p></center></p>
+
+<h1 id="max-and-min-values">Max and Min values</h1>
+
+<p>Sometimes it&rsquo;s great that content takes up the whole width of a screen, like on a mobile device, but having the same content stretching to the whole width of your TV screen often makes less sense. This is why Min/Max values help. For example having width of 100% and Max width of 1000px would mean that content will fill the screen, but don&rsquo;t go over 1000px.</p>
+
+<p><center><p><img src="/post/2015/responsive-design/Max-width-vs-No-max-width.gif" alt="Max-width-vs-No-max-width" style="width: 580px;"/></p></center></p>
+
+<h1 id="nested-objects">Nested objects</h1>
+
+<p>Remember the relative position? Having a lot of elements depending on each other would be difficult to control, therefore wrapping elements in a container keeps it way more understandable, clean and tidy. This is where static units like pixels can help. They are useful for content that you don&rsquo;t want to scale, like logos and buttons.</p>
+
+<p><center><p><img src="/post/2015/responsive-design/Nested-vs-Not-Nested.gif" alt="Nested-vs-Not-Nested" style="width: 580px;"/></p></center></p>
+
+<h1 id="mobile-or-desktop-first">Mobile or Desktop first</h1>
+
+<p>Technically there isn&rsquo;t much of a difference if a project is started from a smaller screen to a bigger (mobile first) or vice versa (desktop first). Yet it adds extra limitations and helps you make decisions if you start with mobile first. Often people start from both ends at once, so really, go and see what works better for you.</p>
+
+<p><center><p><img src="/post/2015/responsive-design/Desktop-first-vs-Mobile-first.gif" alt="Desktop-first-vs-Mobile-first" style="width: 580px;"/></p></center></p>
+
+<h1 id="webfonts-vs-system-fonts">Webfonts vs System fonts</h1>
+
+<p>Wanna have a cool looking Futura or Didot on your website? Use webfonts! Although they will look stunning, remember that each will be downloaded and the more you&rsquo;ll have, the longer it will take to load the page. System fonts on the other hand are lightning fast, except when the user doesn&rsquo;t have it locally, it will fall back to a default font.</p>
+
+<p><center><p><img src="/post/2015/responsive-design/System-fonts-vs-Webfonts.gif" alt="System-fonts-vs-Webfonts" style="width: 580px;"/></p></center></p>
+
+<h1 id="bitmap-images-vs-vectors">Bitmap images vs Vectors</h1>
+
+<p>Does your icon have lot of details and some fancy effects applied? If yes, use a bitmap. If not, consider using a vector image. For bitmaps use a jpg, png or a gif, for vectors the best choice would be a SVG or an icon font. Each has some benefits and some drawbacks. However keep in mind the size &ndash; no pictures should go online without optimization. Vectors on the other hand often are tiny, but some older browsers won&rsquo;t support it. Also, if it has lots of curves, it might be heavier than a bitmap, so choose wisely.</p>
+
+<p><center><p><img src="/post/2015/responsive-design/Vectors-vs-Images.gif" alt="Vectors-vs-Images" style="width: 580px;"/></p></center></p>
+
+<blockquote>
+<p>Reprinted from <a href="http://blog.froont.com/9-basic-principles-of-responsive-web-design/">blog.froont.com</a></p>
+</blockquote>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2015/responsive-design.html</guid>
+      </item><item>
+        <title>Crossroads</title>
+        <link>https://seasonsroad.com/post/2015/crossroads.html</link>
+        <pubDate>Sat, 24 Jan 2015 13:48:36 +0000</pubDate>
+        <description><![CDATA[<p>I think I have been stopped at the crossroads for a long time, waiting and considering.</p>
+
+<p>I thought I&rsquo;d got many different ways to go. However, I got a message yesterday, only to find that some of these roads are fake. So, only one way is left, and I have to choose this one.</p>
+
+<p>However, this may be a good result, leaving no hesitation for me to waste time. I don&rsquo;t and will never learn or control the future, but I&rsquo;ve got things to do at present.</p>
+
+<p>As it says, &ldquo;Do good things that matter&rdquo;. I don&rsquo;t know if anything I do will matter. But I just want do it well.</p>
+
+<p>Farewell.</p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2015/crossroads.html</guid>
+      </item><item>
+        <title>Markdown 简要语法说明</title>
+        <link>https://seasonsroad.com/post/2014/markdown-syntax.html</link>
+        <pubDate>Sat, 27 Dec 2014 00:00:00 +0800</pubDate>
+        <description><![CDATA[
+
+<h2 id="简述">简述</h2>
+
+<p>此页提供了Markdown的简单概念，语法说明页提供了完整详细的文档，说明了每项功能。但是Markdown其实很简单就可以上手，此页文档提供了一些范例，并且每个范例都会提供输出的HTML结果。</p>
+
+<p>其实直接试试看也是一个很不错的方法，Dingus是一个网页应用程序，你可以把自已编写的Markdown文档转成XHTML。</p>
+
+<h2 id="段落-标题-区块代码">段落、标题、区块代码</h2>
+
+<p>一个段落是由一个以上的连接的行句组成，而一个以上的空行则会划分出不同的段落（空行的定义是显示上看起来像是空行，就被视为空行，例如有一行只有空白和tab，那该行也会被视为空行），一般的段落不需要用空白或换行缩进。</p>
+
+<p>Markdown支持两种标题的语法，Setext和atx形式。Setext形式是用底线的形式，利用<code>=</code>（最高阶标题）和<code>-</code>（第二阶标题），Atx形式在行首插入1到6个<code>#</code>，对应到标题1到6阶。</p>
+
+<p>区块引用则使用email形式的<code>&gt;</code>角括号。</p>
+
+<p>Markdown 语法:</p>
+
+<pre><code class="language-markdown">A First Level Header
+====================
+A Second Level Header
+---------------------
+
+Now is the time for all good men to come to
+the aid of their country. This is just a
+regular paragraph.
+
+The quick brown fox jumped over the lazy
+dog's back.
+### Header 3
+
+&gt; This is a blockquote.
+&gt; 
+&gt; This is the second paragraph in the blockquote.
+&gt;
+&gt; ## This is an H2 in a blockquote
+</code></pre>
+
+<p>输出HTML为：</p>
+
+<pre><code class="language-html">&lt;h1&gt;A First Level Header&lt;/h1&gt;
+&lt;h2&gt;A Second Level Header&lt;/h2&gt;
+&lt;p&gt;Now is the time for all good men to come to
+the aid of their country. This is just a
+regular paragraph.&lt;/p&gt;
+&lt;p&gt;The quick brown fox jumped over the lazy
+dog's back.&lt;/p&gt;
+&lt;h3&gt;Header 3&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This is a blockquote.&lt;/p&gt;
+&lt;p&gt;This is the second paragraph in the blockquote.&lt;/p&gt;
+&lt;h2&gt;This is an H2 in a blockquote&lt;/h2&gt;
+&lt;/blockquote&gt;
+</code></pre>
+
+<h2 id="修辞和强调">修辞和强调</h2>
+
+<p>Markdown使用星号和底线来标记需要强调的区段。</p>
+
+<p>Markdown语法:</p>
+
+<pre><code class="language-markdown">Some of these words *are emphasized*. Some of these words _are emphasized also_.
+
+Use two asterisks for **strong emphasis**. Or, if you prefer, __use two underscores instead__.
+</code></pre>
+
+<p>输出HTML 为:</p>
+
+<pre><code class="language-html">&lt;p&gt;Some of these words &lt;em&gt;are emphasized&lt;/em&gt;. Some of these words &lt;em&gt;are emphasized also&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Use two asterisks for &lt;strong&gt;strong emphasis&lt;/strong&gt;. Or, if you prefer, &lt;strong&gt;use two underscores instead&lt;/strong&gt;.&lt;/p&gt;
+</code></pre>
+
+<h2 id="列表">列表</h2>
+
+<p>无序列表使用星号、加号和减号来做为列表的项目标记，这些符号是都可以使用的，使用星号：</p>
+
+<pre><code class="language-markdown">* Candy.
+* Gum.
+* Booze.
+</code></pre>
+
+<p>加号：</p>
+
+<pre><code class="language-markdown">+ Candy.
++ Gum.
++ Booze.
+</code></pre>
+
+<p>和减号：</p>
+
+<pre><code class="language-markdown">- Candy.
+- Gum.
+- Booze.
+</code></pre>
+
+<p>都会输出HTML为：</p>
+
+<pre><code class="language-html">&lt;ul&gt;
+&lt;li&gt;Candy.&lt;/li&gt;
+&lt;li&gt;Gum.&lt;/li&gt;
+&lt;li&gt;Booze.&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<p>有序的列表则是使用一般的数字接着一个英文句点作为项目标记：</p>
+
+<pre><code class="language-markdown">1. Red
+2. Green
+3. Blue
+</code></pre>
+
+<p>输出HTML为：</p>
+
+<pre><code class="language-html">&lt;ol&gt;
+&lt;li&gt;Red&lt;/li&gt;
+&lt;li&gt;Green&lt;/li&gt;
+&lt;li&gt;Blue&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+
+<p>如果你在项目之间插入空行，那项目的内容会用<code>&lt;p&gt;</code>包起来，你也可以在一个项目内放上多个段落，只要在它前面缩排4个空白或1个tab。</p>
+
+<pre><code class="language-markdown">* A list item.
+
+    With multiple paragraphs.
+
+* Another item in the list.
+</code></pre>
+
+<p>输出 HTML 为：</p>
+
+<pre><code class="language-html">&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;A list item.&lt;/p&gt;
+&lt;p&gt;With multiple paragraphs.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Another item in the list.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<h2 id="链接">链接</h2>
+
+<p>Markdown支援两种形式的链接语法：<strong>行内</strong>和<strong>参考</strong>两种形式，两种都是使用角括号来把文字转成连结。</p>
+
+<p>行内形式是直接在后面用括号直接接上链接：</p>
+
+<pre><code class="language-markdown">This is an [example link](http://example.com/).
+</code></pre>
+
+<p>输出HTML为：</p>
+
+<pre><code class="language-html">&lt;p&gt;This is an &lt;a href=&quot;http://example.com/&quot;&gt;example link&lt;/a&gt;.&lt;/p&gt;
+</code></pre>
+
+<p>你也可以选择性的加上 title 属性：</p>
+
+<pre><code class="language-markdown">This is an [example link](http://example.com/ &quot;With a Title&quot;).
+</code></pre>
+
+<p>输出HTML为：</p>
+
+<pre><code class="language-html">&lt;p&gt;This is an &lt;a href=&quot;http://example.com/&quot; title=&quot;With a Title&quot;&gt;example link&lt;/a&gt;.&lt;/p&gt;
+</code></pre>
+
+<p>参考形式的链接让你可以为链接定一个名称，之后你可以在文件的其他地方定义该链接的内容：</p>
+
+<pre><code class="language-markdown">I get 10 times more traffic from [Google][1] than from [Yahoo][2] or [MSN][3].
+
+[1]: http://google.com/ &quot;Google&quot;
+[2]: http://search.yahoo.com/ &quot;Yahoo Search&quot;
+[3]: http://search.msn.com/ &quot;MSN Search&quot;
+</code></pre>
+
+<p>输出HTML为：</p>
+
+<pre><code class="language-html">&lt;p&gt;I get 10 times more traffic from &lt;a href=&quot;http://google.com/&quot; title=&quot;Google&quot;&gt;Google&lt;/a&gt; than from &lt;a href=&quot;http://search.yahoo.com/&quot; title=&quot;Yahoo Search&quot;&gt;Yahoo&lt;/a&gt; or &lt;a href=&quot;http://search.msn.com/&quot; title=&quot;MSN Search&quot;&gt;MSN&lt;/a&gt;.&lt;/p&gt;
+</code></pre>
+
+<p>title属性是选择性的，链接名称可以用字母、数字和空格，但是不分大小写：</p>
+
+<pre><code class="language-markdown">I start my morning with a cup of coffee and [The New York Times][NY Times].
+
+[ny times]: http://www.nytimes.com/
+</code></pre>
+
+<p>输出 HTML 为：</p>
+
+<pre><code class="language-html">&lt;p&gt;I start my morning with a cup of coffee and &lt;a href=&quot;http://www.nytimes.com/&quot;&gt;The New York Times&lt;/a&gt;.&lt;/p&gt;
+</code></pre>
+
+<h2 id="图片">图片</h2>
+
+<p>图片的语法和链接很像。</p>
+
+<p>行内形式（title是选择性的）：</p>
+
+<pre><code class="language-markdown">![alt text](/path/to/img.jpg &quot;Title&quot;)
+</code></pre>
+
+<p>参考形式：</p>
+
+<pre><code class="language-markdown">![alt text][id]
+
+[id]: /path/to/img.jpg &quot;Title&quot;
+</code></pre>
+
+<p>上面两种方法都会输出 HTML 为：</p>
+
+<pre><code class="language-html">&lt;img src=&quot;/path/to/img.jpg&quot; alt=&quot;alt text&quot; title=&quot;Title&quot; /&gt;
+</code></pre>
+
+<h2 id="代码">代码</h2>
+
+<p>在一般的段落文字中，你可以使用反引号<code>`</code>来标记代码区段，区段内的<code>&amp;</code>、<code>&lt;</code>和<code>&gt;</code>都会被自动的转换成HTML实体，这项特性让你可以很容易的在代码区段内插入HTML码：</p>
+
+<pre><code class="language-markdown">I strongly recommend against using any `&lt;blink&gt;` tags.
+
+I wish SmartyPants used named entities like `&amp;mdash;` instead of decimal-encoded entites like `&amp;#8212;`.
+</code></pre>
+
+<p>输出HTML为：</p>
+
+<pre><code class="language-markdown">&lt;p&gt;I strongly recommend against using any&lt;code&gt;&amp;lt;blink&amp;gt;&lt;/code&gt; tags.&lt;/p&gt;
+&lt;p&gt;I wish SmartyPants used named entities like&lt;code&gt;&amp;amp;mdash;&lt;/code&gt; instead of decimal-encoded entites like &lt;code&gt;&amp;amp;#8212;&lt;/code&gt;.&lt;/p&gt;
+</code></pre>
+
+<p>如果要建立一个已经格式化好的代码区块，只要每行都缩进4个空格或是一个tab就可以了，而<code>&amp;</code>、<code>&lt;</code>和<code>&gt;</code>也一样会自动转成HTML实体。</p>
+
+<p>Markdown语法:</p>
+
+<pre><code class="language-markdown">If you want your page to validate under XHTML 1.0 Strict, you've got to put paragraph tags in your blockquotes:
+
+&lt;blockquote&gt;
+&lt;p&gt;For example.&lt;/p&gt;
+&lt;/blockquote&gt;
+</code></pre>
+
+<p>输出HTML为：</p>
+
+<pre><code class="language-html">	&lt;p&gt;If you want your page to validate under XHTML 1.0 Strict, you've got to put paragraph tags in your blockquotes:&lt;/p&gt;
+	&lt;pre&gt;&lt;code&gt;&amp;lt;blockquote&amp;gt;
+	&amp;lt;p&amp;gt;For example.&amp;lt;/p&amp;gt;
+	&amp;lt;/blockquote&amp;gt;
+	&lt;/code&gt;&lt;/pre&gt;
+</code></pre>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2014/markdown-syntax.html</guid>
+      </item>
+  </channel>
+</rss>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Connect IPv6 with IPv4 via tunnel - SeasonsRoad</title>
+    <meta name="description" content="With IPv6 you can do a lot of things. This is a how-to article for users who only have IPv4 and want to connect IPv6.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/post/2015/connect-ipv6.html">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed" />
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="apple-touch-icon" href="images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+  <body>
+    <header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item has-children">
+            <a href="/about.html" class="menu-link">
+              About
+              <div class="children-indicator">&#9662;</div>
+            </a>
+            
+            <ul class="menu-children">
+              
+              <li class="menu-item">
+                <a href="/about.html" class="menu-link">SeasonsRoad</a>
+              </li>
+              
+              <li class="menu-item">
+                <a href="/contact.html" class="menu-link">Contact</a>
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+    
+    <div class="page-content">
+      <div class="wrapper">
+        
+<div class="post">
+	<header class="post-header">
+		<h1 class="post-title">Connect IPv6 with IPv4 via tunnel</h1>
+		<p class="post-meta">Sep 27, 2015 • Yiming</p>
+	</header>
+	<article class="post-content">
+		
+
+<p>With IPv6 you can do a lot of things. This is a how-to article for users who only have IPv4 and want to connect IPv6.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+<li>You should have a public address that&rsquo;s ping reachable.</li>
+</ul>
+
+<h2 id="steps-to-connect">Steps to connect</h2>
+
+<ol>
+<li><p>Register to <a href="http://www.tunnelbroker.net/">Tunnel Broker</a> and login this website.</p></li>
+
+<li><p>Click &lsquo;Create Regular Tunnel&rsquo; link inside User Functions panel below Account Menu.</p></li>
+
+<li><p>Configure your tunnel and create it.</p>
+
+<ul>
+<li>IPv4 Endpoint is the v4 IP you used to connect Internet. (Remember the IP you use, take it as &lsquo;PUBLIC-IP&rsquo;.)</li>
+<li>If you&rsquo;re inside NAT or router, you can try to use Baidu/Google and search IP. Then you&rsquo;ll know your IP address. Usually, you can use the IP under the input box.</li>
+<li>Make sure your IP is ping reachable. Or Tunnel Broker won&rsquo;t create any tunnel for you.</li>
+<li>Try to choose a server that&rsquo;s nearest to you. However, you can just choose one you like if you have no idea which is nearer.</li>
+</ul></li>
+
+<li><p>Once you create a tunnel, you&rsquo;ll get the Tunnel Details panel.</p></li>
+
+<li><p>Connect to the tunnel you created.</p>
+
+<ul>
+<li>Tunnel Broker helps a lot in connect the tunnel they host with your specific platform.</li>
+<li>In &lsquo;Example Configurations&rsquo; tab, you can select your OS.</li>
+<li>Ensure to read all the tips/NOTEs below the configuration. (You may need sudo to run the command)</li>
+<li><strong>IMPORTANT:</strong> If you&rsquo;re inside an NAT or router, you need to change the &lsquo;PUBLIC-IP&rsquo; in the commands to your own inner IP address.</li>
+</ul></li>
+
+<li><p>After steps above, you&rsquo;ve created a network interface named <code>gif0</code>.</p>
+
+<ul>
+<li>You can shut down this tunnel by <code>sudo ifconfig gif0 down</code> or open it with <code>sudo ifconfig gif0 up</code>.</li>
+</ul></li>
+
+<li><p>Now you have the tunnel. And you still need to update your DNS server to resolve your domain names to IPv6 addresses.</p>
+
+<ul>
+<li>Use Google IPv4 DNS: 8.8.8.8 (google-public-dns-a.google.com) &amp; 8.8.4.4 (google-public-dns-b.google.com)</li>
+<li>Use Google IPv6 DNS: 2001:4860:4860::8888 &amp; 2001:4860:4860::8844</li>
+<li>Use OpenDNS IPv4: 208.67.222.222 (Resolver1.OpenDNS.com), 208.67.220.220 (Resolver2.OpenDNS.com), 208.67.222.220 (Resolver3.OpenDNS.com) &amp; 208.67.220.222 (Resolver4.OpenDNS.com)</li>
+<li>Use OpenDNS IPv6: 2620:0:ccc::2 &amp; 2620:0:ccd::2</li>
+</ul></li>
+
+<li><p>You may need to flush your DNS.</p>
+
+<ul>
+<li>Windows: <code>ipconfig /flushdns</code></li>
+<li>Mac OSX: <code>dscacheutil -flushcache</code></li>
+</ul></li>
+
+<li><p>Test it now!</p>
+
+<ul>
+<li><a href="http://www.test-ipv6.com/">test-ipv6.com</a></li>
+<li><a href="http://ipv6-test.com/">ipv6-test.com</a></li>
+<li><a href="https://ipv6.google.com/">ipv6.google.com</a></li>
+</ul></li>
+</ol>
+
+<h2 id="after-all">After all</h2>
+
+<p>Now you should have the ability to access IPv6. Go surf the Internet with IPv6 then!</p>
+
+	</article>
+</div>
+
+      </div>
+    </div>
+    <footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "Seasons Road",
+  "short_name": "SeasonsRoad",
+  "icons": [
+    {
+      "src": "/images/logo/transparent-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo/transparent-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo/transparent-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo/transparent-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/?utm_source=a2hs",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFAA00",
+  "serviceworker": {
+    "src": "/sw.js",
+    "scope": "/",
+    "update_via_cache": "none"
+  }
+}
