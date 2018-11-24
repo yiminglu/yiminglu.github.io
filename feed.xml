@@ -5,10 +5,62 @@
     <link>https://seasonsroad.com/</link>
     <description>SeasonsRoad is the blog for interesting things happening around.</description>
     
-    <lastBuildDate>Wed, 07 Nov 2018 00:00:00 +0800</lastBuildDate>
-    <generator>Hugo v0.50</generator>
+    <lastBuildDate>Sat, 24 Nov 2018 00:00:00 +0800</lastBuildDate>
+    <generator>Hugo v0.51</generator>
     <atom:link href="https://seasonsroad.com/feed.xml" rel="self" type="application/rss+xml" />
       <item>
+        <title>The Feelings of Someone&#39;s Leaving</title>
+        <link>https://seasonsroad.com/post/2018/feelings-of-leaving.html</link>
+        <pubDate>Sat, 24 Nov 2018 00:00:00 +0800</pubDate>
+        <description><![CDATA[
+
+<h2 id="直到要走了-才觉得不舍得">『直到要走了，才觉得不舍得』</h2>
+
+<p>朋友在吃完最后一顿饭后跟我说的话。散伙饭都是这样吧，尽量不伤感，但是也拦不得别人奔向自己的大好前程。</p>
+
+<p>这个朋友，现在也可以叫前同事了，还是蛮厉害的。而且他也很特别，特别到让你觉得他有点『二』。平日里出去吃饭，你会觉得他说话都无法让全桌人听清楚，然而，他却像「交际花」一般的存在，公司很多新来的人都能与他交情不错。而反观自己，甚至还不知道这些人的名字。</p>
+
+<p>说到这里，提一件事。现在的我，工作还是一样努力，但有些方向却看淡了。原来，我会细心记得每个同事的名字，虽然，可能是因为公司的人也不多吧。而现在，公司大了，人多了，我却觉得无所谓了。碰面真的有必要打招呼吗？这确实是一个问号。或者这又是一个信号，告诉我人情不是我的特长？</p>
+
+<h2 id="聊聊薪水吧">『聊聊薪水吧』</h2>
+
+<p>薪水是临走的时候都避不开的话题，至少对我们这些还年轻、对别人还没有特别多戒备心的人。</p>
+
+<p>『在这之前，我觉得自己挣得很多。看了一些招聘网站，他们要求那么多，需要工龄很久，工资才给 10k 到 20k，多的也不过 30k。』朋友这么说，还不断的加一些『真的』来强调这就是真实的想法。</p>
+
+<p>我连忙解释道，人是会懒惰的。过了一些年，这些人达到了他们的要求，年头足够了，然而水平其实很烂，level根本达不到。工龄，不过是混日子罢了。</p>
+
+<p>其实，想想自己的优势又是什么？难道只是年轻，学习能力强？</p>
+
+<p>朋友告诉了我他 double 了自己的薪水，我说真的很厉害啊。其实想想真的是很好了，不管将来的结果是怎样的，钱到手里了才是真的。反观自己，工作努力了这么多年，工资还没有开始时候的 double，心里也是寒寒的。</p>
+
+<h2 id="赶快去做算法吧">『赶快去做算法吧』</h2>
+
+<p>这个朋友之前多次跟我提起这件事，说他的好几个同学特别能感觉到时代的需求，刚刚工作就转行去做 AI 了。他说现在跟他们聊起来，薪水都是他的两倍一身。说他们转行了半年就已经风生水起了。听起来感觉朋友特别向往。</p>
+
+<p>果然，这次跳槽，他脱离了自己的前端领域。</p>
+
+<h2 id="这都是围城">『这都是围城』</h2>
+
+<p>这是另外一个朋友跟我聊天的时候说的。</p>
+
+<p>这位朋友曾经在 Google，他应该是我在校园里见过最努力的一个人了，没日没夜的努力学习，最终出国 CMU，顺利进入 Google。当然这也是意料之中的。好像出国的同学里面只要是科班出身的，都去了 FANG 了。</p>
+
+<p>他说这句话的时候，是几年前我跟他聊天，问了他有什么打算的时候。他现在回国了，在百度做 AI，还没有机会跟他吃个饭，聊聊近况。</p>
+
+<p>这也许就是大多数人的问题所在，觉得别人的都是好的，看到的都是各种各样的问题。兴许，别人的也不怎么样呢？</p>
+
+<h2 id="写在最后">写在最后</h2>
+
+<p>之前觉得只有输了的人才离开了，现在反而觉得留下的人才是输了。可是，转念一想，他们怎么能算是输了？</p>
+
+<p>或者其实输的只有自己？</p>
+
+<p>公司到底算什么？第一家公司又算什么？到底留恋的是什么？可能我在心理上还算年轻吧，一份工作在别人眼中可能只是一个踏脚石，踏过去就是下一个。</p>
+
+<p>不过，人不也都在成长？就像我之前说的，我也看淡了一些。</p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2018/feelings-of-leaving.html</guid>
+      </item><item>
         <title>Migrate the Blog to HTTPS</title>
         <link>https://seasonsroad.com/post/2018/migration-to-https.html</link>
         <pubDate>Wed, 07 Nov 2018 00:00:00 +0800</pubDate>
@@ -723,254 +775,6 @@ Set the default compression method.  Currently the main methods supported by zip
 
 <p>Farewell.</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2015/crossroads.html</guid>
-      </item><item>
-        <title>Markdown 简要语法说明</title>
-        <link>https://seasonsroad.com/post/2014/markdown-syntax.html</link>
-        <pubDate>Sat, 27 Dec 2014 00:00:00 +0800</pubDate>
-        <description><![CDATA[
-
-<h2 id="简述">简述</h2>
-
-<p>此页提供了Markdown的简单概念，语法说明页提供了完整详细的文档，说明了每项功能。但是Markdown其实很简单就可以上手，此页文档提供了一些范例，并且每个范例都会提供输出的HTML结果。</p>
-
-<p>其实直接试试看也是一个很不错的方法，Dingus是一个网页应用程序，你可以把自已编写的Markdown文档转成XHTML。</p>
-
-<h2 id="段落-标题-区块代码">段落、标题、区块代码</h2>
-
-<p>一个段落是由一个以上的连接的行句组成，而一个以上的空行则会划分出不同的段落（空行的定义是显示上看起来像是空行，就被视为空行，例如有一行只有空白和tab，那该行也会被视为空行），一般的段落不需要用空白或换行缩进。</p>
-
-<p>Markdown支持两种标题的语法，Setext和atx形式。Setext形式是用底线的形式，利用<code>=</code>（最高阶标题）和<code>-</code>（第二阶标题），Atx形式在行首插入1到6个<code>#</code>，对应到标题1到6阶。</p>
-
-<p>区块引用则使用email形式的<code>&gt;</code>角括号。</p>
-
-<p>Markdown 语法:</p>
-
-<pre><code class="language-markdown">A First Level Header
-====================
-A Second Level Header
----------------------
-
-Now is the time for all good men to come to
-the aid of their country. This is just a
-regular paragraph.
-
-The quick brown fox jumped over the lazy
-dog's back.
-### Header 3
-
-&gt; This is a blockquote.
-&gt; 
-&gt; This is the second paragraph in the blockquote.
-&gt;
-&gt; ## This is an H2 in a blockquote
-</code></pre>
-
-<p>输出HTML为：</p>
-
-<pre><code class="language-html">&lt;h1&gt;A First Level Header&lt;/h1&gt;
-&lt;h2&gt;A Second Level Header&lt;/h2&gt;
-&lt;p&gt;Now is the time for all good men to come to
-the aid of their country. This is just a
-regular paragraph.&lt;/p&gt;
-&lt;p&gt;The quick brown fox jumped over the lazy
-dog's back.&lt;/p&gt;
-&lt;h3&gt;Header 3&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;This is a blockquote.&lt;/p&gt;
-&lt;p&gt;This is the second paragraph in the blockquote.&lt;/p&gt;
-&lt;h2&gt;This is an H2 in a blockquote&lt;/h2&gt;
-&lt;/blockquote&gt;
-</code></pre>
-
-<h2 id="修辞和强调">修辞和强调</h2>
-
-<p>Markdown使用星号和底线来标记需要强调的区段。</p>
-
-<p>Markdown语法:</p>
-
-<pre><code class="language-markdown">Some of these words *are emphasized*. Some of these words _are emphasized also_.
-
-Use two asterisks for **strong emphasis**. Or, if you prefer, __use two underscores instead__.
-</code></pre>
-
-<p>输出HTML 为:</p>
-
-<pre><code class="language-html">&lt;p&gt;Some of these words &lt;em&gt;are emphasized&lt;/em&gt;. Some of these words &lt;em&gt;are emphasized also&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;Use two asterisks for &lt;strong&gt;strong emphasis&lt;/strong&gt;. Or, if you prefer, &lt;strong&gt;use two underscores instead&lt;/strong&gt;.&lt;/p&gt;
-</code></pre>
-
-<h2 id="列表">列表</h2>
-
-<p>无序列表使用星号、加号和减号来做为列表的项目标记，这些符号是都可以使用的，使用星号：</p>
-
-<pre><code class="language-markdown">* Candy.
-* Gum.
-* Booze.
-</code></pre>
-
-<p>加号：</p>
-
-<pre><code class="language-markdown">+ Candy.
-+ Gum.
-+ Booze.
-</code></pre>
-
-<p>和减号：</p>
-
-<pre><code class="language-markdown">- Candy.
-- Gum.
-- Booze.
-</code></pre>
-
-<p>都会输出HTML为：</p>
-
-<pre><code class="language-html">&lt;ul&gt;
-&lt;li&gt;Candy.&lt;/li&gt;
-&lt;li&gt;Gum.&lt;/li&gt;
-&lt;li&gt;Booze.&lt;/li&gt;
-&lt;/ul&gt;
-</code></pre>
-
-<p>有序的列表则是使用一般的数字接着一个英文句点作为项目标记：</p>
-
-<pre><code class="language-markdown">1. Red
-2. Green
-3. Blue
-</code></pre>
-
-<p>输出HTML为：</p>
-
-<pre><code class="language-html">&lt;ol&gt;
-&lt;li&gt;Red&lt;/li&gt;
-&lt;li&gt;Green&lt;/li&gt;
-&lt;li&gt;Blue&lt;/li&gt;
-&lt;/ol&gt;
-</code></pre>
-
-<p>如果你在项目之间插入空行，那项目的内容会用<code>&lt;p&gt;</code>包起来，你也可以在一个项目内放上多个段落，只要在它前面缩排4个空白或1个tab。</p>
-
-<pre><code class="language-markdown">* A list item.
-
-    With multiple paragraphs.
-
-* Another item in the list.
-</code></pre>
-
-<p>输出 HTML 为：</p>
-
-<pre><code class="language-html">&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;A list item.&lt;/p&gt;
-&lt;p&gt;With multiple paragraphs.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Another item in the list.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</code></pre>
-
-<h2 id="链接">链接</h2>
-
-<p>Markdown支援两种形式的链接语法：<strong>行内</strong>和<strong>参考</strong>两种形式，两种都是使用角括号来把文字转成连结。</p>
-
-<p>行内形式是直接在后面用括号直接接上链接：</p>
-
-<pre><code class="language-markdown">This is an [example link](http://example.com/).
-</code></pre>
-
-<p>输出HTML为：</p>
-
-<pre><code class="language-html">&lt;p&gt;This is an &lt;a href=&quot;http://example.com/&quot;&gt;example link&lt;/a&gt;.&lt;/p&gt;
-</code></pre>
-
-<p>你也可以选择性的加上 title 属性：</p>
-
-<pre><code class="language-markdown">This is an [example link](http://example.com/ &quot;With a Title&quot;).
-</code></pre>
-
-<p>输出HTML为：</p>
-
-<pre><code class="language-html">&lt;p&gt;This is an &lt;a href=&quot;http://example.com/&quot; title=&quot;With a Title&quot;&gt;example link&lt;/a&gt;.&lt;/p&gt;
-</code></pre>
-
-<p>参考形式的链接让你可以为链接定一个名称，之后你可以在文件的其他地方定义该链接的内容：</p>
-
-<pre><code class="language-markdown">I get 10 times more traffic from [Google][1] than from [Yahoo][2] or [MSN][3].
-
-[1]: http://google.com/ &quot;Google&quot;
-[2]: http://search.yahoo.com/ &quot;Yahoo Search&quot;
-[3]: http://search.msn.com/ &quot;MSN Search&quot;
-</code></pre>
-
-<p>输出HTML为：</p>
-
-<pre><code class="language-html">&lt;p&gt;I get 10 times more traffic from &lt;a href=&quot;http://google.com/&quot; title=&quot;Google&quot;&gt;Google&lt;/a&gt; than from &lt;a href=&quot;http://search.yahoo.com/&quot; title=&quot;Yahoo Search&quot;&gt;Yahoo&lt;/a&gt; or &lt;a href=&quot;http://search.msn.com/&quot; title=&quot;MSN Search&quot;&gt;MSN&lt;/a&gt;.&lt;/p&gt;
-</code></pre>
-
-<p>title属性是选择性的，链接名称可以用字母、数字和空格，但是不分大小写：</p>
-
-<pre><code class="language-markdown">I start my morning with a cup of coffee and [The New York Times][NY Times].
-
-[ny times]: http://www.nytimes.com/
-</code></pre>
-
-<p>输出 HTML 为：</p>
-
-<pre><code class="language-html">&lt;p&gt;I start my morning with a cup of coffee and &lt;a href=&quot;http://www.nytimes.com/&quot;&gt;The New York Times&lt;/a&gt;.&lt;/p&gt;
-</code></pre>
-
-<h2 id="图片">图片</h2>
-
-<p>图片的语法和链接很像。</p>
-
-<p>行内形式（title是选择性的）：</p>
-
-<pre><code class="language-markdown">![alt text](/path/to/img.jpg &quot;Title&quot;)
-</code></pre>
-
-<p>参考形式：</p>
-
-<pre><code class="language-markdown">![alt text][id]
-
-[id]: /path/to/img.jpg &quot;Title&quot;
-</code></pre>
-
-<p>上面两种方法都会输出 HTML 为：</p>
-
-<pre><code class="language-html">&lt;img src=&quot;/path/to/img.jpg&quot; alt=&quot;alt text&quot; title=&quot;Title&quot; /&gt;
-</code></pre>
-
-<h2 id="代码">代码</h2>
-
-<p>在一般的段落文字中，你可以使用反引号<code>`</code>来标记代码区段，区段内的<code>&amp;</code>、<code>&lt;</code>和<code>&gt;</code>都会被自动的转换成HTML实体，这项特性让你可以很容易的在代码区段内插入HTML码：</p>
-
-<pre><code class="language-markdown">I strongly recommend against using any `&lt;blink&gt;` tags.
-
-I wish SmartyPants used named entities like `&amp;mdash;` instead of decimal-encoded entites like `&amp;#8212;`.
-</code></pre>
-
-<p>输出HTML为：</p>
-
-<pre><code class="language-markdown">&lt;p&gt;I strongly recommend against using any&lt;code&gt;&amp;lt;blink&amp;gt;&lt;/code&gt; tags.&lt;/p&gt;
-&lt;p&gt;I wish SmartyPants used named entities like&lt;code&gt;&amp;amp;mdash;&lt;/code&gt; instead of decimal-encoded entites like &lt;code&gt;&amp;amp;#8212;&lt;/code&gt;.&lt;/p&gt;
-</code></pre>
-
-<p>如果要建立一个已经格式化好的代码区块，只要每行都缩进4个空格或是一个tab就可以了，而<code>&amp;</code>、<code>&lt;</code>和<code>&gt;</code>也一样会自动转成HTML实体。</p>
-
-<p>Markdown语法:</p>
-
-<pre><code class="language-markdown">If you want your page to validate under XHTML 1.0 Strict, you've got to put paragraph tags in your blockquotes:
-
-&lt;blockquote&gt;
-&lt;p&gt;For example.&lt;/p&gt;
-&lt;/blockquote&gt;
-</code></pre>
-
-<p>输出HTML为：</p>
-
-<pre><code class="language-html">	&lt;p&gt;If you want your page to validate under XHTML 1.0 Strict, you've got to put paragraph tags in your blockquotes:&lt;/p&gt;
-	&lt;pre&gt;&lt;code&gt;&amp;lt;blockquote&amp;gt;
-	&amp;lt;p&amp;gt;For example.&amp;lt;/p&amp;gt;
-	&amp;lt;/blockquote&amp;gt;
-	&lt;/code&gt;&lt;/pre&gt;
-</code></pre>]]></description>
-        <guid isPermaLink="true">https://seasonsroad.com/post/2014/markdown-syntax.html</guid>
       </item>
   </channel>
 </rss>

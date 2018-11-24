@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-8b66d7c185f7c2458df9aa6e186db702e8e2b1de';
+const cacheName = 'sr-precache-98f10a2da06fe4d8322e76b825bcfd288c00c935';
 
 const PrecacheList = [
   "/",
@@ -46,6 +46,7 @@ const PrecacheList = [
   "post/2016/spot/geo-impact.png",
   "post/2016/spot/missing-asset.png",
   "post/2016/spot/problems.png",
+  "post/2018/feelings-of-leaving.html",
   "post/2018/migration-to-https.html",
   "post/2018/migration-to-https/cert.png",
   "post/2018/migration-to-https/secure.png",
