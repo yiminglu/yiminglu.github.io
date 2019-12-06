@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-b1daf08808244cb5037ed204c0a1b6398a42e1c4';
+const cacheName = 'sr-precache-c3f2dc14e905348cab97ac728d809c8b7e25e169';
 
 const PrecacheList = [
   "/",
@@ -52,6 +52,7 @@ const PrecacheList = [
   "post/2018/migration-to-https/secure.png",
   "post/2018/pwa-integration.html",
   "post/2018/pwa-integration/pwa.gif",
+  "post/2019/the-2nd-birthday.html",
   "images/logo/daisy.png",
   "images/logo/leaf-1.png",
   "images/logo/leaf-2.png",
