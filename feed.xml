@@ -1,38 +1,31 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SeasonsRoad</title>
     <link>https://seasonsroad.com/</link>
     <description>SeasonsRoad is the blog for interesting things happening around.</description>
     
-    <lastBuildDate>Fri, 06 Dec 2019 02:00:00 +0800</lastBuildDate>
-    <generator>Hugo v0.54.0</generator>
+    <lastBuildDate>Mon, 09 Dec 2019 02:00:00 +0800</lastBuildDate>
+    <generator>Hugo v0.60.1</generator>
     <atom:link href="https://seasonsroad.com/feed.xml" rel="self" type="application/rss+xml" />
       <item>
+        <title>过度担忧</title>
+        <link>https://seasonsroad.com/post/2019/over-concern.html</link>
+        <pubDate>Mon, 09 Dec 2019 02:00:00 +0800</pubDate>
+        <description><![CDATA[<p>『若要人不知，除非己莫为。』</p>
+<p>即便骗过了别人，也骗不过自己。</p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2019/over-concern.html</guid>
+      </item><item>
         <title>Adding Dark Mode to the Blog</title>
         <link>https://seasonsroad.com/post/2019/adding-dark-mode.html</link>
         <pubDate>Fri, 06 Dec 2019 02:00:00 +0800</pubDate>
-        <description><![CDATA[
-
-<h2 id="代码量不多-效果很大">代码量不多，效果很大</h2>
-
+        <description><![CDATA[<h2 id="heading">代码量不多，效果很大</h2>
 <p>现在视觉舒适度越来越重要了，无论是 Mac、Windows、iOS 还是 Android 都添加了暗夜模式，那网站也就支持一下吧，也不麻烦。</p>
-
 <p>只是简单的加了几个 CSS 的 global 变量，通过 <code>prefers-color-scheme: dark</code> 覆盖下就直接 work 了。</p>
-
 <p>过程中重新梳理了一下全局所有的颜色，分了一下类，以后改动也不必随便添加了，拿来定义好的就可以直接用了。</p>
-
 <p>当然，这样颜色也更容易维护了。</p>
-
-<h2 id="before-after">Before &amp; After</h2>
-
-<p><center>
-<span><img src="/post/2019/adding-dark-mode/before.jpg" alt="Before" style="width: 320px; border: 1px solid black; margin: 10px;"/></span>
-<span><img src="/post/2019/adding-dark-mode/after.jpg" alt="After" style="width: 320px; border: 1px solid white; margin: 10px;"/></span>
-</center></p>
-
+<h2 id="before--after">Before &amp; After</h2>
+<!-- raw HTML omitted -->
 <h2 id="benefits">Benefits</h2>
-
 <ul>
 <li>Reduce Eye Strain</li>
 <li>Improve Battery Life</li>
@@ -43,108 +36,64 @@
         <title>The Second Birthday</title>
         <link>https://seasonsroad.com/post/2019/the-2nd-birthday.html</link>
         <pubDate>Fri, 09 Aug 2019 03:00:00 +0800</pubDate>
-        <description><![CDATA[
-
-<h2 id="一次突如其来的安排">一次突如其来的安排</h2>
-
+        <description><![CDATA[<h2 id="heading">一次突如其来的安排</h2>
 <p>人生就是这样，很多事情都是突然发生的。但是真正导致这件事情发生的东西，却存在了好久好久。</p>
-
 <p>我是一个恋旧的人，所以也喜欢呆在一个熟悉的地方。</p>
-
-<p>当然，每个地方都不是永久的。我深知这一点，但是一直在等待一个能触及我离去神经的那样东西。但是，细细想来，其实它早就存在了，我可能只是忽略掉了。其实，从去年写 <a href="/post/2018/pwa-integration.html">『The Feelings of Someone&rsquo;s Leaving』</a> 的时候，它就埋在了我的心里，只是我还不确定，当然也在假装淡然。直到几个月前，又有一个很重要的人离开的时候，我才意识到其实这里有很多问题，我只是懒惰了，忽视了怎么去解决。</p>
-
+<p>当然，每个地方都不是永久的。我深知这一点，但是一直在等待一个能触及我离去神经的那样东西。但是，细细想来，其实它早就存在了，我可能只是忽略掉了。其实，从去年写 <a href="/post/2018/feelings-of-leaving.html">『The Feelings of Someone's Leaving』</a> 的时候，它就埋在了我的心里，只是我还不确定，当然也在假装淡然。直到几个月前，又有一个很重要的人离开的时候，我才意识到其实这里有很多问题，我只是懒惰了，忽视了怎么去解决。</p>
 <p>所以，离开这个决定也想了很久，毕竟成本还是很高的。前期的准备还是要有很多的，一步一步慢慢来，也搞了好几个月才做好准备。但真当我在考虑是否要迈出下一步的时候，我再次犹豫了。因为这样真的是要把这个想法公开给一些不在这个地方的人，而不是原来自己埋在心底的想法。</p>
-
 <p>已经忘却了，为什么我会下定决心迈出这一步，但是我确实微信发出去了。也等来了回复，后面的事情都发生的很快。真的很快，不到一周的时间里也收获了一些东西。</p>
-
 <p>所以，一切都是那么的突如其来，以至于，本来不想在 08.08 安排事情的我也接受了当天晚上的安排。</p>
-
-<h2 id="08-08">『08.08』</h2>
-
+<h2 id="0808">『08.08』</h2>
 <p>这一天真的挺累的，因为知道晚上不能一起陪闺女吃饭，早上起来陪了她玩儿一会。</p>
-
 <p>娃娃都是这么开心，不管是不是生日。可能最近给她灌输了比较多了，她也有一些概念，知道了生日快乐歌。话儿也密了很多，时不时还能背出整首诗来。</p>
-
 <p>真是，不经意间，她就长大了。</p>
-
 <p>想想这些，发现，人生真的是稍纵即逝。而且，周围又全是引诱你，进而占用你时间的东西。可想而知，自控力有多重要。作为一个能够意识到这一点，却又做不到的人，我还有很多进步空间。</p>
-
 <p>晚上的安排，不出意料到了很晚，本以为闺女都睡了，索性在就在那里吃了一顿饭。</p>
-
 <p>聊了很久，感觉有人认可，且支持自己的感觉，真的很好。</p>
-
 <p>驱车回家。发现闺女一如既往的还在闹腾，只是闹得更晚了一些。刚好，就跟她聊了一会儿天。闺女的姑姑打来电话，还有奶奶都聊聊天，大家都很开心的睡下了。</p>
-
 <p>当然，我并没有睡，继续放空大脑。早睡，对我真的挺难的，我都需要用手机的禅定模式才能开启睡眠了，而且很多时候都不能按时开启禅定模式。但是，为了健康和家庭，以后工作结束了，还是应该尽早睡下。</p>
-
-<h2 id="更多的-08-08">更多的『08.08』</h2>
-
+<h2 id="08081">更多的『08.08』</h2>
 <p>人生的设定就是这样，很多时候，错过了还有下次。</p>
-
 <p>只希望，以后的这天，不会刚刚好在关键节点上。工作固然是很重要的，但陪伴家庭才是最重要的。</p>
-
-<h2 id="父母与子女">父母与子女</h2>
-
+<h2 id="heading1">父母与子女</h2>
 <p>跟妻子聊过很多次这个话题，最后收获的结论都是一样。父母与子女的关系最终都是一段要分离的关系，无论是将来长大上学，成立家庭，抑或是父母百年，总是会分开。</p>
-
 <p>但我们不是悲观论者，在那些事情发生之前，我们有大把大把的时间，可以互相陪伴，一起享受生活。当然，享受生活还是要牺牲一些东西的，比如父母的时间，毕竟要撑起一个家。</p>
-
-<h2 id="写在最后">写在最后</h2>
-
+<h2 id="heading2">写在最后</h2>
 <p>这都是闺女两岁生日的这段时间发生的一系列事情，以及我个人的一系列联想。</p>
-
-<p>人生要继续，上行还是下行，都是自己的选择。或者说，至少我还能做选择。</p>]]></description>
+<p>人生要继续，上行还是下行，都是自己的选择。或者说，至少我还能做选择。</p>
+<p><!-- raw HTML omitted -->
+<!-- raw HTML omitted --></p>
+<p>注：</p>
+<p>并不是所有都能如意，毕竟有的时候还是看命的。自己的努力不到位，也没有特别多的遗憾。毕竟，备选方案太让人觉得安全了。。</p>
+<p>想来，新的一年又要到来了。所以，还是要好好准备下的。</p>
+<p>2019.12.09</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2019/the-2nd-birthday.html</guid>
       </item><item>
         <title>The Feelings of Someone&#39;s Leaving</title>
         <link>https://seasonsroad.com/post/2018/feelings-of-leaving.html</link>
         <pubDate>Sat, 24 Nov 2018 00:00:00 +0800</pubDate>
-        <description><![CDATA[
-
-<h2 id="直到要走了-才觉得不舍得">『直到要走了，才觉得不舍得』</h2>
-
+        <description><![CDATA[<h2 id="heading">『直到要走了，才觉得不舍得』</h2>
 <p>朋友在吃完最后一顿饭后跟我说的话。散伙饭都是这样吧，尽量不伤感，但是也拦不得别人奔向自己的大好前程。</p>
-
 <p>这个朋友，现在也可以叫前同事了，还是蛮厉害的。而且他也很特别，特别到让你觉得他有点『二』。平日里出去吃饭，你会觉得他说话都无法让全桌人听清楚，然而，他却像「交际花」一般的存在，公司很多新来的人都能与他交情不错。而反观自己，甚至还不知道这些人的名字。</p>
-
 <p>说到这里，提一件事。现在的我，工作还是一样努力，但有些方向却看淡了。原来，我会细心记得每个同事的名字，虽然，可能是因为公司的人也不多吧。而现在，公司大了，人多了，我却觉得无所谓了。碰面真的有必要打招呼吗？这确实是一个问号。或者这又是一个信号，告诉我人情不是我的特长？</p>
-
-<h2 id="聊聊薪水吧">『聊聊薪水吧』</h2>
-
+<h2 id="heading1">『聊聊薪水吧』</h2>
 <p>薪水是临走的时候都避不开的话题，至少对我们这些还年轻、对别人还没有特别多戒备心的人。</p>
-
 <p>『在这之前，我觉得自己挣得很多。看了一些招聘网站，他们要求那么多，需要工龄很久，工资才给 10k 到 20k，多的也不过 30k。』朋友这么说，还不断的加一些『真的』来强调这就是真实的想法。</p>
-
 <p>我连忙解释道，人是会懒惰的。过了一些年，这些人达到了他们的要求，年头足够了，然而水平其实很烂，level根本达不到。工龄，不过是混日子罢了。</p>
-
 <p>其实，想想自己的优势又是什么？难道只是年轻，学习能力强？</p>
-
 <p>朋友告诉了我他 double 了自己的薪水，我说真的很厉害啊。其实想想真的是很好了，不管将来的结果是怎样的，钱到手里了才是真的。反观自己，工作努力了这么多年，工资还没有开始时候的 double，心里也是寒寒的。</p>
-
-<h2 id="赶快去做算法吧">『赶快去做算法吧』</h2>
-
+<h2 id="heading2">『赶快去做算法吧』</h2>
 <p>这个朋友之前多次跟我提起这件事，说他的好几个同学特别能感觉到时代的需求，刚刚工作就转行去做 AI 了。他说现在跟他们聊起来，薪水都是他的两倍以上。说他们转行了半年就已经风生水起了。听起来感觉朋友特别向往。</p>
-
 <p>果然，这次跳槽，他脱离了自己的前端领域。</p>
-
-<h2 id="这都是围城">『这都是围城』</h2>
-
+<h2 id="heading3">『这都是围城』</h2>
 <p>这是另外一个朋友跟我聊天的时候说的。</p>
-
 <p>这位朋友曾经在 Google，他应该是我在校园里见过最努力的一个人了，没日没夜的努力学习，最终出国 CMU，顺利进入 Google。当然这也是意料之中的。好像出国的同学里面只要是科班出身的，都去了 FANG 了。</p>
-
 <p>他说这句话的时候，是几年前我跟他聊天，问了他有什么打算的时候。他现在回国了，在百度做 AI，还没有机会跟他吃个饭，聊聊近况。</p>
-
 <p>这也许就是大多数人的问题所在，觉得别人的都是好的，看到的都是自己各种各样的问题。兴许，别人的也不怎么样呢？</p>
-
-<h2 id="写在最后">写在最后</h2>
-
+<h2 id="heading4">写在最后</h2>
 <p>之前觉得只有输了的人才离开了，现在反而觉得留下的人才是输了。可是，转念一想，他们怎么能算是输了？</p>
-
 <p>或者其实输的只有自己？</p>
-
 <p>公司到底算什么？第一家公司又算什么？到底留恋的是什么？可能我在心理上还算年轻吧，一份工作在别人眼中可能只是一个踏脚石，踏过去就是下一个。</p>
-
 <p>不过，人不也都在成长？就像我之前说的，我也看淡了一些。</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2018/feelings-of-leaving.html</guid>
       </item><item>
@@ -152,333 +101,261 @@
         <link>https://seasonsroad.com/post/2018/migration-to-https.html</link>
         <pubDate>Wed, 07 Nov 2018 00:00:00 +0800</pubDate>
         <description><![CDATA[<p>I have this idea for a long time when we migrate <a href="https://www.hulu.com/">hulu.com</a> to https.</p>
-
-<p>I tried a few other free cert signature solution. None of them works very well. When I saw <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a> a few days ago, I had the same idea. I was firstly attracted by the design of the main site of Let&rsquo;s Encrypt. So, I decided to give it a try.</p>
-
-<p>With the easy steps of <a href="https://certbot.eff.org/">certbot</a>, I configured my VPS with Nginx on Ubuntu 16.04. It was so easy to use certbot to renew the certificates automatically. With the support of certbot, I could do it once and for all. It&rsquo;s really a good solution.</p>
-
+<p>I tried a few other free cert signature solution. None of them works very well. When I saw <a href="https://letsencrypt.org/">Let's Encrypt</a> a few days ago, I had the same idea. I was firstly attracted by the design of the main site of Let's Encrypt. So, I decided to give it a try.</p>
+<p>With the easy steps of <a href="https://certbot.eff.org/">certbot</a>, I configured my VPS with Nginx on Ubuntu 16.04. It was so easy to use certbot to renew the certificates automatically. With the support of certbot, I could do it once and for all. It's really a good solution.</p>
 <p>And now my site is fully secured.</p>
-
-<p><center><p><img src="/post/2018/migration-to-https/cert.png" alt="The Cert" style="width: 485px;"/></p></center></p>
-
-<p>All of a sudden, my blog goes https. It now looks really nice. At least, Chrome won&rsquo;t say it&rsquo;s unsecure. 😂</p>
-
-<p><center><p><img src="/post/2018/migration-to-https/secure.png" alt="Secure" style="width: 333px;"/></p></center></p>
-
-<p><br /></p>
-
+<!-- raw HTML omitted -->
+<p>All of a sudden, my blog goes https. It now looks really nice. At least, Chrome won't say it's unsecure. 😂</p>
+<!-- raw HTML omitted -->
+<p><!-- raw HTML omitted --></p>
 <p>P.S.</p>
-
 <p>I even updated my blog to the same style.</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2018/migration-to-https.html</guid>
       </item><item>
         <title>The Blog as a PWA</title>
         <link>https://seasonsroad.com/post/2018/pwa-integration.html</link>
         <pubDate>Wed, 08 Aug 2018 00:00:00 +0800</pubDate>
-        <description><![CDATA[
-
-<h2 id="what-is-pwa">What is PWA</h2>
-
-<p><strong>PWA</strong> is short for <strong>Progressive Web Applications</strong>. If you want to learn more about the basics of PWA, go check the <a href="https://developers.google.com/web/progressive-web-apps/">Google PWA official website</a>.</p>
-
+        <description><![CDATA[<h2 id="what-is-pwa">What is PWA</h2>
+<p><!-- raw HTML omitted -->PWA<!-- raw HTML omitted --> is short for <!-- raw HTML omitted -->Progressive Web Applications<!-- raw HTML omitted -->. If you want to learn more about the basics of PWA, go check the <a href="https://developers.google.com/web/progressive-web-apps/">Google PWA official website</a>.</p>
 <p>Also, I did a brief intro to PWA in the CORP as tech share a while before. The content mainly comes from the PWA official site and the <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">offline cookbook</a>. Check it out if you desire.</p>
-
-<div class="with-ratio ratio-w5h3" style="max-width: 700px;"><div class="content"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQD3Q6gdHlqp7DSfzXlV5cLFhRTjGmXSqhT1xVjbT8hDgvohWR4pQgy01Bmh2w5XoYQSxyvNbw5O34y/embed?start=false&loop=false&delayms=3000" frameborder="0" width="100%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></div></div>
-
+<!-- raw HTML omitted -->
 <h2 id="apply-pwa-features-to-the-blog">Apply PWA Features to The Blog</h2>
-
-<p>I want to apply these beautiful PWA features to the blog, so that I can add the app to my home screen and browse the blogs offline. Now, let&rsquo;s go through how to do that step-by-step.</p>
-
+<p>I want to apply these beautiful PWA features to the blog, so that I can add the app to my home screen and browse the blogs offline. Now, let's go through how to do that step-by-step.</p>
 <h3 id="first-of-all-generate-the-service-worker-javascript">First of all, Generate the Service Worker JavaScript</h3>
-
 <ul>
-<li><p>I need to generate the <strong>Service Worker JavaScript</strong>, <code>sw.js</code>, with all my content and pre-cache the pages into the cache. This way, when service worker is installed, everything has been pre-cached. It will enable the full off-line mode by all the pre-cached files. This is the so-called <strong>install</strong> step of PWA life-circle.</p>
+<li>
+<p>I need to generate the <!-- raw HTML omitted -->Service Worker JavaScript<!-- raw HTML omitted -->, <code>sw.js</code>, with all my content and pre-cache the pages into the cache. This way, when service worker is installed, everything has been pre-cached. It will enable the full off-line mode by all the pre-cached files. This is the so-called <!-- raw HTML omitted -->install<!-- raw HTML omitted --> step of PWA life-circle.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cacheName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;sr-precache-##REVISION##&#39;</span>;
 
-<pre><code class="language-javascript">const cacheName = 'sr-precache-##REVISION##';
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PrecacheList</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">PRECACHE_LIST</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#960050;background-color:#1e0010">#</span>;
 
-const PrecacheList = ##PRECACHE_LIST##;
-
-self.addEventListener('install', function(e) {
-  console.log('[SW] Install');
-  e.waitUntil(
-    caches.open(cacheName).then(function(cache) {
-      console.log('[SW] Caching all files.');
-      cache.addAll(PrecacheList);
-      console.log('[SW] SkipWaiting');
-      return self.skipWaiting();
+<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;install&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Install&#39;</span>);
+  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">waitUntil</span>(
+    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">open</span>(<span style="color:#a6e22e">cacheName</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">cache</span>) {
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Caching all files.&#39;</span>);
+      <span style="color:#a6e22e">cache</span>.<span style="color:#a6e22e">addAll</span>(<span style="color:#a6e22e">PrecacheList</span>);
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] SkipWaiting&#39;</span>);
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">skipWaiting</span>();
     })
   );
 });
-</code></pre>
-
-<p>There will be a post-build script to replace <code>##PRECACHE_LIST##</code> with the files in my <code>public</code> folder after I generated my site. The script will also replace <code>##REVISION##</code> with the git sha of <code>origin/master</code>.</p>
-
-<p>Also, as you can see, there is a command <code>self.skipWaiting()</code> to tell SW to skip waiting, meaning the service worker activates as soon as it&rsquo;s finished installing, even for updating.</p></li>
-
-<li><p>Then, I would want SW to use these pre-cached files for the requests. So I added lines to customize the <strong>fetch</strong> event in <code>sw.js</code>.</p>
-
-<pre><code class="language-javascript">self.addEventListener('fetch', function(e) {
-  e.respondWith(
-    caches.match(e.request).then(function(response) {
-      return response || fetch(e.request);
+</code></pre></div><p>There will be a post-build script to replace <code>##PRECACHE_LIST##</code> with the files in my <code>public</code> folder after I generated my site. The script will also replace <code>##REVISION##</code> with the git sha of <code>origin/master</code>.</p>
+<p>Also, as you can see, there is a command <code>self.skipWaiting()</code> to tell SW to skip waiting, meaning the service worker activates as soon as it's finished installing, even for updating.</p>
+</li>
+<li>
+<p>Then, I would want SW to use these pre-cached files for the requests. So I added lines to customize the <!-- raw HTML omitted -->fetch<!-- raw HTML omitted --> event in <code>sw.js</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
+  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">respondWith</span>(
+    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">match</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">request</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">response</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">request</span>);
     })
   );
 });
-</code></pre>
-
-<p>This is a very basic cache strategy, serving from cache and then network, a.k.a, <strong>cache-first</strong>.</p></li>
-
-<li><p>After the steps above, the web app now works when offline. However, there are still issues.</p>
-
+</code></pre></div><p>This is a very basic cache strategy, serving from cache and then network, a.k.a, <!-- raw HTML omitted -->cache-first<!-- raw HTML omitted -->.</p>
+</li>
+<li>
+<p>After the steps above, the web app now works when offline. However, there are still issues.</p>
 <ul>
 <li>The cache will be invalid after I update the site, I need to remove the invalid cache.</li>
 <li>SW will wait for all the tabs to close so that the new <code>sw.js</code> could apply to the tabs.</li>
 </ul>
-
-<p>So, I need to update the <strong>activate</strong> step so that I can fix these issues.</p>
-
-<pre><code class="language-javascript">self.addEventListener('activate', function(e) {
-  console.log('[SW] Activate');
-  e.waitUntil(
-    caches.keys().then(function(keyList) {
-      return Promise.all(keyList.map(function(key) {
-        if (key !== cacheName) {
-          console.log('[SW] Removing old cache', key);
-          return caches.delete(key);
+<p>So, I need to update the <!-- raw HTML omitted -->activate<!-- raw HTML omitted --> step so that I can fix these issues.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;activate&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Activate&#39;</span>);
+  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">waitUntil</span>(
+    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">keys</span>().<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">keyList</span>) {
+      <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">keyList</span>.<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">key</span>) {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">key</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">cacheName</span>) {
+          <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Removing old cache&#39;</span>, <span style="color:#a6e22e">key</span>);
+          <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">caches</span>.<span style="color:#66d9ef">delete</span>(<span style="color:#a6e22e">key</span>);
         }
       }));
     })
   );
-  return self.clients.claim();
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">clients</span>.<span style="color:#a6e22e">claim</span>();
 });
-</code></pre>
-
-<p>Since every update will change the git sha, I will get a unique new sha whenever there is an update. Then I just need to delete caches which is not the latest one.</p>
-
-<p>Also, with <code>self.clients.claim()</code>, I can take control of uncontrolled clients/tabs within my service worker once it&rsquo;s activated.</p></li>
+</code></pre></div><p>Since every update will change the git sha, I will get a unique new sha whenever there is an update. Then I just need to delete caches which is not the latest one.</p>
+<p>Also, with <code>self.clients.claim()</code>, I can take control of uncontrolled clients/tabs within my service worker once it's activated.</p>
+</li>
 </ul>
-
 <p>With all these steps above, the basic <code>sw.js</code> is initialized.</p>
-
-<h3 id="let-s-register-the-service-worker-javascript">Let&rsquo;s Register The Service Worker JavaScript</h3>
-
-<p>It&rsquo;s easy to do this. Just test the browser to see if it supports SW, and register if so.</p>
-
-<pre><code class="language-javascript">if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').then(function(){
-    console.log('Service Worker Registered');
+<h3 id="lets-register-the-service-worker-javascript">Let's Register The Service Worker JavaScript</h3>
+<p>It's easy to do this. Just test the browser to see if it supports SW, and register if so.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">if</span> (<span style="color:#e6db74">&#39;serviceWorker&#39;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">navigator</span>) {
+  <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">serviceWorker</span>.<span style="color:#a6e22e">register</span>(<span style="color:#e6db74">&#39;/sw.js&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(){
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Service Worker Registered&#39;</span>);
   });
 }
-</code></pre>
-
-<h3 id="create-the-web-app-manifest">Create The Web App Manifest</h3>
-
-<p>The <a href="https://developers.google.com/web/fundamentals/web-app-manifest/">web app manifest</a> is a simple JSON file that tells the browser about your web application and how it should behave when &lsquo;installed&rsquo; on the user&rsquo;s mobile device or desktop. Having a manifest is required by Chrome to show the <strong>Add to Home Screen</strong> prompt.</p>
-
+</code></pre></div><h3 id="create-the-web-app-manifest">Create The Web App Manifest</h3>
+<p>The <a href="https://developers.google.com/web/fundamentals/web-app-manifest/">web app manifest</a> is a simple JSON file that tells the browser about your web application and how it should behave when &lsquo;installed&rsquo; on the user's mobile device or desktop. Having a manifest is required by Chrome to show the <!-- raw HTML omitted -->Add to Home Screen<!-- raw HTML omitted --> prompt.</p>
 <ul>
 <li>Add <code>name</code> &amp; <code>short_name</code>
-
 <ul>
-<li>The <code>name</code> is used in the <strong>Add to Home Screen</strong> prompt, while the <code>short_name</code> is used as the app name after being added to home screen.</li>
-</ul></li>
+<li>The <code>name</code> is used in the <!-- raw HTML omitted -->Add to Home Screen<!-- raw HTML omitted --> prompt, while the <code>short_name</code> is used as the app name after being added to home screen.</li>
+</ul>
+</li>
 <li>Add Icons
-
 <ul>
 <li>Ah.. I just used the <code>Preview</code> app on Mac to create my PNG icons.</li>
-</ul></li>
+</ul>
+</li>
 <li>Add <code>start_url</code> &amp; <code>scope</code>
-
 <ul>
 <li>The <code>start_url</code> is the url when the app is launched as a fresh start after being added to home screen.</li>
-</ul></li>
+</ul>
+</li>
 <li>Add <code>backgrou_color</code> &amp; <code>theme_color</code>
-
 <ul>
 <li>These two will affect the Android Chrome header color and the app splash screen after being added to home screen.</li>
-</ul></li>
+</ul>
+</li>
 <li>Add <code>display</code>
-
 <ul>
 <li>If you want the immersive experience, try <code>standalone</code>(with only status bar) or even <code>fullscreen</code>(no status bar).</li>
-</ul></li>
 </ul>
-
-<p>Now, let&rsquo;s register this configuration file in the <code>&lt;head&gt;</code> tag of all the pages.</p>
-
-<pre><code class="language-html">&lt;link rel=&quot;manifest&quot; href=&quot;/manifest.json&quot;&gt;
-</code></pre>
-
-<h3 id="it-is-not-enough-yet">It is NOT Enough, Yet</h3>
-
+</li>
+</ul>
+<p>Now, let's register this configuration file in the <code>&lt;head&gt;</code> tag of all the pages.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;manifest&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/manifest.json&#34;</span>&gt;
+</code></pre></div><h3 id="it-is-not-enough-yet">It is NOT Enough, Yet</h3>
 <ul>
-<li><p>For iOS</p>
-
+<li>
+<p>For iOS</p>
 <p>As we all know, PWA is not an Android only feature, it also works on iOS with iOS 11.3. However, you can barely find it on <a href="https://support.apple.com/en-bn/HT208067#113">iOS 11.3 release notes</a>, even Google says <a href="https://medium.com/@firt/progressive-web-apps-on-ios-are-here-d00430dee3a7#b0e7">PWA is firstly introduced by Steve Jobs</a>. And in this medium post, there are a huge ton of useful information about PWA on iOS.</p>
-
 <ul>
 <li>The Icons for iOS
-
 <ul>
 <li>If you are looking for Apple official doc, <a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">here it goes</a>.</li>
-</ul></li>
+</ul>
+</li>
 <li>The Splash Screen for iOS
-
 <ul>
 <li>Check more details <a href="https://medium.com/appscope/adding-custom-ios-splash-screens-to-your-progressive-web-app-41a9b18bdca3">here</a></li>
 <li><a href="https://appsco.pe/developer/splash-screens">Splash Screen Genertor</a></li>
-</ul></li>
+</ul>
+</li>
 <li>Status Bar Style
-
 <ul>
 <li>More details <a href="https://dev.to/oskarlarsson/designing-native-like-progressive-web-apps-for-ios-510o">here</a></li>
-</ul></li>
 </ul>
-
-<p>Why Google and Apple always do the same thing in a different way? And why Google is doing the standard way and Apple is doing the non-standard way? (Or, at least Google is making his way the standard way. This is the reason why we need to be open, instead of locking ourselves into a cage which looks big, but will become smaller and smaller.)</p></li>
-
-<li><p>Client Tracking</p>
-
-<p>With Google Analytics, I can track my blog visits very easily. Google has done really nice shits. (PWA is one of the shits!)</p></li>
-
-<li><p>Local Dev</p>
-
-<p>Actually, when you initialized the PWA, you don&rsquo;t need it for dev mode when writing posts or updating blog styles. The cache will breake some functions of the auto-reload logic.</p></li>
+</li>
 </ul>
-
+<p>Why Google and Apple always do the same thing in a different way? And why Google is doing the standard way and Apple is doing the non-standard way? (Or, at least Google is making his way the standard way. This is the reason why we need to be open, instead of locking ourselves into a cage which looks big, but will become smaller and smaller.)</p>
+</li>
+<li>
+<p>Client Tracking</p>
+<p>With Google Analytics, I can track my blog visits very easily. Google has done really nice shits. (PWA is one of the shits!)</p>
+</li>
+<li>
+<p>Local Dev</p>
+<p>Actually, when you initialized the PWA, you don't need it for dev mode when writing posts or updating blog styles. The cache will breake some functions of the auto-reload logic.</p>
+</li>
+</ul>
 <h2 id="conclusion">Conclusion</h2>
-
 <p>So, here it comes, the PWA for the blog.</p>
-
-<p><center><p><img src="/post/2018/pwa-integration/pwa.gif" alt="The Blog PWA" style="width: 320px; border: 1px solid black;"/></p></center></p>
-
+<!-- raw HTML omitted -->
 <p>PWA is going to change rules of the game, hopefully, if and only if it will be more and more improved and applied. And it did really pushing the web to the next milestone.</p>
-
 <p>PS:</p>
-
 <p>This is not a post to praise Google. Actually, Apple is also doing great. A lot of people love iPhones. BTW, I love Mac. Even Microsoft is trying its best to serve bests apps on iOS/Android, when WinPhone has been dying.</p>
-
-<p>I mean, every company has its good side, and bad side as well. Maybe they are saying &ldquo;don&rsquo;t be evil&rdquo;, while they are doing the evilest things.</p>]]></description>
+<p>I mean, every company has its good side, and bad side as well. Maybe they are saying &ldquo;don't be evil&rdquo;, while they are doing the evilest things.</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2018/pwa-integration.html</guid>
       </item><item>
         <title>Single Point of Truth</title>
         <link>https://seasonsroad.com/post/2016/spot.html</link>
         <pubDate>Fri, 18 Nov 2016 00:00:00 +0800</pubDate>
-        <description><![CDATA[<p>Last afternoon, we encountered a bit of down time on our site. Before anybody told us, we didn&rsquo;t even know what&rsquo;s going on.</p>
-
+        <description><![CDATA[<p>Last afternoon, we encountered a bit of down time on our site. Before anybody told us, we didn't even know what's going on.</p>
 <p>We did a deployment for just dark launch of some feature, and it is supposed not to break anything or affect any User Experience. After that, we fixed a small bug and did another deployment. Then we did some sanity check and made it a successful deployment. After that, we continued working on other things.</p>
-
-<p>We didn&rsquo;t know anything before one colleague from US side HipChated us, that a lot of users reported that they can&rsquo;t even open our site, and see some JavaScript error. The colleague also shot us a <a href="http://downdetector.com/status/hulu">link</a>.</p>
-
-<p><center><p><img src="/post/2016/spot/problems.png" alt="Reported problems" style="width: 392px;"/></p></center></p>
-
+<p>We didn't know anything before one colleague from US side HipChated us, that a lot of users reported that they can't even open our site, and see some JavaScript error. The colleague also shot us a <a href="http://downdetector.com/status/hulu">link</a>.</p>
+<!-- raw HTML omitted -->
 <p>WTF? Java(Script) error?</p>
-
-<p><center><p><img src="/post/2016/spot/comments-1.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
-<center><p><img src="/post/2016/spot/comments-2.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
-<center><p><img src="/post/2016/spot/comments-3.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
-<center><p><img src="/post/2016/spot/comments-4.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center></p>
-
+<!-- raw HTML omitted -->
 <p>One thing occurred to me that, most time for our site, JavaScript error means missing asset. But we still cannot believe this is true.</p>
-
 <p>From the down detector, we find that most problems are from East Coast. So it might be something wrong with one of our data centers.</p>
-
-<p><center><p><img src="/post/2016/spot/geo-impact.png" alt="Geo Impact" style="width: 917px;"/></p></center></p>
-
+<!-- raw HTML omitted -->
 <p>So I connected to our VPN for this data center, and opened our site, and find that there is one JS 404, just like I guessed.</p>
-
-<p><center><p><img src="/post/2016/spot/missing-asset.png" alt="Missing asset" style="width: 867px;"/></p></center></p>
-
+<!-- raw HTML omitted -->
 <p>I quickly copied things so that it works again. The down time is over.</p>
-
-<p>But I wonder why. Why can&rsquo;t I find the asset?? We dig into that, only to find that the built outputs are different in different data centers. We did a diff and find that there is a value not the same in the huge JS file, which causing the JS manifest/md5 not the same. So I know the reason.</p>
-
+<p>But I wonder why. Why can't I find the asset?? We dig into that, only to find that the built outputs are different in different data centers. We did a diff and find that there is a value not the same in the huge JS file, which causing the JS manifest/md5 not the same. So I know the reason.</p>
 <p>We did compilation on different servers with Nginx, and copy the built assets into the local folder to be directly served by Nginx. The output of the compilation contains 2 part: JS part and rails server part.</p>
-
 <p>And during the compilation, there is a backend call encountered inconsistency issue in different data centers. And they get different values back which is built into the JS part. But we only use only one data center as the running rails server, they just trying to get the assets built in its manifest list which does not exist in other data centers.</p>
-
 <p>From this incident, we know that:</p>
-
 <ul>
 <li>We are trying to do SPOT, b/c we have rails server part done with SPOT.</li>
 <li>We should have done better and have JS part done with SPOT.</li>
 </ul>
-
-<p>Nowadays, more and more systems are distributed. Single Point of Truth becomes so important. If you haven&rsquo;t done it well for your distributed systems, you might encounter unexpected disasters one day as we had..</p>]]></description>
+<p>Nowadays, more and more systems are distributed. Single Point of Truth becomes so important. If you haven't done it well for your distributed systems, you might encounter unexpected disasters one day as we had..</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2016/spot.html</guid>
       </item><item>
         <title>Connect IPv6 with IPv4 via tunnel</title>
         <link>https://seasonsroad.com/post/2015/connect-ipv6.html</link>
         <pubDate>Sun, 27 Sep 2015 00:00:00 +0800</pubDate>
-        <description><![CDATA[
-
-<p>With IPv6 you can do a lot of things. This is a how-to article for users who only have IPv4 and want to connect IPv6.</p>
-
+        <description><![CDATA[<p>With IPv6 you can do a lot of things. This is a how-to article for users who only have IPv4 and want to connect IPv6.</p>
 <h2 id="prerequisites">Prerequisites</h2>
-
 <ul>
-<li>You should have a public address that&rsquo;s ping reachable.</li>
+<li>You should have a public address that's ping reachable.</li>
 </ul>
-
 <h2 id="steps-to-connect">Steps to connect</h2>
-
 <ol>
-<li><p>Register to <a href="http://www.tunnelbroker.net/">Tunnel Broker</a> and login this website.</p></li>
-
-<li><p>Click &lsquo;Create Regular Tunnel&rsquo; link inside User Functions panel below Account Menu.</p></li>
-
-<li><p>Configure your tunnel and create it.</p>
-
+<li>
+<p>Register to <a href="http://www.tunnelbroker.net/">Tunnel Broker</a> and login this website.</p>
+</li>
+<li>
+<p>Click &lsquo;Create Regular Tunnel&rsquo; link inside User Functions panel below Account Menu.</p>
+</li>
+<li>
+<p>Configure your tunnel and create it.</p>
 <ul>
 <li>IPv4 Endpoint is the v4 IP you used to connect Internet. (Remember the IP you use, take it as &lsquo;PUBLIC-IP&rsquo;.)</li>
-<li>If you&rsquo;re inside NAT or router, you can try to use Baidu/Google and search IP. Then you&rsquo;ll know your IP address. Usually, you can use the IP under the input box.</li>
-<li>Make sure your IP is ping reachable. Or Tunnel Broker won&rsquo;t create any tunnel for you.</li>
-<li>Try to choose a server that&rsquo;s nearest to you. However, you can just choose one you like if you have no idea which is nearer.</li>
-</ul></li>
-
-<li><p>Once you create a tunnel, you&rsquo;ll get the Tunnel Details panel.</p></li>
-
-<li><p>Connect to the tunnel you created.</p>
-
+<li>If you're inside NAT or router, you can try to use Baidu/Google and search IP. Then you'll know your IP address. Usually, you can use the IP under the input box.</li>
+<li>Make sure your IP is ping reachable. Or Tunnel Broker won't create any tunnel for you.</li>
+<li>Try to choose a server that's nearest to you. However, you can just choose one you like if you have no idea which is nearer.</li>
+</ul>
+</li>
+<li>
+<p>Once you create a tunnel, you'll get the Tunnel Details panel.</p>
+</li>
+<li>
+<p>Connect to the tunnel you created.</p>
 <ul>
 <li>Tunnel Broker helps a lot in connect the tunnel they host with your specific platform.</li>
 <li>In &lsquo;Example Configurations&rsquo; tab, you can select your OS.</li>
 <li>Ensure to read all the tips/NOTEs below the configuration. (You may need sudo to run the command)</li>
-<li><strong>IMPORTANT:</strong> If you&rsquo;re inside an NAT or router, you need to change the &lsquo;PUBLIC-IP&rsquo; in the commands to your own inner IP address.</li>
-</ul></li>
-
-<li><p>After steps above, you&rsquo;ve created a network interface named <code>gif0</code>.</p>
-
+<li><strong>IMPORTANT:</strong> If you're inside an NAT or router, you need to change the &lsquo;PUBLIC-IP&rsquo; in the commands to your own inner IP address.</li>
+</ul>
+</li>
+<li>
+<p>After steps above, you've created a network interface named <code>gif0</code>.</p>
 <ul>
 <li>You can shut down this tunnel by <code>sudo ifconfig gif0 down</code> or open it with <code>sudo ifconfig gif0 up</code>.</li>
-</ul></li>
-
-<li><p>Now you have the tunnel. And you still need to update your DNS server to resolve your domain names to IPv6 addresses.</p>
-
+</ul>
+</li>
+<li>
+<p>Now you have the tunnel. And you still need to update your DNS server to resolve your domain names to IPv6 addresses.</p>
 <ul>
 <li>Use Google IPv4 DNS: 8.8.8.8 (google-public-dns-a.google.com) &amp; 8.8.4.4 (google-public-dns-b.google.com)</li>
 <li>Use Google IPv6 DNS: 2001:4860:4860::8888 &amp; 2001:4860:4860::8844</li>
 <li>Use OpenDNS IPv4: 208.67.222.222 (Resolver1.OpenDNS.com), 208.67.220.220 (Resolver2.OpenDNS.com), 208.67.222.220 (Resolver3.OpenDNS.com) &amp; 208.67.220.222 (Resolver4.OpenDNS.com)</li>
 <li>Use OpenDNS IPv6: 2620:0:ccc::2 &amp; 2620:0:ccd::2</li>
-</ul></li>
-
-<li><p>You may need to flush your DNS.</p>
-
+</ul>
+</li>
+<li>
+<p>You may need to flush your DNS.</p>
 <ul>
 <li>Windows: <code>ipconfig /flushdns</code></li>
 <li>Mac OSX: <code>dscacheutil -flushcache</code></li>
-</ul></li>
-
-<li><p>Test it now!</p>
-
+</ul>
+</li>
+<li>
+<p>Test it now!</p>
 <ul>
 <li><a href="http://www.test-ipv6.com/">test-ipv6.com</a></li>
 <li><a href="http://ipv6-test.com/">ipv6-test.com</a></li>
 <li><a href="https://ipv6.google.com/">ipv6.google.com</a></li>
-</ul></li>
+</ul>
+</li>
 </ol>
-
 <h2 id="after-all">After all</h2>
-
 <p>Now you should have the ability to access IPv6. Go surf the Internet with IPv6 then!</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2015/connect-ipv6.html</guid>
       </item><item>
@@ -486,302 +363,125 @@ self.addEventListener('install', function(e) {
         <link>https://seasonsroad.com/post/2015/go-chase-our-dreams.html</link>
         <pubDate>Sun, 27 Sep 2015 00:00:00 +0800</pubDate>
         <description><![CDATA[<p>We had fun together. We learned things together. We made it together.</p>
-
-<p>We&rsquo;re boys. We&rsquo;re friends. And we&rsquo;re dreamers.</p>
-
+<p>We're boys. We're friends. And we're dreamers.</p>
 <p>More action, less words.
-So guys, let&rsquo;s move fast and chase our dreams!</p>
-
-<p><center><p><img src="/post/2015/go-chase-our-dreams/01.jpg" alt="1325" style="width: 580px;"/></p></center></p>]]></description>
+So guys, let's move fast and chase our dreams!</p>
+<!-- raw HTML omitted -->]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2015/go-chase-our-dreams.html</guid>
       </item><item>
         <title>Some Git Best Practices</title>
         <link>https://seasonsroad.com/post/2015/git-best-practices.html</link>
         <pubDate>Mon, 01 Jun 2015 00:00:00 +0800</pubDate>
-        <description><![CDATA[
-
-<blockquote>
+        <description><![CDATA[<blockquote>
 <p><a href="https://github.com/git/git">Git</a> is a distributed revision control system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds for Linux kernel development in 2005, and has since become the most widely adopted version control system for software development.</p>
 </blockquote>
-
 <h1 id="know-more-do-better">Know more, do better</h1>
-
-<p>If we use git more, and get more familiar with it, it really helps a lot. Let&rsquo;s note some best practices down here.</p>
-
+<p>If we use git more, and get more familiar with it, it really helps a lot. Let's note some best practices down here.</p>
 <h2 id="set-useful-git-alias">Set useful git alias</h2>
-
 <p>Check <a href="/2015/05/SomeGitAlias/">this post</a> to set useful git alias, making your life easier and happier when using git.</p>
-
 <h2 id="about-a-remote-host-crud">About a remote host (CRUD)</h2>
-
 <p>List all your remote hosts. <code>-v</code> shows the url for remote host.</p>
-
-<pre><code class="language-bash">$ git remote [-v]
-</code></pre>
-
-<p>Show the detailed information for remote host(such as origin). Add, Remove and Rename a host.</p>
-
-<pre><code class="language-bash">$ git remote show &lt;host&gt;                  # [R]
-$ git remote add &lt;host&gt; &lt;url&gt;             # [C]
-$ git remote rm &lt;host&gt;                    # [D]
-$ git remote rename &lt;host&gt; &lt;new-host&gt;     # [U]
-</code></pre>
-
-<h2 id="fetch-from-remote-host">Fetch from remote host</h2>
-
-<p>Once there&rsquo;re commits from remote host, we can fetch them in <em>all branches</em> from remote host.</p>
-
-<pre><code class="language-bash">$ git fetch &lt;host&gt;
-</code></pre>
-
-<p>We can also fetch <em>a specific branch</em> from remote host. With <code>git branch</code> you can get all the local branches, and with <code>git branch -r</code> you can get all the remote branches.</p>
-
-<pre><code class="language-bash">$ git fetch &lt;host&gt; &lt;branch&gt;
-</code></pre>
-
-<p>We can also fetch some branch which has no corresponding local branch created. We do this to create a local branch based this remote branch.</p>
-
-<pre><code class="language-bash">$ git checkout -b &lt;local-branch&gt; origin/&lt;remote-local&gt;
-</code></pre>
-
-<p>Also, if you don&rsquo;t want to merge a remote branch without creating a local branch for it, do this:</p>
-
-<pre><code class="language-bash">$ git merge origin/master
-# Or
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git remote <span style="color:#f92672">[</span>-v<span style="color:#f92672">]</span>
+</code></pre></div><p>Show the detailed information for remote host(such as origin). Add, Remove and Rename a host.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git remote show &lt;host&gt;                  <span style="color:#75715e"># [R]</span>
+$ git remote add &lt;host&gt; &lt;url&gt;             <span style="color:#75715e"># [C]</span>
+$ git remote rm &lt;host&gt;                    <span style="color:#75715e"># [D]</span>
+$ git remote rename &lt;host&gt; &lt;new-host&gt;     <span style="color:#75715e"># [U]</span>
+</code></pre></div><h2 id="fetch-from-remote-host">Fetch from remote host</h2>
+<p>Once there're commits from remote host, we can fetch them in <em>all branches</em> from remote host.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git fetch &lt;host&gt;
+</code></pre></div><p>We can also fetch <em>a specific branch</em> from remote host. With <code>git branch</code> you can get all the local branches, and with <code>git branch -r</code> you can get all the remote branches.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git fetch &lt;host&gt; &lt;branch&gt;
+</code></pre></div><p>We can also fetch some branch which has no corresponding local branch created. We do this to create a local branch based this remote branch.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git checkout -b &lt;local-branch&gt; origin/&lt;remote-local&gt;
+</code></pre></div><p>Also, if you don't want to merge a remote branch without creating a local branch for it, do this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git merge origin/master
+<span style="color:#75715e"># Or</span>
 $ git rebase origin/master
-</code></pre>
-
-<p>This two commands do the same to merge a remote branch(<code>origin/master</code>) into current branch.</p>
-
+</code></pre></div><p>This two commands do the same to merge a remote branch(<code>origin/master</code>) into current branch.</p>
 <h2 id="pull-from-remote-host">Pull from remote host</h2>
-
 <p>The default <code>git pull</code> command pulls all the remote branches corresponding to local ones. The full command can pull a remote branch and merge it to a local branch.</p>
-
-<pre><code class="language-bash">$ git pull [--rebase] &lt;host&gt; &lt;remote-branch&gt;:&lt;local-branch&gt;
-</code></pre>
-
-<p>This command pulls <code>&lt;remote-branch&gt;</code> from <code>&lt;host&gt;</code>, and merges it to <code>&lt;local-branch&gt;</code>. With <code>--rebase</code> option, we can rebase the local commits to top of this branch.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git pull <span style="color:#f92672">[</span>--rebase<span style="color:#f92672">]</span> &lt;host&gt; &lt;remote-branch&gt;:&lt;local-branch&gt;
+</code></pre></div><p>This command pulls <code>&lt;remote-branch&gt;</code> from <code>&lt;host&gt;</code>, and merges it to <code>&lt;local-branch&gt;</code>. With <code>--rebase</code> option, we can rebase the local commits to top of this branch.</p>
 <h2 id="push-to-remote-host">Push to remote host</h2>
-
-<p>We should know that there&rsquo;re 2 push mode: <code>simple</code> &amp; <code>matching</code>. Before git 2.0, we use &lsquo;matching&rsquo; as default which pushes all the matching local branches to remote. Now we use &lsquo;simple&rsquo; as default to push only current branch to remote. But we can config it:</p>
-
-<pre><code class="language-bash">$ git config --global push.default matching
-# Or
+<p>We should know that there're 2 push mode: <code>simple</code> &amp; <code>matching</code>. Before git 2.0, we use &lsquo;matching&rsquo; as default which pushes all the matching local branches to remote. Now we use &lsquo;simple&rsquo; as default to push only current branch to remote. But we can config it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git config --global push.default matching
+<span style="color:#75715e"># Or</span>
 $ git config --global push.default simple
-</code></pre>
-
-<p>The full comand pushes a local branch to remote branch of a remote host.</p>
-
-<pre><code class="language-bash">$ git push &lt;host&gt; &lt;local-branch&gt;:&lt;remote-branch&gt;
-</code></pre>
-
-<p>If we don&rsquo;t specify the <code>&lt;local-branch&gt;</code>, we just push an empty branch to remote, just like removing remote branch commits, which means <code>git push &lt;host&gt; :&lt;remote-branch&gt;</code> equals to <code>git push &lt;host&gt; --delete &lt;remote-branch&gt;</code>.</p>
-
-<p>If we don&rsquo;t specify the <code>&lt;remote-branch&gt;</code>, we will push <code>&lt;local-branch&gt;</code> to the matching branch of it.</p>
-
-<p>If we don&rsquo;t specify any branch, we will push all the branches to the matching branches of them on <code>&lt;host&gt;</code>. Just like this command without &ndash;all.</p>
-
-<pre><code class="language-bash">$ git push [--all] &lt;host&gt;
-</code></pre>
-
-<p>If we use <code>--all</code>, we could push all the branches. If some of them don&rsquo;t have the matching branches on <code>&lt;host&gt;</code> will create them.</p>
-
+</code></pre></div><p>The full comand pushes a local branch to remote branch of a remote host.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push &lt;host&gt; &lt;local-branch&gt;:&lt;remote-branch&gt;
+</code></pre></div><p>If we don't specify the <code>&lt;local-branch&gt;</code>, we just push an empty branch to remote, just like removing remote branch commits, which means <code>git push &lt;host&gt; :&lt;remote-branch&gt;</code> equals to <code>git push &lt;host&gt; --delete &lt;remote-branch&gt;</code>.</p>
+<p>If we don't specify the <code>&lt;remote-branch&gt;</code>, we will push <code>&lt;local-branch&gt;</code> to the matching branch of it.</p>
+<p>If we don't specify any branch, we will push all the branches to the matching branches of them on <code>&lt;host&gt;</code>. Just like this command without &ndash;all.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push <span style="color:#f92672">[</span>--all<span style="color:#f92672">]</span> &lt;host&gt;
+</code></pre></div><p>If we use <code>--all</code>, we could push all the branches. If some of them don't have the matching branches on <code>&lt;host&gt;</code> will create them.</p>
 <p>If we want to force push the local changes, usually when we update some commits already pushed, check this <a href="#force-push">best practice</a>.</p>
-
 <h2 id="do-with-your-submodules">Do with your submodules</h2>
-
 <p>Process all your submodules with this command:</p>
-
-<pre><code class="language-bash">git submodule [...]
-</code></pre>
-
-<p>You can do <code>init</code>/<code>deinit</code>, <code>add</code>, <code>status</code>, <code>update</code>, etc.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git submodule <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</code></pre></div><p>You can do <code>init`/</code>deinit<code>, </code>add<code>, </code>status<code>, </code>update`, etc.</p>
 <p>If you want to run git commands within each submodule, do this:</p>
-
-<pre><code class="language-bash">git submodule foreach [git command]
-</code></pre>
-
-<h1 id="best-practices">Best practices!!</h1>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git submodule foreach <span style="color:#f92672">[</span>git command<span style="color:#f92672">]</span>
+</code></pre></div><h1 id="best-practices">Best practices!!</h1>
 <h2 id="who-has-touched-the-file">Who has touched the file?</h2>
-
 <p>If the file is a code file, we can use <code>git blame</code> to check the file change.</p>
-
 <p>If the file is a binary file, or we just want to find all the commits related to this file, use this command:</p>
-
-<pre><code class="language-bash">$ git log [-p] file
-</code></pre>
-
-<p>And, if this file is renamed or even deleted, we should use <code>--follow</code> on <code>git log</code> to continue listing the history of a file beyond renames:</p>
-
-<pre><code class="language-bash">$ git log [-p] --follow -- file
-</code></pre>
-
-<p><code>--</code> is used to separate paths from revisions, like this:</p>
-
-<pre><code class="language-bash">git &lt;command&gt; [&lt;revision&gt;...] -- [&lt;file&gt;...]
-</code></pre>
-
-<h2 id="a-name-rebase-rebase-to-an-old-commit"><a name="rebase"/>Rebase to an old commit</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git log <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> file
+</code></pre></div><p>And, if this file is renamed or even deleted, we should use <code>--follow</code> on <code>git log</code> to continue listing the history of a file beyond renames:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git log <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> --follow -- file
+</code></pre></div><p><code>--</code> is used to separate paths from revisions, like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git &lt;command&gt; <span style="color:#f92672">[</span>&lt;revision&gt;...<span style="color:#f92672">]</span> -- <span style="color:#f92672">[</span>&lt;file&gt;...<span style="color:#f92672">]</span>
+</code></pre></div><h2 id="a-namerebaserebase-to-an-old-commit"><!-- raw HTML omitted -->Rebase to an old commit</h2>
 <p>Rebase to an old commit:</p>
-
-<pre><code class="language-bash">$ git rebase -i HEAD~n
-</code></pre>
-
-<p>Edit the <code>pick</code> before any commit your want to base to <code>reword</code> or <code>r</code>.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git rebase -i HEAD~n
+</code></pre></div><p>Edit the <code>pick</code> before any commit your want to base to <code>reword</code> or <code>r</code>.</p>
 <p>If you want to continue to HEAD, use this command:</p>
-
-<pre><code class="language-bash">$ git rebase --continue
-</code></pre>
-
-<h2 id="amend-commits-locally">Amend commits locally</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git rebase --continue
+</code></pre></div><h2 id="amend-commits-locally">Amend commits locally</h2>
 <p>If this commit is HEAD commit, use this to amend it:</p>
-
-<pre><code class="language-bash">$ git commit --amend
-</code></pre>
-
-<p>Then amend your commit message!</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git commit --amend
+</code></pre></div><p>Then amend your commit message!</p>
 <p>If this commit is not HEAD, <a href="#rebase">rebase</a> it and amend.</p>
-
 <h2 id="reset-commits-locally">Reset commits locally</h2>
-
-<pre><code class="language-bash">$ git reset HEAD~n [--hard]
-</code></pre>
-
-<p>With the <code>--hard</code> option, you can reset all the commit with all its changes. Or you can save all your changes.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git reset HEAD~n <span style="color:#f92672">[</span>--hard<span style="color:#f92672">]</span>
+</code></pre></div><p>With the <code>--hard</code> option, you can reset all the commit with all its changes. Or you can save all your changes.</p>
 <h2 id="move-one-older-commit-to-head">Move one older commit to HEAD</h2>
-
 <p>This is maybe a little tricky. We have to use a test branch to backup the git stack, then rebase to remove the very change:</p>
-
-<pre><code class="language-bash">$ git branch test
-$ git rebase --onto HEAD~n HEAD~(n-1) HEAD
-</code></pre>
-
-<p>This way comes from the git <a href="http://git-scm.com/docs/git-rebase#_description">help man page</a>.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git branch test
+$ git rebase --onto HEAD~n HEAD~<span style="color:#f92672">(</span>n-1<span style="color:#f92672">)</span> HEAD
+</code></pre></div><p>This way comes from the git <a href="http://git-scm.com/docs/git-rebase#_description">help man page</a>.</p>
 <blockquote>
 <p>A range of commits could also be removed with rebase. If we have the following situation:</p>
-
 <p>E&mdash;F&mdash;G&mdash;H&mdash;I&mdash;J  topicA</p>
-
 <p>then the command</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"></code></pre></div></blockquote>
+<p>$ git rebase &ndash;onto topicA~5 topicA~3 topicA</p>
+<pre><code>&gt; would result in the removal of commits F and G:
+&gt;
+&gt; E'---H'---I'---J'  topicA
 
-<pre><code class="language-bash"> $ git rebase --onto topicA~5 topicA~3 topicA
-</code></pre>
+After you stash this commit, you can cherry-pick it from the test branch to master branch:
 
-<p>would result in the removal of commits F and G:</p>
-
-<p>E&rsquo;&mdash;H&rsquo;&mdash;I&rsquo;&mdash;J&rsquo;  topicA</p>
-</blockquote>
-
-<p>After you stash this commit, you can cherry-pick it from the test branch to master branch:</p>
-
-<pre><code class="language-bash">$ git cherry-pick XXXXXX
+````bash
+$ git cherry-pick XXXXXX
 
 $ git branch -D test
-</code></pre>
-
-<p>Get the <code>XXXXXX</code> with <code>git log</code> in test branch.</p>
-
-<h2 id="check-in-push-an-old-commit">Check in(push) an old commit</h2>
-
-<p>Use <a href="#rebase">rebase</a> to go to this very old commit, use <code>git push</code>, you&rsquo;ll get this message:</p>
-
+</code></pre><p>Get the <code>XXXXXX</code> with <code>git log</code> in test branch.</p>
+<h2 id="check-inpush-an-old-commit">Check in(push) an old commit</h2>
+<p>Use <a href="#rebase">rebase</a> to go to this very old commit, use <code>git push</code>, you'll get this message:</p>
 <pre><code>fatal: You are not currently on a branch.
 To push the history leading to the current (detached HEAD)
 state now, use
 
     git push origin HEAD:&lt;name-of-remote-branch&gt;
 
-</code></pre>
-
-<p>So you can do this very command to push commits before this base. After that, you go back to continue.</p>
-
-<h2 id="a-name-force-push-force-push-to-update-remote-origin-critical"><a name="force-push"/>Force push to update remote origin(CRITICAL!)</h2>
-
+</code></pre><p>So you can do this very command to push commits before this base. After that, you go back to continue.</p>
+<h2 id="a-nameforcepushforce-push-to-update-remote-origincritical"><!-- raw HTML omitted -->Force push to update remote origin(CRITICAL!)</h2>
 <p>This may not be a good practice. But in some critical circumstances, this may be the savior.</p>
-
-<p>Amend the commits you&rsquo;ve all ready pushed, and force to push them to replace the repo.</p>
-
-<pre><code class="language-bash">$ git push -f
-</code></pre>]]></description>
+<p>Amend the commits you've all ready pushed, and force to push them to replace the repo.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push -f
+</code></pre></div>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2015/git-best-practices.html</guid>
-      </item><item>
-        <title>How to create a CWM flashable ZIP file from FTF Firmware</title>
-        <link>https://seasonsroad.com/post/2015/ftf-to-zip.html</link>
-        <pubDate>Sun, 31 May 2015 00:00:00 +0800</pubDate>
-        <description><![CDATA[
-
-<p>New android systems have the ext4 format. This tutorial will help you to create a flashable ZIP from FTF firmware. Basically, this is for my Sony Android devices.</p>
-
-<h2 id="step-1">Step 1</h2>
-
-<p>Download the Stock Firmware you want (FTF-File, aka Firmware.ftf).</p>
-
-<h2 id="step-2">Step 2</h2>
-
-<p>Rename the <code>Firmware.ftf</code> to <code>Firmware.zip</code>.</p>
-
-<pre><code class="language-bash">$ mv Firmware.ftf Firmware.zip
-</code></pre>
-
-<h2 id="step-3">Step 3</h2>
-
-<p>Extract the <code>system.zip</code> to <code>SomeFolder</code>.</p>
-
-<pre><code class="language-bash">unzip system.zip -d SomeFolder
-</code></pre>
-
-<h2 id="step-4">Step 4</h2>
-
-<p>Open Flashtool go to &ldquo;Tools&rdquo; -&gt; &ldquo;Sin Editor&rdquo; -&gt; Choose the extracted system.sin and push &ldquo;extract&rdquo; Data and get a <code>system.ext4</code> file.</p>
-
-<h2 id="step-5">Step 5</h2>
-
-<p>Mount <code>system.ext4</code> (With Fuse-Ext2, <a href="http://omaimac.blogspot.com/2012/10/how-to-mount-ext4-linux-partition-on-mac.html">TUTORIAL</a>) and put the files inside into a folder named <code>system</code>.</p>
-
-<h2 id="step-6">Step 6</h2>
-
-<p>Download the <a href="/post/2015/ftf-to-zip/META-INF.zip">META-INF File</a> and extract it to <code>META-INF</code> folder.</p>
-
-<pre><code class="language-bash">unzip META-INF.zip
-</code></pre>
-
-<blockquote>
-<p>Now we can even use a GUI tool, named <a href="http://forum.xda-developers.com/showthread.php?p=28706056#post28706056">Aroma</a>, to do some multi-selections and radio-buttons.</p>
-</blockquote>
-
-<h2 id="step-7">Step 7</h2>
-
-<p>Now we have your two folders: <code>system</code> and <code>META-INF</code>. Just ZIP them!</p>
-
-<pre><code class="language-bash">$ zip -roZ store Firmware.zip system META-INF
-</code></pre>
-
-<ul>
-<li><code>-r</code> or <code>--recurse-paths</code>
-Travel the directory structure recursively</li>
-<li><code>-o</code> or <code>--latest-time</code>
-Set the &ldquo;last modified&rdquo; time of the zip archive to the latest (oldest) &ldquo;last modified&rdquo; time found among the entries in the zip archive.</li>
-<li><code>--compression-method cm</code> or <code>-Z cm</code>
-Set the default compression method.  Currently the main methods supported by zip are store and deflate.
-<strong>Important: In some cases, you have to set the compression to &ldquo;Store&rdquo;</strong> to be supported by some recoveries.</li>
-</ul>
-
-<h2 id="step-8">Step 8</h2>
-
-<p>Push the zip File to SD-Card and flash it with recovery.</p>
-
-<pre><code class="language-bash">adb push Firmware.zip /sdcard/Firmware.zip
-</code></pre>]]></description>
-        <guid isPermaLink="true">https://seasonsroad.com/post/2015/ftf-to-zip.html</guid>
       </item>
   </channel>
 </rss>

@@ -106,221 +106,115 @@
     <p class="post-meta">Jun 1, 2015 • Yiming</p>
   </header>
   <article class="post-content">
-    
-
-<blockquote>
+    <blockquote>
 <p><a href="https://github.com/git/git">Git</a> is a distributed revision control system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds for Linux kernel development in 2005, and has since become the most widely adopted version control system for software development.</p>
 </blockquote>
-
 <h1 id="know-more-do-better">Know more, do better</h1>
-
-<p>If we use git more, and get more familiar with it, it really helps a lot. Let&rsquo;s note some best practices down here.</p>
-
+<p>If we use git more, and get more familiar with it, it really helps a lot. Let's note some best practices down here.</p>
 <h2 id="set-useful-git-alias">Set useful git alias</h2>
-
 <p>Check <a href="/2015/05/SomeGitAlias/">this post</a> to set useful git alias, making your life easier and happier when using git.</p>
-
 <h2 id="about-a-remote-host-crud">About a remote host (CRUD)</h2>
-
 <p>List all your remote hosts. <code>-v</code> shows the url for remote host.</p>
-
-<pre><code class="language-bash">$ git remote [-v]
-</code></pre>
-
-<p>Show the detailed information for remote host(such as origin). Add, Remove and Rename a host.</p>
-
-<pre><code class="language-bash">$ git remote show &lt;host&gt;                  # [R]
-$ git remote add &lt;host&gt; &lt;url&gt;             # [C]
-$ git remote rm &lt;host&gt;                    # [D]
-$ git remote rename &lt;host&gt; &lt;new-host&gt;     # [U]
-</code></pre>
-
-<h2 id="fetch-from-remote-host">Fetch from remote host</h2>
-
-<p>Once there&rsquo;re commits from remote host, we can fetch them in <em>all branches</em> from remote host.</p>
-
-<pre><code class="language-bash">$ git fetch &lt;host&gt;
-</code></pre>
-
-<p>We can also fetch <em>a specific branch</em> from remote host. With <code>git branch</code> you can get all the local branches, and with <code>git branch -r</code> you can get all the remote branches.</p>
-
-<pre><code class="language-bash">$ git fetch &lt;host&gt; &lt;branch&gt;
-</code></pre>
-
-<p>We can also fetch some branch which has no corresponding local branch created. We do this to create a local branch based this remote branch.</p>
-
-<pre><code class="language-bash">$ git checkout -b &lt;local-branch&gt; origin/&lt;remote-local&gt;
-</code></pre>
-
-<p>Also, if you don&rsquo;t want to merge a remote branch without creating a local branch for it, do this:</p>
-
-<pre><code class="language-bash">$ git merge origin/master
-# Or
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git remote <span style="color:#f92672">[</span>-v<span style="color:#f92672">]</span>
+</code></pre></div><p>Show the detailed information for remote host(such as origin). Add, Remove and Rename a host.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git remote show &lt;host&gt;                  <span style="color:#75715e"># [R]</span>
+$ git remote add &lt;host&gt; &lt;url&gt;             <span style="color:#75715e"># [C]</span>
+$ git remote rm &lt;host&gt;                    <span style="color:#75715e"># [D]</span>
+$ git remote rename &lt;host&gt; &lt;new-host&gt;     <span style="color:#75715e"># [U]</span>
+</code></pre></div><h2 id="fetch-from-remote-host">Fetch from remote host</h2>
+<p>Once there're commits from remote host, we can fetch them in <em>all branches</em> from remote host.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git fetch &lt;host&gt;
+</code></pre></div><p>We can also fetch <em>a specific branch</em> from remote host. With <code>git branch</code> you can get all the local branches, and with <code>git branch -r</code> you can get all the remote branches.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git fetch &lt;host&gt; &lt;branch&gt;
+</code></pre></div><p>We can also fetch some branch which has no corresponding local branch created. We do this to create a local branch based this remote branch.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git checkout -b &lt;local-branch&gt; origin/&lt;remote-local&gt;
+</code></pre></div><p>Also, if you don't want to merge a remote branch without creating a local branch for it, do this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git merge origin/master
+<span style="color:#75715e"># Or</span>
 $ git rebase origin/master
-</code></pre>
-
-<p>This two commands do the same to merge a remote branch(<code>origin/master</code>) into current branch.</p>
-
+</code></pre></div><p>This two commands do the same to merge a remote branch(<code>origin/master</code>) into current branch.</p>
 <h2 id="pull-from-remote-host">Pull from remote host</h2>
-
 <p>The default <code>git pull</code> command pulls all the remote branches corresponding to local ones. The full command can pull a remote branch and merge it to a local branch.</p>
-
-<pre><code class="language-bash">$ git pull [--rebase] &lt;host&gt; &lt;remote-branch&gt;:&lt;local-branch&gt;
-</code></pre>
-
-<p>This command pulls <code>&lt;remote-branch&gt;</code> from <code>&lt;host&gt;</code>, and merges it to <code>&lt;local-branch&gt;</code>. With <code>--rebase</code> option, we can rebase the local commits to top of this branch.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git pull <span style="color:#f92672">[</span>--rebase<span style="color:#f92672">]</span> &lt;host&gt; &lt;remote-branch&gt;:&lt;local-branch&gt;
+</code></pre></div><p>This command pulls <code>&lt;remote-branch&gt;</code> from <code>&lt;host&gt;</code>, and merges it to <code>&lt;local-branch&gt;</code>. With <code>--rebase</code> option, we can rebase the local commits to top of this branch.</p>
 <h2 id="push-to-remote-host">Push to remote host</h2>
-
-<p>We should know that there&rsquo;re 2 push mode: <code>simple</code> &amp; <code>matching</code>. Before git 2.0, we use &lsquo;matching&rsquo; as default which pushes all the matching local branches to remote. Now we use &lsquo;simple&rsquo; as default to push only current branch to remote. But we can config it:</p>
-
-<pre><code class="language-bash">$ git config --global push.default matching
-# Or
+<p>We should know that there're 2 push mode: <code>simple</code> &amp; <code>matching</code>. Before git 2.0, we use &lsquo;matching&rsquo; as default which pushes all the matching local branches to remote. Now we use &lsquo;simple&rsquo; as default to push only current branch to remote. But we can config it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git config --global push.default matching
+<span style="color:#75715e"># Or</span>
 $ git config --global push.default simple
-</code></pre>
-
-<p>The full comand pushes a local branch to remote branch of a remote host.</p>
-
-<pre><code class="language-bash">$ git push &lt;host&gt; &lt;local-branch&gt;:&lt;remote-branch&gt;
-</code></pre>
-
-<p>If we don&rsquo;t specify the <code>&lt;local-branch&gt;</code>, we just push an empty branch to remote, just like removing remote branch commits, which means <code>git push &lt;host&gt; :&lt;remote-branch&gt;</code> equals to <code>git push &lt;host&gt; --delete &lt;remote-branch&gt;</code>.</p>
-
-<p>If we don&rsquo;t specify the <code>&lt;remote-branch&gt;</code>, we will push <code>&lt;local-branch&gt;</code> to the matching branch of it.</p>
-
-<p>If we don&rsquo;t specify any branch, we will push all the branches to the matching branches of them on <code>&lt;host&gt;</code>. Just like this command without &ndash;all.</p>
-
-<pre><code class="language-bash">$ git push [--all] &lt;host&gt;
-</code></pre>
-
-<p>If we use <code>--all</code>, we could push all the branches. If some of them don&rsquo;t have the matching branches on <code>&lt;host&gt;</code> will create them.</p>
-
+</code></pre></div><p>The full comand pushes a local branch to remote branch of a remote host.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push &lt;host&gt; &lt;local-branch&gt;:&lt;remote-branch&gt;
+</code></pre></div><p>If we don't specify the <code>&lt;local-branch&gt;</code>, we just push an empty branch to remote, just like removing remote branch commits, which means <code>git push &lt;host&gt; :&lt;remote-branch&gt;</code> equals to <code>git push &lt;host&gt; --delete &lt;remote-branch&gt;</code>.</p>
+<p>If we don't specify the <code>&lt;remote-branch&gt;</code>, we will push <code>&lt;local-branch&gt;</code> to the matching branch of it.</p>
+<p>If we don't specify any branch, we will push all the branches to the matching branches of them on <code>&lt;host&gt;</code>. Just like this command without &ndash;all.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push <span style="color:#f92672">[</span>--all<span style="color:#f92672">]</span> &lt;host&gt;
+</code></pre></div><p>If we use <code>--all</code>, we could push all the branches. If some of them don't have the matching branches on <code>&lt;host&gt;</code> will create them.</p>
 <p>If we want to force push the local changes, usually when we update some commits already pushed, check this <a href="#force-push">best practice</a>.</p>
-
 <h2 id="do-with-your-submodules">Do with your submodules</h2>
-
 <p>Process all your submodules with this command:</p>
-
-<pre><code class="language-bash">git submodule [...]
-</code></pre>
-
-<p>You can do <code>init</code>/<code>deinit</code>, <code>add</code>, <code>status</code>, <code>update</code>, etc.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git submodule <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</code></pre></div><p>You can do <code>init`/</code>deinit<code>, </code>add<code>, </code>status<code>, </code>update`, etc.</p>
 <p>If you want to run git commands within each submodule, do this:</p>
-
-<pre><code class="language-bash">git submodule foreach [git command]
-</code></pre>
-
-<h1 id="best-practices">Best practices!!</h1>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git submodule foreach <span style="color:#f92672">[</span>git command<span style="color:#f92672">]</span>
+</code></pre></div><h1 id="best-practices">Best practices!!</h1>
 <h2 id="who-has-touched-the-file">Who has touched the file?</h2>
-
 <p>If the file is a code file, we can use <code>git blame</code> to check the file change.</p>
-
 <p>If the file is a binary file, or we just want to find all the commits related to this file, use this command:</p>
-
-<pre><code class="language-bash">$ git log [-p] file
-</code></pre>
-
-<p>And, if this file is renamed or even deleted, we should use <code>--follow</code> on <code>git log</code> to continue listing the history of a file beyond renames:</p>
-
-<pre><code class="language-bash">$ git log [-p] --follow -- file
-</code></pre>
-
-<p><code>--</code> is used to separate paths from revisions, like this:</p>
-
-<pre><code class="language-bash">git &lt;command&gt; [&lt;revision&gt;...] -- [&lt;file&gt;...]
-</code></pre>
-
-<h2 id="a-name-rebase-rebase-to-an-old-commit"><a name="rebase"/>Rebase to an old commit</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git log <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> file
+</code></pre></div><p>And, if this file is renamed or even deleted, we should use <code>--follow</code> on <code>git log</code> to continue listing the history of a file beyond renames:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git log <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> --follow -- file
+</code></pre></div><p><code>--</code> is used to separate paths from revisions, like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git &lt;command&gt; <span style="color:#f92672">[</span>&lt;revision&gt;...<span style="color:#f92672">]</span> -- <span style="color:#f92672">[</span>&lt;file&gt;...<span style="color:#f92672">]</span>
+</code></pre></div><h2 id="a-namerebaserebase-to-an-old-commit"><!-- raw HTML omitted -->Rebase to an old commit</h2>
 <p>Rebase to an old commit:</p>
-
-<pre><code class="language-bash">$ git rebase -i HEAD~n
-</code></pre>
-
-<p>Edit the <code>pick</code> before any commit your want to base to <code>reword</code> or <code>r</code>.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git rebase -i HEAD~n
+</code></pre></div><p>Edit the <code>pick</code> before any commit your want to base to <code>reword</code> or <code>r</code>.</p>
 <p>If you want to continue to HEAD, use this command:</p>
-
-<pre><code class="language-bash">$ git rebase --continue
-</code></pre>
-
-<h2 id="amend-commits-locally">Amend commits locally</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git rebase --continue
+</code></pre></div><h2 id="amend-commits-locally">Amend commits locally</h2>
 <p>If this commit is HEAD commit, use this to amend it:</p>
-
-<pre><code class="language-bash">$ git commit --amend
-</code></pre>
-
-<p>Then amend your commit message!</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git commit --amend
+</code></pre></div><p>Then amend your commit message!</p>
 <p>If this commit is not HEAD, <a href="#rebase">rebase</a> it and amend.</p>
-
 <h2 id="reset-commits-locally">Reset commits locally</h2>
-
-<pre><code class="language-bash">$ git reset HEAD~n [--hard]
-</code></pre>
-
-<p>With the <code>--hard</code> option, you can reset all the commit with all its changes. Or you can save all your changes.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git reset HEAD~n <span style="color:#f92672">[</span>--hard<span style="color:#f92672">]</span>
+</code></pre></div><p>With the <code>--hard</code> option, you can reset all the commit with all its changes. Or you can save all your changes.</p>
 <h2 id="move-one-older-commit-to-head">Move one older commit to HEAD</h2>
-
 <p>This is maybe a little tricky. We have to use a test branch to backup the git stack, then rebase to remove the very change:</p>
-
-<pre><code class="language-bash">$ git branch test
-$ git rebase --onto HEAD~n HEAD~(n-1) HEAD
-</code></pre>
-
-<p>This way comes from the git <a href="http://git-scm.com/docs/git-rebase#_description">help man page</a>.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git branch test
+$ git rebase --onto HEAD~n HEAD~<span style="color:#f92672">(</span>n-1<span style="color:#f92672">)</span> HEAD
+</code></pre></div><p>This way comes from the git <a href="http://git-scm.com/docs/git-rebase#_description">help man page</a>.</p>
 <blockquote>
 <p>A range of commits could also be removed with rebase. If we have the following situation:</p>
-
 <p>E&mdash;F&mdash;G&mdash;H&mdash;I&mdash;J  topicA</p>
-
 <p>then the command</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"></code></pre></div></blockquote>
+<p>$ git rebase &ndash;onto topicA~5 topicA~3 topicA</p>
+<pre><code>&gt; would result in the removal of commits F and G:
+&gt;
+&gt; E'---H'---I'---J'  topicA
 
-<pre><code class="language-bash"> $ git rebase --onto topicA~5 topicA~3 topicA
-</code></pre>
+After you stash this commit, you can cherry-pick it from the test branch to master branch:
 
-<p>would result in the removal of commits F and G:</p>
-
-<p>E&rsquo;&mdash;H&rsquo;&mdash;I&rsquo;&mdash;J&rsquo;  topicA</p>
-</blockquote>
-
-<p>After you stash this commit, you can cherry-pick it from the test branch to master branch:</p>
-
-<pre><code class="language-bash">$ git cherry-pick XXXXXX
+````bash
+$ git cherry-pick XXXXXX
 
 $ git branch -D test
-</code></pre>
-
-<p>Get the <code>XXXXXX</code> with <code>git log</code> in test branch.</p>
-
-<h2 id="check-in-push-an-old-commit">Check in(push) an old commit</h2>
-
-<p>Use <a href="#rebase">rebase</a> to go to this very old commit, use <code>git push</code>, you&rsquo;ll get this message:</p>
-
+</code></pre><p>Get the <code>XXXXXX</code> with <code>git log</code> in test branch.</p>
+<h2 id="check-inpush-an-old-commit">Check in(push) an old commit</h2>
+<p>Use <a href="#rebase">rebase</a> to go to this very old commit, use <code>git push</code>, you'll get this message:</p>
 <pre><code>fatal: You are not currently on a branch.
 To push the history leading to the current (detached HEAD)
 state now, use
 
     git push origin HEAD:&lt;name-of-remote-branch&gt;
 
-</code></pre>
-
-<p>So you can do this very command to push commits before this base. After that, you go back to continue.</p>
-
-<h2 id="a-name-force-push-force-push-to-update-remote-origin-critical"><a name="force-push"/>Force push to update remote origin(CRITICAL!)</h2>
-
+</code></pre><p>So you can do this very command to push commits before this base. After that, you go back to continue.</p>
+<h2 id="a-nameforcepushforce-push-to-update-remote-origincritical"><!-- raw HTML omitted -->Force push to update remote origin(CRITICAL!)</h2>
 <p>This may not be a good practice. But in some critical circumstances, this may be the savior.</p>
-
-<p>Amend the commits you&rsquo;ve all ready pushed, and force to push them to replace the repo.</p>
-
-<pre><code class="language-bash">$ git push -f
-</code></pre>
-
+<p>Amend the commits you've all ready pushed, and force to push them to replace the repo.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push -f
+</code></pre></div>
   </article>
   <div class="post-comments">
     <div id="disqus_thread"></div>
