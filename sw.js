@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-c4bbd45965ebca2ff65c3b2a7a63446ed651dd3a';
+const cacheName = 'sr-precache-03098646c4934d085e10e419043e7f1c2adf6da2';
 
 const PrecacheList = [
   "/",
@@ -13,11 +13,11 @@ const PrecacheList = [
   "/manifest.json",
   "/favicon.ico",
   "billing/index.html",
-  "billing/static/css/2.f922b4dc.chunk.css",
-  "billing/static/css/main.b668014c.chunk.css",
-  "billing/static/js/2.c9c89c09.chunk.js",
-  "billing/static/js/2.c9c89c09.chunk.js.LICENSE",
-  "billing/static/js/main.7f3e5146.chunk.js",
+  "billing/static/css/2.44287eca.chunk.css",
+  "billing/static/css/main.628f4dd2.chunk.css",
+  "billing/static/js/2.719fb299.chunk.js",
+  "billing/static/js/2.719fb299.chunk.js.LICENSE",
+  "billing/static/js/main.43f0e331.chunk.js",
   "billing/static/js/runtime-main.072db1e7.js",
   "post/2009/luck.html",
   "post/2009/yuanyuan.html",
