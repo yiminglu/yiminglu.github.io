@@ -162,7 +162,7 @@ $ git config --global push.default simple
 <h2 id="do-with-your-submodules">Do with your submodules</h2>
 <p>Process all your submodules with this command:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git submodule <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
-</code></pre></div><p>You can do <code>init`/</code>deinit<code>, </code>add<code>, </code>status<code>, </code>update`, etc.</p>
+</code></pre></div><p>You can do <code>init</code>/<code>deinit</code>, <code>add</code>, <code>status</code>, <code>update</code>, etc.</p>
 <p>If you want to run git commands within each submodule, do this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git submodule foreach <span style="color:#f92672">[</span>git command<span style="color:#f92672">]</span>
 </code></pre></div><h1 id="best-practices">Best practices!!</h1>
@@ -219,7 +219,7 @@ state now, use
     git push origin HEAD:&lt;name-of-remote-branch&gt;
 
 </code></pre><p>So you can do this very command to push commits before this base. After that, you go back to continue.</p>
-<h2 id="a-nameforcepushforce-push-to-update-remote-origincritical"><!-- raw HTML omitted -->Force push to update remote origin(CRITICAL!)</h2>
+<h2 id="a-nameforce-pushforce-push-to-update-remote-origincritical"><!-- raw HTML omitted -->Force push to update remote origin(CRITICAL!)</h2>
 <p>This may not be a good practice. But in some critical circumstances, this may be the savior.</p>
 <p>Amend the commits you've all ready pushed, and force to push them to replace the repo.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push -f
