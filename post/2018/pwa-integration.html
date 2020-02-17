@@ -120,7 +120,7 @@
 <p>Also, I did a brief intro to PWA in the CORP as tech share a while before. The content mainly comes from the PWA official site and the <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">offline cookbook</a>. Check it out if you desire.</p>
 <!-- raw HTML omitted -->
 <h2 id="apply-pwa-features-to-the-blog">Apply PWA Features to The Blog</h2>
-<p>I want to apply these beautiful PWA features to the blog, so that I can add the app to my home screen and browse the blogs offline. Now, let's go through how to do that step-by-step.</p>
+<p>I want to apply these beautiful PWA features to the blog, so that I can add the app to my home screen and browse the blogs offline. Now, let&rsquo;s go through how to do that step-by-step.</p>
 <h3 id="first-of-all-generate-the-service-worker-javascript">First of all, Generate the Service Worker JavaScript</h3>
 <ul>
 <li>
@@ -141,7 +141,7 @@
   );
 });
 </code></pre></div><p>There will be a post-build script to replace <code>##PRECACHE_LIST##</code> with the files in my <code>public</code> folder after I generated my site. The script will also replace <code>##REVISION##</code> with the git sha of <code>origin/master</code>.</p>
-<p>Also, as you can see, there is a command <code>self.skipWaiting()</code> to tell SW to skip waiting, meaning the service worker activates as soon as it's finished installing, even for updating.</p>
+<p>Also, as you can see, there is a command <code>self.skipWaiting()</code> to tell SW to skip waiting, meaning the service worker activates as soon as it&rsquo;s finished installing, even for updating.</p>
 </li>
 <li>
 <p>Then, I would want SW to use these pre-cached files for the requests. So I added lines to customize the <!-- raw HTML omitted -->fetch<!-- raw HTML omitted --> event in <code>sw.js</code>.</p>
@@ -176,19 +176,19 @@
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">clients</span>.<span style="color:#a6e22e">claim</span>();
 });
 </code></pre></div><p>Since every update will change the git sha, I will get a unique new sha whenever there is an update. Then I just need to delete caches which is not the latest one.</p>
-<p>Also, with <code>self.clients.claim()</code>, I can take control of uncontrolled clients/tabs within my service worker once it's activated.</p>
+<p>Also, with <code>self.clients.claim()</code>, I can take control of uncontrolled clients/tabs within my service worker once it&rsquo;s activated.</p>
 </li>
 </ul>
 <p>With all these steps above, the basic <code>sw.js</code> is initialized.</p>
-<h3 id="lets-register-the-service-worker-javascript">Let's Register The Service Worker JavaScript</h3>
-<p>It's easy to do this. Just test the browser to see if it supports SW, and register if so.</p>
+<h3 id="lets-register-the-service-worker-javascript">Let&rsquo;s Register The Service Worker JavaScript</h3>
+<p>It&rsquo;s easy to do this. Just test the browser to see if it supports SW, and register if so.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">if</span> (<span style="color:#e6db74">&#39;serviceWorker&#39;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">navigator</span>) {
   <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">serviceWorker</span>.<span style="color:#a6e22e">register</span>(<span style="color:#e6db74">&#39;/sw.js&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(){
     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Service Worker Registered&#39;</span>);
   });
 }
 </code></pre></div><h3 id="create-the-web-app-manifest">Create The Web App Manifest</h3>
-<p>The <a href="https://developers.google.com/web/fundamentals/web-app-manifest/">web app manifest</a> is a simple JSON file that tells the browser about your web application and how it should behave when &lsquo;installed&rsquo; on the user's mobile device or desktop. Having a manifest is required by Chrome to show the <!-- raw HTML omitted -->Add to Home Screen<!-- raw HTML omitted --> prompt.</p>
+<p>The <a href="https://developers.google.com/web/fundamentals/web-app-manifest/">web app manifest</a> is a simple JSON file that tells the browser about your web application and how it should behave when &lsquo;installed&rsquo; on the user&rsquo;s mobile device or desktop. Having a manifest is required by Chrome to show the <!-- raw HTML omitted -->Add to Home Screen<!-- raw HTML omitted --> prompt.</p>
 <ul>
 <li>Add <code>name</code> &amp; <code>short_name</code>
 <ul>
@@ -216,7 +216,7 @@
 </ul>
 </li>
 </ul>
-<p>Now, let's register this configuration file in the <code>&lt;head&gt;</code> tag of all the pages.</p>
+<p>Now, let&rsquo;s register this configuration file in the <code>&lt;head&gt;</code> tag of all the pages.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;manifest&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/manifest.json&#34;</span>&gt;
 </code></pre></div><h3 id="it-is-not-enough-yet">It is NOT Enough, Yet</h3>
 <ul>
@@ -249,7 +249,7 @@
 </li>
 <li>
 <p>Local Dev</p>
-<p>Actually, when you initialized the PWA, you don't need it for dev mode when writing posts or updating blog styles. The cache will breake some functions of the auto-reload logic.</p>
+<p>Actually, when you initialized the PWA, you don&rsquo;t need it for dev mode when writing posts or updating blog styles. The cache will breake some functions of the auto-reload logic.</p>
 </li>
 </ul>
 <h2 id="conclusion">Conclusion</h2>
@@ -258,7 +258,7 @@
 <p>PWA is going to change rules of the game, hopefully, if and only if it will be more and more improved and applied. And it did really pushing the web to the next milestone.</p>
 <p>PS:</p>
 <p>This is not a post to praise Google. Actually, Apple is also doing great. A lot of people love iPhones. BTW, I love Mac. Even Microsoft is trying its best to serve bests apps on iOS/Android, when WinPhone has been dying.</p>
-<p>I mean, every company has its good side, and bad side as well. Maybe they are saying &ldquo;don't be evil&rdquo;, while they are doing the evilest things.</p>
+<p>I mean, every company has its good side, and bad side as well. Maybe they are saying &ldquo;don&rsquo;t be evil&rdquo;, while they are doing the evilest things.</p>
 
   </article>
   <div class="post-comments">

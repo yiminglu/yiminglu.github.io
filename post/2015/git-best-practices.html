@@ -119,7 +119,7 @@
 <p><a href="https://github.com/git/git">Git</a> is a distributed revision control system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds for Linux kernel development in 2005, and has since become the most widely adopted version control system for software development.</p>
 </blockquote>
 <h1 id="know-more-do-better">Know more, do better</h1>
-<p>If we use git more, and get more familiar with it, it really helps a lot. Let's note some best practices down here.</p>
+<p>If we use git more, and get more familiar with it, it really helps a lot. Let&rsquo;s note some best practices down here.</p>
 <h2 id="set-useful-git-alias">Set useful git alias</h2>
 <p>Check <a href="/2015/05/SomeGitAlias/">this post</a> to set useful git alias, making your life easier and happier when using git.</p>
 <h2 id="about-a-remote-host-crud">About a remote host (CRUD)</h2>
@@ -131,13 +131,13 @@ $ git remote add &lt;host&gt; &lt;url&gt;             <span style="color:#75715e
 $ git remote rm &lt;host&gt;                    <span style="color:#75715e"># [D]</span>
 $ git remote rename &lt;host&gt; &lt;new-host&gt;     <span style="color:#75715e"># [U]</span>
 </code></pre></div><h2 id="fetch-from-remote-host">Fetch from remote host</h2>
-<p>Once there're commits from remote host, we can fetch them in <em>all branches</em> from remote host.</p>
+<p>Once there&rsquo;re commits from remote host, we can fetch them in <em>all branches</em> from remote host.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git fetch &lt;host&gt;
 </code></pre></div><p>We can also fetch <em>a specific branch</em> from remote host. With <code>git branch</code> you can get all the local branches, and with <code>git branch -r</code> you can get all the remote branches.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git fetch &lt;host&gt; &lt;branch&gt;
 </code></pre></div><p>We can also fetch some branch which has no corresponding local branch created. We do this to create a local branch based this remote branch.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git checkout -b &lt;local-branch&gt; origin/&lt;remote-local&gt;
-</code></pre></div><p>Also, if you don't want to merge a remote branch without creating a local branch for it, do this:</p>
+</code></pre></div><p>Also, if you don&rsquo;t want to merge a remote branch without creating a local branch for it, do this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git merge origin/master
 <span style="color:#75715e"># Or</span>
 $ git rebase origin/master
@@ -147,17 +147,17 @@ $ git rebase origin/master
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git pull <span style="color:#f92672">[</span>--rebase<span style="color:#f92672">]</span> &lt;host&gt; &lt;remote-branch&gt;:&lt;local-branch&gt;
 </code></pre></div><p>This command pulls <code>&lt;remote-branch&gt;</code> from <code>&lt;host&gt;</code>, and merges it to <code>&lt;local-branch&gt;</code>. With <code>--rebase</code> option, we can rebase the local commits to top of this branch.</p>
 <h2 id="push-to-remote-host">Push to remote host</h2>
-<p>We should know that there're 2 push mode: <code>simple</code> &amp; <code>matching</code>. Before git 2.0, we use &lsquo;matching&rsquo; as default which pushes all the matching local branches to remote. Now we use &lsquo;simple&rsquo; as default to push only current branch to remote. But we can config it:</p>
+<p>We should know that there&rsquo;re 2 push mode: <code>simple</code> &amp; <code>matching</code>. Before git 2.0, we use &lsquo;matching&rsquo; as default which pushes all the matching local branches to remote. Now we use &lsquo;simple&rsquo; as default to push only current branch to remote. But we can config it:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git config --global push.default matching
 <span style="color:#75715e"># Or</span>
 $ git config --global push.default simple
 </code></pre></div><p>The full comand pushes a local branch to remote branch of a remote host.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push &lt;host&gt; &lt;local-branch&gt;:&lt;remote-branch&gt;
-</code></pre></div><p>If we don't specify the <code>&lt;local-branch&gt;</code>, we just push an empty branch to remote, just like removing remote branch commits, which means <code>git push &lt;host&gt; :&lt;remote-branch&gt;</code> equals to <code>git push &lt;host&gt; --delete &lt;remote-branch&gt;</code>.</p>
-<p>If we don't specify the <code>&lt;remote-branch&gt;</code>, we will push <code>&lt;local-branch&gt;</code> to the matching branch of it.</p>
-<p>If we don't specify any branch, we will push all the branches to the matching branches of them on <code>&lt;host&gt;</code>. Just like this command without &ndash;all.</p>
+</code></pre></div><p>If we don&rsquo;t specify the <code>&lt;local-branch&gt;</code>, we just push an empty branch to remote, just like removing remote branch commits, which means <code>git push &lt;host&gt; :&lt;remote-branch&gt;</code> equals to <code>git push &lt;host&gt; --delete &lt;remote-branch&gt;</code>.</p>
+<p>If we don&rsquo;t specify the <code>&lt;remote-branch&gt;</code>, we will push <code>&lt;local-branch&gt;</code> to the matching branch of it.</p>
+<p>If we don&rsquo;t specify any branch, we will push all the branches to the matching branches of them on <code>&lt;host&gt;</code>. Just like this command without &ndash;all.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push <span style="color:#f92672">[</span>--all<span style="color:#f92672">]</span> &lt;host&gt;
-</code></pre></div><p>If we use <code>--all</code>, we could push all the branches. If some of them don't have the matching branches on <code>&lt;host&gt;</code> will create them.</p>
+</code></pre></div><p>If we use <code>--all</code>, we could push all the branches. If some of them don&rsquo;t have the matching branches on <code>&lt;host&gt;</code> will create them.</p>
 <p>If we want to force push the local changes, usually when we update some commits already pushed, check this <a href="#force-push">best practice</a>.</p>
 <h2 id="do-with-your-submodules">Do with your submodules</h2>
 <p>Process all your submodules with this command:</p>
@@ -211,7 +211,7 @@ $ git cherry-pick XXXXXX
 $ git branch -D test
 </code></pre><p>Get the <code>XXXXXX</code> with <code>git log</code> in test branch.</p>
 <h2 id="check-inpush-an-old-commit">Check in(push) an old commit</h2>
-<p>Use <a href="#rebase">rebase</a> to go to this very old commit, use <code>git push</code>, you'll get this message:</p>
+<p>Use <a href="#rebase">rebase</a> to go to this very old commit, use <code>git push</code>, you&rsquo;ll get this message:</p>
 <pre><code>fatal: You are not currently on a branch.
 To push the history leading to the current (detached HEAD)
 state now, use
@@ -221,7 +221,7 @@ state now, use
 </code></pre><p>So you can do this very command to push commits before this base. After that, you go back to continue.</p>
 <h2 id="a-nameforce-pushforce-push-to-update-remote-origincritical"><!-- raw HTML omitted -->Force push to update remote origin(CRITICAL!)</h2>
 <p>This may not be a good practice. But in some critical circumstances, this may be the savior.</p>
-<p>Amend the commits you've all ready pushed, and force to push them to replace the repo.</p>
+<p>Amend the commits you&rsquo;ve all ready pushed, and force to push them to replace the repo.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push -f
 </code></pre></div>
   </article>

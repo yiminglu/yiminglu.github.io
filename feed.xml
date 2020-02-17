@@ -5,7 +5,7 @@
     <description>SeasonsRoad is the blog for interesting things happening around.</description>
     
     <lastBuildDate>Mon, 09 Dec 2019 02:00:00 +0800</lastBuildDate>
-    <generator>Hugo v0.62.1</generator>
+    <generator>Hugo v0.64.1</generator>
     <atom:link href="https://seasonsroad.com/feed.xml" rel="self" type="application/rss+xml" />
       <item>
         <title>过度担忧</title>
@@ -18,7 +18,7 @@
         <title>Adding Dark Mode to the Blog</title>
         <link>https://seasonsroad.com/post/2019/adding-dark-mode.html</link>
         <pubDate>Fri, 06 Dec 2019 02:00:00 +0800</pubDate>
-        <description><![CDATA[<h2 id="heading">代码量不多，效果很大</h2>
+        <description><![CDATA[<h2 id="代码量不多效果很大">代码量不多，效果很大</h2>
 <p>现在视觉舒适度越来越重要了，无论是 Mac、Windows、iOS 还是 Android 都添加了暗夜模式，那网站也就支持一下吧，也不麻烦。</p>
 <p>只是简单的加了几个 CSS 的 global 变量，通过 <code>prefers-color-scheme: dark</code> 覆盖下就直接 work 了。</p>
 <p>过程中重新梳理了一下全局所有的颜色，分了一下类，以后改动也不必随便添加了，拿来定义好的就可以直接用了。</p>
@@ -36,10 +36,10 @@
         <title>The Second Birthday</title>
         <link>https://seasonsroad.com/post/2019/the-2nd-birthday.html</link>
         <pubDate>Fri, 09 Aug 2019 03:00:00 +0800</pubDate>
-        <description><![CDATA[<h2 id="heading">一次突如其来的安排</h2>
+        <description><![CDATA[<h2 id="一次突如其来的安排">一次突如其来的安排</h2>
 <p>人生就是这样，很多事情都是突然发生的。但是真正导致这件事情发生的东西，却存在了好久好久。</p>
 <p>我是一个恋旧的人，所以也喜欢呆在一个熟悉的地方。</p>
-<p>当然，每个地方都不是永久的。我深知这一点，但是一直在等待一个能触及我离去神经的那样东西。但是，细细想来，其实它早就存在了，我可能只是忽略掉了。其实，从去年写 <a href="/post/2018/feelings-of-leaving.html">『The Feelings of Someone's Leaving』</a> 的时候，它就埋在了我的心里，只是我还不确定，当然也在假装淡然。直到几个月前，又有一个很重要的人离开的时候，我才意识到其实这里有很多问题，我只是懒惰了，忽视了怎么去解决。</p>
+<p>当然，每个地方都不是永久的。我深知这一点，但是一直在等待一个能触及我离去神经的那样东西。但是，细细想来，其实它早就存在了，我可能只是忽略掉了。其实，从去年写 <a href="/post/2018/feelings-of-leaving.html">『The Feelings of Someone&rsquo;s Leaving』</a> 的时候，它就埋在了我的心里，只是我还不确定，当然也在假装淡然。直到几个月前，又有一个很重要的人离开的时候，我才意识到其实这里有很多问题，我只是懒惰了，忽视了怎么去解决。</p>
 <p>所以，离开这个决定也想了很久，毕竟成本还是很高的。前期的准备还是要有很多的，一步一步慢慢来，也搞了好几个月才做好准备。但真当我在考虑是否要迈出下一步的时候，我再次犹豫了。因为这样真的是要把这个想法公开给一些不在这个地方的人，而不是原来自己埋在心底的想法。</p>
 <p>已经忘却了，为什么我会下定决心迈出这一步，但是我确实微信发出去了。也等来了回复，后面的事情都发生的很快。真的很快，不到一周的时间里也收获了一些东西。</p>
 <p>所以，一切都是那么的突如其来，以至于，本来不想在 08.08 安排事情的我也接受了当天晚上的安排。</p>
@@ -52,13 +52,13 @@
 <p>聊了很久，感觉有人认可，且支持自己的感觉，真的很好。</p>
 <p>驱车回家。发现闺女一如既往的还在闹腾，只是闹得更晚了一些。刚好，就跟她聊了一会儿天。闺女的姑姑打来电话，还有奶奶都聊聊天，大家都很开心的睡下了。</p>
 <p>当然，我并没有睡，继续放空大脑。早睡，对我真的挺难的，我都需要用手机的禅定模式才能开启睡眠了，而且很多时候都不能按时开启禅定模式。但是，为了健康和家庭，以后工作结束了，还是应该尽早睡下。</p>
-<h2 id="0808-1">更多的『08.08』</h2>
+<h2 id="更多的0808">更多的『08.08』</h2>
 <p>人生的设定就是这样，很多时候，错过了还有下次。</p>
 <p>只希望，以后的这天，不会刚刚好在关键节点上。工作固然是很重要的，但陪伴家庭才是最重要的。</p>
-<h2 id="heading-1">父母与子女</h2>
+<h2 id="父母与子女">父母与子女</h2>
 <p>跟妻子聊过很多次这个话题，最后收获的结论都是一样。父母与子女的关系最终都是一段要分离的关系，无论是将来长大上学，成立家庭，抑或是父母百年，总是会分开。</p>
 <p>但我们不是悲观论者，在那些事情发生之前，我们有大把大把的时间，可以互相陪伴，一起享受生活。当然，享受生活还是要牺牲一些东西的，比如父母的时间，毕竟要撑起一个家。</p>
-<h2 id="heading-2">写在最后</h2>
+<h2 id="写在最后">写在最后</h2>
 <p>这都是闺女两岁生日的这段时间发生的一系列事情，以及我个人的一系列联想。</p>
 <p>人生要继续，上行还是下行，都是自己的选择。或者说，至少我还能做选择。</p>
 <p><!-- raw HTML omitted -->
@@ -72,25 +72,25 @@
         <title>The Feelings of Someone&#39;s Leaving</title>
         <link>https://seasonsroad.com/post/2018/feelings-of-leaving.html</link>
         <pubDate>Sat, 24 Nov 2018 00:00:00 +0800</pubDate>
-        <description><![CDATA[<h2 id="heading">『直到要走了，才觉得不舍得』</h2>
+        <description><![CDATA[<h2 id="直到要走了才觉得不舍得">『直到要走了，才觉得不舍得』</h2>
 <p>朋友在吃完最后一顿饭后跟我说的话。散伙饭都是这样吧，尽量不伤感，但是也拦不得别人奔向自己的大好前程。</p>
 <p>这个朋友，现在也可以叫前同事了，还是蛮厉害的。而且他也很特别，特别到让你觉得他有点『二』。平日里出去吃饭，你会觉得他说话都无法让全桌人听清楚，然而，他却像「交际花」一般的存在，公司很多新来的人都能与他交情不错。而反观自己，甚至还不知道这些人的名字。</p>
 <p>说到这里，提一件事。现在的我，工作还是一样努力，但有些方向却看淡了。原来，我会细心记得每个同事的名字，虽然，可能是因为公司的人也不多吧。而现在，公司大了，人多了，我却觉得无所谓了。碰面真的有必要打招呼吗？这确实是一个问号。或者这又是一个信号，告诉我人情不是我的特长？</p>
-<h2 id="heading-1">『聊聊薪水吧』</h2>
+<h2 id="聊聊薪水吧">『聊聊薪水吧』</h2>
 <p>薪水是临走的时候都避不开的话题，至少对我们这些还年轻、对别人还没有特别多戒备心的人。</p>
 <p>『在这之前，我觉得自己挣得很多。看了一些招聘网站，他们要求那么多，需要工龄很久，工资才给 10k 到 20k，多的也不过 30k。』朋友这么说，还不断的加一些『真的』来强调这就是真实的想法。</p>
 <p>我连忙解释道，人是会懒惰的。过了一些年，这些人达到了他们的要求，年头足够了，然而水平其实很烂，level根本达不到。工龄，不过是混日子罢了。</p>
 <p>其实，想想自己的优势又是什么？难道只是年轻，学习能力强？</p>
 <p>朋友告诉了我他 double 了自己的薪水，我说真的很厉害啊。其实想想真的是很好了，不管将来的结果是怎样的，钱到手里了才是真的。反观自己，工作努力了这么多年，工资还没有开始时候的 double，心里也是寒寒的。</p>
-<h2 id="heading-2">『赶快去做算法吧』</h2>
+<h2 id="赶快去做算法吧">『赶快去做算法吧』</h2>
 <p>这个朋友之前多次跟我提起这件事，说他的好几个同学特别能感觉到时代的需求，刚刚工作就转行去做 AI 了。他说现在跟他们聊起来，薪水都是他的两倍以上。说他们转行了半年就已经风生水起了。听起来感觉朋友特别向往。</p>
 <p>果然，这次跳槽，他脱离了自己的前端领域。</p>
-<h2 id="heading-3">『这都是围城』</h2>
+<h2 id="这都是围城">『这都是围城』</h2>
 <p>这是另外一个朋友跟我聊天的时候说的。</p>
 <p>这位朋友曾经在 Google，他应该是我在校园里见过最努力的一个人了，没日没夜的努力学习，最终出国 CMU，顺利进入 Google。当然这也是意料之中的。好像出国的同学里面只要是科班出身的，都去了 FANG 了。</p>
 <p>他说这句话的时候，是几年前我跟他聊天，问了他有什么打算的时候。他现在回国了，在百度做 AI，还没有机会跟他吃个饭，聊聊近况。</p>
 <p>这也许就是大多数人的问题所在，觉得别人的都是好的，看到的都是自己各种各样的问题。兴许，别人的也不怎么样呢？</p>
-<h2 id="heading-4">写在最后</h2>
+<h2 id="写在最后">写在最后</h2>
 <p>之前觉得只有输了的人才离开了，现在反而觉得留下的人才是输了。可是，转念一想，他们怎么能算是输了？</p>
 <p>或者其实输的只有自己？</p>
 <p>公司到底算什么？第一家公司又算什么？到底留恋的是什么？可能我在心理上还算年轻吧，一份工作在别人眼中可能只是一个踏脚石，踏过去就是下一个。</p>
@@ -101,11 +101,11 @@
         <link>https://seasonsroad.com/post/2018/migration-to-https.html</link>
         <pubDate>Wed, 07 Nov 2018 00:00:00 +0800</pubDate>
         <description><![CDATA[<p>I have this idea for a long time when we migrate <a href="https://www.hulu.com/">hulu.com</a> to https.</p>
-<p>I tried a few other free cert signature solution. None of them works very well. When I saw <a href="https://letsencrypt.org/">Let's Encrypt</a> a few days ago, I had the same idea. I was firstly attracted by the design of the main site of Let's Encrypt. So, I decided to give it a try.</p>
-<p>With the easy steps of <a href="https://certbot.eff.org/">certbot</a>, I configured my VPS with Nginx on Ubuntu 16.04. It was so easy to use certbot to renew the certificates automatically. With the support of certbot, I could do it once and for all. It's really a good solution.</p>
+<p>I tried a few other free cert signature solution. None of them works very well. When I saw <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a> a few days ago, I had the same idea. I was firstly attracted by the design of the main site of Let&rsquo;s Encrypt. So, I decided to give it a try.</p>
+<p>With the easy steps of <a href="https://certbot.eff.org/">certbot</a>, I configured my VPS with Nginx on Ubuntu 16.04. It was so easy to use certbot to renew the certificates automatically. With the support of certbot, I could do it once and for all. It&rsquo;s really a good solution.</p>
 <p>And now my site is fully secured.</p>
 <!-- raw HTML omitted -->
-<p>All of a sudden, my blog goes https. It now looks really nice. At least, Chrome won't say it's unsecure. 😂</p>
+<p>All of a sudden, my blog goes https. It now looks really nice. At least, Chrome won&rsquo;t say it&rsquo;s unsecure. 😂</p>
 <!-- raw HTML omitted -->
 <p><!-- raw HTML omitted --></p>
 <p>P.S.</p>
@@ -120,7 +120,7 @@
 <p>Also, I did a brief intro to PWA in the CORP as tech share a while before. The content mainly comes from the PWA official site and the <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">offline cookbook</a>. Check it out if you desire.</p>
 <!-- raw HTML omitted -->
 <h2 id="apply-pwa-features-to-the-blog">Apply PWA Features to The Blog</h2>
-<p>I want to apply these beautiful PWA features to the blog, so that I can add the app to my home screen and browse the blogs offline. Now, let's go through how to do that step-by-step.</p>
+<p>I want to apply these beautiful PWA features to the blog, so that I can add the app to my home screen and browse the blogs offline. Now, let&rsquo;s go through how to do that step-by-step.</p>
 <h3 id="first-of-all-generate-the-service-worker-javascript">First of all, Generate the Service Worker JavaScript</h3>
 <ul>
 <li>
@@ -141,7 +141,7 @@
   );
 });
 </code></pre></div><p>There will be a post-build script to replace <code>##PRECACHE_LIST##</code> with the files in my <code>public</code> folder after I generated my site. The script will also replace <code>##REVISION##</code> with the git sha of <code>origin/master</code>.</p>
-<p>Also, as you can see, there is a command <code>self.skipWaiting()</code> to tell SW to skip waiting, meaning the service worker activates as soon as it's finished installing, even for updating.</p>
+<p>Also, as you can see, there is a command <code>self.skipWaiting()</code> to tell SW to skip waiting, meaning the service worker activates as soon as it&rsquo;s finished installing, even for updating.</p>
 </li>
 <li>
 <p>Then, I would want SW to use these pre-cached files for the requests. So I added lines to customize the <!-- raw HTML omitted -->fetch<!-- raw HTML omitted --> event in <code>sw.js</code>.</p>
@@ -176,19 +176,19 @@
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">clients</span>.<span style="color:#a6e22e">claim</span>();
 });
 </code></pre></div><p>Since every update will change the git sha, I will get a unique new sha whenever there is an update. Then I just need to delete caches which is not the latest one.</p>
-<p>Also, with <code>self.clients.claim()</code>, I can take control of uncontrolled clients/tabs within my service worker once it's activated.</p>
+<p>Also, with <code>self.clients.claim()</code>, I can take control of uncontrolled clients/tabs within my service worker once it&rsquo;s activated.</p>
 </li>
 </ul>
 <p>With all these steps above, the basic <code>sw.js</code> is initialized.</p>
-<h3 id="lets-register-the-service-worker-javascript">Let's Register The Service Worker JavaScript</h3>
-<p>It's easy to do this. Just test the browser to see if it supports SW, and register if so.</p>
+<h3 id="lets-register-the-service-worker-javascript">Let&rsquo;s Register The Service Worker JavaScript</h3>
+<p>It&rsquo;s easy to do this. Just test the browser to see if it supports SW, and register if so.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">if</span> (<span style="color:#e6db74">&#39;serviceWorker&#39;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">navigator</span>) {
   <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">serviceWorker</span>.<span style="color:#a6e22e">register</span>(<span style="color:#e6db74">&#39;/sw.js&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(){
     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Service Worker Registered&#39;</span>);
   });
 }
 </code></pre></div><h3 id="create-the-web-app-manifest">Create The Web App Manifest</h3>
-<p>The <a href="https://developers.google.com/web/fundamentals/web-app-manifest/">web app manifest</a> is a simple JSON file that tells the browser about your web application and how it should behave when &lsquo;installed&rsquo; on the user's mobile device or desktop. Having a manifest is required by Chrome to show the <!-- raw HTML omitted -->Add to Home Screen<!-- raw HTML omitted --> prompt.</p>
+<p>The <a href="https://developers.google.com/web/fundamentals/web-app-manifest/">web app manifest</a> is a simple JSON file that tells the browser about your web application and how it should behave when &lsquo;installed&rsquo; on the user&rsquo;s mobile device or desktop. Having a manifest is required by Chrome to show the <!-- raw HTML omitted -->Add to Home Screen<!-- raw HTML omitted --> prompt.</p>
 <ul>
 <li>Add <code>name</code> &amp; <code>short_name</code>
 <ul>
@@ -216,7 +216,7 @@
 </ul>
 </li>
 </ul>
-<p>Now, let's register this configuration file in the <code>&lt;head&gt;</code> tag of all the pages.</p>
+<p>Now, let&rsquo;s register this configuration file in the <code>&lt;head&gt;</code> tag of all the pages.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;manifest&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/manifest.json&#34;</span>&gt;
 </code></pre></div><h3 id="it-is-not-enough-yet">It is NOT Enough, Yet</h3>
 <ul>
@@ -249,7 +249,7 @@
 </li>
 <li>
 <p>Local Dev</p>
-<p>Actually, when you initialized the PWA, you don't need it for dev mode when writing posts or updating blog styles. The cache will breake some functions of the auto-reload logic.</p>
+<p>Actually, when you initialized the PWA, you don&rsquo;t need it for dev mode when writing posts or updating blog styles. The cache will breake some functions of the auto-reload logic.</p>
 </li>
 </ul>
 <h2 id="conclusion">Conclusion</h2>
@@ -258,15 +258,15 @@
 <p>PWA is going to change rules of the game, hopefully, if and only if it will be more and more improved and applied. And it did really pushing the web to the next milestone.</p>
 <p>PS:</p>
 <p>This is not a post to praise Google. Actually, Apple is also doing great. A lot of people love iPhones. BTW, I love Mac. Even Microsoft is trying its best to serve bests apps on iOS/Android, when WinPhone has been dying.</p>
-<p>I mean, every company has its good side, and bad side as well. Maybe they are saying &ldquo;don't be evil&rdquo;, while they are doing the evilest things.</p>]]></description>
+<p>I mean, every company has its good side, and bad side as well. Maybe they are saying &ldquo;don&rsquo;t be evil&rdquo;, while they are doing the evilest things.</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2018/pwa-integration.html</guid>
       </item><item>
         <title>Single Point of Truth</title>
         <link>https://seasonsroad.com/post/2016/spot.html</link>
         <pubDate>Fri, 18 Nov 2016 00:00:00 +0800</pubDate>
-        <description><![CDATA[<p>Last afternoon, we encountered a bit of down time on our site. Before anybody told us, we didn't even know what's going on.</p>
+        <description><![CDATA[<p>Last afternoon, we encountered a bit of down time on our site. Before anybody told us, we didn&rsquo;t even know what&rsquo;s going on.</p>
 <p>We did a deployment for just dark launch of some feature, and it is supposed not to break anything or affect any User Experience. After that, we fixed a small bug and did another deployment. Then we did some sanity check and made it a successful deployment. After that, we continued working on other things.</p>
-<p>We didn't know anything before one colleague from US side HipChated us, that a lot of users reported that they can't even open our site, and see some JavaScript error. The colleague also shot us a <a href="http://downdetector.com/status/hulu">link</a>.</p>
+<p>We didn&rsquo;t know anything before one colleague from US side HipChated us, that a lot of users reported that they can&rsquo;t even open our site, and see some JavaScript error. The colleague also shot us a <a href="http://downdetector.com/status/hulu">link</a>.</p>
 <!-- raw HTML omitted -->
 <p>WTF? Java(Script) error?</p>
 <!-- raw HTML omitted -->
@@ -276,7 +276,7 @@
 <p>So I connected to our VPN for this data center, and opened our site, and find that there is one JS 404, just like I guessed.</p>
 <!-- raw HTML omitted -->
 <p>I quickly copied things so that it works again. The down time is over.</p>
-<p>But I wonder why. Why can't I find the asset?? We dig into that, only to find that the built outputs are different in different data centers. We did a diff and find that there is a value not the same in the huge JS file, which causing the JS manifest/md5 not the same. So I know the reason.</p>
+<p>But I wonder why. Why can&rsquo;t I find the asset?? We dig into that, only to find that the built outputs are different in different data centers. We did a diff and find that there is a value not the same in the huge JS file, which causing the JS manifest/md5 not the same. So I know the reason.</p>
 <p>We did compilation on different servers with Nginx, and copy the built assets into the local folder to be directly served by Nginx. The output of the compilation contains 2 part: JS part and rails server part.</p>
 <p>And during the compilation, there is a backend call encountered inconsistency issue in different data centers. And they get different values back which is built into the JS part. But we only use only one data center as the running rails server, they just trying to get the assets built in its manifest list which does not exist in other data centers.</p>
 <p>From this incident, we know that:</p>
@@ -284,7 +284,7 @@
 <li>We are trying to do SPOT, b/c we have rails server part done with SPOT.</li>
 <li>We should have done better and have JS part done with SPOT.</li>
 </ul>
-<p>Nowadays, more and more systems are distributed. Single Point of Truth becomes so important. If you haven't done it well for your distributed systems, you might encounter unexpected disasters one day as we had..</p>]]></description>
+<p>Nowadays, more and more systems are distributed. Single Point of Truth becomes so important. If you haven&rsquo;t done it well for your distributed systems, you might encounter unexpected disasters one day as we had..</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2016/spot.html</guid>
       </item><item>
         <title>Connect IPv6 with IPv4 via tunnel</title>
@@ -293,7 +293,7 @@
         <description><![CDATA[<p>With IPv6 you can do a lot of things. This is a how-to article for users who only have IPv4 and want to connect IPv6.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
-<li>You should have a public address that's ping reachable.</li>
+<li>You should have a public address that&rsquo;s ping reachable.</li>
 </ul>
 <h2 id="steps-to-connect">Steps to connect</h2>
 <ol>
@@ -307,13 +307,13 @@
 <p>Configure your tunnel and create it.</p>
 <ul>
 <li>IPv4 Endpoint is the v4 IP you used to connect Internet. (Remember the IP you use, take it as &lsquo;PUBLIC-IP&rsquo;.)</li>
-<li>If you're inside NAT or router, you can try to use Baidu/Google and search IP. Then you'll know your IP address. Usually, you can use the IP under the input box.</li>
-<li>Make sure your IP is ping reachable. Or Tunnel Broker won't create any tunnel for you.</li>
-<li>Try to choose a server that's nearest to you. However, you can just choose one you like if you have no idea which is nearer.</li>
+<li>If you&rsquo;re inside NAT or router, you can try to use Baidu/Google and search IP. Then you&rsquo;ll know your IP address. Usually, you can use the IP under the input box.</li>
+<li>Make sure your IP is ping reachable. Or Tunnel Broker won&rsquo;t create any tunnel for you.</li>
+<li>Try to choose a server that&rsquo;s nearest to you. However, you can just choose one you like if you have no idea which is nearer.</li>
 </ul>
 </li>
 <li>
-<p>Once you create a tunnel, you'll get the Tunnel Details panel.</p>
+<p>Once you create a tunnel, you&rsquo;ll get the Tunnel Details panel.</p>
 </li>
 <li>
 <p>Connect to the tunnel you created.</p>
@@ -321,11 +321,11 @@
 <li>Tunnel Broker helps a lot in connect the tunnel they host with your specific platform.</li>
 <li>In &lsquo;Example Configurations&rsquo; tab, you can select your OS.</li>
 <li>Ensure to read all the tips/NOTEs below the configuration. (You may need sudo to run the command)</li>
-<li><strong>IMPORTANT:</strong> If you're inside an NAT or router, you need to change the &lsquo;PUBLIC-IP&rsquo; in the commands to your own inner IP address.</li>
+<li><strong>IMPORTANT:</strong> If you&rsquo;re inside an NAT or router, you need to change the &lsquo;PUBLIC-IP&rsquo; in the commands to your own inner IP address.</li>
 </ul>
 </li>
 <li>
-<p>After steps above, you've created a network interface named <code>gif0</code>.</p>
+<p>After steps above, you&rsquo;ve created a network interface named <code>gif0</code>.</p>
 <ul>
 <li>You can shut down this tunnel by <code>sudo ifconfig gif0 down</code> or open it with <code>sudo ifconfig gif0 up</code>.</li>
 </ul>
@@ -363,9 +363,9 @@
         <link>https://seasonsroad.com/post/2015/go-chase-our-dreams.html</link>
         <pubDate>Sun, 27 Sep 2015 00:00:00 +0800</pubDate>
         <description><![CDATA[<p>We had fun together. We learned things together. We made it together.</p>
-<p>We're boys. We're friends. And we're dreamers.</p>
+<p>We&rsquo;re boys. We&rsquo;re friends. And we&rsquo;re dreamers.</p>
 <p>More action, less words.
-So guys, let's move fast and chase our dreams!</p>
+So guys, let&rsquo;s move fast and chase our dreams!</p>
 <!-- raw HTML omitted -->]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2015/go-chase-our-dreams.html</guid>
       </item><item>
@@ -376,7 +376,7 @@ So guys, let's move fast and chase our dreams!</p>
 <p><a href="https://github.com/git/git">Git</a> is a distributed revision control system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds for Linux kernel development in 2005, and has since become the most widely adopted version control system for software development.</p>
 </blockquote>
 <h1 id="know-more-do-better">Know more, do better</h1>
-<p>If we use git more, and get more familiar with it, it really helps a lot. Let's note some best practices down here.</p>
+<p>If we use git more, and get more familiar with it, it really helps a lot. Let&rsquo;s note some best practices down here.</p>
 <h2 id="set-useful-git-alias">Set useful git alias</h2>
 <p>Check <a href="/2015/05/SomeGitAlias/">this post</a> to set useful git alias, making your life easier and happier when using git.</p>
 <h2 id="about-a-remote-host-crud">About a remote host (CRUD)</h2>
@@ -388,13 +388,13 @@ $ git remote add &lt;host&gt; &lt;url&gt;             <span style="color:#75715e
 $ git remote rm &lt;host&gt;                    <span style="color:#75715e"># [D]</span>
 $ git remote rename &lt;host&gt; &lt;new-host&gt;     <span style="color:#75715e"># [U]</span>
 </code></pre></div><h2 id="fetch-from-remote-host">Fetch from remote host</h2>
-<p>Once there're commits from remote host, we can fetch them in <em>all branches</em> from remote host.</p>
+<p>Once there&rsquo;re commits from remote host, we can fetch them in <em>all branches</em> from remote host.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git fetch &lt;host&gt;
 </code></pre></div><p>We can also fetch <em>a specific branch</em> from remote host. With <code>git branch</code> you can get all the local branches, and with <code>git branch -r</code> you can get all the remote branches.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git fetch &lt;host&gt; &lt;branch&gt;
 </code></pre></div><p>We can also fetch some branch which has no corresponding local branch created. We do this to create a local branch based this remote branch.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git checkout -b &lt;local-branch&gt; origin/&lt;remote-local&gt;
-</code></pre></div><p>Also, if you don't want to merge a remote branch without creating a local branch for it, do this:</p>
+</code></pre></div><p>Also, if you don&rsquo;t want to merge a remote branch without creating a local branch for it, do this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git merge origin/master
 <span style="color:#75715e"># Or</span>
 $ git rebase origin/master
@@ -404,17 +404,17 @@ $ git rebase origin/master
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git pull <span style="color:#f92672">[</span>--rebase<span style="color:#f92672">]</span> &lt;host&gt; &lt;remote-branch&gt;:&lt;local-branch&gt;
 </code></pre></div><p>This command pulls <code>&lt;remote-branch&gt;</code> from <code>&lt;host&gt;</code>, and merges it to <code>&lt;local-branch&gt;</code>. With <code>--rebase</code> option, we can rebase the local commits to top of this branch.</p>
 <h2 id="push-to-remote-host">Push to remote host</h2>
-<p>We should know that there're 2 push mode: <code>simple</code> &amp; <code>matching</code>. Before git 2.0, we use &lsquo;matching&rsquo; as default which pushes all the matching local branches to remote. Now we use &lsquo;simple&rsquo; as default to push only current branch to remote. But we can config it:</p>
+<p>We should know that there&rsquo;re 2 push mode: <code>simple</code> &amp; <code>matching</code>. Before git 2.0, we use &lsquo;matching&rsquo; as default which pushes all the matching local branches to remote. Now we use &lsquo;simple&rsquo; as default to push only current branch to remote. But we can config it:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git config --global push.default matching
 <span style="color:#75715e"># Or</span>
 $ git config --global push.default simple
 </code></pre></div><p>The full comand pushes a local branch to remote branch of a remote host.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push &lt;host&gt; &lt;local-branch&gt;:&lt;remote-branch&gt;
-</code></pre></div><p>If we don't specify the <code>&lt;local-branch&gt;</code>, we just push an empty branch to remote, just like removing remote branch commits, which means <code>git push &lt;host&gt; :&lt;remote-branch&gt;</code> equals to <code>git push &lt;host&gt; --delete &lt;remote-branch&gt;</code>.</p>
-<p>If we don't specify the <code>&lt;remote-branch&gt;</code>, we will push <code>&lt;local-branch&gt;</code> to the matching branch of it.</p>
-<p>If we don't specify any branch, we will push all the branches to the matching branches of them on <code>&lt;host&gt;</code>. Just like this command without &ndash;all.</p>
+</code></pre></div><p>If we don&rsquo;t specify the <code>&lt;local-branch&gt;</code>, we just push an empty branch to remote, just like removing remote branch commits, which means <code>git push &lt;host&gt; :&lt;remote-branch&gt;</code> equals to <code>git push &lt;host&gt; --delete &lt;remote-branch&gt;</code>.</p>
+<p>If we don&rsquo;t specify the <code>&lt;remote-branch&gt;</code>, we will push <code>&lt;local-branch&gt;</code> to the matching branch of it.</p>
+<p>If we don&rsquo;t specify any branch, we will push all the branches to the matching branches of them on <code>&lt;host&gt;</code>. Just like this command without &ndash;all.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push <span style="color:#f92672">[</span>--all<span style="color:#f92672">]</span> &lt;host&gt;
-</code></pre></div><p>If we use <code>--all</code>, we could push all the branches. If some of them don't have the matching branches on <code>&lt;host&gt;</code> will create them.</p>
+</code></pre></div><p>If we use <code>--all</code>, we could push all the branches. If some of them don&rsquo;t have the matching branches on <code>&lt;host&gt;</code> will create them.</p>
 <p>If we want to force push the local changes, usually when we update some commits already pushed, check this <a href="#force-push">best practice</a>.</p>
 <h2 id="do-with-your-submodules">Do with your submodules</h2>
 <p>Process all your submodules with this command:</p>
@@ -468,7 +468,7 @@ $ git cherry-pick XXXXXX
 $ git branch -D test
 </code></pre><p>Get the <code>XXXXXX</code> with <code>git log</code> in test branch.</p>
 <h2 id="check-inpush-an-old-commit">Check in(push) an old commit</h2>
-<p>Use <a href="#rebase">rebase</a> to go to this very old commit, use <code>git push</code>, you'll get this message:</p>
+<p>Use <a href="#rebase">rebase</a> to go to this very old commit, use <code>git push</code>, you&rsquo;ll get this message:</p>
 <pre><code>fatal: You are not currently on a branch.
 To push the history leading to the current (detached HEAD)
 state now, use
@@ -478,7 +478,7 @@ state now, use
 </code></pre><p>So you can do this very command to push commits before this base. After that, you go back to continue.</p>
 <h2 id="a-nameforce-pushforce-push-to-update-remote-origincritical"><!-- raw HTML omitted -->Force push to update remote origin(CRITICAL!)</h2>
 <p>This may not be a good practice. But in some critical circumstances, this may be the savior.</p>
-<p>Amend the commits you've all ready pushed, and force to push them to replace the repo.</p>
+<p>Amend the commits you&rsquo;ve all ready pushed, and force to push them to replace the repo.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push -f
 </code></pre></div>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2015/git-best-practices.html</guid>
