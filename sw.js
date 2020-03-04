@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-ff7b0f0634dc1530fcdcb5a1f1c16bc8b4356604';
+const cacheName = 'sr-precache-612b1d26726a9aeef5cddee31ee46043e93bd1d8';
 
 const PrecacheList = [
   "/",
@@ -65,6 +65,7 @@ const PrecacheList = [
   "post/2019/adding-dark-mode/before.jpg",
   "post/2019/over-concern.html",
   "post/2019/the-2nd-birthday.html",
+  "post/2020/hevcify-camera-videos.html",
   "images/logo/daisy.png",
   "images/logo/leaf-1.png",
   "images/logo/leaf-2.png",

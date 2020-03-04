@@ -4,10 +4,61 @@
     <link>https://seasonsroad.com/</link>
     <description>SeasonsRoad is the blog for interesting things happening around.</description>
     
-    <lastBuildDate>Mon, 09 Dec 2019 02:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2020 00:10:00 +0800</lastBuildDate>
     <generator>Hugo v0.65.1</generator>
     <atom:link href="https://seasonsroad.com/feed.xml" rel="self" type="application/rss+xml" />
       <item>
+        <title>HEVCify My Camera Videos</title>
+        <link>https://seasonsroad.com/post/2020/hevcify-camera-videos.html</link>
+        <pubDate>Sun, 01 Mar 2020 00:10:00 +0800</pubDate>
+        <description><![CDATA[<p>I&rsquo;ve been creating camera videos a lot on my Android phone. I usually take 4K videos. However, recently the video has been occupying over 100GB size of total 256G. If I don&rsquo;t fix that, I can store no more things on my OnePlus 7 Pro.</p>
+<p>I&rsquo;ve been thinking if I could select some of the videos and delete others. However, even all my videos/photos have backups on my OneDrive, I still need to watch the videos with my family from time to time. So I don&rsquo;t want to delete them.</p>
+<p>In my first thought, the solutions could be, 1) buy a new phone 2) NAS / Network Attached Storage. However, my phone is functioning so well that I don&rsquo;t think I could find another phone that could be better (except OP7tPro). And for the second solution, I&rsquo;ve already got a network disk setup, the performance seems okay. However, it seems not okay to use NAS to watch videos. You know, long VST/VRT, high CIRR, and something VPF. 😔</p>
+<p>After several months with this pain in my head, a new idea came up to me. How about re-encoding the videos? Actually, I thought about compression. However, it seems not tolerable when the video is not clear any longer&hellip;</p>
+<p>Another thought came to me that H.265/HEVC is <em>somehow</em> widely used. How about encode my videos to HEVC as lossless compression? Then I just installed <a href="https://play.google.com/store/apps/details?id=com.silentlexx.ffmpeggui&amp;hl=en_US">FFmpeg Media Encoder</a> from Google Play, and encoded one of my videos.</p>
+<p>And then I was shocked by the result.. A video with 500M size is compressed into 70M. In case the video bit rate is not so good, I compared the videos for almost 10 times. And I don&rsquo;t see difference&hellip; Holly&hellip;</p>
+<p>So, let&rsquo;s get started!</p>
+<h2 id="on-the-phone">On the Phone</h2>
+<h3 id="step-1">Step 1</h3>
+<p>Try <a href="https://play.google.com/store/apps/details?id=com.silentlexx.ffmpeggui&amp;hl=en_US">FFmpeg Media Encoder</a> by your own to see if you could accept the long time for encoding.</p>
+<h3 id="step-2">Step 2</h3>
+<p>Select videos to encode.</p>
+<h3 id="step-3">Step 3</h3>
+<p>And you will lose the Exif metadata by default. To restore that, you could either try <a href="https://play.google.com/store/apps/details?id=com.exiftool.free&amp;hl=en_US">Exiftool</a> or <a href="https://video.stackexchange.com/a/26076">copy tags while encoding</a>.</p>
+<h2 id="on-mac">On Mac</h2>
+<p>However, It seems not very efficient on phone. Why not use my Mac? With my Mac, I could do more scripting and also I could process the video as a batch.</p>
+<h3 id="step-1-1">Step 1</h3>
+<p>ADB or Network ADB. <code>brew cask install android-platform-tools</code> to install <code>adb</code>.</p>
+<p>For network ADB,</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># while connecting the phone to mac</span>
+adb tcpip <span style="color:#ae81ff">5555</span>
+
+<span style="color:#75715e"># network adb connect</span>
+adb connect 192.168.xxx.xxx:5555
+</code></pre></div><h3 id="step-2-1">Step 2</h3>
+<p>Pull the video files to Mac.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">adb pull /sdcard/DCIM/Camera/VID_20200202_020202.mp4
+</code></pre></div><h3 id="step-3-1">Step 3</h3>
+<p>Encode with <code>ffmpeg</code>. <code>brew install ffmpeg</code> to install <code>ffmpeg</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ffmpeg -i VID_20200202_020202.mp4 -c:v libx265 -c:a aac VID_20200202_020202_HEVC.mp4
+
+<span style="color:#75715e"># if you want to customize the parameters, check the ffmpeg manual.</span>
+man ffmpeg
+
+<span style="color:#75715e"># or just</span>
+ffmpeg
+</code></pre></div><h3 id="step-4">Step 4</h3>
+<p>Restore EXIF metadata with <code>exiftool</code> to copy original EXIF tags to the new video file. <code>brew install exiftool</code> to install <code>exiftool</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">exiftool -tagsFromFile VID_20200202_020202.mp4 VID_20200202_020202_HEVC.mp4
+</code></pre></div><h3 id="step-5">Step 5</h3>
+<p>Send video file back to phone.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">adb push VID_20200202_020202_HEVC.mp4 /sdcard/DCIM/
+</code></pre></div><h3 id="step-6">Step 6</h3>
+<p>Now compare these two videos.</p>
+<h2 id="at-last">At last</h2>
+<p>Now, it&rsquo;s been a while since the first encoding. And the result till now is pretty promising. At this moment, I&rsquo;ve got ~500M of videos files encoded from ~5G original video files.</p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2020/hevcify-camera-videos.html</guid>
+      </item><item>
         <title>过度担忧</title>
         <link>https://seasonsroad.com/post/2019/over-concern.html</link>
         <pubDate>Mon, 09 Dec 2019 02:00:00 +0800</pubDate>
@@ -368,120 +419,6 @@
 So guys, let&rsquo;s move fast and chase our dreams!</p>
 <!-- raw HTML omitted -->]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2015/go-chase-our-dreams.html</guid>
-      </item><item>
-        <title>Some Git Best Practices</title>
-        <link>https://seasonsroad.com/post/2015/git-best-practices.html</link>
-        <pubDate>Mon, 01 Jun 2015 00:00:00 +0800</pubDate>
-        <description><![CDATA[<blockquote>
-<p><a href="https://github.com/git/git">Git</a> is a distributed revision control system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds for Linux kernel development in 2005, and has since become the most widely adopted version control system for software development.</p>
-</blockquote>
-<h1 id="know-more-do-better">Know more, do better</h1>
-<p>If we use git more, and get more familiar with it, it really helps a lot. Let&rsquo;s note some best practices down here.</p>
-<h2 id="set-useful-git-alias">Set useful git alias</h2>
-<p>Check <a href="/2015/05/SomeGitAlias/">this post</a> to set useful git alias, making your life easier and happier when using git.</p>
-<h2 id="about-a-remote-host-crud">About a remote host (CRUD)</h2>
-<p>List all your remote hosts. <code>-v</code> shows the url for remote host.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git remote <span style="color:#f92672">[</span>-v<span style="color:#f92672">]</span>
-</code></pre></div><p>Show the detailed information for remote host(such as origin). Add, Remove and Rename a host.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git remote show &lt;host&gt;                  <span style="color:#75715e"># [R]</span>
-$ git remote add &lt;host&gt; &lt;url&gt;             <span style="color:#75715e"># [C]</span>
-$ git remote rm &lt;host&gt;                    <span style="color:#75715e"># [D]</span>
-$ git remote rename &lt;host&gt; &lt;new-host&gt;     <span style="color:#75715e"># [U]</span>
-</code></pre></div><h2 id="fetch-from-remote-host">Fetch from remote host</h2>
-<p>Once there&rsquo;re commits from remote host, we can fetch them in <em>all branches</em> from remote host.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git fetch &lt;host&gt;
-</code></pre></div><p>We can also fetch <em>a specific branch</em> from remote host. With <code>git branch</code> you can get all the local branches, and with <code>git branch -r</code> you can get all the remote branches.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git fetch &lt;host&gt; &lt;branch&gt;
-</code></pre></div><p>We can also fetch some branch which has no corresponding local branch created. We do this to create a local branch based this remote branch.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git checkout -b &lt;local-branch&gt; origin/&lt;remote-local&gt;
-</code></pre></div><p>Also, if you don&rsquo;t want to merge a remote branch without creating a local branch for it, do this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git merge origin/master
-<span style="color:#75715e"># Or</span>
-$ git rebase origin/master
-</code></pre></div><p>This two commands do the same to merge a remote branch(<code>origin/master</code>) into current branch.</p>
-<h2 id="pull-from-remote-host">Pull from remote host</h2>
-<p>The default <code>git pull</code> command pulls all the remote branches corresponding to local ones. The full command can pull a remote branch and merge it to a local branch.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git pull <span style="color:#f92672">[</span>--rebase<span style="color:#f92672">]</span> &lt;host&gt; &lt;remote-branch&gt;:&lt;local-branch&gt;
-</code></pre></div><p>This command pulls <code>&lt;remote-branch&gt;</code> from <code>&lt;host&gt;</code>, and merges it to <code>&lt;local-branch&gt;</code>. With <code>--rebase</code> option, we can rebase the local commits to top of this branch.</p>
-<h2 id="push-to-remote-host">Push to remote host</h2>
-<p>We should know that there&rsquo;re 2 push mode: <code>simple</code> &amp; <code>matching</code>. Before git 2.0, we use &lsquo;matching&rsquo; as default which pushes all the matching local branches to remote. Now we use &lsquo;simple&rsquo; as default to push only current branch to remote. But we can config it:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git config --global push.default matching
-<span style="color:#75715e"># Or</span>
-$ git config --global push.default simple
-</code></pre></div><p>The full comand pushes a local branch to remote branch of a remote host.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push &lt;host&gt; &lt;local-branch&gt;:&lt;remote-branch&gt;
-</code></pre></div><p>If we don&rsquo;t specify the <code>&lt;local-branch&gt;</code>, we just push an empty branch to remote, just like removing remote branch commits, which means <code>git push &lt;host&gt; :&lt;remote-branch&gt;</code> equals to <code>git push &lt;host&gt; --delete &lt;remote-branch&gt;</code>.</p>
-<p>If we don&rsquo;t specify the <code>&lt;remote-branch&gt;</code>, we will push <code>&lt;local-branch&gt;</code> to the matching branch of it.</p>
-<p>If we don&rsquo;t specify any branch, we will push all the branches to the matching branches of them on <code>&lt;host&gt;</code>. Just like this command without &ndash;all.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push <span style="color:#f92672">[</span>--all<span style="color:#f92672">]</span> &lt;host&gt;
-</code></pre></div><p>If we use <code>--all</code>, we could push all the branches. If some of them don&rsquo;t have the matching branches on <code>&lt;host&gt;</code> will create them.</p>
-<p>If we want to force push the local changes, usually when we update some commits already pushed, check this <a href="#force-push">best practice</a>.</p>
-<h2 id="do-with-your-submodules">Do with your submodules</h2>
-<p>Process all your submodules with this command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git submodule <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
-</code></pre></div><p>You can do <code>init</code>/<code>deinit</code>, <code>add</code>, <code>status</code>, <code>update</code>, etc.</p>
-<p>If you want to run git commands within each submodule, do this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git submodule foreach <span style="color:#f92672">[</span>git command<span style="color:#f92672">]</span>
-</code></pre></div><h1 id="best-practices">Best practices!!</h1>
-<h2 id="who-has-touched-the-file">Who has touched the file?</h2>
-<p>If the file is a code file, we can use <code>git blame</code> to check the file change.</p>
-<p>If the file is a binary file, or we just want to find all the commits related to this file, use this command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git log <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> file
-</code></pre></div><p>And, if this file is renamed or even deleted, we should use <code>--follow</code> on <code>git log</code> to continue listing the history of a file beyond renames:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git log <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> --follow -- file
-</code></pre></div><p><code>--</code> is used to separate paths from revisions, like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git &lt;command&gt; <span style="color:#f92672">[</span>&lt;revision&gt;...<span style="color:#f92672">]</span> -- <span style="color:#f92672">[</span>&lt;file&gt;...<span style="color:#f92672">]</span>
-</code></pre></div><h2 id="a-namerebaserebase-to-an-old-commit"><!-- raw HTML omitted -->Rebase to an old commit</h2>
-<p>Rebase to an old commit:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git rebase -i HEAD~n
-</code></pre></div><p>Edit the <code>pick</code> before any commit your want to base to <code>reword</code> or <code>r</code>.</p>
-<p>If you want to continue to HEAD, use this command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git rebase --continue
-</code></pre></div><h2 id="amend-commits-locally">Amend commits locally</h2>
-<p>If this commit is HEAD commit, use this to amend it:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git commit --amend
-</code></pre></div><p>Then amend your commit message!</p>
-<p>If this commit is not HEAD, <a href="#rebase">rebase</a> it and amend.</p>
-<h2 id="reset-commits-locally">Reset commits locally</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git reset HEAD~n <span style="color:#f92672">[</span>--hard<span style="color:#f92672">]</span>
-</code></pre></div><p>With the <code>--hard</code> option, you can reset all the commit with all its changes. Or you can save all your changes.</p>
-<h2 id="move-one-older-commit-to-head">Move one older commit to HEAD</h2>
-<p>This is maybe a little tricky. We have to use a test branch to backup the git stack, then rebase to remove the very change:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git branch test
-$ git rebase --onto HEAD~n HEAD~<span style="color:#f92672">(</span>n-1<span style="color:#f92672">)</span> HEAD
-</code></pre></div><p>This way comes from the git <a href="http://git-scm.com/docs/git-rebase#_description">help man page</a>.</p>
-<blockquote>
-<p>A range of commits could also be removed with rebase. If we have the following situation:</p>
-<p>E&mdash;F&mdash;G&mdash;H&mdash;I&mdash;J  topicA</p>
-<p>then the command</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"></code></pre></div></blockquote>
-<p>$ git rebase &ndash;onto topicA~5 topicA~3 topicA</p>
-<pre><code>&gt; would result in the removal of commits F and G:
-&gt;
-&gt; E'---H'---I'---J'  topicA
-
-After you stash this commit, you can cherry-pick it from the test branch to master branch:
-
-````bash
-$ git cherry-pick XXXXXX
-
-$ git branch -D test
-</code></pre><p>Get the <code>XXXXXX</code> with <code>git log</code> in test branch.</p>
-<h2 id="check-inpush-an-old-commit">Check in(push) an old commit</h2>
-<p>Use <a href="#rebase">rebase</a> to go to this very old commit, use <code>git push</code>, you&rsquo;ll get this message:</p>
-<pre><code>fatal: You are not currently on a branch.
-To push the history leading to the current (detached HEAD)
-state now, use
-
-    git push origin HEAD:&lt;name-of-remote-branch&gt;
-
-</code></pre><p>So you can do this very command to push commits before this base. After that, you go back to continue.</p>
-<h2 id="a-nameforce-pushforce-push-to-update-remote-origincritical"><!-- raw HTML omitted -->Force push to update remote origin(CRITICAL!)</h2>
-<p>This may not be a good practice. But in some critical circumstances, this may be the savior.</p>
-<p>Amend the commits you&rsquo;ve all ready pushed, and force to push them to replace the repo.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push -f
-</code></pre></div>]]></description>
-        <guid isPermaLink="true">https://seasonsroad.com/post/2015/git-best-practices.html</guid>
       </item>
   </channel>
 </rss>
