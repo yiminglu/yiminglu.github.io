@@ -4,10 +4,29 @@
     <link>https://seasonsroad.com/</link>
     <description>SeasonsRoad is the blog for interesting things happening around.</description>
     
-    <lastBuildDate>Sun, 01 Mar 2020 00:10:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 10 Mar 2020 16:10:00 +0800</lastBuildDate>
     <generator>Hugo v0.65.1</generator>
     <atom:link href="https://seasonsroad.com/feed.xml" rel="self" type="application/rss+xml" />
       <item>
+        <title>关于责任心</title>
+        <link>https://seasonsroad.com/post/2020/choice-about-responsibility.html</link>
+        <pubDate>Tue, 10 Mar 2020 16:10:00 +0800</pubDate>
+        <description><![CDATA[<p>最近其实处在了一个可能不存在的交叉口上，想到了<a href="/post/2015/crossroads.html">五年前</a>找工作时候的一些有关于抉择的东西，突然有感而发。</p>
+<br/>
+<p>那时候，事情很简单，选 A 或者 B，尤其是当 B 不再是一个选择的时候。</p>
+<p>而现在，事情感觉略略有些复杂。人际关系的构建其实是非常复杂的事情，尤其是对我这种工科生出身的人。真的觉得，如果离开了沉没成本有点太高了，毕竟我珍惜地在这里度过了五年，更不用提现在有很多值得信任又信任我的小伙伴。</p>
+<br/>
+<p>但是，如果我保持现状，我觉得自己所失去的机会成本大之又大。</p>
+<p>所以，我现在面临了这种抉择，需要选择对自己负责，或者对大家负责。</p>
+<br/>
+<p>但反之又想，是不是我心志太大了，还是只是我心思太重了？</p>
+<p>优柔寡断，是一直以来我都没有克服的自身问题。</p>
+<br/>
+<p>这次，我决定再走一步。至少看下，在已知沉没成本的情况下，机会成本到底有多少。</p>
+<p>哪怕，那只是一个预估的数字。<br/>
+哪怕，未来还有很多变数。</p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2020/choice-about-responsibility.html</guid>
+      </item><item>
         <title>HEVCify My Camera Videos</title>
         <link>https://seasonsroad.com/post/2020/hevcify-camera-videos.html</link>
         <pubDate>Sun, 01 Mar 2020 00:10:00 +0800</pubDate>
@@ -415,16 +434,6 @@ ffmpeg
 <h2 id="after-all">After all</h2>
 <p>Now you should have the ability to access IPv6. Go surf the Internet with IPv6 then!</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2015/connect-ipv6.html</guid>
-      </item><item>
-        <title>Go Chase Our Dreams, Guys!</title>
-        <link>https://seasonsroad.com/post/2015/go-chase-our-dreams.html</link>
-        <pubDate>Sun, 27 Sep 2015 00:00:00 +0800</pubDate>
-        <description><![CDATA[<p>We had fun together. We learned things together. We made it together.</p>
-<p>We&rsquo;re boys. We&rsquo;re friends. And we&rsquo;re dreamers.</p>
-<p>More action, less words.
-So guys, let&rsquo;s move fast and chase our dreams!</p>
-<center><p><img src="/post/2015/go-chase-our-dreams/01.jpg" alt="1325" style="width: 580px;"/></p></center>]]></description>
-        <guid isPermaLink="true">https://seasonsroad.com/post/2015/go-chase-our-dreams.html</guid>
       </item>
   </channel>
 </rss>
