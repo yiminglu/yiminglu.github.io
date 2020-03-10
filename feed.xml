@@ -75,7 +75,10 @@ ffmpeg
 <p>过程中重新梳理了一下全局所有的颜色，分了一下类，以后改动也不必随便添加了，拿来定义好的就可以直接用了。</p>
 <p>当然，这样颜色也更容易维护了。</p>
 <h2 id="before--after">Before &amp; After</h2>
-<!-- raw HTML omitted -->
+<center>
+<span><img src="/post/2019/adding-dark-mode/before.jpg" alt="Before" style="width: 320px; border: 1px solid black; margin: 10px;"/></span>
+<span><img src="/post/2019/adding-dark-mode/after.jpg" alt="After" style="width: 320px; border: 1px solid white; margin: 10px;"/></span>
+</center>
 <h2 id="benefits">Benefits</h2>
 <ul>
 <li>Reduce Eye Strain</li>
@@ -112,8 +115,8 @@ ffmpeg
 <h2 id="写在最后">写在最后</h2>
 <p>这都是闺女两岁生日的这段时间发生的一系列事情，以及我个人的一系列联想。</p>
 <p>人生要继续，上行还是下行，都是自己的选择。或者说，至少我还能做选择。</p>
-<p><!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
+<p><br />
+<br /></p>
 <p>注：</p>
 <p>并不是所有都能如意，毕竟有的时候还是看命的。自己的努力不到位，也没有特别多的遗憾。毕竟，备选方案太让人觉得安全了。。</p>
 <p>想来，新的一年又要到来了。所以，还是要好好准备下的。</p>
@@ -155,10 +158,10 @@ ffmpeg
 <p>I tried a few other free cert signature solution. None of them works very well. When I saw <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a> a few days ago, I had the same idea. I was firstly attracted by the design of the main site of Let&rsquo;s Encrypt. So, I decided to give it a try.</p>
 <p>With the easy steps of <a href="https://certbot.eff.org/">certbot</a>, I configured my VPS with Nginx on Ubuntu 16.04. It was so easy to use certbot to renew the certificates automatically. With the support of certbot, I could do it once and for all. It&rsquo;s really a good solution.</p>
 <p>And now my site is fully secured.</p>
-<!-- raw HTML omitted -->
+<center><p><img src="/post/2018/migration-to-https/cert.png" alt="The Cert" style="width: 485px;"/></p></center>
 <p>All of a sudden, my blog goes https. It now looks really nice. At least, Chrome won&rsquo;t say it&rsquo;s unsecure. 😂</p>
-<!-- raw HTML omitted -->
-<p><!-- raw HTML omitted --></p>
+<center><p><img src="/post/2018/migration-to-https/secure.png" alt="Secure" style="width: 333px;"/></p></center>
+<p><br /></p>
 <p>P.S.</p>
 <p>I even updated my blog to the same style.</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2018/migration-to-https.html</guid>
@@ -167,15 +170,15 @@ ffmpeg
         <link>https://seasonsroad.com/post/2018/pwa-integration.html</link>
         <pubDate>Wed, 08 Aug 2018 00:00:00 +0800</pubDate>
         <description><![CDATA[<h2 id="what-is-pwa">What is PWA</h2>
-<p><!-- raw HTML omitted -->PWA<!-- raw HTML omitted --> is short for <!-- raw HTML omitted -->Progressive Web Applications<!-- raw HTML omitted -->. If you want to learn more about the basics of PWA, go check the <a href="https://developers.google.com/web/progressive-web-apps/">Google PWA official website</a>.</p>
+<p><strong>PWA</strong> is short for <strong>Progressive Web Applications</strong>. If you want to learn more about the basics of PWA, go check the <a href="https://developers.google.com/web/progressive-web-apps/">Google PWA official website</a>.</p>
 <p>Also, I did a brief intro to PWA in the CORP as tech share a while before. The content mainly comes from the PWA official site and the <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">offline cookbook</a>. Check it out if you desire.</p>
-<!-- raw HTML omitted -->
+<div class="with-ratio ratio-w5h3" style="max-width: 700px;"><div class="content"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQD3Q6gdHlqp7DSfzXlV5cLFhRTjGmXSqhT1xVjbT8hDgvohWR4pQgy01Bmh2w5XoYQSxyvNbw5O34y/embed?start=false&loop=false&delayms=3000" frameborder="0" width="100%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></div></div>
 <h2 id="apply-pwa-features-to-the-blog">Apply PWA Features to The Blog</h2>
 <p>I want to apply these beautiful PWA features to the blog, so that I can add the app to my home screen and browse the blogs offline. Now, let&rsquo;s go through how to do that step-by-step.</p>
 <h3 id="first-of-all-generate-the-service-worker-javascript">First of all, Generate the Service Worker JavaScript</h3>
 <ul>
 <li>
-<p>I need to generate the <!-- raw HTML omitted -->Service Worker JavaScript<!-- raw HTML omitted -->, <code>sw.js</code>, with all my content and pre-cache the pages into the cache. This way, when service worker is installed, everything has been pre-cached. It will enable the full off-line mode by all the pre-cached files. This is the so-called <!-- raw HTML omitted -->install<!-- raw HTML omitted --> step of PWA life-circle.</p>
+<p>I need to generate the <strong>Service Worker JavaScript</strong>, <code>sw.js</code>, with all my content and pre-cache the pages into the cache. This way, when service worker is installed, everything has been pre-cached. It will enable the full off-line mode by all the pre-cached files. This is the so-called <strong>install</strong> step of PWA life-circle.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cacheName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;sr-precache-##REVISION##&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PrecacheList</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">##</span><span style="color:#a6e22e">PRECACHE_LIST</span><span style="color:#960050;background-color:#1e0010">##</span>;
@@ -195,7 +198,7 @@ ffmpeg
 <p>Also, as you can see, there is a command <code>self.skipWaiting()</code> to tell SW to skip waiting, meaning the service worker activates as soon as it&rsquo;s finished installing, even for updating.</p>
 </li>
 <li>
-<p>Then, I would want SW to use these pre-cached files for the requests. So I added lines to customize the <!-- raw HTML omitted -->fetch<!-- raw HTML omitted --> event in <code>sw.js</code>.</p>
+<p>Then, I would want SW to use these pre-cached files for the requests. So I added lines to customize the <strong>fetch</strong> event in <code>sw.js</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
   <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">respondWith</span>(
     <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">match</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">request</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">response</span>) {
@@ -203,7 +206,7 @@ ffmpeg
     })
   );
 });
-</code></pre></div><p>This is a very basic cache strategy, serving from cache and then network, a.k.a, <!-- raw HTML omitted -->cache-first<!-- raw HTML omitted -->.</p>
+</code></pre></div><p>This is a very basic cache strategy, serving from cache and then network, a.k.a, <strong>cache-first</strong>.</p>
 </li>
 <li>
 <p>After the steps above, the web app now works when offline. However, there are still issues.</p>
@@ -211,7 +214,7 @@ ffmpeg
 <li>The cache will be invalid after I update the site, I need to remove the invalid cache.</li>
 <li>SW will wait for all the tabs to close so that the new <code>sw.js</code> could apply to the tabs.</li>
 </ul>
-<p>So, I need to update the <!-- raw HTML omitted -->activate<!-- raw HTML omitted --> step so that I can fix these issues.</p>
+<p>So, I need to update the <strong>activate</strong> step so that I can fix these issues.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;activate&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Activate&#39;</span>);
   <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">waitUntil</span>(
@@ -239,11 +242,11 @@ ffmpeg
   });
 }
 </code></pre></div><h3 id="create-the-web-app-manifest">Create The Web App Manifest</h3>
-<p>The <a href="https://developers.google.com/web/fundamentals/web-app-manifest/">web app manifest</a> is a simple JSON file that tells the browser about your web application and how it should behave when &lsquo;installed&rsquo; on the user&rsquo;s mobile device or desktop. Having a manifest is required by Chrome to show the <!-- raw HTML omitted -->Add to Home Screen<!-- raw HTML omitted --> prompt.</p>
+<p>The <a href="https://developers.google.com/web/fundamentals/web-app-manifest/">web app manifest</a> is a simple JSON file that tells the browser about your web application and how it should behave when &lsquo;installed&rsquo; on the user&rsquo;s mobile device or desktop. Having a manifest is required by Chrome to show the <strong>Add to Home Screen</strong> prompt.</p>
 <ul>
 <li>Add <code>name</code> &amp; <code>short_name</code>
 <ul>
-<li>The <code>name</code> is used in the <!-- raw HTML omitted -->Add to Home Screen<!-- raw HTML omitted --> prompt, while the <code>short_name</code> is used as the app name after being added to home screen.</li>
+<li>The <code>name</code> is used in the <strong>Add to Home Screen</strong> prompt, while the <code>short_name</code> is used as the app name after being added to home screen.</li>
 </ul>
 </li>
 <li>Add Icons
@@ -305,7 +308,7 @@ ffmpeg
 </ul>
 <h2 id="conclusion">Conclusion</h2>
 <p>So, here it comes, the PWA for the blog.</p>
-<!-- raw HTML omitted -->
+<center><p><img src="/post/2018/pwa-integration/pwa.gif" alt="The Blog PWA" style="width: 320px; border: 1px solid black;"/></p></center>
 <p>PWA is going to change rules of the game, hopefully, if and only if it will be more and more improved and applied. And it did really pushing the web to the next milestone.</p>
 <p>PS:</p>
 <p>This is not a post to praise Google. Actually, Apple is also doing great. A lot of people love iPhones. BTW, I love Mac. Even Microsoft is trying its best to serve bests apps on iOS/Android, when WinPhone has been dying.</p>
@@ -318,14 +321,17 @@ ffmpeg
         <description><![CDATA[<p>Last afternoon, we encountered a bit of down time on our site. Before anybody told us, we didn&rsquo;t even know what&rsquo;s going on.</p>
 <p>We did a deployment for just dark launch of some feature, and it is supposed not to break anything or affect any User Experience. After that, we fixed a small bug and did another deployment. Then we did some sanity check and made it a successful deployment. After that, we continued working on other things.</p>
 <p>We didn&rsquo;t know anything before one colleague from US side HipChated us, that a lot of users reported that they can&rsquo;t even open our site, and see some JavaScript error. The colleague also shot us a <a href="http://downdetector.com/status/hulu">link</a>.</p>
-<!-- raw HTML omitted -->
+<center><p><img src="/post/2016/spot/problems.png" alt="Reported problems" style="width: 392px;"/></p></center>
 <p>WTF? Java(Script) error?</p>
-<!-- raw HTML omitted -->
+<center><p><img src="/post/2016/spot/comments-1.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
+<center><p><img src="/post/2016/spot/comments-2.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
+<center><p><img src="/post/2016/spot/comments-3.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
+<center><p><img src="/post/2016/spot/comments-4.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
 <p>One thing occurred to me that, most time for our site, JavaScript error means missing asset. But we still cannot believe this is true.</p>
 <p>From the down detector, we find that most problems are from East Coast. So it might be something wrong with one of our data centers.</p>
-<!-- raw HTML omitted -->
+<center><p><img src="/post/2016/spot/geo-impact.png" alt="Geo Impact" style="width: 917px;"/></p></center>
 <p>So I connected to our VPN for this data center, and opened our site, and find that there is one JS 404, just like I guessed.</p>
-<!-- raw HTML omitted -->
+<center><p><img src="/post/2016/spot/missing-asset.png" alt="Missing asset" style="width: 867px;"/></p></center>
 <p>I quickly copied things so that it works again. The down time is over.</p>
 <p>But I wonder why. Why can&rsquo;t I find the asset?? We dig into that, only to find that the built outputs are different in different data centers. We did a diff and find that there is a value not the same in the huge JS file, which causing the JS manifest/md5 not the same. So I know the reason.</p>
 <p>We did compilation on different servers with Nginx, and copy the built assets into the local folder to be directly served by Nginx. The output of the compilation contains 2 part: JS part and rails server part.</p>
@@ -417,7 +423,7 @@ ffmpeg
 <p>We&rsquo;re boys. We&rsquo;re friends. And we&rsquo;re dreamers.</p>
 <p>More action, less words.
 So guys, let&rsquo;s move fast and chase our dreams!</p>
-<!-- raw HTML omitted -->]]></description>
+<center><p><img src="/post/2015/go-chase-our-dreams/01.jpg" alt="1325" style="width: 580px;"/></p></center>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2015/go-chase-our-dreams.html</guid>
       </item>
   </channel>

@@ -174,7 +174,7 @@ $ git config --global push.default simple
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git log <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> --follow -- file
 </code></pre></div><p><code>--</code> is used to separate paths from revisions, like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git &lt;command&gt; <span style="color:#f92672">[</span>&lt;revision&gt;...<span style="color:#f92672">]</span> -- <span style="color:#f92672">[</span>&lt;file&gt;...<span style="color:#f92672">]</span>
-</code></pre></div><h2 id="a-namerebaserebase-to-an-old-commit"><!-- raw HTML omitted -->Rebase to an old commit</h2>
+</code></pre></div><h2 id="a-namerebaserebase-to-an-old-commit"><a name="rebase"/>Rebase to an old commit</h2>
 <p>Rebase to an old commit:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git rebase -i HEAD~n
 </code></pre></div><p>Edit the <code>pick</code> before any commit your want to base to <code>reword</code> or <code>r</code>.</p>
@@ -219,7 +219,7 @@ state now, use
     git push origin HEAD:&lt;name-of-remote-branch&gt;
 
 </code></pre><p>So you can do this very command to push commits before this base. After that, you go back to continue.</p>
-<h2 id="a-nameforce-pushforce-push-to-update-remote-origincritical"><!-- raw HTML omitted -->Force push to update remote origin(CRITICAL!)</h2>
+<h2 id="a-nameforce-pushforce-push-to-update-remote-origincritical"><a name="force-push"/>Force push to update remote origin(CRITICAL!)</h2>
 <p>This may not be a good practice. But in some critical circumstances, this may be the savior.</p>
 <p>Amend the commits you&rsquo;ve all ready pushed, and force to push them to replace the repo.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git push -f

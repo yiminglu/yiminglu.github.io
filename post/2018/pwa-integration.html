@@ -116,15 +116,15 @@
   </header>
   <article class="post-content">
     <h2 id="what-is-pwa">What is PWA</h2>
-<p><!-- raw HTML omitted -->PWA<!-- raw HTML omitted --> is short for <!-- raw HTML omitted -->Progressive Web Applications<!-- raw HTML omitted -->. If you want to learn more about the basics of PWA, go check the <a href="https://developers.google.com/web/progressive-web-apps/">Google PWA official website</a>.</p>
+<p><strong>PWA</strong> is short for <strong>Progressive Web Applications</strong>. If you want to learn more about the basics of PWA, go check the <a href="https://developers.google.com/web/progressive-web-apps/">Google PWA official website</a>.</p>
 <p>Also, I did a brief intro to PWA in the CORP as tech share a while before. The content mainly comes from the PWA official site and the <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">offline cookbook</a>. Check it out if you desire.</p>
-<!-- raw HTML omitted -->
+<div class="with-ratio ratio-w5h3" style="max-width: 700px;"><div class="content"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQD3Q6gdHlqp7DSfzXlV5cLFhRTjGmXSqhT1xVjbT8hDgvohWR4pQgy01Bmh2w5XoYQSxyvNbw5O34y/embed?start=false&loop=false&delayms=3000" frameborder="0" width="100%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></div></div>
 <h2 id="apply-pwa-features-to-the-blog">Apply PWA Features to The Blog</h2>
 <p>I want to apply these beautiful PWA features to the blog, so that I can add the app to my home screen and browse the blogs offline. Now, let&rsquo;s go through how to do that step-by-step.</p>
 <h3 id="first-of-all-generate-the-service-worker-javascript">First of all, Generate the Service Worker JavaScript</h3>
 <ul>
 <li>
-<p>I need to generate the <!-- raw HTML omitted -->Service Worker JavaScript<!-- raw HTML omitted -->, <code>sw.js</code>, with all my content and pre-cache the pages into the cache. This way, when service worker is installed, everything has been pre-cached. It will enable the full off-line mode by all the pre-cached files. This is the so-called <!-- raw HTML omitted -->install<!-- raw HTML omitted --> step of PWA life-circle.</p>
+<p>I need to generate the <strong>Service Worker JavaScript</strong>, <code>sw.js</code>, with all my content and pre-cache the pages into the cache. This way, when service worker is installed, everything has been pre-cached. It will enable the full off-line mode by all the pre-cached files. This is the so-called <strong>install</strong> step of PWA life-circle.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cacheName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;sr-precache-##REVISION##&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PrecacheList</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">##</span><span style="color:#a6e22e">PRECACHE_LIST</span><span style="color:#960050;background-color:#1e0010">##</span>;
@@ -144,7 +144,7 @@
 <p>Also, as you can see, there is a command <code>self.skipWaiting()</code> to tell SW to skip waiting, meaning the service worker activates as soon as it&rsquo;s finished installing, even for updating.</p>
 </li>
 <li>
-<p>Then, I would want SW to use these pre-cached files for the requests. So I added lines to customize the <!-- raw HTML omitted -->fetch<!-- raw HTML omitted --> event in <code>sw.js</code>.</p>
+<p>Then, I would want SW to use these pre-cached files for the requests. So I added lines to customize the <strong>fetch</strong> event in <code>sw.js</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
   <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">respondWith</span>(
     <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">match</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">request</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">response</span>) {
@@ -152,7 +152,7 @@
     })
   );
 });
-</code></pre></div><p>This is a very basic cache strategy, serving from cache and then network, a.k.a, <!-- raw HTML omitted -->cache-first<!-- raw HTML omitted -->.</p>
+</code></pre></div><p>This is a very basic cache strategy, serving from cache and then network, a.k.a, <strong>cache-first</strong>.</p>
 </li>
 <li>
 <p>After the steps above, the web app now works when offline. However, there are still issues.</p>
@@ -160,7 +160,7 @@
 <li>The cache will be invalid after I update the site, I need to remove the invalid cache.</li>
 <li>SW will wait for all the tabs to close so that the new <code>sw.js</code> could apply to the tabs.</li>
 </ul>
-<p>So, I need to update the <!-- raw HTML omitted -->activate<!-- raw HTML omitted --> step so that I can fix these issues.</p>
+<p>So, I need to update the <strong>activate</strong> step so that I can fix these issues.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;activate&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Activate&#39;</span>);
   <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">waitUntil</span>(
@@ -188,11 +188,11 @@
   });
 }
 </code></pre></div><h3 id="create-the-web-app-manifest">Create The Web App Manifest</h3>
-<p>The <a href="https://developers.google.com/web/fundamentals/web-app-manifest/">web app manifest</a> is a simple JSON file that tells the browser about your web application and how it should behave when &lsquo;installed&rsquo; on the user&rsquo;s mobile device or desktop. Having a manifest is required by Chrome to show the <!-- raw HTML omitted -->Add to Home Screen<!-- raw HTML omitted --> prompt.</p>
+<p>The <a href="https://developers.google.com/web/fundamentals/web-app-manifest/">web app manifest</a> is a simple JSON file that tells the browser about your web application and how it should behave when &lsquo;installed&rsquo; on the user&rsquo;s mobile device or desktop. Having a manifest is required by Chrome to show the <strong>Add to Home Screen</strong> prompt.</p>
 <ul>
 <li>Add <code>name</code> &amp; <code>short_name</code>
 <ul>
-<li>The <code>name</code> is used in the <!-- raw HTML omitted -->Add to Home Screen<!-- raw HTML omitted --> prompt, while the <code>short_name</code> is used as the app name after being added to home screen.</li>
+<li>The <code>name</code> is used in the <strong>Add to Home Screen</strong> prompt, while the <code>short_name</code> is used as the app name after being added to home screen.</li>
 </ul>
 </li>
 <li>Add Icons
@@ -254,7 +254,7 @@
 </ul>
 <h2 id="conclusion">Conclusion</h2>
 <p>So, here it comes, the PWA for the blog.</p>
-<!-- raw HTML omitted -->
+<center><p><img src="/post/2018/pwa-integration/pwa.gif" alt="The Blog PWA" style="width: 320px; border: 1px solid black;"/></p></center>
 <p>PWA is going to change rules of the game, hopefully, if and only if it will be more and more improved and applied. And it did really pushing the web to the next milestone.</p>
 <p>PS:</p>
 <p>This is not a post to praise Google. Actually, Apple is also doing great. A lot of people love iPhones. BTW, I love Mac. Even Microsoft is trying its best to serve bests apps on iOS/Android, when WinPhone has been dying.</p>

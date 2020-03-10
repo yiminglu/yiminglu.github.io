@@ -118,14 +118,17 @@
     <p>Last afternoon, we encountered a bit of down time on our site. Before anybody told us, we didn&rsquo;t even know what&rsquo;s going on.</p>
 <p>We did a deployment for just dark launch of some feature, and it is supposed not to break anything or affect any User Experience. After that, we fixed a small bug and did another deployment. Then we did some sanity check and made it a successful deployment. After that, we continued working on other things.</p>
 <p>We didn&rsquo;t know anything before one colleague from US side HipChated us, that a lot of users reported that they can&rsquo;t even open our site, and see some JavaScript error. The colleague also shot us a <a href="http://downdetector.com/status/hulu">link</a>.</p>
-<!-- raw HTML omitted -->
+<center><p><img src="/post/2016/spot/problems.png" alt="Reported problems" style="width: 392px;"/></p></center>
 <p>WTF? Java(Script) error?</p>
-<!-- raw HTML omitted -->
+<center><p><img src="/post/2016/spot/comments-1.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
+<center><p><img src="/post/2016/spot/comments-2.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
+<center><p><img src="/post/2016/spot/comments-3.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
+<center><p><img src="/post/2016/spot/comments-4.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
 <p>One thing occurred to me that, most time for our site, JavaScript error means missing asset. But we still cannot believe this is true.</p>
 <p>From the down detector, we find that most problems are from East Coast. So it might be something wrong with one of our data centers.</p>
-<!-- raw HTML omitted -->
+<center><p><img src="/post/2016/spot/geo-impact.png" alt="Geo Impact" style="width: 917px;"/></p></center>
 <p>So I connected to our VPN for this data center, and opened our site, and find that there is one JS 404, just like I guessed.</p>
-<!-- raw HTML omitted -->
+<center><p><img src="/post/2016/spot/missing-asset.png" alt="Missing asset" style="width: 867px;"/></p></center>
 <p>I quickly copied things so that it works again. The down time is over.</p>
 <p>But I wonder why. Why can&rsquo;t I find the asset?? We dig into that, only to find that the built outputs are different in different data centers. We did a diff and find that there is a value not the same in the huge JS file, which causing the JS manifest/md5 not the same. So I know the reason.</p>
 <p>We did compilation on different servers with Nginx, and copy the built assets into the local folder to be directly served by Nginx. The output of the compilation contains 2 part: JS part and rails server part.</p>
