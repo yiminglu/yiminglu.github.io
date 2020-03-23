@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch11/ch11-05.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="115-剖析">11.5. 剖析</h2>
+<p>基准测试（Benchmark）对于衡量特定操作的性能是有帮助的，但是当我们试图让程序跑的更快的时候，我们通常并不知道从哪里开始优化。每个码农都应该知道Donald Knuth在1974年的“Structured Programming with go to Statements”上所说的格言。虽然经常被解读为不重视性能的意思，但是从原文我们可以看到不同的含义：</p>
+<blockquote>
+<p>毫无疑问，对效率的片面追求会导致各种滥用。程序员会浪费大量的时间在非关键程序的速度上，实际上这些尝试提升效率的行为反倒可能产生很大的负面影响，特别是当调试和维护的时候。我们不应该过度纠结于细节的优化，应该说约97%的场景：过早的优化是万恶之源。</p>
+<p>当然我们也不应该放弃对那关键3%的优化。一个好的程序员不会因为这个比例小就裹足不前，他们会明智地观察和识别哪些是关键的代码；但是仅当关键代码已经被确认的前提下才会进行优化。对于很多程序员来说，判断哪部分是关键的性能瓶颈，是很容易犯经验上的错误的，因此一般应该借助测量工具来证明。</p>
+</blockquote>
+<p>当我们想仔细观察我们程序的运行速度的时候，最好的方法是性能剖析。剖析技术是基于程序执行期间一些自动抽样，然后在收尾时进行推断；最后产生的统计结果就称为剖析数据。</p>
+<p>Go语言支持多种类型的剖析性能分析，每一种关注不同的方面，但它们都涉及到每个采样记录的感兴趣的一系列事件消息，每个事件都包含函数调用时函数调用堆栈的信息。内建的<code>go test</code>工具对几种分析方式都提供了支持。</p>
+<p>CPU剖析数据标识了最耗CPU时间的函数。在每个CPU上运行的线程在每隔几毫秒都会遇到操作系统的中断事件，每次中断时都会记录一个剖析数据然后恢复正常的运行。</p>
+<p>堆剖析则标识了最耗内存的语句。剖析库会记录调用内部内存分配的操作，平均每512KB的内存申请会触发一个剖析数据。</p>
+<p>阻塞剖析则记录阻塞goroutine最久的操作，例如系统调用、管道发送和接收，还有获取锁等。每当goroutine被这些操作阻塞时，剖析库都会记录相应的事件。</p>
+<p>只需要开启下面其中一个标志参数就可以生成各种分析文件。当同时使用多个标志参数时需要当心，因为一项分析操作可能会影响其他项的分析结果。</p>
+<pre><code>$ go test -cpuprofile=cpu.out
+$ go test -blockprofile=block.out
+$ go test -memprofile=mem.out
+</code></pre><p>对于一些非测试程序也很容易进行剖析，具体的实现方式，与程序是短时间运行的小工具还是长时间运行的服务会有很大不同。剖析对于长期运行的程序尤其有用，因此可以通过调用Go的runtime API来启用运行时剖析。</p>
+<p>一旦我们已经收集到了用于分析的采样数据，我们就可以使用pprof来分析这些数据。这是Go工具箱自带的一个工具，但并不是一个日常工具，它对应<code>go tool pprof</code>命令。该命令有许多特性和选项，但是最基本的是两个参数：生成这个概要文件的可执行程序和对应的剖析数据。</p>
+<p>为了提高分析效率和减少空间，分析日志本身并不包含函数的名字；它只包含函数对应的地址。也就是说pprof需要对应的可执行程序来解读剖析数据。虽然<code>go test</code>通常在测试完成后就丢弃临时用的测试程序，但是在启用分析的时候会将测试程序保存为foo.test文件，其中foo部分对应待测包的名字。</p>
+<p>下面的命令演示了如何收集并展示一个CPU分析文件。我们选择<code>net/http</code>包的一个基准测试为例。通常最好是对业务关键代码的部分设计专门的基准测试。因为简单的基准测试几乎没法代表业务场景，因此我们用-run=NONE参数禁止那些简单测试。</p>
+<pre><code>$ go test -run=NONE -bench=ClientServerParallelTLS64 \
+    -cpuprofile=cpu.log net/http
+ PASS
+ BenchmarkClientServerParallelTLS64-8  1000
+    3141325 ns/op  143010 B/op  1747 allocs/op
+ok       net/http       3.395s
+
+$ go tool pprof -text -nodecount=10 ./http.test cpu.log
+2570ms of 3590ms total (71.59%)
+Dropped 129 nodes (cum &lt;= 17.95ms)
+Showing top 10 nodes out of 166 (cum &gt;= 60ms)
+    flat  flat%   sum%     cum   cum%
+  1730ms 48.19% 48.19%  1750ms 48.75%  crypto/elliptic.p256ReduceDegree
+   230ms  6.41% 54.60%   250ms  6.96%  crypto/elliptic.p256Diff
+   120ms  3.34% 57.94%   120ms  3.34%  math/big.addMulVVW
+   110ms  3.06% 61.00%   110ms  3.06%  syscall.Syscall
+    90ms  2.51% 63.51%  1130ms 31.48%  crypto/elliptic.p256Square
+    70ms  1.95% 65.46%   120ms  3.34%  runtime.scanobject
+    60ms  1.67% 67.13%   830ms 23.12%  crypto/elliptic.p256Mul
+    60ms  1.67% 68.80%   190ms  5.29%  math/big.nat.montgomery
+    50ms  1.39% 70.19%    50ms  1.39%  crypto/elliptic.p256ReduceCarry
+    50ms  1.39% 71.59%    60ms  1.67%  crypto/elliptic.p256Sum
+</code></pre><p>参数<code>-text</code>用于指定输出格式，在这里每行是一个函数，根据使用CPU的时间长短来排序。其中<code>-nodecount=10</code>参数限制了只输出前10行的结果。对于严重的性能问题，这个文本格式基本可以帮助查明原因了。</p>
+<p>这个概要文件告诉我们，HTTPS基准测试中<code>crypto/elliptic.p256ReduceDegree</code>函数占用了将近一半的CPU资源，对性能占很大比重。相比之下，如果一个概要文件中主要是runtime包的内存分配的函数，那么减少内存消耗可能是一个值得尝试的优化策略。</p>
+<p>对于一些更微妙的问题，你可能需要使用pprof的图形显示功能。这个需要安装GraphViz工具，可以从 <a href="http://www.graphviz.org">http://www.graphviz.org</a> 下载。参数<code>-web</code>用于生成函数的有向图，标注有CPU的使用和最热点的函数等信息。</p>
+<p>这一节我们只是简单看了下Go语言的数据分析工具。如果想了解更多，可以阅读Go官方博客的“Profiling Go Programs”一文。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

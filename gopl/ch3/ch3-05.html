@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch3/ch3-05.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="35-字符串">3.5. 字符串</h2>
+<p>一个字符串是一个不可改变的字节序列。字符串可以包含任意的数据，包括byte值0，但是通常是用来包含人类可读的文本。文本字符串通常被解释为采用UTF8编码的Unicode码点（rune）序列，我们稍后会详细讨论这个问题。</p>
+<p>内置的len函数可以返回一个字符串中的字节数目（不是rune字符数目），索引操作s[i]返回第i个字节的字节值，i必须满足0 ≤ i&lt; len(s)条件约束。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;hello, world&#34;</span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(len(<span style="color:#a6e22e">s</span>))     <span style="color:#75715e">// &#34;12&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">7</span>]) <span style="color:#75715e">// &#34;104 119&#34; (&#39;h&#39; and &#39;w&#39;)
+</span></code></pre></div><p>如果试图访问超出字符串索引范围的字节将会导致panic异常：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>[len(<span style="color:#a6e22e">s</span>)] <span style="color:#75715e">// panic: index out of range
+</span></code></pre></div><p>第i个字节并不一定是字符串的第i个字符，因为对于非ASCII字符的UTF8编码会要两个或多个字节。我们先简单说下字符的工作方式。</p>
+<p>子字符串操作s[i:j]基于原始的s字符串的第i个字节开始到第j个字节（并不包含j本身）生成一个新字符串。生成的新字符串将包含j-i个字节。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">5</span>]) <span style="color:#75715e">// &#34;hello&#34;
+</span></code></pre></div><p>同样，如果索引超出字符串范围或者j小于i的话将导致panic异常。</p>
+<p>不管i还是j都可能被忽略，当它们被忽略时将采用0作为开始位置，采用len(s)作为结束的位置。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>[:<span style="color:#ae81ff">5</span>]) <span style="color:#75715e">// &#34;hello&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">7</span>:]) <span style="color:#75715e">// &#34;world&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>[:])  <span style="color:#75715e">// &#34;hello, world&#34;
+</span></code></pre></div><p>其中+操作符将两个字符串连接构造一个新字符串：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;goodbye&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">5</span>:]) <span style="color:#75715e">// &#34;goodbye, world&#34;
+</span></code></pre></div><p>字符串可以用==和&lt;进行比较；比较通过逐个字节比较完成的，因此比较的结果是字符串自然编码的顺序。</p>
+<p>字符串的值是不可变的：一个字符串包含的字节序列永远不会被改变，当然我们也可以给一个字符串变量分配一个新字符串值。可以像下面这样将一个字符串追加到另一个字符串：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;left foot&#34;</span>
+<span style="color:#a6e22e">t</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>
+<span style="color:#a6e22e">s</span> <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;, right foot&#34;</span>
+</code></pre></div><p>这并不会导致原始的字符串值被改变，但是变量s将因为+=语句持有一个新的字符串值，但是t依然是包含原先的字符串值。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>) <span style="color:#75715e">// &#34;left foot, right foot&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">t</span>) <span style="color:#75715e">// &#34;left foot&#34;
+</span></code></pre></div><p>因为字符串是不可修改的，因此尝试修改字符串内部数据的操作也是被禁止的：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#e6db74">&#39;L&#39;</span> <span style="color:#75715e">// compile error: cannot assign to s[0]
+</span></code></pre></div><p>不变性意味着如果两个字符串共享相同的底层数据的话也是安全的，这使得复制任何长度的字符串代价是低廉的。同样，一个字符串s和对应的子字符串切片s[7:]的操作也可以安全地共享相同的内存，因此字符串切片操作代价也是低廉的。在这两种情况下都没有必要分配新的内存。 图3.4演示了一个字符串和两个子串共享相同的底层数据。</p>
+<h3 id="351-字符串面值">3.5.1. 字符串面值</h3>
+<p>字符串值也可以用字符串面值方式编写，只要将一系列字节序列包含在双引号内即可：</p>
+<pre><code>&quot;Hello, 世界&quot;
+</code></pre><p><img src="../images/ch3-04.png" alt=""></p>
+<p>因为Go语言源文件总是用UTF8编码，并且Go语言的文本字符串也以UTF8编码的方式处理，因此我们可以将Unicode码点也写到字符串面值中。</p>
+<p>在一个双引号包含的字符串面值中，可以用以反斜杠<code>\</code>开头的转义序列插入任意的数据。下面的换行、回车和制表符等是常见的ASCII控制代码的转义方式：</p>
+<pre><code>\a      响铃
+\b      退格
+\f      换页
+\n      换行
+\r      回车
+\t      制表符
+\v      垂直制表符
+\'      单引号（只用在 '\'' 形式的rune符号面值中）
+\&quot;      双引号（只用在 &quot;...&quot; 形式的字符串面值中）
+\\      反斜杠
+</code></pre><p>可以通过十六进制或八进制转义在字符串面值中包含任意的字节。一个十六进制的转义形式是<code>\xhh</code>，其中两个h表示十六进制数字（大写或小写都可以）。一个八进制转义形式是<code>\ooo</code>，包含三个八进制的o数字（0到7），但是不能超过<code>\377</code>（译注：对应一个字节的范围，十进制为255）。每一个单一的字节表达一个特定的值。稍后我们将看到如何将一个Unicode码点写到字符串面值中。</p>
+<p>一个原生的字符串面值形式是`&hellip;`，使用反引号代替双引号。在原生的字符串面值中，没有转义操作；全部的内容都是字面的意思，包含退格和换行，因此一个程序中的原生字符串面值可能跨越多行（译注：在原生字符串面值内部是无法直接写`字符的，可以用八进制或十六进制转义或+&rdquo;`&quot;连接字符串常量完成）。唯一的特殊处理是会删除回车以保证在所有平台上的值都是一样的，包括那些把回车也放入文本文件的系统（译注：Windows系统会把回车和换行一起放入文本文件中）。</p>
+<p>原生字符串面值用于编写正则表达式会很方便，因为正则表达式往往会包含很多反斜杠。原生字符串面值同时被广泛应用于HTML模板、JSON面值、命令行提示信息以及那些需要扩展到多行的场景。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GoUsage</span> = <span style="color:#e6db74">`Go is a tool for managing Go source code.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Usage:
+</span><span style="color:#e6db74">	go command [arguments]
+</span><span style="color:#e6db74">...`</span>
+</code></pre></div><h3 id="352-unicode">3.5.2. Unicode</h3>
+<p>在很久以前，世界还是比较简单的，起码计算机世界就只有一个ASCII字符集：美国信息交换标准代码。ASCII，更准确地说是美国的ASCII，使用7bit来表示128个字符：包含英文字母的大小写、数字、各种标点符号和设备控制符。对于早期的计算机程序来说，这些就足够了，但是这也导致了世界上很多其他地区的用户无法直接使用自己的符号系统。随着互联网的发展，混合多种语言的数据变得很常见（译注：比如本身的英文原文或中文翻译都包含了ASCII、中文、日文等多种语言字符）。如何有效处理这些包含了各种语言的丰富多样的文本数据呢？</p>
+<p>答案就是使用Unicode（ <a href="http://unicode.org">http://unicode.org</a> ），它收集了这个世界上所有的符号系统，包括重音符号和其它变音符号，制表符和回车符，还有很多神秘的符号，每个符号都分配一个唯一的Unicode码点，Unicode码点对应Go语言中的rune整数类型（译注：rune是int32等价类型）。</p>
+<p>在第八版本的Unicode标准里收集了超过120,000个字符，涵盖超过100多种语言。这些在计算机程序和数据中是如何体现的呢？通用的表示一个Unicode码点的数据类型是int32，也就是Go语言中rune对应的类型；它的同义词rune符文正是这个意思。</p>
+<p>我们可以将一个符文序列表示为一个int32序列。这种编码方式叫UTF-32或UCS-4，每个Unicode码点都使用同样大小的32bit来表示。这种方式比较简单统一，但是它会浪费很多存储空间，因为大多数计算机可读的文本是ASCII字符，本来每个ASCII字符只需要8bit或1字节就能表示。而且即使是常用的字符也远少于65,536个，也就是说用16bit编码方式就能表达常用字符。但是，还有其它更好的编码方法吗？</p>
+<h3 id="353-utf-8">3.5.3. UTF-8</h3>
+<p>UTF8是一个将Unicode码点编码为字节序列的变长编码。UTF8编码是由Go语言之父Ken Thompson和Rob Pike共同发明的，现在已经是Unicode的标准。UTF8编码使用1到4个字节来表示每个Unicode码点，ASCII部分字符只使用1个字节，常用字符部分使用2或3个字节表示。每个符号编码后第一个字节的高端bit位用于表示编码总共有多少个字节。如果第一个字节的高端bit为0，则表示对应7bit的ASCII字符，ASCII字符每个字符依然是一个字节，和传统的ASCII编码兼容。如果第一个字节的高端bit是110，则说明需要2个字节；后续的每个高端bit都以10开头。更大的Unicode码点也是采用类似的策略处理。</p>
+<pre><code>0xxxxxxx                             runes 0-127    (ASCII)
+110xxxxx 10xxxxxx                    128-2047       (values &lt;128 unused)
+1110xxxx 10xxxxxx 10xxxxxx           2048-65535     (values &lt;2048 unused)
+11110xxx 10xxxxxx 10xxxxxx 10xxxxxx  65536-0x10ffff (other values unused)
+</code></pre><p>变长的编码无法直接通过索引来访问第n个字符，但是UTF8编码获得了很多额外的优点。首先UTF8编码比较紧凑，完全兼容ASCII码，并且可以自动同步：它可以通过向前回朔最多3个字节就能确定当前字符编码的开始字节的位置。它也是一个前缀编码，所以当从左向右解码时不会有任何歧义也并不需要向前查看（译注：像GBK之类的编码，如果不知道起点位置则可能会出现歧义）。没有任何字符的编码是其它字符编码的子串，或是其它编码序列的字串，因此搜索一个字符时只要搜索它的字节编码序列即可，不用担心前后的上下文会对搜索结果产生干扰。同时UTF8编码的顺序和Unicode码点的顺序一致，因此可以直接排序UTF8编码序列。同时因为没有嵌入的NUL(0)字节，可以很好地兼容那些使用NUL作为字符串结尾的编程语言。</p>
+<p>Go语言的源文件采用UTF8编码，并且Go语言处理UTF8编码的文本也很出色。unicode包提供了诸多处理rune字符相关功能的函数（比如区分字母和数字，或者是字母的大写和小写转换等），unicode/utf8包则提供了用于rune字符序列的UTF8编码和解码的功能。</p>
+<p>有很多Unicode字符很难直接从键盘输入，并且还有很多字符有着相似的结构；有一些甚至是不可见的字符（译注：中文和日文就有很多相似但不同的字）。Go语言字符串面值中的Unicode转义字符让我们可以通过Unicode码点输入特殊的字符。有两种形式：<code>\uhhhh</code>对应16bit的码点值，<code>\Uhhhhhhhh</code>对应32bit的码点值，其中h是一个十六进制数字；一般很少需要使用32bit的形式。每一个对应码点的UTF8编码。例如：下面的字母串面值都表示相同的值：</p>
+<pre><code>&quot;世界&quot;
+&quot;\xe4\xb8\x96\xe7\x95\x8c&quot;
+&quot;\u4e16\u754c&quot;
+&quot;\U00004e16\U0000754c&quot;
+</code></pre><p>上面三个转义序列都为第一个字符串提供替代写法，但是它们的值都是相同的。</p>
+<p>Unicode转义也可以使用在rune字符中。下面三个字符是等价的：</p>
+<pre><code>'世' '\u4e16' '\U00004e16'
+</code></pre><p>对于小于256的码点值可以写在一个十六进制转义字节中，例如<code>\x41</code>对应字符&rsquo;A&rsquo;，但是对于更大的码点则必须使用<code>\u</code>或<code>\U</code>转义形式。因此，<code>\xe4\xb8\x96</code>并不是一个合法的rune字符，虽然这三个字节对应一个有效的UTF8编码的码点。</p>
+<p>得益于UTF8编码优良的设计，诸多字符串操作都不需要解码操作。我们可以不用解码直接测试一个字符串是否是另一个字符串的前缀：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">HasPrefix</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">prefix</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">s</span>) <span style="color:#f92672">&gt;=</span> len(<span style="color:#a6e22e">prefix</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">s</span>[:len(<span style="color:#a6e22e">prefix</span>)] <span style="color:#f92672">==</span> <span style="color:#a6e22e">prefix</span>
+}
+</code></pre></div><p>或者是后缀测试：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">HasSuffix</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">suffix</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">s</span>) <span style="color:#f92672">&gt;=</span> len(<span style="color:#a6e22e">suffix</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">s</span>[len(<span style="color:#a6e22e">s</span>)<span style="color:#f92672">-</span>len(<span style="color:#a6e22e">suffix</span>):] <span style="color:#f92672">==</span> <span style="color:#a6e22e">suffix</span>
+}
+</code></pre></div><p>或者是包含子串测试：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Contains</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">substr</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">s</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">HasPrefix</span>(<span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>:], <span style="color:#a6e22e">substr</span>) {
+			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+		}
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+}
+</code></pre></div><p>对于UTF8编码后文本的处理和原始的字节处理逻辑是一样的。但是对应很多其它编码则并不是这样的。（上面的函数都来自strings字符串处理包，真实的代码包含了一个用哈希技术优化的Contains 实现。）</p>
+<p>另一方面，如果我们真的关心每个Unicode字符，我们可以使用其它处理方式。考虑前面的第一个例子中的字符串，它混合了中西两种字符。图3.5展示了它的内存表示形式。字符串包含13个字节，以UTF8形式编码，但是只对应9个Unicode字符：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;unicode/utf8&#34;</span>
+
+<span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;Hello, 世界&#34;</span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(len(<span style="color:#a6e22e">s</span>))                    <span style="color:#75715e">// &#34;13&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">utf8</span>.<span style="color:#a6e22e">RuneCountInString</span>(<span style="color:#a6e22e">s</span>)) <span style="color:#75715e">// &#34;9&#34;
+</span></code></pre></div><p>为了处理这些真实的字符，我们需要一个UTF8解码器。unicode/utf8包提供了该功能，我们可以这样使用：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">s</span>); {
+	<span style="color:#a6e22e">r</span>, <span style="color:#a6e22e">size</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">utf8</span>.<span style="color:#a6e22e">DecodeRuneInString</span>(<span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>:])
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d\t%c\n&#34;</span>, <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">r</span>)
+	<span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">size</span>
+}
+</code></pre></div><p>每一次调用DecodeRuneInString函数都返回一个r和长度，r对应字符本身，长度对应r采用UTF8编码后的编码字节数目。长度可以用于更新第i个字符在字符串中的字节索引位置。但是这种编码方式是笨拙的，我们需要更简洁的语法。幸运的是，Go语言的range循环在处理字符串的时候，会自动隐式解码UTF8字符串。下面的循环运行如图3.5所示；需要注意的是对于非ASCII，索引更新的步长将超过1个字节。</p>
+<p><img src="../images/ch3-05.png" alt=""></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#e6db74">&#34;Hello, 世界&#34;</span> {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d\t%q\t%d\n&#34;</span>, <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">r</span>, <span style="color:#a6e22e">r</span>)
+}
+</code></pre></div><p>我们可以使用一个简单的循环来统计字符串中字符的数目，像这样：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span> = <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span> {
+	<span style="color:#a6e22e">n</span><span style="color:#f92672">++</span>
+}
+</code></pre></div><p>像其它形式的循环那样，我们也可以忽略不需要的变量：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">for</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span> {
+	<span style="color:#a6e22e">n</span><span style="color:#f92672">++</span>
+}
+</code></pre></div><p>或者我们可以直接调用utf8.RuneCountInString(s)函数。</p>
+<p>正如我们前面提到的，文本字符串采用UTF8编码只是一种惯例，但是对于循环的真正字符串并不是一个惯例，这是正确的。如果用于循环的字符串只是一个普通的二进制数据，或者是含有错误编码的UTF8数据，将会发生什么呢？</p>
+<p>每一个UTF8字符解码，不管是显式地调用utf8.DecodeRuneInString解码或是在range循环中隐式地解码，如果遇到一个错误的UTF8编码输入，将生成一个特别的Unicode字符<code>\uFFFD</code>，在印刷中这个符号通常是一个黑色六角或钻石形状，里面包含一个白色的问号&rdquo;?&quot;。当程序遇到这样的一个字符，通常是一个危险信号，说明输入并不是一个完美没有错误的UTF8字符串。</p>
+<p>UTF8字符串作为交换格式是非常方便的，但是在程序内部采用rune序列可能更方便，因为rune大小一致，支持数组索引和方便切割。</p>
+<p>将[]rune类型转换应用到UTF8编码的字符串，将返回字符串编码的Unicode码点序列：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// &#34;program&#34; in Japanese katakana
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;プログラム&#34;</span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;% x\n&#34;</span>, <span style="color:#a6e22e">s</span>) <span style="color:#75715e">// &#34;e3 83 97 e3 83 ad e3 82 b0 e3 83 a9 e3 83 a0&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> []rune(<span style="color:#a6e22e">s</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%x\n&#34;</span>, <span style="color:#a6e22e">r</span>)  <span style="color:#75715e">// &#34;[30d7 30ed 30b0 30e9 30e0]&#34;
+</span></code></pre></div><p>（在第一个Printf中的<code>% x</code>参数用于在每个十六进制数字前插入一个空格。）</p>
+<p>如果是将一个[]rune类型的Unicode字符slice或数组转为string，则对它们进行UTF8编码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(string(<span style="color:#a6e22e">r</span>)) <span style="color:#75715e">// &#34;プログラム&#34;
+</span></code></pre></div><p>将一个整数转型为字符串意思是生成以只包含对应Unicode码点字符的UTF8字符串：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(string(<span style="color:#ae81ff">65</span>))     <span style="color:#75715e">// &#34;A&#34;, not &#34;65&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(string(<span style="color:#ae81ff">0x4eac</span>)) <span style="color:#75715e">// &#34;京&#34;
+</span></code></pre></div><p>如果对应码点的字符是无效的，则用<code>\uFFFD</code>无效字符作为替换：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(string(<span style="color:#ae81ff">1234567</span>)) <span style="color:#75715e">// &#34;?&#34;
+</span></code></pre></div><h3 id="354-字符串和byte切片">3.5.4. 字符串和Byte切片</h3>
+<p>标准库中有四个包对字符串处理尤为重要：bytes、strings、strconv和unicode包。strings包提供了许多如字符串的查询、替换、比较、截断、拆分和合并等功能。</p>
+<p>bytes包也提供了很多类似功能的函数，但是针对和字符串有着相同结构的[]byte类型。因为字符串是只读的，因此逐步构建字符串会导致很多分配和复制。在这种情况下，使用bytes.Buffer类型将会更有效，稍后我们将展示。</p>
+<p>strconv包提供了布尔型、整型数、浮点数和对应字符串的相互转换，还提供了双引号转义相关的转换。</p>
+<p>unicode包提供了IsDigit、IsLetter、IsUpper和IsLower等类似功能，它们用于给字符分类。每个函数有一个单一的rune类型的参数，然后返回一个布尔值。而像ToUpper和ToLower之类的转换函数将用于rune字符的大小写转换。所有的这些函数都是遵循Unicode标准定义的字母、数字等分类规范。strings包也有类似的函数，它们是ToUpper和ToLower，将原始字符串的每个字符都做相应的转换，然后返回新的字符串。</p>
+<p>下面例子的basename函数灵感源于Unix shell的同名工具。在我们实现的版本中，basename(s)将看起来像是系统路径的前缀删除，同时将看似文件类型的后缀名部分删除：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">basename</span>(<span style="color:#e6db74">&#34;a/b/c.go&#34;</span>)) <span style="color:#75715e">// &#34;c&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">basename</span>(<span style="color:#e6db74">&#34;c.d.go&#34;</span>))   <span style="color:#75715e">// &#34;c.d&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">basename</span>(<span style="color:#e6db74">&#34;abc&#34;</span>))      <span style="color:#75715e">// &#34;abc&#34;
+</span></code></pre></div><p>第一个版本并没有使用任何库，全部手工硬编码实现：</p>
+<p><u><i>gopl.io/ch3/basename1</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// basename removes directory components and a .suffix.
+</span><span style="color:#75715e">// e.g., a =&gt; a, a.go =&gt; a, a/b/c.go =&gt; c, a/b.c.go =&gt; b.c
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">basename</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#75715e">// Discard last &#39;/&#39; and everything before.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">s</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;/&#39;</span> {
+			<span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>:]
+			<span style="color:#66d9ef">break</span>
+		}
+	}
+	<span style="color:#75715e">// Preserve everything before last &#39;.&#39;.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">s</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;.&#39;</span> {
+			<span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">s</span>[:<span style="color:#a6e22e">i</span>]
+			<span style="color:#66d9ef">break</span>
+		}
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>
+}
+</code></pre></div><p>这个简化版本使用了strings.LastIndex库函数：</p>
+<p><u><i>gopl.io/ch3/basename2</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">basename</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">slash</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">LastIndex</span>(<span style="color:#a6e22e">s</span>, <span style="color:#e6db74">&#34;/&#34;</span>) <span style="color:#75715e">// -1 if &#34;/&#34; not found
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">slash</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>:]
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">dot</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">LastIndex</span>(<span style="color:#a6e22e">s</span>, <span style="color:#e6db74">&#34;.&#34;</span>); <span style="color:#a6e22e">dot</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> {
+		<span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">s</span>[:<span style="color:#a6e22e">dot</span>]
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>
+}
+</code></pre></div><p>path和path/filepath包提供了关于文件路径名更一般的函数操作。使用斜杠分隔路径可以在任何操作系统上工作。斜杠本身不应该用于文件名，但是在其他一些领域可能会用于文件名，例如URL路径组件。相比之下，path/filepath包则使用操作系统本身的路径规则，例如POSIX系统使用/foo/bar，而Microsoft Windows使用<code>c:\foo\bar</code>等。</p>
+<p>让我们继续另一个字符串的例子。函数的功能是将一个表示整数值的字符串，每隔三个字符插入一个逗号分隔符，例如“12345”处理后成为“12,345”。这个版本只适用于整数类型；支持浮点数类型的留作练习。</p>
+<p><u><i>gopl.io/ch3/comma</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// comma inserts commas in a non-negative decimal integer string.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">comma</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">s</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">3</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">comma</span>(<span style="color:#a6e22e">s</span>[:<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>]) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;,&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>:]
+}
+</code></pre></div><p>输入comma函数的参数是一个字符串。如果输入字符串的长度小于或等于3的话，则不需要插入逗号分隔符。否则，comma函数将在最后三个字符前的位置将字符串切割为两个子串并插入逗号分隔符，然后通过递归调用自身来得出前面的子串。</p>
+<p>一个字符串是包含只读字节的数组，一旦创建，是不可变的。相比之下，一个字节slice的元素则可以自由地修改。</p>
+<p>字符串和字节slice之间可以相互转换：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;abc&#34;</span>
+<span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#a6e22e">s</span>)
+<span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> string(<span style="color:#a6e22e">b</span>)
+</code></pre></div><p>从概念上讲，一个[]byte(s)转换是分配了一个新的字节数组用于保存字符串数据的拷贝，然后引用这个底层的字节数组。编译器的优化可以避免在一些场景下分配和复制字符串数据，但总的来说需要确保在变量b被修改的情况下，原始的s字符串也不会改变。将一个字节slice转换到字符串的string(b)操作则是构造一个字符串拷贝，以确保s2字符串是只读的。</p>
+<p>为了避免转换中不必要的内存分配，bytes包和strings同时提供了许多实用函数。下面是strings包中的六个函数：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Contains</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">substr</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Count</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">sep</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Fields</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) []<span style="color:#66d9ef">string</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">HasPrefix</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">prefix</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Index</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">sep</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">a</span> []<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">sep</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>
+</code></pre></div><p>bytes包中也对应的六个函数：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Contains</span>(<span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">subslice</span> []<span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">bool</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Count</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">sep</span> []<span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">int</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Fields</span>(<span style="color:#a6e22e">s</span> []<span style="color:#66d9ef">byte</span>) [][]<span style="color:#66d9ef">byte</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">HasPrefix</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">prefix</span> []<span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">bool</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Index</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">sep</span> []<span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">int</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">s</span> [][]<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">sep</span> []<span style="color:#66d9ef">byte</span>) []<span style="color:#66d9ef">byte</span>
+</code></pre></div><p>它们之间唯一的区别是字符串类型参数被替换成了字节slice类型的参数。</p>
+<p>bytes包还提供了Buffer类型用于字节slice的缓存。一个Buffer开始是空的，但是随着string、byte或[]byte等类型数据的写入可以动态增长，一个bytes.Buffer变量并不需要初始化，因为零值也是有效的：</p>
+<p><u><i>gopl.io/ch3/printints</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// intsToString is like fmt.Sprint(values) but adds commas.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">intsToString</span>(<span style="color:#a6e22e">values</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">buf</span> <span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>
+	<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;[&#39;</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">values</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span> {
+			<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteString</span>(<span style="color:#e6db74">&#34;, &#34;</span>)
+		}
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">buf</span>, <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#a6e22e">v</span>)
+	}
+	<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;]&#39;</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">String</span>()
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intsToString</span>([]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>})) <span style="color:#75715e">// &#34;[1, 2, 3]&#34;
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>当向bytes.Buffer添加任意字符的UTF8编码时，最好使用bytes.Buffer的WriteRune方法，但是WriteByte方法对于写入类似&rsquo;[&lsquo;和&rsquo;]&lsquo;等ASCII字符则会更加有效。</p>
+<p>bytes.Buffer类型有着很多实用的功能，我们在第七章讨论接口时将会涉及到，我们将看看如何将它用作一个I/O的输入和输出对象，例如当做Fprintf的io.Writer输出对象，或者当作io.Reader类型的输入源对象。</p>
+<p><strong>练习 3.10：</strong> 编写一个非递归版本的comma函数，使用bytes.Buffer代替字符串链接操作。</p>
+<p><strong>练习 3.11：</strong> 完善comma函数，以支持浮点数处理和一个可选的正负号的处理。</p>
+<p><strong>练习 3.12：</strong> 编写一个函数，判断两个字符串是否是相互打乱的，也就是说它们有着相同的字符，但是对应不同的顺序。</p>
+<h3 id="355-字符串和数字的转换">3.5.5. 字符串和数字的转换</h3>
+<p>除了字符串、字符、字节之间的转换，字符串和数值之间的转换也比较常见。由strconv包提供这类转换功能。</p>
+<p>将一个整数转为字符串，一种方法是用fmt.Sprintf返回一个格式化的字符串；另一个方法是用strconv.Itoa(“整数到ASCII”)：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">123</span>
+<span style="color:#a6e22e">y</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#a6e22e">x</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">x</span>)) <span style="color:#75715e">// &#34;123 123&#34;
+</span></code></pre></div><p>FormatInt和FormatUint函数可以用不同的进制来格式化数字：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">FormatInt</span>(int64(<span style="color:#a6e22e">x</span>), <span style="color:#ae81ff">2</span>)) <span style="color:#75715e">// &#34;1111011&#34;
+</span></code></pre></div><p>fmt.Printf函数的%b、%d、%o和%x等参数提供功能往往比strconv包的Format函数方便很多，特别是在需要包含有附加额外信息的时候：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;x=%b&#34;</span>, <span style="color:#a6e22e">x</span>) <span style="color:#75715e">// &#34;x=1111011&#34;
+</span></code></pre></div><p>如果要将一个字符串解析为整数，可以使用strconv包的Atoi或ParseInt函数，还有用于解析无符号整数的ParseUint函数：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(<span style="color:#e6db74">&#34;123&#34;</span>)             <span style="color:#75715e">// x is an int
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">ParseInt</span>(<span style="color:#e6db74">&#34;123&#34;</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">64</span>) <span style="color:#75715e">// base 10, up to 64 bits
+</span></code></pre></div><p>ParseInt函数的第三个参数是用于指定整型数的大小；例如16表示int16，0则表示int。在任何情况下，返回的结果y总是int64类型，你可以通过强制类型转换将它转为更小的整数类型。</p>
+<p>有时候也会使用fmt.Scanf来解析输入的字符串和数字，特别是当字符串和数字混合在一行的时候，它可以灵活处理不完整或不规则的输入。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

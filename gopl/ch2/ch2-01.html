@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch2/ch2-01.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="21-命名">2.1. 命名</h2>
+<p>Go语言中的函数名、变量名、常量名、类型名、语句标号和包名等所有的命名，都遵循一个简单的命名规则：一个名字必须以一个字母（Unicode字母）或下划线开头，后面可以跟任意数量的字母、数字或下划线。大写字母和小写字母是不同的：heapSort和Heapsort是两个不同的名字。</p>
+<p>Go语言中类似if和switch的关键字有25个；关键字不能用于自定义名字，只能在特定语法结构中使用。</p>
+<pre><code>break      default       func     interface   select
+case       defer         go       map         struct
+chan       else          goto     package     switch
+const      fallthrough   if       range       type
+continue   for           import   return      var
+</code></pre><p>此外，还有大约30多个预定义的名字，比如int和true等，主要对应内建的常量、类型和函数。</p>
+<pre><code>内建常量: true false iota nil
+
+内建类型: int int8 int16 int32 int64
+          uint uint8 uint16 uint32 uint64 uintptr
+          float32 float64 complex128 complex64
+          bool byte rune string error
+
+内建函数: make len cap new append copy close delete
+          complex real imag
+          panic recover
+</code></pre><p>这些内部预先定义的名字并不是关键字，你可以在定义中重新使用它们。在一些特殊的场景中重新定义它们也是有意义的，但是也要注意避免过度而引起语义混乱。</p>
+<p>如果一个名字是在函数内部定义，那么它就只在函数内部有效。如果是在函数外部定义，那么将在当前包的所有文件中都可以访问。名字的开头字母的大小写决定了名字在包外的可见性。如果一个名字是大写字母开头的（译注：必须是在函数外部定义的包级名字；包级函数名本身也是包级名字），那么它将是导出的，也就是说可以被外部的包访问，例如fmt包的Printf函数就是导出的，可以在fmt包外部访问。包本身的名字一般总是用小写字母。</p>
+<p>名字的长度没有逻辑限制，但是Go语言的风格是尽量使用短小的名字，对于局部变量尤其是这样；你会经常看到i之类的短名字，而不是冗长的theLoopIndex命名。通常来说，如果一个名字的作用域比较大，生命周期也比较长，那么用长的名字将会更有意义。</p>
+<p>在习惯上，Go语言程序员推荐使用 <strong>驼峰式</strong> 命名，当名字由几个单词组成时优先使用大小写分隔，而不是优先用下划线分隔。因此，在标准库有QuoteRuneToASCII和parseRequestLine这样的函数命名，但是一般不会用quote_rune_to_ASCII和parse_request_line这样的命名。而像ASCII和HTML这样的缩略词则避免使用大小写混合的写法，它们可能被称为htmlEscape、HTMLEscape或escapeHTML，但不会是escapeHtml。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

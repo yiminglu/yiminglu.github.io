@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch9/ch9-01.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="91-竞争条件">9.1. 竞争条件</h2>
+<p>在一个线性（就是说只有一个goroutine的）的程序中，程序的执行顺序只由程序的逻辑来决定。例如，我们有一段语句序列，第一个在第二个之前（废话），以此类推。在有两个或更多goroutine的程序中，每一个goroutine内的语句也是按照既定的顺序去执行的，但是一般情况下我们没法去知道分别位于两个goroutine的事件x和y的执行顺序，x是在y之前还是之后还是同时发生是没法判断的。当我们没有办法自信地确认一个事件是在另一个事件的前面或者后面发生的话，就说明x和y这两个事件是并发的。</p>
+<p>考虑一下，一个函数在线性程序中可以正确地工作。如果在并发的情况下，这个函数依然可以正确地工作的话，那么我们就说这个函数是并发安全的，并发安全的函数不需要额外的同步工作。我们可以把这个概念概括为一个特定类型的一些方法和操作函数，对于某个类型来说，如果其所有可访问的方法和操作都是并发安全的话，那么该类型便是并发安全的。</p>
+<p>在一个程序中有非并发安全的类型的情况下，我们依然可以使这个程序并发安全。确实，并发安全的类型是例外，而不是规则，所以只有当文档中明确地说明了其是并发安全的情况下，你才可以并发地去访问它。我们会避免并发访问大多数的类型，无论是将变量局限在单一的一个goroutine内，还是用互斥条件维持更高级别的不变性，都是为了这个目的。我们会在本章中说明这些术语。</p>
+<p>相反，包级别的导出函数一般情况下都是并发安全的。由于package级的变量没法被限制在单一的gorouine，所以修改这些变量“必须”使用互斥条件。</p>
+<p>一个函数在并发调用时没法工作的原因太多了，比如死锁（deadlock）、活锁（livelock）和饿死（resource starvation）。我们没有空去讨论所有的问题，这里我们只聚焦在竞争条件上。</p>
+<p>竞争条件指的是程序在多个goroutine交叉执行操作时，没有给出正确的结果。竞争条件是很恶劣的一种场景，因为这种问题会一直潜伏在你的程序里，然后在非常少见的时候蹦出来，或许只是会在很大的负载时才会发生，又或许是会在使用了某一个编译器、某一种平台或者某一种架构的时候才会出现。这些使得竞争条件带来的问题非常难以复现而且难以分析诊断。</p>
+<p>传统上经常用经济损失来为竞争条件做比喻，所以我们来看一个简单的银行账户程序。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Package bank implements a bank with only one account.
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">bank</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">balance</span> <span style="color:#66d9ef">int</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Deposit</span>(<span style="color:#a6e22e">amount</span> <span style="color:#66d9ef">int</span>) { <span style="color:#a6e22e">balance</span> = <span style="color:#a6e22e">balance</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">amount</span> }
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Balance</span>() <span style="color:#66d9ef">int</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">balance</span> }
+</code></pre></div><p>(当然我们也可以把Deposit存款函数写成balance += amount，这种形式也是等价的，不过长一些的形式解释起来更方便一些。)</p>
+<p>对于这个简单的程序而言，我们一眼就能看出，以任意顺序调用函数Deposit和Balance都会得到正确的结果。也就是说，Balance函数会给出之前的所有存入的额度之和。然而，当我们并发地而不是顺序地调用这些函数的话，Balance就再也没办法保证结果正确了。考虑一下下面的两个goroutine，其代表了一个银行联合账户的两笔交易：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Alice:
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+	<span style="color:#a6e22e">bank</span>.<span style="color:#a6e22e">Deposit</span>(<span style="color:#ae81ff">200</span>)                <span style="color:#75715e">// A1
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;=&#34;</span>, <span style="color:#a6e22e">bank</span>.<span style="color:#a6e22e">Balance</span>()) <span style="color:#75715e">// A2
+</span><span style="color:#75715e"></span>}()
+
+<span style="color:#75715e">// Bob:
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">go</span> <span style="color:#a6e22e">bank</span>.<span style="color:#a6e22e">Deposit</span>(<span style="color:#ae81ff">100</span>)                 <span style="color:#75715e">// B
+</span></code></pre></div><p>Alice存了$200，然后检查她的余额，同时Bob存了$100。因为A1和A2是和B并发执行的，我们没法预测他们发生的先后顺序。直观地来看的话，我们会认为其执行顺序只有三种可能性：“Alice先”，“Bob先”以及“Alice/Bob/Alice”交错执行。下面的表格会展示经过每一步骤后balance变量的值。引号里的字符串表示余额单。</p>
+<pre><code>Alice first        Bob first        Alice/Bob/Alice
+          0                0                      0
+  A1    200        B     100             A1     200
+  A2 &quot;= 200&quot;       A1    300             B      300
+  B     300        A2 &quot;= 300&quot;            A2  &quot;= 300&quot;
+</code></pre><p>所有情况下最终的余额都是$300。唯一的变数是Alice的余额单是否包含了Bob交易，不过无论怎么着客户都不会在意。</p>
+<p>但是事实是上面的直觉推断是错误的。第四种可能的结果是事实存在的，这种情况下Bob的存款会在Alice存款操作中间，在余额被读到（balance + amount）之后，在余额被更新之前（balance = &hellip;），这样会导致Bob的交易丢失。而这是因为Alice的存款操作A1实际上是两个操作的一个序列，读取然后写；可以称之为A1r和A1w。下面是交叉时产生的问题：</p>
+<pre><code>Data race
+0
+A1r      0     ... = balance + amount
+B      100
+A1w    200     balance = ...
+A2  &quot;= 200&quot;
+</code></pre><p>在A1r之后，balance + amount会被计算为200，所以这是A1w会写入的值，并不受其它存款操作的干预。最终的余额是$200。银行的账户上的资产比Bob实际的资产多了$100。（译注：因为丢失了Bob的存款操作，所以其实是说Bob的钱丢了。）</p>
+<p>这个程序包含了一个特定的竞争条件，叫作数据竞争。无论任何时候，只要有两个goroutine并发访问同一变量，且至少其中的一个是写操作的时候就会发生数据竞争。</p>
+<p>如果数据竞争的对象是一个比一个机器字（译注：32位机器上一个字=4个字节）更大的类型时，事情就变得更麻烦了，比如interface，string或者slice类型都是如此。下面的代码会并发地更新两个不同长度的slice：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">x</span> []<span style="color:#66d9ef">int</span>
+<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() { <span style="color:#a6e22e">x</span> = make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>) }()
+<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() { <span style="color:#a6e22e">x</span> = make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1000000</span>) }()
+<span style="color:#a6e22e">x</span>[<span style="color:#ae81ff">999999</span>] = <span style="color:#ae81ff">1</span> <span style="color:#75715e">// NOTE: undefined behavior; memory corruption possible!
+</span></code></pre></div><p>最后一个语句中的x的值是未定义的；其可能是nil，或者也可能是一个长度为10的slice，也可能是一个长度为1,000,000的slice。但是回忆一下slice的三个组成部分：指针（pointer）、长度（length）和容量（capacity）。如果指针是从第一个make调用来，而长度从第二个make来，x就变成了一个混合体，一个自称长度为1,000,000但实际上内部只有10个元素的slice。这样导致的结果是存储999,999元素的位置会碰撞一个遥远的内存位置，这种情况下难以对值进行预测，而且debug也会变成噩梦。这种语义雷区被称为未定义行为，对C程序员来说应该很熟悉；幸运的是在Go语言里造成的麻烦要比C里小得多。</p>
+<p>尽管并发程序的概念让我们知道并发并不是简单的语句交叉执行。我们将会在9.4节中看到，数据竞争可能会有奇怪的结果。许多程序员，甚至一些非常聪明的人也还是会偶尔提出一些理由来允许数据竞争，比如：“互斥条件代价太高”，“这个逻辑只是用来做logging”，“我不介意丢失一些消息”等等。因为在他们的编译器或者平台上很少遇到问题，可能给了他们错误的信心。一个好的经验法则是根本就没有什么所谓的良性数据竞争。所以我们一定要避免数据竞争，那么在我们的程序中要如何做到呢？</p>
+<p>我们来重复一下数据竞争的定义，因为实在太重要了：数据竞争会在两个以上的goroutine并发访问相同的变量且至少其中一个为写操作时发生。根据上述定义，有三种方式可以避免数据竞争：</p>
+<p>第一种方法是不要去写变量。考虑一下下面的map，会被“懒”填充，也就是说在每个key被第一次请求到的时候才会去填值。如果Icon是被顺序调用的话，这个程序会工作很正常，但如果Icon被并发调用，那么对于这个map来说就会存在数据竞争。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">icons</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">Image</span>)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">loadIcon</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">Image</span>
+
+<span style="color:#75715e">// NOTE: not concurrency-safe!
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Icon</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">Image</span> {
+	<span style="color:#a6e22e">icon</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">icons</span>[<span style="color:#a6e22e">name</span>]
+	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+		<span style="color:#a6e22e">icon</span> = <span style="color:#a6e22e">loadIcon</span>(<span style="color:#a6e22e">name</span>)
+		<span style="color:#a6e22e">icons</span>[<span style="color:#a6e22e">name</span>] = <span style="color:#a6e22e">icon</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">icon</span>
+}
+</code></pre></div><p>反之，如果我们在创建goroutine之前的初始化阶段，就初始化了map中的所有条目并且再也不去修改它们，那么任意数量的goroutine并发访问Icon都是安全的，因为每一个goroutine都只是去读取而已。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">icons</span> = <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">Image</span>{
+	<span style="color:#e6db74">&#34;spades.png&#34;</span>:   <span style="color:#a6e22e">loadIcon</span>(<span style="color:#e6db74">&#34;spades.png&#34;</span>),
+	<span style="color:#e6db74">&#34;hearts.png&#34;</span>:   <span style="color:#a6e22e">loadIcon</span>(<span style="color:#e6db74">&#34;hearts.png&#34;</span>),
+	<span style="color:#e6db74">&#34;diamonds.png&#34;</span>: <span style="color:#a6e22e">loadIcon</span>(<span style="color:#e6db74">&#34;diamonds.png&#34;</span>),
+	<span style="color:#e6db74">&#34;clubs.png&#34;</span>:    <span style="color:#a6e22e">loadIcon</span>(<span style="color:#e6db74">&#34;clubs.png&#34;</span>),
+}
+
+<span style="color:#75715e">// Concurrency-safe.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Icon</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">Image</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">icons</span>[<span style="color:#a6e22e">name</span>] }
+</code></pre></div><p>上面的例子里icons变量在包初始化阶段就已经被赋值了，包的初始化是在程序main函数开始执行之前就完成了的。只要初始化完成了，icons就再也不会被修改。数据结构如果从不被修改或是不变量则是并发安全的，无需进行同步。不过显然，如果update操作是必要的，我们就没法用这种方法，比如说银行账户。</p>
+<p>第二种避免数据竞争的方法是，避免从多个goroutine访问变量。这也是前一章中大多数程序所采用的方法。例如前面的并发web爬虫（§8.6）的main goroutine是唯一一个能够访问seen map的goroutine，而聊天服务器（§8.10）中的broadcaster goroutine是唯一一个能够访问clients map的goroutine。这些变量都被限定在了一个单独的goroutine中。</p>
+<p>由于其它的goroutine不能够直接访问变量，它们只能使用一个channel来发送请求给指定的goroutine来查询更新变量。这也就是Go的口头禅“不要使用共享数据来通信；使用通信来共享数据”。一个提供对一个指定的变量通过channel来请求的goroutine叫做这个变量的monitor（监控）goroutine。例如broadcaster goroutine会监控clients map的全部访问。</p>
+<p>下面是一个重写了的银行的例子，这个例子中balance变量被限制在了monitor goroutine中，名为teller：</p>
+<p><u><i>gopl.io/ch9/bank1</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Package bank provides a concurrency-safe bank with one account.
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">bank</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">deposits</span> = make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) <span style="color:#75715e">// send amount to deposit
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">balances</span> = make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) <span style="color:#75715e">// receive balance
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Deposit</span>(<span style="color:#a6e22e">amount</span> <span style="color:#66d9ef">int</span>) { <span style="color:#a6e22e">deposits</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">amount</span> }
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Balance</span>() <span style="color:#66d9ef">int</span>       { <span style="color:#66d9ef">return</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">balances</span> }
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">teller</span>() {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">balance</span> <span style="color:#66d9ef">int</span> <span style="color:#75715e">// balance is confined to teller goroutine
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> {
+		<span style="color:#66d9ef">select</span> {
+		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">amount</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">deposits</span>:
+			<span style="color:#a6e22e">balance</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">amount</span>
+		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">balances</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">balance</span>:
+		}
+	}
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">teller</span>() <span style="color:#75715e">// start the monitor goroutine
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>即使当一个变量无法在其整个生命周期内被绑定到一个独立的goroutine，绑定依然是并发问题的一个解决方案。例如在一条流水线上的goroutine之间共享变量是很普遍的行为，在这两者间会通过channel来传输地址信息。如果流水线的每一个阶段都能够避免在将变量传送到下一阶段后再去访问它，那么对这个变量的所有访问就是线性的。其效果是变量会被绑定到流水线的一个阶段，传送完之后被绑定到下一个，以此类推。这种规则有时被称为串行绑定。</p>
+<p>下面的例子中，Cakes会被严格地顺序访问，先是baker gorouine，然后是icer gorouine：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Cake</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">state</span> <span style="color:#66d9ef">string</span> }
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">baker</span>(<span style="color:#a6e22e">cooked</span> <span style="color:#66d9ef">chan</span><span style="color:#f92672">&lt;-</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Cake</span>) {
+	<span style="color:#66d9ef">for</span> {
+		<span style="color:#a6e22e">cake</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">Cake</span>)
+		<span style="color:#a6e22e">cake</span>.<span style="color:#a6e22e">state</span> = <span style="color:#e6db74">&#34;cooked&#34;</span>
+		<span style="color:#a6e22e">cooked</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cake</span> <span style="color:#75715e">// baker never touches this cake again
+</span><span style="color:#75715e"></span>	}
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">icer</span>(<span style="color:#a6e22e">iced</span> <span style="color:#66d9ef">chan</span><span style="color:#f92672">&lt;-</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Cake</span>, <span style="color:#a6e22e">cooked</span> <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Cake</span>) {
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">cake</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">cooked</span> {
+		<span style="color:#a6e22e">cake</span>.<span style="color:#a6e22e">state</span> = <span style="color:#e6db74">&#34;iced&#34;</span>
+		<span style="color:#a6e22e">iced</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cake</span> <span style="color:#75715e">// icer never touches this cake again
+</span><span style="color:#75715e"></span>	}
+}
+</code></pre></div><p>第三种避免数据竞争的方法是允许很多goroutine去访问变量，但是在同一个时刻最多只有一个goroutine在访问。这种方式被称为“互斥”，在下一节来讨论这个主题。</p>
+<p><strong>练习 9.1：</strong> 给gopl.io/ch9/bank1程序添加一个Withdraw(amount int)取款函数。其返回结果应该要表明事务是成功了还是因为没有足够资金失败了。这条消息会被发送给monitor的goroutine，且消息需要包含取款的额度和一个新的channel，这个新channel会被monitor goroutine来把boolean结果发回给Withdraw。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

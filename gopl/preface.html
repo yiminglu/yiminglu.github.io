@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/preface.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h1 id="译者序">译者序</h1>
+<p>在上个世纪70年代，贝尔实验室的[Ken Thompson][KenThompson]和[Dennis M. Ritchie][DennisRitchie]合作发明了<a href="http://doc.cat-v.org/unix/">UNIX</a>操作系统，同时[Dennis M. Ritchie][DennisRitchie]为了解决<a href="http://doc.cat-v.org/unix/">UNIX</a>系统的移植性问题而发明了C语言，贝尔实验室的<a href="http://doc.cat-v.org/unix/">UNIX</a>和C语言两大发明奠定了整个现代IT行业最重要的软件基础（目前的三大桌面操作系统的中<a href="http://www.linux.org/">Linux</a>和<a href="http://www.apple.com/cn/osx/">Mac OS X</a>都是源于<a href="">UNIX</a>系统，两大移动平台的操作系统iOS和Android也都是源于<a href="http://doc.cat-v.org/unix/">UNIX</a>系统。C系家族的编程语言占据统治地位达几十年之久）。在<a href="">UNIX</a>和C语言发明40年之后，目前已经在Google工作的<a href="http://genius.cat-v.org/ken-thompson/">Ken Thompson</a>和<a href="http://genius.cat-v.org/rob-pike/">Rob Pike</a>（他们在贝尔实验室时就是同事）、还有<a href="http://research.google.com/pubs/author96.html">Robert Griesemer</a>（设计了V8引擎和HotSpot虚拟机）一起合作，为了解决在21世纪多核和网络化环境下越来越复杂的编程问题而发明了Go语言。从Go语言库早期代码库日志可以看出它的演化历程（Git用<code>git log --before={2008-03-03} --reverse</code>命令查看）：</p>
+<p><img src="./images/go-log04.png" alt=""></p>
+<p>从早期提交日志中也可以看出，Go语言是从<a href="http://genius.cat-v.org/ken-thompson/">Ken Thompson</a>发明的B语言、<a href="http://genius.cat-v.org/dennis-ritchie/">Dennis M. Ritchie</a>发明的C语言逐步演化过来的，是C语言家族的成员，因此很多人将Go语言称为21世纪的C语言。纵观这几年来的发展趋势，Go语言已经成为云计算、云存储时代最重要的基础编程语言。</p>
+<p>在C语言发明之后约5年的时间之后（1978年），<a href="http://www.cs.princeton.edu/~bwk/">Brian W. Kernighan</a>和<a href="http://genius.cat-v.org/dennis-ritchie/">Dennis M. Ritchie</a>合作编写出版了C语言方面的经典教材《<a href="http://s3-us-west-2.amazonaws.com/belllabs-microsite-dritchie/cbook/index.html">The C Programming Language</a>》，该书被誉为C语言程序员的圣经，作者也被大家亲切地称为<a href="https://en.wikipedia.org/wiki/K%26R">K&amp;R</a>。同样在Go语言正式发布（2009年）约5年之后（2014年开始写作，2015年出版），由Go语言核心团队成员<a href="https://github.com/adonovan">Alan A. A. Donovan</a>和<a href="https://en.wikipedia.org/wiki/K%26R">K&amp;R</a>中的<a href="http://www.cs.princeton.edu/~bwk/">Brian W. Kernighan</a>合作编写了Go语言方面的经典教材《<a href="http://gopl.io">The Go Programming Language</a>》。Go语言被誉为21世纪的C语言，如果说<a href="https://en.wikipedia.org/wiki/K%26R">K&amp;R</a>所著的是圣经的旧约，那么D&amp;K所著的必将成为圣经的新约。该书介绍了Go语言几乎全部特性，并且随着语言的深入层层递进，对每个细节都解读得非常细致，每一节内容都精彩不容错过，是广大Gopher的必读书目。大部分Go语言核心团队的成员都参与了该书校对工作，因此该书的质量是可以完全放心的。</p>
+<p>同时，单凭阅读和学习其语法结构并不能真正地掌握一门编程语言，必须进行足够多的编程实践——亲自编写一些程序并研究学习别人写的程序。要从利用Go语言良好的特性使得程序模块化，充分利用Go的标准函数库以Go语言自己的风格来编写程序。书中包含了上百个精心挑选的习题，希望大家能先用自己的方式尝试完成习题，然后再参考官方给出的解决方案。</p>
+<p>该书英文版约从2015年10月开始公开发售，其中日文版本最早参与翻译和审校（参考致谢部分）。在2015年10月，我们并不知道中文版是否会及时引进、将由哪家出版社引进、引进将由何人来翻译、何时能出版，这些信息都成了一个秘密。中国的Go语言社区是全球最大的Go语言社区，我们从一开始就始终紧跟着Go语言的发展脚步。我们应该也完全有能力以中国Go语言社区的力量同步完成Go语言圣经中文版的翻译工作。与此同时，国内有很多Go语言爱好者也在积极关注该书（本人也在第一时间购买了纸质版本，<a href="http://www.amazon.cn/The-Go-Programming-Language-Donovan-Alan-A-A/dp/0134190440/">亚马逊价格314人民币</a>。补充：国内也即将出版英文版，<a href="http://product.china-pub.com/4912464">价格79元</a>）。为了Go语言的学习和交流，大家决定合作免费翻译该书。</p>
+<p>翻译工作从2015年11月20日前后开始，到2016年1月底初步完成，前后历时约2个月时间（在其它语言版本中，全球第一个完成翻译的，基本做到和原版同步）。其中，<a href="https://github.com/chai2010">chai2010</a>翻译了前言、第2 ~ 4章、第10 ~ 13章，<a href="https://github.com/cch123">Xargin</a>翻译了第1章、第6章、第8 ~ 9章，<a href="https://github.com/CrazySssst">CrazySssst</a>翻译了第5章，<a href="https://github.com/foreversmart">foreversmart</a>翻译了第7章，大家共同参与了基本的校验工作，还有其他一些朋友提供了积极的反馈建议。如果大家还有任何问题或建议，可以直接到中文版项目页面提交<a href="https://github.com/golang-china/gopl-zh/issues">Issue</a>，如果发现英文版原文在<a href="http://www.gopl.io/errata.html">勘误</a>中未提到的任何错误，可以直接去<a href="https://github.com/adonovan/gopl.io/">英文版项目</a>提交。</p>
+<p>最后，希望这本书能够帮助大家用Go语言快乐地编程。</p>
+<p>2016年 1月 于 武汉</p>
+<hr>
+<h1 id="前言">前言</h1>
+<p><em>“Go是一个开源的编程语言，它很容易用于构建简单、可靠和高效的软件。”（摘自Go语言官方网站：http://golang.org ）</em></p>
+<p>Go语言由来自Google公司的<a href="http://research.google.com/pubs/author96.html">Robert Griesemer</a>，<a href="http://genius.cat-v.org/rob-pike/">Rob Pike</a>和<a href="http://genius.cat-v.org/ken-thompson/">Ken Thompson</a>三位大牛于2007年9月开始设计和实现，然后于2009年的11月对外正式发布（译注：关于Go语言的创世纪过程请参考 <a href="http://talks.golang.org/2015/how-go-was-made.slide">http://talks.golang.org/2015/how-go-was-made.slide</a> ）。语言及其配套工具的设计目标是具有表达力，高效的编译和执行效率，有效地编写高效和健壮的程序。</p>
+<p>Go语言有着和C语言类似的语法外表，和C语言一样是专业程序员的必备工具，可以用最小的代价获得最大的战果。
+但是它不仅仅是一个更新的C语言。它还从其他语言借鉴了很多好的想法，同时避免引入过度的复杂性。
+Go语言中和并发编程相关的特性是全新的也是有效的，同时对数据抽象和面向对象编程的支持也很灵活。
+Go语言同时还集成了自动垃圾收集技术用于更好地管理内存。</p>
+<p>Go语言尤其适合编写网络服务相关基础设施，同时也适合开发一些工具软件和系统软件。
+但是Go语言确实是一个通用的编程语言，它也可以用在图形图像驱动编程、移动应用程序开发
+和机器学习等诸多领域。目前Go语言已经成为受欢迎的作为无类型的脚本语言的替代者：
+因为Go编写的程序通常比脚本语言运行的更快也更安全，而且很少会发生意外的类型错误。</p>
+<p>Go语言还是一个开源的项目，可以免费获取编译器、库、配套工具的源代码。
+Go语言的贡献者来自一个活跃的全球社区。Go语言可以运行在类<a href="http://doc.cat-v.org/unix/">UNIX</a>系统——
+比如<a href="http://www.linux.org/">Linux</a>、<a href="https://www.freebsd.org/">FreeBSD</a>、<a href="http://www.openbsd.org/">OpenBSD</a>、<a href="http://www.apple.com/cn/osx/">Mac OSX</a>——和<a href="http://plan9.bell-labs.com/plan9/">Plan9</a>系统和<a href="https://www.microsoft.com/zh-cn/windows/">Microsoft Windows</a>操作系统之上。
+Go语言编写的程序无需修改就可以运行在上面这些环境。</p>
+<p>本书是为了帮助你开始以有效的方式使用Go语言，充分利用语言本身的特性和自带的标准库去编写清晰地道的Go程序。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

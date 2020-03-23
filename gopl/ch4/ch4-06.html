@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch4/ch4-06.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="46-文本和html模板">4.6. 文本和HTML模板</h2>
+<p>前面的例子，只是最简单的格式化，使用Printf是完全足够的。但是有时候会需要复杂的打印格式，这时候一般需要将格式化代码分离出来以便更安全地修改。这些功能是由text/template和html/template等模板包提供的，它们提供了一个将变量值填充到一个文本或HTML格式的模板的机制。</p>
+<p>一个模板是一个字符串或一个文件，里面包含了一个或多个由双花括号包含的<code>{{action}}</code>对象。大部分的字符串只是按字面值打印，但是对于actions部分将触发其它的行为。每个actions都包含了一个用模板语言书写的表达式，一个action虽然简短但是可以输出复杂的打印值，模板语言包含通过选择结构体的成员、调用函数或方法、表达式控制流if-else语句和range循环语句，还有其它实例化模板等诸多特性。下面是一个简单的模板字符串：</p>
+<p>{% raw %}</p>
+<p><u><i>gopl.io/ch4/issuesreport</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">templ</span> = <span style="color:#e6db74">`</span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.TotalCount</span><span style="color:#75715e">}}</span><span style="color:#e6db74"> issues:
+</span><span style="color:#e6db74"></span><span style="color:#75715e">{{</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">.Items</span><span style="color:#75715e">}}</span><span style="color:#e6db74">----------------------------------------
+</span><span style="color:#e6db74">Number: </span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.Number</span><span style="color:#75715e">}}</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">User:   </span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.User.Login</span><span style="color:#75715e">}}</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Title:  </span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.Title</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">printf</span> <span style="color:#e6db74">&#34;%.64s&#34;</span><span style="color:#75715e">}}</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Age:    </span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.CreatedAt</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">daysAgo</span><span style="color:#75715e">}}</span><span style="color:#e6db74"> days
+</span><span style="color:#e6db74"></span><span style="color:#75715e">{{</span><span style="color:#66d9ef">end</span><span style="color:#75715e">}}</span><span style="color:#e6db74">`</span>
+</code></pre></div><p>{% endraw %}</p>
+<p>{% raw %}</p>
+<p>这个模板先打印匹配到的issue总数，然后打印每个issue的编号、创建用户、标题还有存在的时间。对于每一个action，都有一个当前值的概念，对应点操作符，写作“.”。当前值“.”最初被初始化为调用模板时的参数，在当前例子中对应github.IssuesSearchResult类型的变量。模板中<code>{{.TotalCount}}</code>对应action将展开为结构体中TotalCount成员以默认的方式打印的值。模板中<code>{{range .Items}}</code>和<code>{{end}}</code>对应一个循环action，因此它们之间的内容可能会被展开多次，循环每次迭代的当前值对应当前的Items元素的值。</p>
+<p>{% endraw %}</p>
+<p>在一个action中，<code>|</code>操作符表示将前一个表达式的结果作为后一个函数的输入，类似于UNIX中管道的概念。在Title这一行的action中，第二个操作是一个printf函数，是一个基于fmt.Sprintf实现的内置函数，所有模板都可以直接使用。对于Age部分，第二个动作是一个叫daysAgo的函数，通过time.Since函数将CreatedAt成员转换为过去的时间长度：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">daysAgo</span>(<span style="color:#a6e22e">t</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">return</span> int(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">t</span>).<span style="color:#a6e22e">Hours</span>() <span style="color:#f92672">/</span> <span style="color:#ae81ff">24</span>)
+}
+</code></pre></div><p>需要注意的是CreatedAt的参数类型是time.Time，并不是字符串。以同样的方式，我们可以通过定义一些方法来控制字符串的格式化（§2.5），一个类型同样可以定制自己的JSON编码和解码行为。time.Time类型对应的JSON值是一个标准时间格式的字符串。</p>
+<p>生成模板的输出需要两个处理步骤。第一步是要分析模板并转为内部表示，然后基于指定的输入执行模板。分析模板部分一般只需要执行一次。下面的代码创建并分析上面定义的模板templ。注意方法调用链的顺序：template.New先创建并返回一个模板；Funcs方法将daysAgo等自定义函数注册到模板中，并返回模板；最后调用Parse函数分析模板。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">report</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;report&#34;</span>).
+	<span style="color:#a6e22e">Funcs</span>(<span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">FuncMap</span>{<span style="color:#e6db74">&#34;daysAgo&#34;</span>: <span style="color:#a6e22e">daysAgo</span>}).
+	<span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">templ</span>)
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+}
+</code></pre></div><p>因为模板通常在编译时就测试好了，如果模板解析失败将是一个致命的错误。template.Must辅助函数可以简化这个致命错误的处理：它接受一个模板和一个error类型的参数，检测error是否为nil（如果不是nil则发出panic异常），然后返回传入的模板。我们将在5.9节再讨论这个话题。</p>
+<p>一旦模板已经创建、注册了daysAgo函数、并通过分析和检测，我们就可以使用github.IssuesSearchResult作为输入源、os.Stdout作为输出源来执行模板：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">report</span> = <span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">Must</span>(<span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;issuelist&#34;</span>).
+	<span style="color:#a6e22e">Funcs</span>(<span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">FuncMap</span>{<span style="color:#e6db74">&#34;daysAgo&#34;</span>: <span style="color:#a6e22e">daysAgo</span>}).
+	<span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">templ</span>))
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">github</span>.<span style="color:#a6e22e">SearchIssues</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Args</span>[<span style="color:#ae81ff">1</span>:])
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">report</span>.<span style="color:#a6e22e">Execute</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>, <span style="color:#a6e22e">result</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+	}
+}
+</code></pre></div><p>程序输出一个纯文本报告：</p>
+<pre><code>$ go build gopl.io/ch4/issuesreport
+$ ./issuesreport repo:golang/go is:open json decoder
+13 issues:
+----------------------------------------
+Number: 5680
+User:      eaigner
+Title:     encoding/json: set key converter on en/decoder
+Age:       750 days
+----------------------------------------
+Number: 6050
+User:      gopherbot
+Title:     encoding/json: provide tokenizer
+Age:       695 days
+----------------------------------------
+...
+</code></pre><p>现在让我们转到html/template模板包。它使用和text/template包相同的API和模板语言，但是增加了一个将字符串自动转义特性，这可以避免输入字符串和HTML、JavaScript、CSS或URL语法产生冲突的问题。这个特性还可以避免一些长期存在的安全问题，比如通过生成HTML注入攻击，通过构造一个含有恶意代码的问题标题，这些都可能让模板输出错误的输出，从而让他们控制页面。</p>
+<p>下面的模板以HTML格式输出issue列表。注意import语句的不同：</p>
+<p>{% raw %}</p>
+<p><u><i>gopl.io/ch4/issueshtml</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;html/template&#34;</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">issueList</span> = <span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">Must</span>(<span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;issuelist&#34;</span>).<span style="color:#a6e22e">Parse</span>(<span style="color:#e6db74">`
+</span><span style="color:#e6db74">&lt;h1&gt;</span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.TotalCount</span><span style="color:#75715e">}}</span><span style="color:#e6db74"> issues&lt;/h1&gt;
+</span><span style="color:#e6db74">&lt;table&gt;
+</span><span style="color:#e6db74">&lt;tr style=&#39;text-align: left&#39;&gt;
+</span><span style="color:#e6db74">  &lt;th&gt;#&lt;/th&gt;
+</span><span style="color:#e6db74">  &lt;th&gt;State&lt;/th&gt;
+</span><span style="color:#e6db74">  &lt;th&gt;User&lt;/th&gt;
+</span><span style="color:#e6db74">  &lt;th&gt;Title&lt;/th&gt;
+</span><span style="color:#e6db74">&lt;/tr&gt;
+</span><span style="color:#e6db74"></span><span style="color:#75715e">{{</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">.Items</span><span style="color:#75715e">}}</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&lt;tr&gt;
+</span><span style="color:#e6db74">  &lt;td&gt;&lt;a href=&#39;</span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.HTMLURL</span><span style="color:#75715e">}}</span><span style="color:#e6db74">&#39;&gt;</span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.Number</span><span style="color:#75715e">}}</span><span style="color:#e6db74">&lt;/a&gt;&lt;/td&gt;
+</span><span style="color:#e6db74">  &lt;td&gt;</span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.State</span><span style="color:#75715e">}}</span><span style="color:#e6db74">&lt;/td&gt;
+</span><span style="color:#e6db74">  &lt;td&gt;&lt;a href=&#39;</span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.User.HTMLURL</span><span style="color:#75715e">}}</span><span style="color:#e6db74">&#39;&gt;</span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.User.Login</span><span style="color:#75715e">}}</span><span style="color:#e6db74">&lt;/a&gt;&lt;/td&gt;
+</span><span style="color:#e6db74">  &lt;td&gt;&lt;a href=&#39;</span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.HTMLURL</span><span style="color:#75715e">}}</span><span style="color:#e6db74">&#39;&gt;</span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.Title</span><span style="color:#75715e">}}</span><span style="color:#e6db74">&lt;/a&gt;&lt;/td&gt;
+</span><span style="color:#e6db74">&lt;/tr&gt;
+</span><span style="color:#e6db74"></span><span style="color:#75715e">{{</span><span style="color:#66d9ef">end</span><span style="color:#75715e">}}</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&lt;/table&gt;
+</span><span style="color:#e6db74">`</span>))
+</code></pre></div><p>{% endraw %}</p>
+<p>下面的命令将在新的模板上执行一个稍微不同的查询：</p>
+<pre><code>$ go build gopl.io/ch4/issueshtml
+$ ./issueshtml repo:golang/go commenter:gopherbot json encoder &gt;issues.html
+</code></pre><p>图4.4显示了在web浏览器中的效果图。每个issue包含到Github对应页面的链接。</p>
+<p><img src="../images/ch4-04.png" alt=""></p>
+<p>图4.4中issue没有包含会对HTML格式产生冲突的特殊字符，但是我们马上将看到标题中含有<code>&amp;</code>和<code>&lt;</code>字符的issue。下面的命令选择了两个这样的issue：</p>
+<pre><code>$ ./issueshtml repo:golang/go 3133 10535 &gt;issues2.html
+</code></pre><p>图4.5显示了该查询的结果。注意，html/template包已经自动将特殊字符转义，因此我们依然可以看到正确的字面值。如果我们使用text/template包的话，这2个issue将会产生错误，其中“&amp;lt;”四个字符将会被当作小于字符“&lt;”处理，同时“&lt;link&gt;”字符串将会被当作一个链接元素处理，它们都会导致HTML文档结构的改变，从而导致有未知的风险。</p>
+<p>我们也可以通过对信任的HTML字符串使用template.HTML类型来抑制这种自动转义的行为。还有很多采用类型命名的字符串类型分别对应信任的JavaScript、CSS和URL。下面的程序演示了两个使用不同类型的相同字符串产生的不同结果：A是一个普通字符串，B是一个信任的template.HTML字符串类型。</p>
+<p><img src="../images/ch4-05.png" alt=""></p>
+<p>{% raw %}</p>
+<p><u><i>gopl.io/ch4/autoescape</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">templ</span> = <span style="color:#e6db74">`&lt;p&gt;A: </span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.A</span><span style="color:#75715e">}}</span><span style="color:#e6db74">&lt;/p&gt;&lt;p&gt;B: </span><span style="color:#75715e">{{</span><span style="color:#a6e22e">.B</span><span style="color:#75715e">}}</span><span style="color:#e6db74">&lt;/p&gt;`</span>
+	<span style="color:#a6e22e">t</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">Must</span>(<span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;escape&#34;</span>).<span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">templ</span>))
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">data</span> <span style="color:#66d9ef">struct</span> {
+		<span style="color:#a6e22e">A</span> <span style="color:#66d9ef">string</span>        <span style="color:#75715e">// untrusted plain text
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">B</span> <span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">HTML</span> <span style="color:#75715e">// trusted HTML
+</span><span style="color:#75715e"></span>	}
+	<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">A</span> = <span style="color:#e6db74">&#34;&lt;b&gt;Hello!&lt;/b&gt;&#34;</span>
+	<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">B</span> = <span style="color:#e6db74">&#34;&lt;b&gt;Hello!&lt;/b&gt;&#34;</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Execute</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>, <span style="color:#a6e22e">data</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+	}
+}
+</code></pre></div><p>{% endraw %}</p>
+<p>图4.6显示了出现在浏览器中的模板输出。我们看到A的黑体标记被转义失效了，但是B没有。</p>
+<p><img src="../images/ch4-06.png" alt=""></p>
+<p>我们这里只讲述了模板系统中最基本的特性。一如既往，如果想了解更多的信息，请自己查看包文档：</p>
+<pre><code>$ go doc text/template
+$ go doc html/template
+</code></pre><p><strong>练习 4.14：</strong> 创建一个web服务器，查询一次GitHub，然后生成BUG报告、里程碑和对应的用户信息。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

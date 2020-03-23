@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch7/ch7-06.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="76-sortinterface接口">7.6. sort.Interface接口</h2>
+<p>排序操作和字符串格式化一样是很多程序经常使用的操作。尽管一个最短的快排程序只要15行就可以搞定，但是一个健壮的实现需要更多的代码，并且我们不希望每次我们需要的时候都重写或者拷贝这些代码。</p>
+<p>幸运的是，sort包内置的提供了根据一些排序函数来对任何序列排序的功能。它的设计非常独到。在很多语言中，排序算法都是和序列数据类型关联，同时排序函数和具体类型元素关联。相比之下，Go语言的sort.Sort函数不会对具体的序列和它的元素做任何假设。相反，它使用了一个接口类型sort.Interface来指定通用的排序算法和可能被排序到的序列类型之间的约定。这个接口的实现由序列的具体表示和它希望排序的元素决定，序列的表示经常是一个切片。</p>
+<p>一个内置的排序算法需要知道三个东西：序列的长度，表示两个元素比较的结果，一种交换两个元素的方式；这就是sort.Interface的三个方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">sort</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Interface</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> <span style="color:#75715e">// i, j are indices of sequence elements
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)
+}
+</code></pre></div><p>为了对序列进行排序，我们需要定义一个实现了这三个方法的类型，然后对这个类型的一个实例应用sort.Sort函数。思考对一个字符串切片进行排序，这可能是最简单的例子了。下面是这个新的类型StringSlice和它的Len，Less和Swap方法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">StringSlice</span> []<span style="color:#66d9ef">string</span>
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">StringSlice</span>) <span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span>           { <span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">p</span>) }
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">StringSlice</span>) <span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">i</span>] &lt; <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">j</span>] }
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">StringSlice</span>) <span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)      { <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">i</span>] }
+</code></pre></div><p>现在我们可以通过像下面这样将一个切片转换为一个StringSlice类型来进行排序：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">StringSlice</span>(<span style="color:#a6e22e">names</span>))
+</code></pre></div><p>这个转换得到一个相同长度，容量，和基于names数组的切片值；并且这个切片值的类型有三个排序需要的方法。</p>
+<p>对字符串切片的排序是很常用的需要，所以sort包提供了StringSlice类型，也提供了Strings函数能让上面这些调用简化成sort.Strings(names)。</p>
+<p>这里用到的技术很容易适用到其它排序序列中，例如我们可以忽略大小写或者含有的特殊字符。（本书使用Go程序对索引词和页码进行排序也用到了这个技术，对罗马数字做了额外逻辑处理。）对于更复杂的排序，我们使用相同的方法，但是会用更复杂的数据结构和更复杂地实现sort.Interface的方法。</p>
+<p>我们会运行上面的例子来对一个表格中的音乐播放列表进行排序。每个track都是单独的一行，每一列都是这个track的属性像艺术家，标题，和运行时间。想象一个图形用户界面来呈现这个表格，并且点击一个属性的顶部会使这个列表按照这个属性进行排序；再一次点击相同属性的顶部会进行逆向排序。让我们看下每个点击会发生什么响应。</p>
+<p>下面的变量tracks包含了一个播放列表。（One of the authors apologizes for the other author’s musical tastes.）每个元素都不是Track本身而是指向它的指针。尽管我们在下面的代码中直接存储Tracks也可以工作，sort函数会交换很多对元素，所以如果每个元素都是指针而不是Track类型会更快，指针是一个机器字码长度而Track类型可能是八个或更多。</p>
+<p><u><i>gopl.io/ch7/sorting</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Track</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Title</span>  <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Artist</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Album</span>  <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Year</span>   <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">Length</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>
+}
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tracks</span> = []<span style="color:#f92672">*</span><span style="color:#a6e22e">Track</span>{
+	{<span style="color:#e6db74">&#34;Go&#34;</span>, <span style="color:#e6db74">&#34;Delilah&#34;</span>, <span style="color:#e6db74">&#34;From the Roots Up&#34;</span>, <span style="color:#ae81ff">2012</span>, <span style="color:#a6e22e">length</span>(<span style="color:#e6db74">&#34;3m38s&#34;</span>)},
+	{<span style="color:#e6db74">&#34;Go&#34;</span>, <span style="color:#e6db74">&#34;Moby&#34;</span>, <span style="color:#e6db74">&#34;Moby&#34;</span>, <span style="color:#ae81ff">1992</span>, <span style="color:#a6e22e">length</span>(<span style="color:#e6db74">&#34;3m37s&#34;</span>)},
+	{<span style="color:#e6db74">&#34;Go Ahead&#34;</span>, <span style="color:#e6db74">&#34;Alicia Keys&#34;</span>, <span style="color:#e6db74">&#34;As I Am&#34;</span>, <span style="color:#ae81ff">2007</span>, <span style="color:#a6e22e">length</span>(<span style="color:#e6db74">&#34;4m36s&#34;</span>)},
+	{<span style="color:#e6db74">&#34;Ready 2 Go&#34;</span>, <span style="color:#e6db74">&#34;Martin Solveig&#34;</span>, <span style="color:#e6db74">&#34;Smash&#34;</span>, <span style="color:#ae81ff">2011</span>, <span style="color:#a6e22e">length</span>(<span style="color:#e6db74">&#34;4m24s&#34;</span>)},
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">length</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span> {
+	<span style="color:#a6e22e">d</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">ParseDuration</span>(<span style="color:#a6e22e">s</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		panic(<span style="color:#a6e22e">s</span>)
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">d</span>
+}
+</code></pre></div><p>printTracks函数将播放列表打印成一个表格。一个图形化的展示可能会更好点，但是这个小程序使用text/tabwriter包来生成一个列整齐对齐和隔开的表格，像下面展示的这样。注意到<code>*tabwriter.Writer</code>是满足io.Writer接口的。它会收集每一片写向它的数据；它的Flush方法会格式化整个表格并且将它写向os.Stdout（标准输出）。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">printTracks</span>(<span style="color:#a6e22e">tracks</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">Track</span>) {
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">format</span> = <span style="color:#e6db74">&#34;%v\t%v\t%v\t%v\t%v\t\n&#34;</span>
+	<span style="color:#a6e22e">tw</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">tabwriter</span>.<span style="color:#a6e22e">Writer</span>).<span style="color:#a6e22e">Init</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#39; &#39;</span>, <span style="color:#ae81ff">0</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">tw</span>, <span style="color:#a6e22e">format</span>, <span style="color:#e6db74">&#34;Title&#34;</span>, <span style="color:#e6db74">&#34;Artist&#34;</span>, <span style="color:#e6db74">&#34;Album&#34;</span>, <span style="color:#e6db74">&#34;Year&#34;</span>, <span style="color:#e6db74">&#34;Length&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">tw</span>, <span style="color:#a6e22e">format</span>, <span style="color:#e6db74">&#34;-----&#34;</span>, <span style="color:#e6db74">&#34;------&#34;</span>, <span style="color:#e6db74">&#34;-----&#34;</span>, <span style="color:#e6db74">&#34;----&#34;</span>, <span style="color:#e6db74">&#34;------&#34;</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">t</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">tracks</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">tw</span>, <span style="color:#a6e22e">format</span>, <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Artist</span>, <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Album</span>, <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Year</span>, <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Length</span>)
+	}
+	<span style="color:#a6e22e">tw</span>.<span style="color:#a6e22e">Flush</span>() <span style="color:#75715e">// calculate column widths and print table
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>为了能按照Artist字段对播放列表进行排序，我们会像对StringSlice那样定义一个新的带有必须的Len，Less和Swap方法的切片类型。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">byArtist</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">Track</span>
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">x</span> <span style="color:#a6e22e">byArtist</span>) <span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span>           { <span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">x</span>) }
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">x</span> <span style="color:#a6e22e">byArtist</span>) <span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">Artist</span> &lt; <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">Artist</span> }
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">x</span> <span style="color:#a6e22e">byArtist</span>) <span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)      { <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">i</span>] }
+</code></pre></div><p>为了调用通用的排序程序，我们必须先将tracks转换为新的byArtist类型，它定义了具体的排序：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">byArtist</span>(<span style="color:#a6e22e">tracks</span>))
+</code></pre></div><p>在按照artist对这个切片进行排序后，printTrack的输出如下</p>
+<pre><code>Title       Artist          Album               Year Length
+-----       ------          -----               ---- ------
+Go Ahead    Alicia Keys     As I Am             2007 4m36s
+Go          Delilah         From the Roots Up   2012 3m38s
+Ready 2 Go  Martin Solveig  Smash               2011 4m24s
+Go          Moby            Moby                1992 3m37s
+</code></pre><p>如果用户第二次请求“按照artist排序”，我们会对tracks进行逆向排序。然而我们不需要定义一个有颠倒Less方法的新类型byReverseArtist，因为sort包中提供了Reverse函数将排序顺序转换成逆序。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Reverse</span>(<span style="color:#a6e22e">byArtist</span>(<span style="color:#a6e22e">tracks</span>)))
+</code></pre></div><p>在按照artist对这个切片进行逆向排序后，printTrack的输出如下</p>
+<pre><code>Title       Artist          Album               Year Length
+-----       ------          -----               ---- ------
+Go          Moby            Moby                1992 3m37s
+Ready 2 Go  Martin Solveig  Smash               2011 4m24s
+Go          Delilah         From the Roots Up   2012 3m38s
+Go Ahead    Alicia Keys     As I Am             2007 4m36s
+</code></pre><p>sort.Reverse函数值得进行更近一步的学习，因为它使用了（§6.3）章中的组合，这是一个重要的思路。sort包定义了一个不公开的struct类型reverse，它嵌入了一个sort.Interface。reverse的Less方法调用了内嵌的sort.Interface值的Less方法，但是通过交换索引的方式使排序结果变成逆序。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">sort</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">reverse</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">Interface</span> } <span style="color:#75715e">// that is, sort.Interface
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#a6e22e">reverse</span>) <span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Interface</span>.<span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">i</span>) }
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Reverse</span>(<span style="color:#a6e22e">data</span> <span style="color:#a6e22e">Interface</span>) <span style="color:#a6e22e">Interface</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">reverse</span>{<span style="color:#a6e22e">data</span>} }
+</code></pre></div><p>reverse的另外两个方法Len和Swap隐式地由原有内嵌的sort.Interface提供。因为reverse是一个不公开的类型，所以导出函数Reverse返回一个包含原有sort.Interface值的reverse类型实例。</p>
+<p>为了可以按照不同的列进行排序，我们必须定义一个新的类型例如byYear：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">byYear</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">Track</span>
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">x</span> <span style="color:#a6e22e">byYear</span>) <span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span>           { <span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">x</span>) }
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">x</span> <span style="color:#a6e22e">byYear</span>) <span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">Year</span> &lt; <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">Year</span> }
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">x</span> <span style="color:#a6e22e">byYear</span>) <span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)      { <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">i</span>] }
+</code></pre></div><p>在使用sort.Sort(byYear(tracks))按照年对tracks进行排序后，printTrack展示了一个按时间先后顺序的列表：</p>
+<pre><code>Title       Artist          Album               Year Length
+-----       ------          -----               ---- ------
+Go          Moby            Moby                1992 3m37s
+Go Ahead    Alicia Keys     As I Am             2007 4m36s
+Ready 2 Go  Martin Solveig  Smash               2011 4m24s
+Go          Delilah         From the Roots Up   2012 3m38s
+</code></pre><p>对于我们需要的每个切片元素类型和每个排序函数，我们需要定义一个新的sort.Interface实现。如你所见，Len和Swap方法对于所有的切片类型都有相同的定义。下个例子，具体的类型customSort会将一个切片和函数结合，使我们只需要写比较函数就可以定义一个新的排序。顺便说下，实现了sort.Interface的具体类型不一定是切片类型；customSort是一个结构体类型。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">customSort</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">t</span>    []<span style="color:#f92672">*</span><span style="color:#a6e22e">Track</span>
+	<span style="color:#a6e22e">less</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Track</span>) <span style="color:#66d9ef">bool</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">x</span> <span style="color:#a6e22e">customSort</span>) <span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span>           { <span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">t</span>) }
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">x</span> <span style="color:#a6e22e">customSort</span>) <span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">less</span>(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">t</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">t</span>[<span style="color:#a6e22e">j</span>]) }
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">x</span> <span style="color:#a6e22e">customSort</span>) <span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)	{ <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">t</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">t</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">t</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">t</span>[<span style="color:#a6e22e">i</span>] }
+</code></pre></div><p>让我们定义一个多层的排序函数，它主要的排序键是标题，第二个键是年，第三个键是运行时间Length。下面是该排序的调用，其中这个排序使用了匿名排序函数：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">customSort</span>{<span style="color:#a6e22e">tracks</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Track</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Title</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Title</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Title</span> &lt; <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Title</span>
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Year</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Year</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Year</span> &lt; <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Year</span>
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Length</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Length</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Length</span> &lt; <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Length</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+}})
+</code></pre></div><p>这下面是排序的结果。注意到两个标题是“Go”的track按照标题排序是相同的顺序，但是在按照year排序上更久的那个track优先。</p>
+<pre><code>Title       Artist          Album               Year Length
+-----       ------          -----               ---- ------
+Go          Moby            Moby                1992 3m37s
+Go          Delilah         From the Roots Up   2012 3m38s
+Go Ahead    Alicia Keys     As I Am             2007 4m36s
+Ready 2 Go  Martin Solveig  Smash               2011 4m24s
+</code></pre><p>尽管对长度为n的序列排序需要 O(n log n)次比较操作，检查一个序列是否已经有序至少需要n-1次比较。sort包中的IsSorted函数帮我们做这样的检查。像sort.Sort一样，它也使用sort.Interface对这个序列和它的排序函数进行抽象，但是它从不会调用Swap方法：这段代码示范了IntsAreSorted和Ints函数在IntSlice类型上的使用：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">values</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>}
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">IntsAreSorted</span>(<span style="color:#a6e22e">values</span>)) <span style="color:#75715e">// &#34;false&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Ints</span>(<span style="color:#a6e22e">values</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">values</span>)                     <span style="color:#75715e">// &#34;[1 1 3 4]&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">IntsAreSorted</span>(<span style="color:#a6e22e">values</span>)) <span style="color:#75715e">// &#34;true&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Reverse</span>(<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">IntSlice</span>(<span style="color:#a6e22e">values</span>)))
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">values</span>)                     <span style="color:#75715e">// &#34;[4 3 1 1]&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">IntsAreSorted</span>(<span style="color:#a6e22e">values</span>)) <span style="color:#75715e">// &#34;false&#34;
+</span></code></pre></div><p>为了使用方便，sort包为[]int、[]string和[]float64的正常排序提供了特定版本的函数和类型。对于其他类型，例如[]int64或者[]uint，尽管路径也很简单，还是依赖我们自己实现。</p>
+<p><strong>练习 7.8：</strong> 很多图形界面提供了一个有状态的多重排序表格插件：主要的排序键是最近一次点击过列头的列，第二个排序键是第二最近点击过列头的列，等等。定义一个sort.Interface的实现用在这样的表格中。比较这个实现方式和重复使用sort.Stable来排序的方式。</p>
+<p><strong>练习 7.9：</strong> 使用html/template包（§4.6）替代printTracks将tracks展示成一个HTML表格。将这个解决方案用在前一个练习中，让每次点击一个列的头部产生一个HTTP请求来排序这个表格。</p>
+<p><strong>练习 7.10：</strong> sort.Interface类型也可以适用在其它地方。编写一个IsPalindrome(s sort.Interface) bool函数表明序列s是否是回文序列，换句话说反向排序不会改变这个序列。假设如果!s.Less(i, j) &amp;&amp; !s.Less(j, i)则索引i和j上的元素相等。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

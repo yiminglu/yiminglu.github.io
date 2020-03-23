@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch6/ch6-05.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="65-示例-bit数组">6.5. 示例: Bit数组</h2>
+<p>Go语言里的集合一般会用map[T]bool这种形式来表示，T代表元素类型。集合用map类型来表示虽然非常灵活，但我们可以以一种更好的形式来表示它。例如在数据流分析领域，集合元素通常是一个非负整数，集合会包含很多元素，并且集合会经常进行并集、交集操作，这种情况下，bit数组会比map表现更加理想。（译注：这里再补充一个例子，比如我们执行一个http下载任务，把文件按照16kb一块划分为很多块，需要有一个全局变量来标识哪些块下载完成了，这种时候也需要用到bit数组。）</p>
+<p>一个bit数组通常会用一个无符号数或者称之为“字”的slice来表示，每一个元素的每一位都表示集合里的一个值。当集合的第i位被设置时，我们才说这个集合包含元素i。下面的这个程序展示了一个简单的bit数组类型，并且实现了三个函数来对这个bit数组来进行操作：</p>
+<p><u><i>gopl.io/ch6/intset</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// An IntSet is a set of small non-negative integers.
+</span><span style="color:#75715e">// Its zero value represents the empty set.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">IntSet</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">words</span> []<span style="color:#66d9ef">uint64</span>
+}
+
+<span style="color:#75715e">// Has reports whether the set contains the non-negative value x.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">Has</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#a6e22e">word</span>, <span style="color:#a6e22e">bit</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">x</span><span style="color:#f92672">/</span><span style="color:#ae81ff">64</span>, uint(<span style="color:#a6e22e">x</span><span style="color:#f92672">%</span><span style="color:#ae81ff">64</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">word</span> &lt; len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">words</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">words</span>[<span style="color:#a6e22e">word</span>]<span style="color:#f92672">&amp;</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">&lt;&lt;</span><span style="color:#a6e22e">bit</span>) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>
+}
+
+<span style="color:#75715e">// Add adds the non-negative value x to the set.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">int</span>) {
+	<span style="color:#a6e22e">word</span>, <span style="color:#a6e22e">bit</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">x</span><span style="color:#f92672">/</span><span style="color:#ae81ff">64</span>, uint(<span style="color:#a6e22e">x</span><span style="color:#f92672">%</span><span style="color:#ae81ff">64</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">word</span> <span style="color:#f92672">&gt;=</span> len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">words</span>) {
+		<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">words</span> = append(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">words</span>, <span style="color:#ae81ff">0</span>)
+	}
+	<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">words</span>[<span style="color:#a6e22e">word</span>] <span style="color:#f92672">|=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#a6e22e">bit</span>
+}
+
+<span style="color:#75715e">// UnionWith sets s to the union of s and t.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">UnionWith</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) {
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">tword</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">words</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">words</span>) {
+			<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">words</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">|=</span> <span style="color:#a6e22e">tword</span>
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">words</span> = append(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">words</span>, <span style="color:#a6e22e">tword</span>)
+		}
+	}
+}
+
+</code></pre></div><p>因为每一个字都有64个二进制位，所以为了定位x的bit位，我们用了x/64的商作为字的下标，并且用x%64得到的值作为这个字内的bit的所在位置。UnionWith这个方法里用到了bit位的“或”逻辑操作符号|来一次完成64个元素的或计算。（在练习6.5中我们还会有程序用到这个64位字的例子。）</p>
+<p>当前这个实现还缺少了很多必要的特性，我们把其中一些作为练习题列在本小节之后。但是有一个方法如果缺失的话我们的bit数组可能会比较难混：将IntSet作为一个字符串来打印。这里我们来实现它，让我们来给上面的例子添加一个String方法，类似2.5节中做的那样：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// String returns the set as a string of the form &#34;{1 2 3}&#34;.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">String</span>() <span style="color:#66d9ef">string</span> {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">buf</span> <span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>
+	<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;{&#39;</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">word</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">words</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">word</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+			<span style="color:#66d9ef">continue</span>
+		}
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; <span style="color:#ae81ff">64</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">word</span><span style="color:#f92672">&amp;</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">&lt;&lt;</span>uint(<span style="color:#a6e22e">j</span>)) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
+				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">Len</span>() &gt; len(<span style="color:#e6db74">&#34;{&#34;</span>) {
+					<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39; &#39;</span>)
+				}
+				<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">buf</span>, <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#ae81ff">64</span><span style="color:#f92672">*</span><span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">j</span>)
+			}
+		}
+	}
+	<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;}&#39;</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">String</span>()
+}
+</code></pre></div><p>这里留意一下String方法，是不是和3.5.4节中的intsToString方法很相似；bytes.Buffer在String方法里经常这么用。当你为一个复杂的类型定义了一个String方法时，fmt包就会特殊对待这种类型的值，这样可以让这些类型在打印的时候看起来更加友好，而不是直接打印其原始的值。fmt会直接调用用户定义的String方法。这种机制依赖于接口和类型断言，在第7章中我们会详细介绍。</p>
+<p>现在我们就可以在实战中直接用上面定义好的IntSet了：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#a6e22e">IntSet</span>
+<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">144</span>)
+<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">9</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">String</span>()) <span style="color:#75715e">// &#34;{1 9 144}&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">9</span>)
+<span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">42</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">String</span>()) <span style="color:#75715e">// &#34;{9 42}&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">UnionWith</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">y</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">String</span>()) <span style="color:#75715e">// &#34;{1 9 42 144}&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Has</span>(<span style="color:#ae81ff">9</span>), <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Has</span>(<span style="color:#ae81ff">123</span>)) <span style="color:#75715e">// &#34;true false&#34;
+</span></code></pre></div><p>这里要注意：我们声明的String和Has两个方法都是以指针类型<code>*IntSet</code>来作为接收器的，但实际上对于这两个类型来说，把接收器声明为指针类型也没什么必要。不过另外两个函数就不是这样了，因为另外两个函数操作的是s.words对象，如果你不把接收器声明为指针对象，那么实际操作的是拷贝对象，而不是原来的那个对象。因此，因为我们的String方法定义在IntSet指针上，所以当我们的变量是IntSet类型而不是IntSet指针时，可能会有下面这样让人意外的情况：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">x</span>)         <span style="color:#75715e">// &#34;{1 9 42 144}&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">String</span>()) <span style="color:#75715e">// &#34;{1 9 42 144}&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">x</span>)          <span style="color:#75715e">// &#34;{[4398046511618 0 65536]}&#34;
+</span></code></pre></div><p>在第一个Println中，我们打印一个<code>*IntSet</code>的指针，这个类型的指针确实有自定义的String方法。第二Println，我们直接调用了x变量的String()方法；这种情况下编译器会隐式地在x前插入&amp;操作符，这样相当于我们还是调用的IntSet指针的String方法。在第三个Println中，因为IntSet类型没有String方法，所以Println方法会直接以原始的方式理解并打印。所以在这种情况下&amp;符号是不能忘的。在我们这种场景下，你把String方法绑定到IntSet对象上，而不是IntSet指针上可能会更合适一些，不过这也需要具体问题具体分析。</p>
+<p><strong>练习6.1:</strong> 为bit数组实现下面这些方法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span>      <span style="color:#75715e">// return the number of elements
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">Remove</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">int</span>)  <span style="color:#75715e">// remove x from the set
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">Clear</span>()        <span style="color:#75715e">// remove all elements from the set
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">Copy</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span> <span style="color:#75715e">// return a copy of the set
+</span></code></pre></div><p><strong>练习 6.2：</strong> 定义一个变参方法(*IntSet).AddAll(&hellip;int)，这个方法可以添加一组IntSet，比如s.AddAll(1,2,3)。</p>
+<p><strong>练习 6.3：</strong> (*IntSet).UnionWith会用<code>|</code>操作符计算两个集合的并集，我们再为IntSet实现另外的几个函数IntersectWith（交集：元素在A集合B集合均出现），DifferenceWith（差集：元素出现在A集合，未出现在B集合），SymmetricDifference（并差集：元素出现在A但没有出现在B，或者出现在B没有出现在A）。</p>
+<p>***练习6.4: ** 实现一个Elems方法，返回集合中的所有元素，用于做一些range之类的遍历操作。</p>
+<p><strong>练习 6.5：</strong> 我们这章定义的IntSet里的每个字都是用的uint64类型，但是64位的数值可能在32位的平台上不高效。修改程序，使其使用uint类型，这种类型对于32位平台来说更合适。当然了，这里我们可以不用简单粗暴地除64，可以定义一个常量来决定是用32还是64，这里你可能会用到平台的自动判断的一个智能表达式：32 &laquo; (^uint(0) &raquo; 63)</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

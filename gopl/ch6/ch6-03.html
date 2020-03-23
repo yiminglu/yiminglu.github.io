@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch6/ch6-03.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="63-通过嵌入结构体来扩展类型">6.3. 通过嵌入结构体来扩展类型</h2>
+<p>来看看ColoredPoint这个类型：</p>
+<p><u><i>gopl.io/ch6/coloredpoint</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;image/color&#34;</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Point</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">Y</span> <span style="color:#66d9ef">float64</span> }
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ColoredPoint</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Point</span>
+	<span style="color:#a6e22e">Color</span> <span style="color:#a6e22e">color</span>.<span style="color:#a6e22e">RGBA</span>
+}
+</code></pre></div><p>我们完全可以将ColoredPoint定义为一个有三个字段的struct，但是我们却将Point这个类型嵌入到ColoredPoint来提供X和Y这两个字段。像我们在4.4节中看到的那样，内嵌可以使我们在定义ColoredPoint时得到一种句法上的简写形式，并使其包含Point类型所具有的一切字段，然后再定义一些自己的。如果我们想要的话，我们可以直接认为通过嵌入的字段就是ColoredPoint自身的字段，而完全不需要在调用时指出Point，比如下面这样。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cp</span> <span style="color:#a6e22e">ColoredPoint</span>
+<span style="color:#a6e22e">cp</span>.<span style="color:#a6e22e">X</span> = <span style="color:#ae81ff">1</span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">cp</span>.<span style="color:#a6e22e">Point</span>.<span style="color:#a6e22e">X</span>) <span style="color:#75715e">// &#34;1&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">cp</span>.<span style="color:#a6e22e">Point</span>.<span style="color:#a6e22e">Y</span> = <span style="color:#ae81ff">2</span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">cp</span>.<span style="color:#a6e22e">Y</span>) <span style="color:#75715e">// &#34;2&#34;
+</span></code></pre></div><p>对于Point中的方法我们也有类似的用法，我们可以把ColoredPoint类型当作接收器来调用Point里的方法，即使ColoredPoint里没有声明这些方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">red</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">color</span>.<span style="color:#a6e22e">RGBA</span>{<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">255</span>}
+<span style="color:#a6e22e">blue</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">color</span>.<span style="color:#a6e22e">RGBA</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>}
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p</span> = <span style="color:#a6e22e">ColoredPoint</span>{<span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>}, <span style="color:#a6e22e">red</span>}
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">q</span> = <span style="color:#a6e22e">ColoredPoint</span>{<span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>}, <span style="color:#a6e22e">blue</span>}
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Point</span>)) <span style="color:#75715e">// &#34;5&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">ScaleBy</span>(<span style="color:#ae81ff">2</span>)
+<span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">ScaleBy</span>(<span style="color:#ae81ff">2</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Point</span>)) <span style="color:#75715e">// &#34;10&#34;
+</span></code></pre></div><p>Point类的方法也被引入了ColoredPoint。用这种方式，内嵌可以使我们定义字段特别多的复杂类型，我们可以将字段先按小类型分组，然后定义小类型的方法，之后再把它们组合起来。</p>
+<p>读者如果对基于类来实现面向对象的语言比较熟悉的话，可能会倾向于将Point看作一个基类，而ColoredPoint看作其子类或者继承类，或者将ColoredPoint看作&quot;is a&rdquo; Point类型。但这是错误的理解。请注意上面例子中对Distance方法的调用。Distance有一个参数是Point类型，但q并不是一个Point类，所以尽管q有着Point这个内嵌类型，我们也必须要显式地选择它。尝试直接传q的话你会看到下面这样的错误：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">q</span>) <span style="color:#75715e">// compile error: cannot use q (ColoredPoint) as Point
+</span></code></pre></div><p>一个ColoredPoint并不是一个Point，但他&quot;has a&quot;Point，并且它有从Point类里引入的Distance和ScaleBy方法。如果你喜欢从实现的角度来考虑问题，内嵌字段会指导编译器去生成额外的包装方法来委托已经声明好的方法，和下面的形式是等价的：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">ColoredPoint</span>) <span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">q</span> <span style="color:#a6e22e">Point</span>) <span style="color:#66d9ef">float64</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Point</span>.<span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">q</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ColoredPoint</span>) <span style="color:#a6e22e">ScaleBy</span>(<span style="color:#a6e22e">factor</span> <span style="color:#66d9ef">float64</span>) {
+	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Point</span>.<span style="color:#a6e22e">ScaleBy</span>(<span style="color:#a6e22e">factor</span>)
+}
+</code></pre></div><p>当Point.Distance被第一个包装方法调用时，它的接收器值是p.Point，而不是p，当然了，在Point类的方法里，你是访问不到ColoredPoint的任何字段的。</p>
+<p>在类型中内嵌的匿名字段也可能是一个命名类型的指针，这种情况下字段和方法会被间接地引入到当前的类型中（译注：访问需要通过该指针指向的对象去取）。添加这一层间接关系让我们可以共享通用的结构并动态地改变对象之间的关系。下面这个ColoredPoint的声明内嵌了一个*Point的指针。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ColoredPoint</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#f92672">*</span><span style="color:#a6e22e">Point</span>
+	<span style="color:#a6e22e">Color</span> <span style="color:#a6e22e">color</span>.<span style="color:#a6e22e">RGBA</span>
+}
+
+<span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ColoredPoint</span>{<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>}, <span style="color:#a6e22e">red</span>}
+<span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ColoredPoint</span>{<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>}, <span style="color:#a6e22e">blue</span>}
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Distance</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Point</span>)) <span style="color:#75715e">// &#34;5&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Point</span> = <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Point</span>                 <span style="color:#75715e">// p and q now share the same Point
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">ScaleBy</span>(<span style="color:#ae81ff">2</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Point</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Point</span>) <span style="color:#75715e">// &#34;{2 2} {2 2}&#34;
+</span></code></pre></div><p>一个struct类型也可能会有多个匿名字段。我们将ColoredPoint定义为下面这样：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ColoredPoint</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Point</span>
+	<span style="color:#a6e22e">color</span>.<span style="color:#a6e22e">RGBA</span>
+}
+</code></pre></div><p>然后这种类型的值便会拥有Point和RGBA类型的所有方法，以及直接定义在ColoredPoint中的方法。当编译器解析一个选择器到方法时，比如p.ScaleBy，它会首先去找直接定义在这个类型里的ScaleBy方法，然后找被ColoredPoint的内嵌字段们引入的方法，然后去找Point和RGBA的内嵌字段引入的方法，然后一直递归向下找。如果选择器有二义性的话编译器会报错，比如你在同一级里有两个同名的方法。</p>
+<p>方法只能在命名类型（像Point）或者指向类型的指针上定义，但是多亏了内嵌，有些时候我们给匿名struct类型来定义方法也有了手段。</p>
+<p>下面是一个小trick。这个例子展示了简单的cache，其使用两个包级别的变量来实现，一个mutex互斥量（§9.2）和它所操作的cache：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> (
+	<span style="color:#a6e22e">mu</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span> <span style="color:#75715e">// guards mapping
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">mapping</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>)
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Lookup</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Lock</span>()
+	<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mapping</span>[<span style="color:#a6e22e">key</span>]
+	<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Unlock</span>()
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v</span>
+}
+</code></pre></div><p>下面这个版本在功能上是一致的，但将两个包级别的变量放在了cache这个struct一组内：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cache</span> = <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span>
+	<span style="color:#a6e22e">mapping</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>
+}{
+	<span style="color:#a6e22e">mapping</span>: make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>),
+}
+
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Lookup</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">cache</span>.<span style="color:#a6e22e">Lock</span>()
+	<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cache</span>.<span style="color:#a6e22e">mapping</span>[<span style="color:#a6e22e">key</span>]
+	<span style="color:#a6e22e">cache</span>.<span style="color:#a6e22e">Unlock</span>()
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v</span>
+}
+</code></pre></div><p>我们给新的变量起了一个更具表达性的名字：cache。因为sync.Mutex字段也被嵌入到了这个struct里，其Lock和Unlock方法也就都被引入到了这个匿名结构中了，这让我们能够以一个简单明了的语法来对其进行加锁解锁操作。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

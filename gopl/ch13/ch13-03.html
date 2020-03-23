@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch13/ch13-03.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="133-示例-深度相等判断">13.3. 示例: 深度相等判断</h2>
+<p>来自reflect包的DeepEqual函数可以对两个值进行深度相等判断。DeepEqual函数使用内建的==比较操作符对基础类型进行相等判断，对于复合类型则递归该变量的每个基础类型然后做类似的比较判断。因为它可以工作在任意的类型上，甚至对于一些不支持==操作运算符的类型也可以工作，因此在一些测试代码中广泛地使用该函数。比如下面的代码是用DeepEqual函数比较两个字符串slice是否相等。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestSplit</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+	<span style="color:#a6e22e">got</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Split</span>(<span style="color:#e6db74">&#34;a🅱c&#34;</span>, <span style="color:#e6db74">&#34;:&#34;</span>)
+	<span style="color:#a6e22e">want</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;c&#34;</span>};
+	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">DeepEqual</span>(<span style="color:#a6e22e">got</span>, <span style="color:#a6e22e">want</span>) { <span style="color:#75715e">/* ... */</span> }
+}
+</code></pre></div><p>尽管DeepEqual函数很方便，而且可以支持任意的数据类型，但是它也有不足之处。例如，它将一个nil值的map和非nil值但是空的map视作不相等，同样nil值的slice 和非nil但是空的slice也视作不相等。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> []<span style="color:#66d9ef">string</span> = <span style="color:#66d9ef">nil</span>, []<span style="color:#66d9ef">string</span>{}
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">DeepEqual</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>)) <span style="color:#75715e">// &#34;false&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">d</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span> = <span style="color:#66d9ef">nil</span>, make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">DeepEqual</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">d</span>)) <span style="color:#75715e">// &#34;false&#34;
+</span></code></pre></div><p>我们希望在这里实现一个自己的Equal函数，用于比较类型的值。和DeepEqual函数类似的地方是它也是基于slice和map的每个元素进行递归比较，不同之处是它将nil值的slice（map类似）和非nil值但是空的slice视作相等的值。基础部分的比较可以基于reflect包完成，和12.3章的Display函数的实现方法类似。同样，我们也定义了一个内部函数equal，用于内部的递归比较。读者目前不用关心seen参数的具体含义。对于每一对需要比较的x和y，equal函数首先检测它们是否都有效（或都无效），然后检测它们是否是相同的类型。剩下的部分是一个巨大的switch分支，用于相同基础类型的元素比较。因为页面空间的限制，我们省略了一些相似的分支。</p>
+<p><u><i>gopl.io/ch13/equal</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">equal</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>, <span style="color:#a6e22e">seen</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">comparison</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">IsValid</span>() <span style="color:#f92672">||</span> !<span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">IsValid</span>() {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">IsValid</span>() <span style="color:#f92672">==</span> <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">IsValid</span>()
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Type</span>() <span style="color:#f92672">!=</span> <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Type</span>() {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+	}
+
+	<span style="color:#75715e">// ...cycle check omitted (shown later)...
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Kind</span>() {
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Bool</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Bool</span>() <span style="color:#f92672">==</span> <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Bool</span>()
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">String</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">String</span>() <span style="color:#f92672">==</span> <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">String</span>()
+
+	<span style="color:#75715e">// ...numeric cases omitted for brevity...
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Chan</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">UnsafePointer</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Func</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Pointer</span>() <span style="color:#f92672">==</span> <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Pointer</span>()
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Ptr</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Interface</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">equal</span>(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Elem</span>(), <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Elem</span>(), <span style="color:#a6e22e">seen</span>)
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Array</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Slice</span>:
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Len</span>() <span style="color:#f92672">!=</span> <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Len</span>() {
+			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+		}
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Len</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+			<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">equal</span>(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Index</span>(<span style="color:#a6e22e">i</span>), <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Index</span>(<span style="color:#a6e22e">i</span>), <span style="color:#a6e22e">seen</span>) {
+				<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+			}
+		}
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+
+	<span style="color:#75715e">// ...struct and map cases omitted for brevity...
+</span><span style="color:#75715e"></span>	}
+	panic(<span style="color:#e6db74">&#34;unreachable&#34;</span>)
+}
+</code></pre></div><p>和前面的建议一样，我们并不公开reflect包相关的接口，所以导出的函数需要在内部自己将变量转为reflect.Value类型。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// Equal reports whether x and y are deeply equal.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#a6e22e">seen</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">comparison</span>]<span style="color:#66d9ef">bool</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">equal</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">x</span>), <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">y</span>), <span style="color:#a6e22e">seen</span>)
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">comparison</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>
+	<span style="color:#a6e22e">treflect</span>.<span style="color:#a6e22e">Type</span>
+}
+</code></pre></div><p>为了确保算法对于有环的数据结构也能正常退出，我们必须记录每次已经比较的变量，从而避免进入第二次的比较。Equal函数分配了一组用于比较的结构体，包含每对比较对象的地址（unsafe.Pointer形式保存）和类型。我们要记录类型的原因是，有些不同的变量可能对应相同的地址。例如，如果x和y都是数组类型，那么x和x[0]将对应相同的地址，y和y[0]也是对应相同的地址，这可以用于区分x与y之间的比较或x[0]与y[0]之间的比较是否进行过了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// cycle check
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">CanAddr</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">CanAddr</span>() {
+	<span style="color:#a6e22e">xptr</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">UnsafeAddr</span>())
+	<span style="color:#a6e22e">yptr</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">UnsafeAddr</span>())
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">xptr</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">yptr</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span> <span style="color:#75715e">// identical references
+</span><span style="color:#75715e"></span>	}
+	<span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">comparison</span>{<span style="color:#a6e22e">xptr</span>, <span style="color:#a6e22e">yptr</span>, <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Type</span>()}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">seen</span>[<span style="color:#a6e22e">c</span>] {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span> <span style="color:#75715e">// already seen
+</span><span style="color:#75715e"></span>	}
+	<span style="color:#a6e22e">seen</span>[<span style="color:#a6e22e">c</span>] = <span style="color:#66d9ef">true</span>
+}
+</code></pre></div><p>这是Equal函数用法的例子:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Equal</span>([]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}, []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}))        <span style="color:#75715e">// &#34;true&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Equal</span>([]<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;foo&#34;</span>}, []<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;bar&#34;</span>}))      <span style="color:#75715e">// &#34;false&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Equal</span>([]string(<span style="color:#66d9ef">nil</span>), []<span style="color:#66d9ef">string</span>{}))             <span style="color:#75715e">// &#34;true&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Equal</span>(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]int(<span style="color:#66d9ef">nil</span>), <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>{})) <span style="color:#75715e">// &#34;true&#34;
+</span></code></pre></div><p>Equal函数甚至可以处理类似12.3章中导致Display陷入死循环的带有环的数据。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// Circular linked lists a -&gt; b -&gt; a and c -&gt; c.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">link</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">value</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">tail</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">link</span>
+}
+<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">link</span>{<span style="color:#a6e22e">value</span>: <span style="color:#e6db74">&#34;a&#34;</span>}, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">link</span>{<span style="color:#a6e22e">value</span>: <span style="color:#e6db74">&#34;b&#34;</span>}, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">link</span>{<span style="color:#a6e22e">value</span>: <span style="color:#e6db74">&#34;c&#34;</span>}
+<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">tail</span>, <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">tail</span>, <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">tail</span> = <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">c</span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)) <span style="color:#75715e">// &#34;true&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">b</span>)) <span style="color:#75715e">// &#34;true&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">c</span>)) <span style="color:#75715e">// &#34;true&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>)) <span style="color:#75715e">// &#34;false&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">c</span>)) <span style="color:#75715e">// &#34;false&#34;
+</span></code></pre></div><p><strong>练习 13.1：</strong> 定义一个深比较函数，对于十亿以内的数字比较，忽略类型差异。</p>
+<p><strong>练习 13.2：</strong> 编写一个函数，报告其参数是否为循环数据结构。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

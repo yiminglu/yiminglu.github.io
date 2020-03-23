@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch2/ch2-04.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="24-赋值">2.4. 赋值</h2>
+<p>使用赋值语句可以更新一个变量的值，最简单的赋值语句是将要被赋值的变量放在=的左边，新值的表达式放在=的右边。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">x</span> = <span style="color:#ae81ff">1</span>                       <span style="color:#75715e">// 命名变量的赋值
+</span><span style="color:#75715e"></span><span style="color:#f92672">*</span><span style="color:#a6e22e">p</span> = <span style="color:#66d9ef">true</span>                   <span style="color:#75715e">// 通过指针间接赋值
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;bob&#34;</span>         <span style="color:#75715e">// 结构体字段赋值
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">count</span>[<span style="color:#a6e22e">x</span>] = <span style="color:#a6e22e">count</span>[<span style="color:#a6e22e">x</span>] <span style="color:#f92672">*</span> <span style="color:#a6e22e">scale</span> <span style="color:#75715e">// 数组、slice或map的元素赋值
+</span></code></pre></div><p>特定的二元算术运算符和赋值语句的复合操作有一个简洁形式，例如上面最后的语句可以重写为：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">count</span>[<span style="color:#a6e22e">x</span>] <span style="color:#f92672">*=</span> <span style="color:#a6e22e">scale</span>
+</code></pre></div><p>这样可以省去对变量表达式的重复计算。</p>
+<p>数值变量也可以支持<code>++</code>递增和<code>--</code>递减语句（译注：自增和自减是语句，而不是表达式，因此<code>x = i++</code>之类的表达式是错误的）：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#a6e22e">v</span><span style="color:#f92672">++</span>    <span style="color:#75715e">// 等价方式 v = v + 1；v 变成 2
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span><span style="color:#f92672">--</span>    <span style="color:#75715e">// 等价方式 v = v - 1；v 变成 1
+</span></code></pre></div><h3 id="241-元组赋值">2.4.1. 元组赋值</h3>
+<p>元组赋值是另一种形式的赋值语句，它允许同时更新多个变量的值。在赋值之前，赋值语句右边的所有表达式将会先进行求值，然后再统一更新左边对应变量的值。这对于处理有些同时出现在元组赋值语句左右两边的变量很有帮助，例如我们可以这样交换两个变量的值：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> = <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">x</span>
+
+<span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">i</span>]
+</code></pre></div><p>或者是计算两个整数值的的最大公约数（GCD）（译注：GCD不是那个敏感字，而是greatest common divisor的缩写，欧几里德的GCD是最早的非平凡算法）：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">gcd</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
+		<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> = <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">x</span><span style="color:#f92672">%</span><span style="color:#a6e22e">y</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>
+}
+</code></pre></div><p>或者是计算斐波纳契数列（Fibonacci）的第N个数：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> = <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">x</span><span style="color:#f92672">+</span><span style="color:#a6e22e">y</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>
+}
+</code></pre></div><p>元组赋值也可以使一系列琐碎赋值更加紧凑（译注: 特别是在for循环的初始化部分），</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">k</span> = <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>
+</code></pre></div><p>但如果表达式太复杂的话，应该尽量避免过度使用元组赋值；因为每个变量单独赋值语句的写法可读性会更好。</p>
+<p>有些表达式会产生多个值，比如调用一个有多个返回值的函数。当这样一个函数调用出现在元组赋值右边的表达式中时（译注：右边不能再有其它表达式），左边变量的数目必须和右边一致。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;foo.txt&#34;</span>) <span style="color:#75715e">// function call returns two values
+</span></code></pre></div><p>通常，这类函数会用额外的返回值来表达某种错误类型，例如os.Open是用额外的返回值返回一个error类型的错误，还有一些是用来返回布尔值，通常被称为ok。在稍后我们将看到的三个操作都是类似的用法。如果map查找（§4.3）、类型断言（§7.10）或通道接收（§8.4.2）出现在赋值语句的右边，它们都可能会产生两个结果，有一个额外的布尔结果表示操作是否成功：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">key</span>]             <span style="color:#75715e">// map lookup
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">x</span>.(<span style="color:#a6e22e">T</span>)              <span style="color:#75715e">// type assertion
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span> = <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>               <span style="color:#75715e">// channel receive
+</span></code></pre></div><p>译注：map查找（§4.3）、类型断言（§7.10）或通道接收（§8.4.2）出现在赋值语句的右边时，并不一定是产生两个结果，也可能只产生一个结果。对于只产生一个结果的情形，map查找失败时会返回零值，类型断言失败时会发生运行时panic异常，通道接收失败时会返回零值（阻塞不算是失败）。例如下面的例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">v</span> = <span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">key</span>]                <span style="color:#75715e">// map查找，失败时返回零值
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span> = <span style="color:#a6e22e">x</span>.(<span style="color:#a6e22e">T</span>)                 <span style="color:#75715e">// type断言，失败时panic异常
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span> = <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>                  <span style="color:#75715e">// 管道接收，失败时返回零值（阻塞不算是失败）
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">key</span>]            <span style="color:#75715e">// map返回2个值
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">mm</span>[<span style="color:#e6db74">&#34;&#34;</span>], <span style="color:#66d9ef">false</span>     <span style="color:#75715e">// map返回1个值
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">mm</span>[<span style="color:#e6db74">&#34;&#34;</span>]                <span style="color:#75715e">// map返回1个值
+</span></code></pre></div><p>和变量声明一样，我们可以用下划线空白标识符<code>_</code>来丢弃不需要的值。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Copy</span>(<span style="color:#a6e22e">dst</span>, <span style="color:#a6e22e">src</span>) <span style="color:#75715e">// 丢弃字节数
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">x</span>.(<span style="color:#a6e22e">T</span>)              <span style="color:#75715e">// 只检测类型，忽略具体值
+</span></code></pre></div><h3 id="242-可赋值性">2.4.2. 可赋值性</h3>
+<p>赋值语句是显式的赋值形式，但是程序中还有很多地方会发生隐式的赋值行为：函数调用会隐式地将调用参数的值赋值给函数的参数变量，一个返回语句会隐式地将返回操作的值赋值给结果变量，一个复合类型的字面量（§4.2）也会产生赋值行为。例如下面的语句：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">medals</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;gold&#34;</span>, <span style="color:#e6db74">&#34;silver&#34;</span>, <span style="color:#e6db74">&#34;bronze&#34;</span>}
+</code></pre></div><p>隐式地对slice的每个元素进行赋值操作，类似这样写的行为：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">medals</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#e6db74">&#34;gold&#34;</span>
+<span style="color:#a6e22e">medals</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#e6db74">&#34;silver&#34;</span>
+<span style="color:#a6e22e">medals</span>[<span style="color:#ae81ff">2</span>] = <span style="color:#e6db74">&#34;bronze&#34;</span>
+</code></pre></div><p>map和chan的元素，虽然不是普通的变量，但是也有类似的隐式赋值行为。</p>
+<p>不管是隐式还是显式地赋值，在赋值语句左边的变量和右边最终的求到的值必须有相同的数据类型。更直白地说，只有右边的值对于左边的变量是可赋值的，赋值语句才是允许的。</p>
+<p>可赋值性的规则对于不同类型有着不同要求，对每个新类型特殊的地方我们会专门解释。对于目前我们已经讨论过的类型，它的规则是简单的：类型必须完全匹配，nil可以赋值给任何指针或引用类型的变量。常量（§3.6）则有更灵活的赋值规则，因为这样可以避免不必要的显式的类型转换。</p>
+<p>对于两个值是否可以用<code>==</code>或<code>!=</code>进行相等比较的能力也和可赋值能力有关系：对于任何类型的值的相等比较，第二个值必须是对第一个值类型对应的变量是可赋值的，反之亦然。和前面一样，我们会对每个新类型比较特殊的地方做专门的解释。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

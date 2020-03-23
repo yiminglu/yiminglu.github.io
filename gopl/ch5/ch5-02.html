@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch5/ch5-02.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="52-递归">5.2. 递归</h2>
+<p>函数可以是递归的，这意味着函数可以直接或间接的调用自身。对许多问题而言，递归是一种强有力的技术，例如处理递归的数据结构。在4.4节，我们通过遍历二叉树来实现简单的插入排序，在本章节，我们再次使用它来处理HTML文件。</p>
+<p>下文的示例代码使用了非标准包 golang.org/x/net/html ，解析HTML。golang.org/x/&hellip; 目录下存储了一些由Go团队设计、维护，对网络编程、国际化文件处理、移动平台、图像处理、加密解密、开发者工具提供支持的扩展包。未将这些扩展包加入到标准库原因有二，一是部分包仍在开发中，二是对大多数Go语言的开发者而言，扩展包提供的功能很少被使用。</p>
+<p>例子中调用golang.org/x/net/html的部分api如下所示。html.Parse函数读入一组bytes解析后，返回html.Node类型的HTML页面树状结构根节点。HTML拥有很多类型的结点如text（文本）、commnets（注释）类型，在下面的例子中，我们 只关注&lt; name key='value&rsquo; &gt;形式的结点。</p>
+<p><u><i>golang.org/x/net/html</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">html</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Type</span>                    <span style="color:#a6e22e">NodeType</span>
+	<span style="color:#a6e22e">Data</span>                    <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Attr</span>                    []<span style="color:#a6e22e">Attribute</span>
+	<span style="color:#a6e22e">FirstChild</span>, <span style="color:#a6e22e">NextSibling</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NodeType</span> <span style="color:#66d9ef">int32</span>
+
+<span style="color:#66d9ef">const</span> (
+	<span style="color:#a6e22e">ErrorNode</span> <span style="color:#a6e22e">NodeType</span> = <span style="color:#66d9ef">iota</span>
+	<span style="color:#a6e22e">TextNode</span>
+	<span style="color:#a6e22e">DocumentNode</span>
+	<span style="color:#a6e22e">ElementNode</span>
+	<span style="color:#a6e22e">CommentNode</span>
+	<span style="color:#a6e22e">DoctypeNode</span>
+)
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Attribute</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Key</span>, <span style="color:#a6e22e">Val</span> <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">r</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Reader</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>, <span style="color:#66d9ef">error</span>)
+</code></pre></div><p>main函数解析HTML标准输入，通过递归函数visit获得links（链接），并打印出这些links：</p>
+<p><u><i>gopl.io/ch5/findlinks1</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// Findlinks1 prints the links in an HTML document read from standard input.
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+
+	<span style="color:#e6db74">&#34;golang.org/x/net/html&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">doc</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdin</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">&#34;findlinks1: %v\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+		<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
+	}
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">link</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">visit</span>(<span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">doc</span>) {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">link</span>)
+	}
+}
+</code></pre></div><p>visit函数遍历HTML的节点树，从每一个anchor元素的href属性获得link,将这些links存入字符串数组中，并返回这个字符串数组。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// visit appends to links each link found in n and returns the result.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">visit</span>(<span style="color:#a6e22e">links</span> []<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Node</span>) []<span style="color:#66d9ef">string</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Type</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">ElementNode</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Data</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;a&#34;</span> {
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Attr</span> {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Key</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;href&#34;</span> {
+				<span style="color:#a6e22e">links</span> = append(<span style="color:#a6e22e">links</span>, <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Val</span>)
+			}
+		}
+	}
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">FirstChild</span>; <span style="color:#a6e22e">c</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span>; <span style="color:#a6e22e">c</span> = <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">NextSibling</span> {
+		<span style="color:#a6e22e">links</span> = <span style="color:#a6e22e">visit</span>(<span style="color:#a6e22e">links</span>, <span style="color:#a6e22e">c</span>)
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">links</span>
+}
+</code></pre></div><p>为了遍历结点n的所有后代结点，每次遇到n的孩子结点时，visit递归的调用自身。这些孩子结点存放在FirstChild链表中。</p>
+<p>让我们以Go的主页（golang.org）作为目标，运行findlinks。我们以fetch（1.5章）的输出作为findlinks的输入。下面的输出做了简化处理。</p>
+<pre><code>$ go build gopl.io/ch1/fetch
+$ go build gopl.io/ch5/findlinks1
+$ ./fetch https://golang.org | ./findlinks1
+#
+/doc/
+/pkg/
+/help/
+/blog/
+http://play.golang.org/
+//tour.golang.org/
+https://golang.org/dl/
+//blog.golang.org/
+/LICENSE
+/doc/tos.html
+http://www.google.com/intl/en/policies/privacy/
+</code></pre><p>注意在页面中出现的链接格式，在之后我们会介绍如何将这些链接，根据根路径（ <a href="https://golang.org">https://golang.org</a> ）生成可以直接访问的url。</p>
+<p>在函数outline中，我们通过递归的方式遍历整个HTML结点树，并输出树的结构。在outline内部，每遇到一个HTML元素标签，就将其入栈，并输出。</p>
+<p><u><i>gopl.io/ch5/outline</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">doc</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdin</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">&#34;outline: %v\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+		<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
+	}
+	<span style="color:#a6e22e">outline</span>(<span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">doc</span>)
+}
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">outline</span>(<span style="color:#a6e22e">stack</span> []<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Node</span>) {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Type</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">ElementNode</span> {
+		<span style="color:#a6e22e">stack</span> = append(<span style="color:#a6e22e">stack</span>, <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Data</span>) <span style="color:#75715e">// push tag
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">stack</span>)
+	}
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">FirstChild</span>; <span style="color:#a6e22e">c</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span>; <span style="color:#a6e22e">c</span> = <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">NextSibling</span> {
+		<span style="color:#a6e22e">outline</span>(<span style="color:#a6e22e">stack</span>, <span style="color:#a6e22e">c</span>)
+	}
+}
+</code></pre></div><p>有一点值得注意：outline有入栈操作，但没有相对应的出栈操作。当outline调用自身时，被调用者接收的是stack的拷贝。被调用者对stack的元素追加操作，修改的是stack的拷贝，其可能会修改slice底层的数组甚至是申请一块新的内存空间进行扩容；但这个过程并不会修改调用方的stack。因此当函数返回时，调用方的stack与其调用自身之前完全一致。</p>
+<p>下面是 <a href="https://golang.org">https://golang.org</a> 页面的简要结构:</p>
+<pre><code>$ go build gopl.io/ch5/outline
+$ ./fetch https://golang.org | ./outline
+[html]
+[html head]
+[html head meta]
+[html head title]
+[html head link]
+[html body]
+[html body div]
+[html body div]
+[html body div div]
+[html body div div form]
+[html body div div form div]
+[html body div div form div a]
+...
+</code></pre><p>正如你在上面实验中所见，大部分HTML页面只需几层递归就能被处理，但仍然有些页面需要深层次的递归。</p>
+<p>大部分编程语言使用固定大小的函数调用栈，常见的大小从64KB到2MB不等。固定大小栈会限制递归的深度，当你用递归处理大量数据时，需要避免栈溢出；除此之外，还会导致安全性问题。与此相反，Go语言使用可变栈，栈的大小按需增加（初始时很小）。这使得我们使用递归时不必考虑溢出和安全问题。</p>
+<p><strong>练习 5.1：</strong> 修改findlinks代码中遍历n.FirstChild链表的部分，将循环调用visit，改成递归调用。</p>
+<p><strong>练习 5.2：</strong> 编写函数，记录在HTML树中出现的同名元素的次数。</p>
+<p><strong>练习 5.3：</strong> 编写函数输出所有text结点的内容。注意不要访问<code>&lt;script&gt;</code>和<code>&lt;style&gt;</code>元素，因为这些元素对浏览者是不可见的。</p>
+<p><strong>练习 5.4：</strong> 扩展visit函数，使其能够处理其他类型的结点，如images、scripts和style sheets。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

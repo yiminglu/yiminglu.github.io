@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch7/ch7-14.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="714-示例-基于标记的xml解码">7.14. 示例: 基于标记的XML解码</h2>
+<p>第4.5章节展示了如何使用encoding/json包中的Marshal和Unmarshal函数来将JSON文档转换成Go语言的数据结构。encoding/xml包提供了一个相似的API。当我们想构造一个文档树的表示时使用encoding/xml包会很方便，但是对于很多程序并不是必须的。encoding/xml包也提供了一个更低层的基于标记的API用于XML解码。在基于标记的样式中，解析器消费输入并产生一个标记流；四个主要的标记类型－StartElement，EndElement，CharData，和Comment－每一个都是encoding/xml包中的具体类型。每一个对(*xml.Decoder).Token的调用都返回一个标记。</p>
+<p>这里显示的是和这个API相关的部分：</p>
+<p><u><i>encoding/xml</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">xml</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Local</span> <span style="color:#66d9ef">string</span> <span style="color:#75715e">// e.g., &#34;Title&#34; or &#34;id&#34;
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Attr</span> <span style="color:#66d9ef">struct</span> { <span style="color:#75715e">// e.g., name=&#34;value&#34;
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Name</span>  <span style="color:#a6e22e">Name</span>
+	<span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#75715e">// A Token includes StartElement, EndElement, CharData,
+</span><span style="color:#75715e">// and Comment, plus a few esoteric types (not shown).
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Token</span> <span style="color:#66d9ef">interface</span>{}
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">StartElement</span> <span style="color:#66d9ef">struct</span> { <span style="color:#75715e">// e.g., &lt;name&gt;
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Name</span> <span style="color:#a6e22e">Name</span>
+    <span style="color:#a6e22e">Attr</span> []<span style="color:#a6e22e">Attr</span>
+}
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">EndElement</span> <span style="color:#66d9ef">struct</span> { <span style="color:#a6e22e">Name</span> <span style="color:#a6e22e">Name</span> } <span style="color:#75715e">// e.g., &lt;/name&gt;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CharData</span> []<span style="color:#66d9ef">byte</span>                 <span style="color:#75715e">// e.g., &lt;p&gt;CharData&lt;/p&gt;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Comment</span> []<span style="color:#66d9ef">byte</span>                  <span style="color:#75715e">// e.g., &lt;!-- Comment --&gt;
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Decoder</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#75715e">/* ... */</span> }
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewDecoder</span>(<span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Reader</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Decoder</span>
+<span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">Decoder</span>) <span style="color:#a6e22e">Token</span>() (<span style="color:#a6e22e">Token</span>, <span style="color:#66d9ef">error</span>) <span style="color:#75715e">// returns next Token in sequence
+</span></code></pre></div><p>这个没有方法的Token接口也是一个可识别联合的例子。传统的接口如io.Reader的目的是隐藏满足它的具体类型的细节，这样就可以创造出新的实现：在这个实现中每个具体类型都被统一地对待。相反，满足可识别联合的具体类型的集合被设计为确定和暴露，而不是隐藏。可识别联合的类型几乎没有方法，操作它们的函数使用一个类型分支的case集合来进行表述，这个case集合中每一个case都有不同的逻辑。</p>
+<p>下面的xmlselect程序获取和打印在一个XML文档树中确定的元素下找到的文本。使用上面的API，它可以在输入上一次完成它的工作而从来不要实例化这个文档树。</p>
+<p><u><i>gopl.io/ch7/xmlselect</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Xmlselect prints the text of selected elements of an XML document.
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;encoding/xml&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;io&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+	<span style="color:#e6db74">&#34;strings&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">dec</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">NewDecoder</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdin</span>)
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stack</span> []<span style="color:#66d9ef">string</span> <span style="color:#75715e">// stack of element names
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> {
+		<span style="color:#a6e22e">tok</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">dec</span>.<span style="color:#a6e22e">Token</span>()
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">EOF</span> {
+			<span style="color:#66d9ef">break</span>
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">&#34;xmlselect: %v\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+			<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
+		}
+		<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">tok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tok</span>.(<span style="color:#66d9ef">type</span>) {
+		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">StartElement</span>:
+			<span style="color:#a6e22e">stack</span> = append(<span style="color:#a6e22e">stack</span>, <span style="color:#a6e22e">tok</span>.<span style="color:#a6e22e">Name</span>.<span style="color:#a6e22e">Local</span>) <span style="color:#75715e">// push
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">EndElement</span>:
+			<span style="color:#a6e22e">stack</span> = <span style="color:#a6e22e">stack</span>[:len(<span style="color:#a6e22e">stack</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#75715e">// pop
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">CharData</span>:
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">containsAll</span>(<span style="color:#a6e22e">stack</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Args</span>[<span style="color:#ae81ff">1</span>:]) {
+				<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s: %s\n&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">stack</span>, <span style="color:#e6db74">&#34; &#34;</span>), <span style="color:#a6e22e">tok</span>)
+			}
+		}
+	}
+}
+
+<span style="color:#75715e">// containsAll reports whether x contains the elements of y, in order.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">containsAll</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#66d9ef">for</span> len(<span style="color:#a6e22e">y</span>) <span style="color:#f92672">&lt;=</span> len(<span style="color:#a6e22e">x</span>) {
+		<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">y</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+		}
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">x</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#a6e22e">y</span>[<span style="color:#ae81ff">0</span>] {
+			<span style="color:#a6e22e">y</span> = <span style="color:#a6e22e">y</span>[<span style="color:#ae81ff">1</span>:]
+		}
+		<span style="color:#a6e22e">x</span> = <span style="color:#a6e22e">x</span>[<span style="color:#ae81ff">1</span>:]
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+}
+</code></pre></div><p>main函数中的循环每遇到一个StartElement时，它把这个元素的名称压到一个栈里，并且每次遇到EndElement时，它将名称从这个栈中推出。这个API保证了StartElement和EndElement的序列可以被完全的匹配，甚至在一个糟糕的文档格式中。注释会被忽略。当xmlselect遇到一个CharData时，只有当栈中有序地包含所有通过命令行参数传入的元素名称时，它才会输出相应的文本。</p>
+<p>下面的命令打印出任意出现在两层div元素下的h2元素的文本。它的输入是XML的说明文档，并且它自己就是XML文档格式的。</p>
+<pre><code>$ go build gopl.io/ch1/fetch
+$ ./fetch http://www.w3.org/TR/2006/REC-xml11-20060816 |
+    ./xmlselect div div h2
+html body div div h2: 1 Introduction
+html body div div h2: 2 Documents
+html body div div h2: 3 Logical Structures
+html body div div h2: 4 Physical Structures
+html body div div h2: 5 Conformance
+html body div div h2: 6 Notation
+html body div div h2: A References
+html body div div h2: B Definitions for Character Normalization
+...
+</code></pre><p><strong>练习 7.17：</strong> 扩展xmlselect程序以便让元素不仅可以通过名称选择，也可以通过它们CSS风格的属性进行选择。例如一个像这样</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;page&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wide&#34;</span>&gt;
+</code></pre></div><p>的元素可以通过匹配id或者class，同时还有它的名称来进行选择。</p>
+<p><strong>练习 7.18：</strong> 使用基于标记的解码API，编写一个可以读取任意XML文档并构造这个文档所代表的通用节点树的程序。节点有两种类型：CharData节点表示文本字符串，和 Element节点表示被命名的元素和它们的属性。每一个元素节点有一个子节点的切片。</p>
+<p>你可能发现下面的定义会对你有帮助。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;encoding/xml&#34;</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">interface</span>{} <span style="color:#75715e">// CharData or *Element
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CharData</span> <span style="color:#66d9ef">string</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Element</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Type</span>     <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">Name</span>
+	<span style="color:#a6e22e">Attr</span>     []<span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">Attr</span>
+	<span style="color:#a6e22e">Children</span> []<span style="color:#a6e22e">Node</span>
+}
+</code></pre></div>
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

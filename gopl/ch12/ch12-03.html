@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch12/ch12-03.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="123-display一个递归的值打印器">12.3. Display，一个递归的值打印器</h2>
+<p>接下来，让我们看看如何改善聚合数据类型的显示。我们并不想完全克隆一个fmt.Sprint函数，我们只是构建一个用于调试用的Display函数：给定任意一个复杂类型 x，打印这个值对应的完整结构，同时标记每个元素的发现路径。让我们从一个例子开始。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">e</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">eval</span>.<span style="color:#a6e22e">Parse</span>(<span style="color:#e6db74">&#34;sqrt(A / pi)&#34;</span>)
+<span style="color:#a6e22e">Display</span>(<span style="color:#e6db74">&#34;e&#34;</span>, <span style="color:#a6e22e">e</span>)
+</code></pre></div><p>在上面的调用中，传入Display函数的参数是在7.9节一个表达式求值函数返回的语法树。Display函数的输出如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">Display</span> <span style="color:#a6e22e">e</span> (<span style="color:#a6e22e">eval</span>.<span style="color:#a6e22e">call</span>):
+<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">fn</span> = <span style="color:#e6db74">&#34;sqrt&#34;</span>
+<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].<span style="color:#66d9ef">type</span> = <span style="color:#a6e22e">eval</span>.<span style="color:#a6e22e">binary</span>
+<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">op</span> = <span style="color:#ae81ff">47</span>
+<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">x</span>.<span style="color:#66d9ef">type</span> = <span style="color:#a6e22e">eval</span>.<span style="color:#a6e22e">Var</span>
+<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">value</span> = <span style="color:#e6db74">&#34;A&#34;</span>
+<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">y</span>.<span style="color:#66d9ef">type</span> = <span style="color:#a6e22e">eval</span>.<span style="color:#a6e22e">Var</span>
+<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">value</span> = <span style="color:#e6db74">&#34;pi&#34;</span>
+</code></pre></div><p>你应该尽量避免在一个包的API中暴露涉及反射的接口。我们将定义一个未导出的display函数用于递归处理工作，导出的是Display函数，它只是display函数简单的包装以接受interface{}类型的参数：</p>
+<p><u><i>gopl.io/ch12/display</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Display</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">x</span> <span style="color:#66d9ef">interface</span>{}) {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Display %s (%T):\n&#34;</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">x</span>)
+	<span style="color:#a6e22e">display</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">x</span>))
+}
+</code></pre></div><p>在display函数中，我们使用了前面定义的打印基础类型——基本类型、函数和chan等——元素值的formatAtom函数，但是我们会使用reflect.Value的方法来递归显示复杂类型的每一个成员。在递归下降过程中，path字符串，从最开始传入的起始值（这里是“e”），将逐步增长来表示是如何达到当前值（例如“e.args[0].value”）的。</p>
+<p>因为我们不再模拟fmt.Sprint函数，我们将直接使用fmt包来简化我们的例子实现。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">display</span>(<span style="color:#a6e22e">path</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>) {
+	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Kind</span>() {
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Invalid</span>:
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s = invalid\n&#34;</span>, <span style="color:#a6e22e">path</span>)
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Slice</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Array</span>:
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Len</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+			<span style="color:#a6e22e">display</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s[%d]&#34;</span>, <span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">i</span>), <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Index</span>(<span style="color:#a6e22e">i</span>))
+		}
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Struct</span>:
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">NumField</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+			<span style="color:#a6e22e">fieldPath</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s.%s&#34;</span>, <span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>().<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>).<span style="color:#a6e22e">Name</span>)
+			<span style="color:#a6e22e">display</span>(<span style="color:#a6e22e">fieldPath</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>))
+		}
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Map</span>:
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">key</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">MapKeys</span>() {
+			<span style="color:#a6e22e">display</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s[%s]&#34;</span>, <span style="color:#a6e22e">path</span>,
+				<span style="color:#a6e22e">formatAtom</span>(<span style="color:#a6e22e">key</span>)), <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">MapIndex</span>(<span style="color:#a6e22e">key</span>))
+		}
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Ptr</span>:
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">IsNil</span>() {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s = nil\n&#34;</span>, <span style="color:#a6e22e">path</span>)
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">display</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;(*%s)&#34;</span>, <span style="color:#a6e22e">path</span>), <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Elem</span>())
+		}
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Interface</span>:
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">IsNil</span>() {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s = nil\n&#34;</span>, <span style="color:#a6e22e">path</span>)
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s.type = %s\n&#34;</span>, <span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Elem</span>().<span style="color:#a6e22e">Type</span>())
+			<span style="color:#a6e22e">display</span>(<span style="color:#a6e22e">path</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;.value&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Elem</span>())
+		}
+	<span style="color:#66d9ef">default</span>: <span style="color:#75715e">// basic types, channels, funcs
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s = %s\n&#34;</span>, <span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">formatAtom</span>(<span style="color:#a6e22e">v</span>))
+	}
+}
+</code></pre></div><p>让我们针对不同类型分别讨论。</p>
+<p><strong>Slice和数组：</strong> 两种的处理逻辑是一样的。Len方法返回slice或数组值中的元素个数，Index(i)获得索引i对应的元素，返回的也是一个reflect.Value；如果索引i超出范围的话将导致panic异常，这与数组或slice类型内建的len(a)和a[i]操作类似。display针对序列中的每个元素递归调用自身处理，我们通过在递归处理时向path附加“[i]”来表示访问路径。</p>
+<p>虽然reflect.Value类型带有很多方法，但是只有少数的方法能对任意值都安全调用。例如，Index方法只能对Slice、数组或字符串类型的值调用，如果对其它类型调用则会导致panic异常。</p>
+<p><strong>结构体：</strong> NumField方法报告结构体中成员的数量，Field(i)以reflect.Value类型返回第i个成员的值。成员列表也包括通过匿名字段提升上来的成员。为了在path添加“.f”来表示成员路径，我们必须获得结构体对应的reflect.Type类型信息，然后访问结构体第i个成员的名字。</p>
+<p><strong>Maps:</strong> MapKeys方法返回一个reflect.Value类型的slice，每一个元素对应map的一个key。和往常一样，遍历map时顺序是随机的。MapIndex(key)返回map中key对应的value。我们向path添加“[key]”来表示访问路径。（我们这里有一个未完成的工作。其实map的key的类型并不局限于formatAtom能完美处理的类型；数组、结构体和接口都可以作为map的key。针对这种类型，完善key的显示信息是练习12.1的任务。）</p>
+<p><strong>指针：</strong> Elem方法返回指针指向的变量，依然是reflect.Value类型。即使指针是nil，这个操作也是安全的，在这种情况下指针是Invalid类型，但是我们可以用IsNil方法来显式地测试一个空指针，这样我们可以打印更合适的信息。我们在path前面添加“*”，并用括弧包含以避免歧义。</p>
+<p><strong>接口：</strong> 再一次，我们使用IsNil方法来测试接口是否是nil，如果不是，我们可以调用v.Elem()来获取接口对应的动态值，并且打印对应的类型和值。</p>
+<p>现在我们的Display函数总算完工了，让我们看看它的表现吧。下面的Movie类型是在4.5节的电影类型上演变来的：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Movie</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Title</span>, <span style="color:#a6e22e">Subtitle</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Year</span>            <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">Color</span>           <span style="color:#66d9ef">bool</span>
+	<span style="color:#a6e22e">Actor</span>           <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Oscars</span>          []<span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Sequel</span>          <span style="color:#f92672">*</span><span style="color:#66d9ef">string</span>
+}
+</code></pre></div><p>让我们声明一个该类型的变量，然后看看Display函数如何显示它：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">strangelove</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Movie</span>{
+	<span style="color:#a6e22e">Title</span>:    <span style="color:#e6db74">&#34;Dr. Strangelove&#34;</span>,
+	<span style="color:#a6e22e">Subtitle</span>: <span style="color:#e6db74">&#34;How I Learned to Stop Worrying and Love the Bomb&#34;</span>,
+	<span style="color:#a6e22e">Year</span>:     <span style="color:#ae81ff">1964</span>,
+	<span style="color:#a6e22e">Color</span>:    <span style="color:#66d9ef">false</span>,
+	<span style="color:#a6e22e">Actor</span>: <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>{
+		<span style="color:#e6db74">&#34;Dr. Strangelove&#34;</span>:            <span style="color:#e6db74">&#34;Peter Sellers&#34;</span>,
+		<span style="color:#e6db74">&#34;Grp. Capt. Lionel Mandrake&#34;</span>: <span style="color:#e6db74">&#34;Peter Sellers&#34;</span>,
+		<span style="color:#e6db74">&#34;Pres. Merkin Muffley&#34;</span>:       <span style="color:#e6db74">&#34;Peter Sellers&#34;</span>,
+		<span style="color:#e6db74">&#34;Gen. Buck Turgidson&#34;</span>:        <span style="color:#e6db74">&#34;George C. Scott&#34;</span>,
+		<span style="color:#e6db74">&#34;Brig. Gen. Jack D. Ripper&#34;</span>:  <span style="color:#e6db74">&#34;Sterling Hayden&#34;</span>,
+		<span style="color:#e6db74">`Maj. T.J. &#34;King&#34; Kong`</span>:      <span style="color:#e6db74">&#34;Slim Pickens&#34;</span>,
+	},
+
+	<span style="color:#a6e22e">Oscars</span>: []<span style="color:#66d9ef">string</span>{
+		<span style="color:#e6db74">&#34;Best Actor (Nomin.)&#34;</span>,
+		<span style="color:#e6db74">&#34;Best Adapted Screenplay (Nomin.)&#34;</span>,
+		<span style="color:#e6db74">&#34;Best Director (Nomin.)&#34;</span>,
+		<span style="color:#e6db74">&#34;Best Picture (Nomin.)&#34;</span>,
+	},
+}
+</code></pre></div><p>Display(&ldquo;strangelove&rdquo;, strangelove)调用将显示（strangelove电影对应的中文名是《奇爱博士》）：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">Display</span> <span style="color:#a6e22e">strangelove</span> (<span style="color:#a6e22e">display</span>.<span style="color:#a6e22e">Movie</span>):
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Title</span> = <span style="color:#e6db74">&#34;Dr. Strangelove&#34;</span>
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Subtitle</span> = <span style="color:#e6db74">&#34;How I Learned to Stop Worrying and Love the Bomb&#34;</span>
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Year</span> = <span style="color:#ae81ff">1964</span>
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Color</span> = <span style="color:#66d9ef">false</span>
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Actor</span>[<span style="color:#e6db74">&#34;Gen. Buck Turgidson&#34;</span>] = <span style="color:#e6db74">&#34;George C. Scott&#34;</span>
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Actor</span>[<span style="color:#e6db74">&#34;Brig. Gen. Jack D. Ripper&#34;</span>] = <span style="color:#e6db74">&#34;Sterling Hayden&#34;</span>
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Actor</span>[<span style="color:#e6db74">&#34;Maj. T.J. \&#34;King\&#34; Kong&#34;</span>] = <span style="color:#e6db74">&#34;Slim Pickens&#34;</span>
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Actor</span>[<span style="color:#e6db74">&#34;Dr. Strangelove&#34;</span>] = <span style="color:#e6db74">&#34;Peter Sellers&#34;</span>
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Actor</span>[<span style="color:#e6db74">&#34;Grp. Capt. Lionel Mandrake&#34;</span>] = <span style="color:#e6db74">&#34;Peter Sellers&#34;</span>
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Actor</span>[<span style="color:#e6db74">&#34;Pres. Merkin Muffley&#34;</span>] = <span style="color:#e6db74">&#34;Peter Sellers&#34;</span>
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Oscars</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#e6db74">&#34;Best Actor (Nomin.)&#34;</span>
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Oscars</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#e6db74">&#34;Best Adapted Screenplay (Nomin.)&#34;</span>
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Oscars</span>[<span style="color:#ae81ff">2</span>] = <span style="color:#e6db74">&#34;Best Director (Nomin.)&#34;</span>
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Oscars</span>[<span style="color:#ae81ff">3</span>] = <span style="color:#e6db74">&#34;Best Picture (Nomin.)&#34;</span>
+<span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Sequel</span> = <span style="color:#66d9ef">nil</span>
+</code></pre></div><p>我们也可以使用Display函数来显示标准库中类型的内部结构，例如<code>*os.File</code>类型：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">Display</span>(<span style="color:#e6db74">&#34;os.Stderr&#34;</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>)
+<span style="color:#75715e">// Output:
+</span><span style="color:#75715e">// Display os.Stderr (*os.File):
+</span><span style="color:#75715e">// (*(*os.Stderr).file).fd = 2
+</span><span style="color:#75715e">// (*(*os.Stderr).file).name = &#34;/dev/stderr&#34;
+</span><span style="color:#75715e">// (*(*os.Stderr).file).nepipe = 0
+</span></code></pre></div><p>可以看出，反射能够访问到结构体中未导出的成员。需要当心的是这个例子的输出在不同操作系统上可能是不同的，并且随着标准库的发展也可能导致结果不同。（这也是将这些成员定义为私有成员的原因之一！）我们甚至可以用Display函数来显示reflect.Value 的内部构造（在这里设置为<code>*os.File</code>的类型描述体）。<code>Display(&quot;rV&quot;, reflect.ValueOf(os.Stderr))</code>调用的输出如下，当然不同环境得到的结果可能有差异：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">Display</span> <span style="color:#a6e22e">rV</span> (<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>):
+(<span style="color:#f92672">*</span><span style="color:#a6e22e">rV</span>.<span style="color:#a6e22e">typ</span>).<span style="color:#a6e22e">size</span> = <span style="color:#ae81ff">8</span>
+(<span style="color:#f92672">*</span><span style="color:#a6e22e">rV</span>.<span style="color:#a6e22e">typ</span>).<span style="color:#a6e22e">hash</span> = <span style="color:#ae81ff">871609668</span>
+(<span style="color:#f92672">*</span><span style="color:#a6e22e">rV</span>.<span style="color:#a6e22e">typ</span>).<span style="color:#a6e22e">align</span> = <span style="color:#ae81ff">8</span>
+(<span style="color:#f92672">*</span><span style="color:#a6e22e">rV</span>.<span style="color:#a6e22e">typ</span>).<span style="color:#a6e22e">fieldAlign</span> = <span style="color:#ae81ff">8</span>
+(<span style="color:#f92672">*</span><span style="color:#a6e22e">rV</span>.<span style="color:#a6e22e">typ</span>).<span style="color:#a6e22e">kind</span> = <span style="color:#ae81ff">22</span>
+(<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">rV</span>.<span style="color:#a6e22e">typ</span>).<span style="color:#66d9ef">string</span>) = <span style="color:#e6db74">&#34;*os.File&#34;</span>
+
+(<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">rV</span>.<span style="color:#a6e22e">typ</span>).<span style="color:#a6e22e">uncommonType</span>).<span style="color:#a6e22e">methods</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">name</span>) = <span style="color:#e6db74">&#34;Chdir&#34;</span>
+(<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">rV</span>.<span style="color:#a6e22e">typ</span>).<span style="color:#a6e22e">uncommonType</span>).<span style="color:#a6e22e">methods</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">mtyp</span>).<span style="color:#66d9ef">string</span>) = <span style="color:#e6db74">&#34;func() error&#34;</span>
+(<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">rV</span>.<span style="color:#a6e22e">typ</span>).<span style="color:#a6e22e">uncommonType</span>).<span style="color:#a6e22e">methods</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">typ</span>).<span style="color:#66d9ef">string</span>) = <span style="color:#e6db74">&#34;func(*os.File) error&#34;</span>
+<span style="color:#f92672">...</span>
+</code></pre></div><p>观察下面两个例子的区别：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">interface</span>{} = <span style="color:#ae81ff">3</span>
+
+<span style="color:#a6e22e">Display</span>(<span style="color:#e6db74">&#34;i&#34;</span>, <span style="color:#a6e22e">i</span>)
+<span style="color:#75715e">// Output:
+</span><span style="color:#75715e">// Display i (int):
+</span><span style="color:#75715e">// i = 3
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">Display</span>(<span style="color:#e6db74">&#34;&amp;i&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">i</span>)
+<span style="color:#75715e">// Output:
+</span><span style="color:#75715e">// Display &amp;i (*interface {}):
+</span><span style="color:#75715e">// (*&amp;i).type = int
+</span><span style="color:#75715e">// (*&amp;i).value = 3
+</span></code></pre></div><p>在第一个例子中，Display函数调用reflect.ValueOf(i)，它返回一个Int类型的值。正如我们在12.2节中提到的，reflect.ValueOf总是返回一个具体类型的 Value，因为它是从一个接口值提取的内容。</p>
+<p>在第二个例子中，Display函数调用的是reflect.ValueOf(&amp;i)，它返回一个指向i的指针，对应Ptr类型。在switch的Ptr分支中，对这个值调用 Elem 方法，返回一个Value来表示变量 i 本身，对应Interface类型。像这样一个间接获得的Value，可能代表任意类型的值，包括接口类型。display函数递归调用自身，这次它分别打印了这个接口的动态类型和值。</p>
+<p>对于目前的实现，如果遇到对象图中含有回环，Display将会陷入死循环，例如下面这个首尾相连的链表：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// a struct that points to itself
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Cycle</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">int</span>; <span style="color:#a6e22e">Tail</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Cycle</span> }
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Cycle</span>
+<span style="color:#a6e22e">c</span> = <span style="color:#a6e22e">Cycle</span>{<span style="color:#ae81ff">42</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">c</span>}
+<span style="color:#a6e22e">Display</span>(<span style="color:#e6db74">&#34;c&#34;</span>, <span style="color:#a6e22e">c</span>)
+</code></pre></div><p>Display会永远不停地进行深度递归打印：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">Display</span> <span style="color:#a6e22e">c</span> (<span style="color:#a6e22e">display</span>.<span style="color:#a6e22e">Cycle</span>):
+<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Value</span> = <span style="color:#ae81ff">42</span>
+(<span style="color:#f92672">*</span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Tail</span>).<span style="color:#a6e22e">Value</span> = <span style="color:#ae81ff">42</span>
+(<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Tail</span>).<span style="color:#a6e22e">Tail</span>).<span style="color:#a6e22e">Value</span> = <span style="color:#ae81ff">42</span>
+(<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Tail</span>).<span style="color:#a6e22e">Tail</span>).<span style="color:#a6e22e">Tail</span>).<span style="color:#a6e22e">Value</span> = <span style="color:#ae81ff">42</span>
+<span style="color:#f92672">...</span><span style="color:#a6e22e">ad</span> <span style="color:#a6e22e">infinitum</span><span style="color:#f92672">...</span>
+</code></pre></div><p>许多Go语言程序都包含了一些循环的数据。让Display支持这类带环的数据结构需要些技巧，需要额外记录迄今访问的路径；相应会带来成本。通用的解决方案是采用 unsafe 的语言特性，我们将在13.3节看到具体的解决方案。</p>
+<p>带环的数据结构很少会对fmt.Sprint函数造成问题，因为它很少尝试打印完整的数据结构。例如，当它遇到一个指针的时候，它只是简单地打印指针的数字值。在打印包含自身的slice或map时可能卡住，但是这种情况很罕见，不值得付出为了处理回环所需的开销。</p>
+<p><strong>练习 12.1：</strong> 扩展Display函数，使它可以显示包含以结构体或数组作为map的key类型的值。</p>
+<p><strong>练习 12.2：</strong> 增强display函数的稳健性，通过记录边界的步数来确保在超出一定限制后放弃递归。（在13.3节，我们会看到另一种探测数据结构是否存在环的技术。）</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

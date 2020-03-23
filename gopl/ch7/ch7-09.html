@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch7/ch7-09.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="79-示例-表达式求值">7.9. 示例: 表达式求值</h2>
+<p>在本节中，我们会构建一个简单算术表达式的求值器。我们将使用一个接口Expr来表示Go语言中任意的表达式。现在这个接口不需要有方法，但是我们后面会为它增加一些。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// An Expr is an arithmetic expression.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Expr</span> <span style="color:#66d9ef">interface</span>{}
+</code></pre></div><p>我们的表达式语言由浮点数符号（小数点）；二元操作符+，-，*， 和/；一元操作符-x和+x；调用pow(x,y)，sin(x)，和sqrt(x)的函数；例如x和pi的变量；当然也有括号和标准的优先级运算符。所有的值都是float64类型。这下面是一些表达式的例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">A</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">pi</span>)
+<span style="color:#a6e22e">pow</span>(<span style="color:#a6e22e">x</span>, <span style="color:#ae81ff">3</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">pow</span>(<span style="color:#a6e22e">y</span>, <span style="color:#ae81ff">3</span>)
+(<span style="color:#a6e22e">F</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">32</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">9</span>
+</code></pre></div><p>下面的五个具体类型表示了具体的表达式类型。Var类型表示对一个变量的引用。（我们很快会知道为什么它可以被输出。）literal类型表示一个浮点型常量。unary和binary类型表示有一到两个运算对象的运算符表达式，这些操作数可以是任意的Expr类型。call类型表示对一个函数的调用；我们限制它的fn字段只能是pow，sin或者sqrt。</p>
+<p><u><i>gopl.io/ch7/eval</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// A Var identifies a variable, e.g., x.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Var</span> <span style="color:#66d9ef">string</span>
+
+<span style="color:#75715e">// A literal is a numeric constant, e.g., 3.141.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">literal</span> <span style="color:#66d9ef">float64</span>
+
+<span style="color:#75715e">// A unary represents a unary operator expression, e.g., -x.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">unary</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">op</span> <span style="color:#66d9ef">rune</span> <span style="color:#75715e">// one of &#39;+&#39;, &#39;-&#39;
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">x</span>  <span style="color:#a6e22e">Expr</span>
+}
+
+<span style="color:#75715e">// A binary represents a binary operator expression, e.g., x+y.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">binary</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">op</span>   <span style="color:#66d9ef">rune</span> <span style="color:#75715e">// one of &#39;+&#39;, &#39;-&#39;, &#39;*&#39;, &#39;/&#39;
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#a6e22e">Expr</span>
+}
+
+<span style="color:#75715e">// A call represents a function call expression, e.g., sin(x).
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">call</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">fn</span>   <span style="color:#66d9ef">string</span> <span style="color:#75715e">// one of &#34;pow&#34;, &#34;sin&#34;, &#34;sqrt&#34;
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">args</span> []<span style="color:#a6e22e">Expr</span>
+}
+</code></pre></div><p>为了计算一个包含变量的表达式，我们需要一个environment变量将变量的名字映射成对应的值：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Env</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">float64</span>
+</code></pre></div><p>我们也需要每个表达式去定义一个Eval方法，这个方法会根据给定的environment变量返回表达式的值。因为每个表达式都必须提供这个方法，我们将它加入到Expr接口中。这个包只会对外公开Expr，Env，和Var类型。调用方不需要获取其它的表达式类型就可以使用这个求值器。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Expr</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#75715e">// Eval returns the value of this Expr in the environment env.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span>
+}
+</code></pre></div><p>下面给大家展示一个具体的Eval方法。Var类型的这个方法对一个environment变量进行查找，如果这个变量没有在environment中定义过这个方法会返回一个零值，literal类型的这个方法简单的返回它真实的值。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Var</span>) <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">env</span>[<span style="color:#a6e22e">v</span>]
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">l</span> <span style="color:#a6e22e">literal</span>) <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">_</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span> {
+	<span style="color:#66d9ef">return</span> float64(<span style="color:#a6e22e">l</span>)
+}
+</code></pre></div><p>unary和binary的Eval方法会递归的计算它的运算对象，然后将运算符op作用到它们上。我们不将被零或无穷数除作为一个错误，因为它们都会产生一个固定的结果——无限。最后，call的这个方法会计算对于pow，sin，或者sqrt函数的参数值，然后调用对应在math包中的函数。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">u</span> <span style="color:#a6e22e">unary</span>) <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span> {
+	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">op</span> {
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;+&#39;</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#f92672">+</span><span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>)
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;-&#39;</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>)
+	}
+	panic(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;unsupported unary operator: %q&#34;</span>, <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">op</span>))
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#a6e22e">binary</span>) <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span> {
+	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">op</span> {
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;+&#39;</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>)
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;-&#39;</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>) <span style="color:#f92672">-</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>)
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;*&#39;</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>) <span style="color:#f92672">*</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>)
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;/&#39;</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>) <span style="color:#f92672">/</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>)
+	}
+	panic(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;unsupported binary operator: %q&#34;</span>, <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">op</span>))
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">call</span>) <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span> {
+	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">fn</span> {
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;pow&#34;</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Pow</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>), <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>))
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;sin&#34;</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Sin</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>))
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;sqrt&#34;</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Sqrt</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>))
+	}
+	panic(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;unsupported function call: %s&#34;</span>, <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">fn</span>))
+}
+</code></pre></div><p>一些方法会失败。例如，一个call表达式可能有未知的函数或者错误的参数个数。用一个无效的运算符如!或者&lt;去构建一个unary或者binary表达式也是可能会发生的（尽管下面提到的Parse函数不会这样做）。这些错误会让Eval方法panic。其它的错误，像计算一个没有在environment变量中出现过的Var，只会让Eval方法返回一个错误的结果。所有的这些错误都可以通过在计算前检查Expr来发现。这是我们接下来要讲的Check方法的工作，但是让我们先测试Eval方法。</p>
+<p>下面的TestEval函数是对evaluator的一个测试。它使用了我们会在第11章讲解的testing包，但是现在知道调用t.Errof会报告一个错误就足够了。这个函数循环遍历一个表格中的输入，这个表格中定义了三个表达式和针对每个表达式不同的环境变量。第一个表达式根据给定圆的面积A计算它的半径，第二个表达式通过两个变量x和y计算两个立方体的体积之和，第三个表达式将华氏温度F转换成摄氏度。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestEval</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+	<span style="color:#a6e22e">tests</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">struct</span> {
+		<span style="color:#a6e22e">expr</span> <span style="color:#66d9ef">string</span>
+		<span style="color:#a6e22e">env</span>  <span style="color:#a6e22e">Env</span>
+		<span style="color:#a6e22e">want</span> <span style="color:#66d9ef">string</span>
+	}{
+		{<span style="color:#e6db74">&#34;sqrt(A / pi)&#34;</span>, <span style="color:#a6e22e">Env</span>{<span style="color:#e6db74">&#34;A&#34;</span>: <span style="color:#ae81ff">87616</span>, <span style="color:#e6db74">&#34;pi&#34;</span>: <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Pi</span>}, <span style="color:#e6db74">&#34;167&#34;</span>},
+		{<span style="color:#e6db74">&#34;pow(x, 3) + pow(y, 3)&#34;</span>, <span style="color:#a6e22e">Env</span>{<span style="color:#e6db74">&#34;x&#34;</span>: <span style="color:#ae81ff">12</span>, <span style="color:#e6db74">&#34;y&#34;</span>: <span style="color:#ae81ff">1</span>}, <span style="color:#e6db74">&#34;1729&#34;</span>},
+		{<span style="color:#e6db74">&#34;pow(x, 3) + pow(y, 3)&#34;</span>, <span style="color:#a6e22e">Env</span>{<span style="color:#e6db74">&#34;x&#34;</span>: <span style="color:#ae81ff">9</span>, <span style="color:#e6db74">&#34;y&#34;</span>: <span style="color:#ae81ff">10</span>}, <span style="color:#e6db74">&#34;1729&#34;</span>},
+		{<span style="color:#e6db74">&#34;5 / 9 * (F - 32)&#34;</span>, <span style="color:#a6e22e">Env</span>{<span style="color:#e6db74">&#34;F&#34;</span>: <span style="color:#f92672">-</span><span style="color:#ae81ff">40</span>}, <span style="color:#e6db74">&#34;-40&#34;</span>},
+		{<span style="color:#e6db74">&#34;5 / 9 * (F - 32)&#34;</span>, <span style="color:#a6e22e">Env</span>{<span style="color:#e6db74">&#34;F&#34;</span>: <span style="color:#ae81ff">32</span>}, <span style="color:#e6db74">&#34;0&#34;</span>},
+		{<span style="color:#e6db74">&#34;5 / 9 * (F - 32)&#34;</span>, <span style="color:#a6e22e">Env</span>{<span style="color:#e6db74">&#34;F&#34;</span>: <span style="color:#ae81ff">212</span>}, <span style="color:#e6db74">&#34;100&#34;</span>},
+	}
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">prevExpr</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">test</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">tests</span> {
+		<span style="color:#75715e">// Print expr only when it changes.
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">expr</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">prevExpr</span> {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;\n%s\n&#34;</span>, <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">expr</span>)
+			<span style="color:#a6e22e">prevExpr</span> = <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">expr</span>
+		}
+		<span style="color:#a6e22e">expr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">expr</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">err</span>) <span style="color:#75715e">// parse error
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">continue</span>
+		}
+		<span style="color:#a6e22e">got</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%.6g&#34;</span>, <span style="color:#a6e22e">expr</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">env</span>))
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;\t%v =&gt; %s\n&#34;</span>, <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">env</span>, <span style="color:#a6e22e">got</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">got</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">want</span> {
+			<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;%s.Eval() in %v = %q, want %q\n&#34;</span>,
+			<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">expr</span>, <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">env</span>, <span style="color:#a6e22e">got</span>, <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">want</span>)
+		}
+	}
+}
+</code></pre></div><p>对于表格中的每一条记录，这个测试会解析它的表达式然后在环境变量中计算它，输出结果。这里我们没有空间来展示Parse函数，但是如果你使用go get下载这个包你就可以看到这个函数。</p>
+<p>go test(§11.1) 命令会运行一个包的测试用例：</p>
+<pre><code>$ go test -v gopl.io/ch7/eval
+</code></pre><p>这个-v标识可以让我们看到测试用例打印的输出；正常情况下像这样一个成功的测试用例会阻止打印结果的输出。这里是测试用例里fmt.Printf语句的输出：</p>
+<pre><code>sqrt(A / pi)
+    map[A:87616 pi:3.141592653589793] =&gt; 167
+
+pow(x, 3) + pow(y, 3)
+    map[x:12 y:1] =&gt; 1729
+    map[x:9 y:10] =&gt; 1729
+
+5 / 9 * (F - 32)
+    map[F:-40] =&gt; -40
+    map[F:32] =&gt; 0
+    map[F:212] =&gt; 100
+</code></pre><p>幸运的是目前为止所有的输入都是适合的格式，但是我们的运气不可能一直都有。甚至在解释型语言中，为了静态错误检查语法是非常常见的；静态错误就是不用运行程序就可以检测出来的错误。通过将静态检查和动态的部分分开，我们可以快速的检查错误并且对于多次检查只执行一次而不是每次表达式计算的时候都进行检查。</p>
+<p>让我们往Expr接口中增加另一个方法。Check方法对一个表达式语义树检查出静态错误。我们马上会说明它的vars参数。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Expr</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span>
+	<span style="color:#75715e">// Check reports errors in this Expr and adds its Vars to the set.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#66d9ef">error</span>
+}
+</code></pre></div><p>具体的Check方法展示在下面。literal和Var类型的计算不可能失败，所以这些类型的Check方法会返回一个nil值。对于unary和binary的Check方法会首先检查操作符是否有效，然后递归的检查运算单元。相似地对于call的这个方法首先检查调用的函数是否已知并且有没有正确个数的参数，然后递归的检查每一个参数。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Var</span>) <span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#66d9ef">error</span> {
+	<span style="color:#a6e22e">vars</span>[<span style="color:#a6e22e">v</span>] = <span style="color:#66d9ef">true</span>
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">literal</span>) <span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#66d9ef">error</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">u</span> <span style="color:#a6e22e">unary</span>) <span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#66d9ef">error</span> {
+	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">ContainsRune</span>(<span style="color:#e6db74">&#34;+-&#34;</span>, <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">op</span>) {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;unexpected unary op %q&#34;</span>, <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">op</span>)
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#a6e22e">binary</span>) <span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#66d9ef">error</span> {
+	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">ContainsRune</span>(<span style="color:#e6db74">&#34;+-*/&#34;</span>, <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">op</span>) {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;unexpected binary op %q&#34;</span>, <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">op</span>)
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">call</span>) <span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#66d9ef">error</span> {
+	<span style="color:#a6e22e">arity</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">numParams</span>[<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">fn</span>]
+	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;unknown function %q&#34;</span>, <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">fn</span>)
+	}
+	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">args</span>) <span style="color:#f92672">!=</span> <span style="color:#a6e22e">arity</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;call to %s has %d args, want %d&#34;</span>,
+			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">fn</span>, len(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">args</span>), <span style="color:#a6e22e">arity</span>)
+	}
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">arg</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">args</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">arg</span>.<span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+		}
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">numParams</span> = <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>{<span style="color:#e6db74">&#34;pow&#34;</span>: <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;sin&#34;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;sqrt&#34;</span>: <span style="color:#ae81ff">1</span>}
+</code></pre></div><p>我们在两个组中有选择地列出有问题的输入和它们得出的错误。Parse函数（这里没有出现）会报出一个语法错误和Check函数会报出语义错误。</p>
+<pre><code>x % 2               unexpected '%'
+math.Pi             unexpected '.'
+!true               unexpected '!'
+&quot;hello&quot;             unexpected '&quot;'
+
+log(10)             unknown function &quot;log&quot;
+sqrt(1, 2)          call to sqrt has 2 args, want 1
+</code></pre><p>Check方法的参数是一个Var类型的集合，这个集合聚集从表达式中找到的变量名。为了保证成功的计算，这些变量中的每一个都必须出现在环境变量中。从逻辑上讲，这个集合就是调用Check方法返回的结果，但是因为这个方法是递归调用的，所以对于Check方法，填充结果到一个作为参数传入的集合中会更加的方便。调用方在初始调用时必须提供一个空的集合。</p>
+<p>在第3.2节中，我们绘制了一个在编译期才确定的函数f(x,y)。现在我们可以解析，检查和计算在字符串中的表达式，我们可以构建一个在运行时从客户端接收表达式的web应用并且它会绘制这个函数的表示的曲面。我们可以使用集合vars来检查表达式是否是一个只有两个变量x和y的函数——实际上是3个，因为我们为了方便会提供半径大小r。并且我们会在计算前使用Check方法拒绝有格式问题的表达式，这样我们就不会在下面函数的40000个计算过程（100x100个栅格，每一个有4个角）重复这些检查。</p>
+<p>这个ParseAndCheck函数混合了解析和检查步骤的过程：</p>
+<p><u><i>gopl.io/ch7/surface</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;gopl.io/ch7/eval&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">parseAndCheck</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">eval</span>.<span style="color:#a6e22e">Expr</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;empty expression&#34;</span>)
+	}
+	<span style="color:#a6e22e">expr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">eval</span>.<span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">s</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+	}
+	<span style="color:#a6e22e">vars</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">eval</span>.<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">bool</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">expr</span>.<span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+	}
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">vars</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;x&#34;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;y&#34;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;r&#34;</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;undefined variable: %s&#34;</span>, <span style="color:#a6e22e">v</span>)
+		}
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">expr</span>, <span style="color:#66d9ef">nil</span>
+}
+</code></pre></div><p>为了编写这个web应用，所有我们需要做的就是下面这个plot函数，这个函数有和http.HandlerFunc相似的签名：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+	<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">ParseForm</span>()
+	<span style="color:#a6e22e">expr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">parseAndCheck</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Form</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;expr&#34;</span>))
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;bad expr: &#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>(), <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusBadRequest</span>)
+		<span style="color:#66d9ef">return</span>
+	}
+	<span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Header</span>().<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;Content-Type&#34;</span>, <span style="color:#e6db74">&#34;image/svg+xml&#34;</span>)
+	<span style="color:#a6e22e">surface</span>(<span style="color:#a6e22e">w</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">float64</span> {
+		<span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Hypot</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) <span style="color:#75715e">// distance from (0,0)
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">expr</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">eval</span>.<span style="color:#a6e22e">Env</span>{<span style="color:#e6db74">&#34;x&#34;</span>: <span style="color:#a6e22e">x</span>, <span style="color:#e6db74">&#34;y&#34;</span>: <span style="color:#a6e22e">y</span>, <span style="color:#e6db74">&#34;r&#34;</span>: <span style="color:#a6e22e">r</span>})
+	})
+}
+</code></pre></div><p><img src="../images/ch7-07.png" alt=""></p>
+<p>这个plot函数解析和检查在HTTP请求中指定的表达式并且用它来创建一个两个变量的匿名函数。这个匿名函数和来自原来surface-plotting程序中的固定函数f有相同的签名，但是它计算一个用户提供的表达式。环境变量中定义了x，y和半径r。最后plot调用surface函数，它就是gopl.io/ch3/surface中的主要函数，修改后它可以接受plot中的函数和输出io.Writer作为参数，而不是使用固定的函数f和os.Stdout。图7.7中显示了通过程序产生的3个曲面。</p>
+<p><strong>练习 7.13：</strong> 为Expr增加一个String方法来打印美观的语法树。当再一次解析的时候，检查它的结果是否生成相同的语法树。</p>
+<p><strong>练习 7.14：</strong> 定义一个新的满足Expr接口的具体类型并且提供一个新的操作例如对它运算单元中的最小值的计算。因为Parse函数不会创建这个新类型的实例，为了使用它你可能需要直接构造一个语法树（或者继承parser接口）。</p>
+<p><strong>练习 7.15：</strong> 编写一个从标准输入中读取一个单一表达式的程序，用户及时地提供对于任意变量的值，然后在结果环境变量中计算表达式的值。优雅的处理所有遇到的错误。</p>
+<p><strong>练习 7.16：</strong> 编写一个基于web的计算器程序。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

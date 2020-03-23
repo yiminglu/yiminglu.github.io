@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch1/ch1-01.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="11-hello-world">1.1. Hello, World</h2>
+<p>我们以现已成为传统的“hello world”案例来开始吧，这个例子首次出现于1978年出版的C语言圣经<a href="http://s3-us-west-2.amazonaws.com/belllabs-microsite-dritchie/cbook/index.html">《The C Programming Language》</a>（译注：本书作者之一Brian W. Kernighan也是《The C Programming Language》一书的作者）。C语言是直接影响Go语言设计的语言之一。这个例子体现了Go语言一些核心理念。</p>
+<p><u><i>gopl.io/ch1/helloworld</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Hello, 世界&#34;</span>)
+}
+</code></pre></div><p>Go是一门编译型语言，Go语言的工具链将源代码及其依赖转换成计算机的机器指令（译注：静态编译）。Go语言提供的工具都通过一个单独的命令<code>go</code>调用，<code>go</code>命令有一系列子命令。最简单的一个子命令就是run。这个命令编译一个或多个以.go结尾的源文件，链接库文件，并运行最终生成的可执行文件。（本书使用$表示命令行提示符。）</p>
+<pre><code>$ go run helloworld.go
+</code></pre><p>毫无意外，这个命令会输出：</p>
+<pre><code>Hello, 世界
+</code></pre><p>Go语言原生支持Unicode，它可以处理全世界任何语言的文本。</p>
+<p>如果不只是一次性实验，你肯定希望能够编译这个程序，保存编译结果以备将来之用。可以用build子命令：</p>
+<pre><code>$ go build helloworld.go
+</code></pre><p>这个命令生成一个名为helloworld的可执行的二进制文件（译注：Windows系统下生成的可执行文件是helloworld.exe，增加了.exe后缀名），之后你可以随时运行它（译注：在Windows系统下在命令行直接输入helloworld.exe命令运行），不需任何处理（译注：因为静态编译，所以不用担心在系统库更新的时候冲突，幸福感满满）。</p>
+<pre><code>$ ./helloworld
+Hello, 世界
+</code></pre><p>本书中所有示例代码上都有一行标记，利用这些标记可以从<a href="http://gopl.io">gopl.io</a>网站上本书源码仓库里获取代码：</p>
+<pre><code>gopl.io/ch1/helloworld
+</code></pre><p>执行 <code>go get gopl.io/ch1/helloworld</code> 命令，就会从网上获取代码，并放到对应目录中（需要先安装Git或Hg之类的版本管理工具，并将对应的命令添加到PATH环境变量中。序言已经提及，需要先设置好GOPATH环境变量，下载的代码会放在<code>$GOPATH/src/gopl.io/ch1/helloworld</code>目录）。2.6和10.7节有这方面更详细的介绍。</p>
+<p>来讨论下程序本身。Go语言的代码通过<strong>包</strong>（package）组织，包类似于其它语言里的库（libraries）或者模块（modules）。一个包由位于单个目录下的一个或多个.go源代码文件组成，目录定义包的作用。每个源文件都以一条<code>package</code>声明语句开始，这个例子里就是<code>package main</code>，表示该文件属于哪个包，紧跟着一系列导入（import）的包，之后是存储在这个文件里的程序语句。</p>
+<p>Go的标准库提供了100多个包，以支持常见功能，如输入、输出、排序以及文本处理。比如<code>fmt</code>包，就含有格式化输出、接收输入的函数。<code>Println</code>是其中一个基础函数，可以打印以空格间隔的一个或多个值，并在最后添加一个换行符，从而输出一整行。</p>
+<p><code>main</code>包比较特殊。它定义了一个独立可执行的程序，而不是一个库。在<code>main</code>里的<code>main</code> <em>函数</em> 也很特殊，它是整个程序执行时的入口（译注：C系语言差不多都这样）。<code>main</code>函数所做的事情就是程序做的。当然了，<code>main</code>函数一般调用其它包里的函数完成很多工作（如：<code>fmt.Println</code>）。</p>
+<p>必须告诉编译器源文件需要哪些包，这就是跟随在<code>package</code>声明后面的<code>import</code>声明扮演的角色。hello world例子只用到了一个包，大多数程序需要导入多个包。</p>
+<p>必须恰当导入需要的包，缺少了必要的包或者导入了不需要的包，程序都无法编译通过。这项严格要求避免了程序开发过程中引入未使用的包（译注：Go语言编译过程没有警告信息，争议特性之一）。</p>
+<p><code>import</code>声明必须跟在文件的<code>package</code>声明之后。随后，则是组成程序的函数、变量、常量、类型的声明语句（分别由关键字<code>func</code>、<code>var</code>、<code>const</code>、<code>type</code>定义）。这些内容的声明顺序并不重要（译注：最好还是定一下规范）。这个例子的程序已经尽可能短了，只声明了一个函数，其中只调用了一个其他函数。为了节省篇幅，有些时候示例程序会省略<code>package</code>和<code>import</code>声明，但是，这些声明在源代码里有，并且必须得有才能编译。</p>
+<p>一个函数的声明由<code>func</code>关键字、函数名、参数列表、返回值列表（这个例子里的<code>main</code>函数参数列表和返回值都是空的）以及包含在大括号里的函数体组成。第五章进一步考察函数。</p>
+<p>Go语言不需要在语句或者声明的末尾添加分号，除非一行上有多条语句。实际上，编译器会主动把特定符号后的换行符转换为分号，因此换行符添加的位置会影响Go代码的正确解析（译注：比如行末是标识符、整数、浮点数、虚数、字符或字符串文字、关键字<code>break</code>、<code>continue</code>、<code>fallthrough</code>或<code>return</code>中的一个、运算符和分隔符<code>++</code>、<code>--</code>、<code>)</code>、<code>]</code>或<code>}</code>中的一个）。举个例子，函数的左括号<code>{</code>必须和<code>func</code>函数声明在同一行上，且位于末尾，不能独占一行，而在表达式<code>x + y</code>中，可在<code>+</code>后换行，不能在<code>+</code>前换行（译注：以+结尾的话不会被插入分号分隔符，但是以x结尾的话则会被分号分隔符，从而导致编译错误）。</p>
+<p>Go语言在代码格式上采取了很强硬的态度。<code>gofmt</code>工具把代码格式化为标准格式（译注：这个格式化工具没有任何可以调整代码格式的参数，Go语言就是这么任性），并且<code>go</code>工具中的<code>fmt</code>子命令会对指定包，否则默认为当前目录中所有.go源文件应用<code>gofmt</code>命令。本书中的所有代码都被gofmt过。你也应该养成格式化自己的代码的习惯。以法令方式规定标准的代码格式可以避免无尽的无意义的琐碎争执（译注：也导致了Go语言的TIOBE排名较低，因为缺少撕逼的话题）。更重要的是，这样可以做多种自动源码转换，如果放任Go语言代码格式，这些转换就不大可能了。</p>
+<p>很多文本编辑器都可以配置为保存文件时自动执行<code>gofmt</code>，这样你的源代码总会被恰当地格式化。还有个相关的工具，<code>goimports</code>，可以根据代码需要，自动地添加或删除<code>import</code>声明。这个工具并没有包含在标准的分发包中，可以用下面的命令安装：</p>
+<pre><code>$ go get golang.org/x/tools/cmd/goimports
+</code></pre><p>对于大多数用户来说，下载、编译包、运行测试用例、察看Go语言的文档等等常用功能都可以用go的工具完成。10.7节详细介绍这些知识。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

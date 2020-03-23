@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch3/ch3-06.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="36-常量">3.6. 常量</h2>
+<p>常量表达式的值在编译期计算，而不是在运行期。每种常量的潜在类型都是基础类型：boolean、string或数字。</p>
+<p>一个常量的声明语句定义了常量的名字，和变量的声明语法类似，常量的值不可修改，这样可以防止在运行期被意外或恶意的修改。例如，常量比变量更适合用于表达像π之类的数学常数，因为它们的值不会发生变化：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pi</span> = <span style="color:#ae81ff">3.14159</span> <span style="color:#75715e">// approximately; math.Pi is a better approximation
+</span></code></pre></div><p>和变量声明一样，可以批量声明多个常量；这比较适合声明一组相关的常量：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">const</span> (
+	<span style="color:#a6e22e">e</span>  = <span style="color:#ae81ff">2.71828182845904523536028747135266249775724709369995957496696763</span>
+	<span style="color:#a6e22e">pi</span> = <span style="color:#ae81ff">3.14159265358979323846264338327950288419716939937510582097494459</span>
+)
+</code></pre></div><p>所有常量的运算都可以在编译期完成，这样可以减少运行时的工作，也方便其他编译优化。当操作数是常量时，一些运行时的错误也可以在编译时被发现，例如整数除零、字符串索引越界、任何导致无效浮点数的操作等。</p>
+<p>常量间的所有算术运算、逻辑运算和比较运算的结果也是常量，对常量的类型转换操作或以下函数调用都是返回常量结果：len、cap、real、imag、complex和unsafe.Sizeof（§13.1）。</p>
+<p>因为它们的值是在编译期就确定的，因此常量可以是构成类型的一部分，例如用于指定数组类型的长度：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">IPv4Len</span> = <span style="color:#ae81ff">4</span>
+
+<span style="color:#75715e">// parseIPv4 parses an IPv4 address (d.d.d.d).
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">parseIPv4</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">IP</span> {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p</span> [<span style="color:#a6e22e">IPv4Len</span>]<span style="color:#66d9ef">byte</span>
+	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>一个常量的声明也可以包含一个类型和一个值，但是如果没有显式指明类型，那么将从右边的表达式推断类型。在下面的代码中，time.Duration是一个命名类型，底层类型是int64，time.Minute是对应类型的常量。下面声明的两个常量都是time.Duration类型，可以通过%T参数打印类型信息：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">noDelay</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span> = <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">timeout</span> = <span style="color:#ae81ff">5</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Minute</span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%T %[1]v\n&#34;</span>, <span style="color:#a6e22e">noDelay</span>)     <span style="color:#75715e">// &#34;time.Duration 0&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%T %[1]v\n&#34;</span>, <span style="color:#a6e22e">timeout</span>)     <span style="color:#75715e">// &#34;time.Duration 5m0s&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%T %[1]v\n&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Minute</span>) <span style="color:#75715e">// &#34;time.Duration 1m0s&#34;
+</span></code></pre></div><p>如果是批量声明的常量，除了第一个外其它的常量右边的初始化表达式都可以省略，如果省略初始化表达式则表示使用前面常量的初始化表达式写法，对应的常量类型也一样的。例如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">const</span> (
+	<span style="color:#a6e22e">a</span> = <span style="color:#ae81ff">1</span>
+	<span style="color:#a6e22e">b</span>
+	<span style="color:#a6e22e">c</span> = <span style="color:#ae81ff">2</span>
+	<span style="color:#a6e22e">d</span>
+)
+
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">d</span>) <span style="color:#75715e">// &#34;1 1 2 2&#34;
+</span></code></pre></div><p>如果只是简单地复制右边的常量表达式，其实并没有太实用的价值。但是它可以带来其它的特性，那就是iota常量生成器语法。</p>
+<h3 id="361-iota-常量生成器">3.6.1. iota 常量生成器</h3>
+<p>常量声明可以使用iota常量生成器初始化，它用于生成一组以相似规则初始化的常量，但是不用每行都写一遍初始化表达式。在一个const声明语句中，在第一个声明的常量所在的行，iota将会被置为0，然后在每一个有常量声明的行加一。</p>
+<p>下面是来自time包的例子，它首先定义了一个Weekday命名类型，然后为一周的每天定义了一个常量，从周日0开始。在其它编程语言中，这种类型一般被称为枚举类型。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Weekday</span> <span style="color:#66d9ef">int</span>
+
+<span style="color:#66d9ef">const</span> (
+	<span style="color:#a6e22e">Sunday</span> <span style="color:#a6e22e">Weekday</span> = <span style="color:#66d9ef">iota</span>
+	<span style="color:#a6e22e">Monday</span>
+	<span style="color:#a6e22e">Tuesday</span>
+	<span style="color:#a6e22e">Wednesday</span>
+	<span style="color:#a6e22e">Thursday</span>
+	<span style="color:#a6e22e">Friday</span>
+	<span style="color:#a6e22e">Saturday</span>
+)
+</code></pre></div><p>周日将对应0，周一为1，如此等等。</p>
+<p>我们也可以在复杂的常量表达式中使用iota，下面是来自net包的例子，用于给一个无符号整数的最低5bit的每个bit指定一个名字：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Flags</span> <span style="color:#66d9ef">uint</span>
+
+<span style="color:#66d9ef">const</span> (
+	<span style="color:#a6e22e">FlagUp</span> <span style="color:#a6e22e">Flags</span> = <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">iota</span> <span style="color:#75715e">// is up
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FlagBroadcast</span>            <span style="color:#75715e">// supports broadcast access capability
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FlagLoopback</span>             <span style="color:#75715e">// is a loopback interface
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FlagPointToPoint</span>         <span style="color:#75715e">// belongs to a point-to-point link
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FlagMulticast</span>            <span style="color:#75715e">// supports multicast access capability
+</span><span style="color:#75715e"></span>)
+</code></pre></div><p>随着iota的递增，每个常量对应表达式1 &laquo; iota，是连续的2的幂，分别对应一个bit位置。使用这些常量可以用于测试、设置或清除对应的bit位的值：</p>
+<p><u><i>gopl.io/ch3/netflag</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">IsUp</span>(<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Flags</span>) <span style="color:#66d9ef">bool</span>     { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">&amp;</span><span style="color:#a6e22e">FlagUp</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">FlagUp</span> }
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TurnDown</span>(<span style="color:#a6e22e">v</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Flags</span>)     { <span style="color:#f92672">*</span><span style="color:#a6e22e">v</span> <span style="color:#f92672">&amp;^=</span> <span style="color:#a6e22e">FlagUp</span> }
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">SetBroadcast</span>(<span style="color:#a6e22e">v</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Flags</span>) { <span style="color:#f92672">*</span><span style="color:#a6e22e">v</span> <span style="color:#f92672">|=</span> <span style="color:#a6e22e">FlagBroadcast</span> }
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">IsCast</span>(<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Flags</span>) <span style="color:#66d9ef">bool</span>   { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">&amp;</span>(<span style="color:#a6e22e">FlagBroadcast</span>|<span style="color:#a6e22e">FlagMulticast</span>) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> }
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Flags</span> = <span style="color:#a6e22e">FlagMulticast</span> | <span style="color:#a6e22e">FlagUp</span>
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%b %t\n&#34;</span>, <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">IsUp</span>(<span style="color:#a6e22e">v</span>)) <span style="color:#75715e">// &#34;10001 true&#34;
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">TurnDown</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%b %t\n&#34;</span>, <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">IsUp</span>(<span style="color:#a6e22e">v</span>)) <span style="color:#75715e">// &#34;10000 false&#34;
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">SetBroadcast</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%b %t\n&#34;</span>, <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">IsUp</span>(<span style="color:#a6e22e">v</span>))   <span style="color:#75715e">// &#34;10010 false&#34;
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%b %t\n&#34;</span>, <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">IsCast</span>(<span style="color:#a6e22e">v</span>)) <span style="color:#75715e">// &#34;10010 true&#34;
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>下面是一个更复杂的例子，每个常量都是1024的幂：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">const</span> (
+	<span style="color:#a6e22e">_</span> = <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> (<span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">iota</span>)
+	<span style="color:#a6e22e">KiB</span> <span style="color:#75715e">// 1024
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">MiB</span> <span style="color:#75715e">// 1048576
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">GiB</span> <span style="color:#75715e">// 1073741824
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">TiB</span> <span style="color:#75715e">// 1099511627776             (exceeds 1 &lt;&lt; 32)
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">PiB</span> <span style="color:#75715e">// 1125899906842624
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">EiB</span> <span style="color:#75715e">// 1152921504606846976
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ZiB</span> <span style="color:#75715e">// 1180591620717411303424    (exceeds 1 &lt;&lt; 64)
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">YiB</span> <span style="color:#75715e">// 1208925819614629174706176
+</span><span style="color:#75715e"></span>)
+</code></pre></div><p>不过iota常量生成规则也有其局限性。例如，它并不能用于产生1000的幂（KB、MB等），因为Go语言并没有计算幂的运算符。</p>
+<p><strong>练习 3.13：</strong> 编写KB、MB的常量声明，然后扩展到YB。</p>
+<h3 id="362-无类型常量">3.6.2. 无类型常量</h3>
+<p>Go语言的常量有个不同寻常之处。虽然一个常量可以有任意一个确定的基础类型，例如int或float64，或者是类似time.Duration这样命名的基础类型，但是许多常量并没有一个明确的基础类型。编译器为这些没有明确基础类型的数字常量提供比基础类型更高精度的算术运算；你可以认为至少有256bit的运算精度。这里有六种未明确类型的常量类型，分别是无类型的布尔型、无类型的整数、无类型的字符、无类型的浮点数、无类型的复数、无类型的字符串。</p>
+<p>通过延迟明确常量的具体类型，无类型的常量不仅可以提供更高的运算精度，而且可以直接用于更多的表达式而不需要显式的类型转换。例如，例子中的ZiB和YiB的值已经超出任何Go语言中整数类型能表达的范围，但是它们依然是合法的常量，而且像下面的常量表达式依然有效（译注：YiB/ZiB是在编译期计算出来的，并且结果常量是1024，是Go语言int变量能有效表示的）：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">YiB</span><span style="color:#f92672">/</span><span style="color:#a6e22e">ZiB</span>) <span style="color:#75715e">// &#34;1024&#34;
+</span></code></pre></div><p>另一个例子，math.Pi无类型的浮点数常量，可以直接用于任意需要浮点数或复数的地方：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">x</span> <span style="color:#66d9ef">float32</span> = <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Pi</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">float64</span> = <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Pi</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">z</span> <span style="color:#66d9ef">complex128</span> = <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Pi</span>
+</code></pre></div><p>如果math.Pi被确定为特定类型，比如float64，那么结果精度可能会不一样，同时对于需要float32或complex128类型值的地方则会强制需要一个明确的类型转换：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Pi64</span> <span style="color:#66d9ef">float64</span> = <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Pi</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">x</span> <span style="color:#66d9ef">float32</span> = float32(<span style="color:#a6e22e">Pi64</span>)
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">float64</span> = <span style="color:#a6e22e">Pi64</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">z</span> <span style="color:#66d9ef">complex128</span> = complex128(<span style="color:#a6e22e">Pi64</span>)
+</code></pre></div><p>对于常量面值，不同的写法可能会对应不同的类型。例如0、0.0、0i和<code>\u0000</code>虽然有着相同的常量值，但是它们分别对应无类型的整数、无类型的浮点数、无类型的复数和无类型的字符等不同的常量类型。同样，true和false也是无类型的布尔类型，字符串面值常量是无类型的字符串类型。</p>
+<p>前面说过除法运算符/会根据操作数的类型生成对应类型的结果。因此，不同写法的常量除法表达式可能对应不同的结果：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> <span style="color:#66d9ef">float64</span> = <span style="color:#ae81ff">212</span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>((<span style="color:#a6e22e">f</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">32</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">9</span>)     <span style="color:#75715e">// &#34;100&#34;; (f - 32) * 5 is a float64
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#ae81ff">5</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">9</span> <span style="color:#f92672">*</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">32</span>))     <span style="color:#75715e">// &#34;0&#34;;   5/9 is an untyped integer, 0
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#ae81ff">5.0</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">9.0</span> <span style="color:#f92672">*</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">32</span>)) <span style="color:#75715e">// &#34;100&#34;; 5.0/9.0 is an untyped float
+</span></code></pre></div><p>只有常量可以是无类型的。当一个无类型的常量被赋值给一个变量的时候，就像下面的第一行语句，或者出现在有明确类型的变量声明的右边，如下面的其余三行语句，无类型的常量将会被隐式转换为对应的类型，如果转换合法的话。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> <span style="color:#66d9ef">float64</span> = <span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0i</span> <span style="color:#75715e">// untyped complex -&gt; float64
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">f</span> = <span style="color:#ae81ff">2</span>                  <span style="color:#75715e">// untyped integer -&gt; float64
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">f</span> = <span style="color:#ae81ff">1e123</span>              <span style="color:#75715e">// untyped floating-point -&gt; float64
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">f</span> = <span style="color:#e6db74">&#39;a&#39;</span>                <span style="color:#75715e">// untyped rune -&gt; float64
+</span></code></pre></div><p>上面的语句相当于:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> <span style="color:#66d9ef">float64</span> = float64(<span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0i</span>)
+<span style="color:#a6e22e">f</span> = float64(<span style="color:#ae81ff">2</span>)
+<span style="color:#a6e22e">f</span> = float64(<span style="color:#ae81ff">1e123</span>)
+<span style="color:#a6e22e">f</span> = float64(<span style="color:#e6db74">&#39;a&#39;</span>)
+</code></pre></div><p>无论是隐式或显式转换，将一种类型转换为另一种类型都要求目标可以表示原始值。对于浮点数和复数，可能会有舍入处理：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">const</span> (
+	<span style="color:#a6e22e">deadbeef</span> = <span style="color:#ae81ff">0xdeadbeef</span> <span style="color:#75715e">// untyped int with value 3735928559
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">a</span> = uint32(<span style="color:#a6e22e">deadbeef</span>)  <span style="color:#75715e">// uint32 with value 3735928559
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">b</span> = float32(<span style="color:#a6e22e">deadbeef</span>) <span style="color:#75715e">// float32 with value 3735928576 (rounded up)
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">c</span> = float64(<span style="color:#a6e22e">deadbeef</span>) <span style="color:#75715e">// float64 with value 3735928559 (exact)
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">d</span> = int32(<span style="color:#a6e22e">deadbeef</span>)   <span style="color:#75715e">// compile error: constant overflows int32
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">e</span> = float64(<span style="color:#ae81ff">1e309</span>)    <span style="color:#75715e">// compile error: constant overflows float64
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">f</span> = uint(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)          <span style="color:#75715e">// compile error: constant underflows uint
+</span><span style="color:#75715e"></span>)
+</code></pre></div><p>对于一个没有显式类型的变量声明（包括简短变量声明），常量的形式将隐式决定变量的默认类型，就像下面的例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>      <span style="color:#75715e">// untyped integer;        implicit int(0)
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#39;\000&#39;</span> <span style="color:#75715e">// untyped rune;           implicit rune(&#39;\000&#39;)
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">f</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0.0</span>    <span style="color:#75715e">// untyped floating-point; implicit float64(0.0)
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0i</span>     <span style="color:#75715e">// untyped complex;        implicit complex128(0i)
+</span></code></pre></div><p>注意有一点不同：无类型整数常量转换为int，它的内存大小是不确定的，但是无类型浮点数和复数常量则转换为内存大小明确的float64和complex128。
+如果不知道浮点数类型的内存大小是很难写出正确的数值算法的，因此Go语言不存在整型类似的不确定内存大小的浮点数和复数类型。</p>
+<p>如果要给变量一个不同的类型，我们必须显式地将无类型的常量转化为所需的类型，或给声明的变量指定明确的类型，像下面例子这样：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> = int8(<span style="color:#ae81ff">0</span>)
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int8</span> = <span style="color:#ae81ff">0</span>
+</code></pre></div><p>当尝试将这些无类型的常量转为一个接口值时（见第7章），这些默认类型将显得尤为重要，因为要靠它们明确接口对应的动态类型。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%T\n&#34;</span>, <span style="color:#ae81ff">0</span>)      <span style="color:#75715e">// &#34;int&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%T\n&#34;</span>, <span style="color:#ae81ff">0.0</span>)    <span style="color:#75715e">// &#34;float64&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%T\n&#34;</span>, <span style="color:#ae81ff">0i</span>)     <span style="color:#75715e">// &#34;complex128&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%T\n&#34;</span>, <span style="color:#e6db74">&#39;\000&#39;</span>) <span style="color:#75715e">// &#34;int32&#34; (rune)
+</span></code></pre></div><p>现在我们已经讲述了Go语言中全部的基础数据类型。下一步将演示如何用基础数据类型组合成数组或结构体等复杂数据类型，然后构建用于解决实际编程问题的数据结构，这将是第四章的讨论主题。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

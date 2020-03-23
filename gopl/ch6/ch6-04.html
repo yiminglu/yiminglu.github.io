@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch6/ch6-04.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="64-方法值和方法表达式">6.4. 方法值和方法表达式</h2>
+<p>我们经常选择一个方法，并且在同一个表达式里执行，比如常见的p.Distance()形式，实际上将其分成两步来执行也是可能的。p.Distance叫作“选择器”，选择器会返回一个方法“值”-&gt;一个将方法（Point.Distance）绑定到特定接收器变量的函数。这个函数可以不通过指定其接收器即可被调用；即调用时不需要指定接收器（译注：因为已经在前文中指定过了），只要传入函数的参数即可：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}
+<span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>}
+
+<span style="color:#a6e22e">distanceFromP</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Distance</span>        <span style="color:#75715e">// method value
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">distanceFromP</span>(<span style="color:#a6e22e">q</span>))      <span style="color:#75715e">// &#34;5&#34;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">origin</span> <span style="color:#a6e22e">Point</span>                   <span style="color:#75715e">// {0, 0}
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">distanceFromP</span>(<span style="color:#a6e22e">origin</span>)) <span style="color:#75715e">// &#34;2.23606797749979&#34;, sqrt(5)
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">scaleP</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">ScaleBy</span> <span style="color:#75715e">// method value
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">scaleP</span>(<span style="color:#ae81ff">2</span>)           <span style="color:#75715e">// p becomes (2, 4)
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">scaleP</span>(<span style="color:#ae81ff">3</span>)           <span style="color:#75715e">//      then (6, 12)
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">scaleP</span>(<span style="color:#ae81ff">10</span>)          <span style="color:#75715e">//      then (60, 120)
+</span></code></pre></div><p>在一个包的API需要一个函数值、且调用方希望操作的是某一个绑定了对象的方法的话，方法“值”会非常实用（``=_=`真是绕）。举例来说，下面例子中的time.AfterFunc这个函数的功能是在指定的延迟时间之后来执行一个（译注：另外的）函数。且这个函数操作的是一个Rocket对象r</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Rocket</span> <span style="color:#66d9ef">struct</span> { <span style="color:#75715e">/* ... */</span> }
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Rocket</span>) <span style="color:#a6e22e">Launch</span>() { <span style="color:#75715e">/* ... */</span> }
+<span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">Rocket</span>)
+<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">AfterFunc</span>(<span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>, <span style="color:#66d9ef">func</span>() { <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Launch</span>() })
+</code></pre></div><p>直接用方法“值”传入AfterFunc的话可以更为简短：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">AfterFunc</span>(<span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Launch</span>)
+</code></pre></div><p>译注：省掉了上面那个例子里的匿名函数。</p>
+<p>和方法“值”相关的还有方法表达式。当调用一个方法时，与调用一个普通的函数相比，我们必须要用选择器（p.Distance）语法来指定方法的接收器。</p>
+<p>当T是一个类型时，方法表达式可能会写作<code>T.f</code>或者<code>(*T).f</code>，会返回一个函数“值”，这种函数会将其第一个参数用作接收器，所以可以用通常（译注：不写选择器）的方式来对其进行调用：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}
+<span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>}
+
+<span style="color:#a6e22e">distance</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>.<span style="color:#a6e22e">Distance</span>   <span style="color:#75715e">// method expression
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">distance</span>(<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">q</span>))  <span style="color:#75715e">// &#34;5&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%T\n&#34;</span>, <span style="color:#a6e22e">distance</span>) <span style="color:#75715e">// &#34;func(Point, Point) float64&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">scale</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">Point</span>).<span style="color:#a6e22e">ScaleBy</span>
+<span style="color:#a6e22e">scale</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">p</span>, <span style="color:#ae81ff">2</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>)            <span style="color:#75715e">// &#34;{2 4}&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%T\n&#34;</span>, <span style="color:#a6e22e">scale</span>) <span style="color:#75715e">// &#34;func(*Point, float64)&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 译注：这个Distance实际上是指定了Point对象为接收器的一个方法func (p Point) Distance()，
+</span><span style="color:#75715e">// 但通过Point.Distance得到的函数需要比实际的Distance方法多一个参数，
+</span><span style="color:#75715e">// 即其需要用第一个额外参数指定接收器，后面排列Distance方法的参数。
+</span><span style="color:#75715e">// 看起来本书中函数和方法的区别是指有没有接收器，而不像其他语言那样是指有没有返回值。
+</span></code></pre></div><p>当你根据一个变量来决定调用同一个类型的哪个函数时，方法表达式就显得很有用了。你可以根据选择来调用接收器各不相同的方法。下面的例子，变量op代表Point类型的addition或者subtraction方法，Path.TranslateBy方法会为其Path数组中的每一个Point来调用对应的方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Point</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">Y</span> <span style="color:#66d9ef">float64</span> }
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">q</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Point</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Point</span>{<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">X</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Y</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Y</span>} }
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">q</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Point</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Point</span>{<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">X</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Y</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Y</span>} }
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Path</span> []<span style="color:#a6e22e">Point</span>
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">path</span> <span style="color:#a6e22e">Path</span>) <span style="color:#a6e22e">TranslateBy</span>(<span style="color:#a6e22e">offset</span> <span style="color:#a6e22e">Point</span>, <span style="color:#a6e22e">add</span> <span style="color:#66d9ef">bool</span>) {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">op</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">q</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Point</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">add</span> {
+		<span style="color:#a6e22e">op</span> = <span style="color:#a6e22e">Point</span>.<span style="color:#a6e22e">Add</span>
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">op</span> = <span style="color:#a6e22e">Point</span>.<span style="color:#a6e22e">Sub</span>
+	}
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">path</span> {
+		<span style="color:#75715e">// Call either path[i].Add(offset) or path[i].Sub(offset).
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">path</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">op</span>(<span style="color:#a6e22e">path</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">offset</span>)
+	}
+}
+</code></pre></div>
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>

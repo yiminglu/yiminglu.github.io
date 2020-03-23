@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
+    <script src="/js/ga.js"></script>
+
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> - SeasonsRoad</title>
+    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
+
+    
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="canonical" href="https://seasonsroad.com/gopl/ch12/ch12-04.html">
+
+    <meta name="theme-color" content="#FFAA00">
+
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+
+    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
+    
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
+
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+</head>
+
+	<body>
+		<header id="header">
+  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
+  <div class="wrapper">
+    <div id="site-nav">
+      <span id="menu-toggler">
+        <span class="top-bar"></span>
+        <span class="middle-bar"></span>
+        <span class="bottom-bar"></span>
+      </span>
+      <div id="menu">
+        <ul class="menu-list">
+          
+          <li class="menu-item">
+            <a href="/links.html" class="menu-link">
+              Links
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/billing/" class="menu-link">
+              Billing
+              
+            </a>
+            
+          </li>
+          
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">
+              About
+              
+            </a>
+            
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+  </div>
+</header>
+<div id="main-content"></div>
+
+		
+
+
+<div class="page-content">
+	<div class="wrapper">
+		<h2 id="124-示例-编码为s表达式">12.4. 示例: 编码为S表达式</h2>
+<p>Display是一个用于显示结构化数据的调试工具，但是它并不能将任意的Go语言对象编码为通用消息然后用于进程间通信。</p>
+<p>正如我们在4.5节中中看到的，Go语言的标准库支持了包括JSON、XML和ASN.1等多种编码格式。还有另一种依然被广泛使用的格式是S表达式格式，采用Lisp语言的语法。但是和其他编码格式不同的是，Go语言自带的标准库并不支持S表达式，主要是因为它没有一个公认的标准规范。</p>
+<p>在本节中，我们将定义一个包用于将任意的Go语言对象编码为S表达式格式，它支持以下结构：</p>
+<pre><code>42          integer
+&quot;hello&quot;     string（带有Go风格的引号）
+foo         symbol（未用引号括起来的名字）
+(1 2 3)     list  （括号包起来的0个或多个元素）
+</code></pre><p>布尔型习惯上使用t符号表示true，空列表或nil符号表示false，但是为了简单起见，我们暂时忽略布尔类型。同时忽略的还有chan管道和函数，因为通过反射并无法知道它们的确切状态。我们忽略的还有浮点数、复数和interface。支持它们是练习12.3的任务。</p>
+<p>我们将Go语言的类型编码为S表达式的方法如下。整数和字符串以显而易见的方式编码。空值编码为nil符号。数组和slice被编码为列表。</p>
+<p>结构体被编码为成员对象的列表，每个成员对象对应一个有两个元素的子列表，子列表的第一个元素是成员的名字，第二个元素是成员的值。Map被编码为键值对的列表。传统上，S表达式使用点状符号列表(key . value)结构来表示key/value对，而不是用一个含双元素的列表，不过为了简单我们忽略了点状符号列表。</p>
+<p>编码是由一个encode递归函数完成，如下所示。它的结构本质上和前面的Display函数类似：</p>
+<p><u><i>gopl.io/ch12/sexpr</i></u></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>, <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>) <span style="color:#66d9ef">error</span> {
+	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Kind</span>() {
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Invalid</span>:
+		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteString</span>(<span style="color:#e6db74">&#34;nil&#34;</span>)
+
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int8</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int16</span>,
+		<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int32</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int64</span>:
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Int</span>())
+
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint8</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint16</span>,
+		<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint32</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint64</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uintptr</span>:
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Uint</span>())
+
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">String</span>:
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#e6db74">&#34;%q&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">String</span>())
+
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Ptr</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Elem</span>())
+
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Array</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Slice</span>: <span style="color:#75715e">// (value ...)
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Len</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span> {
+				<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39; &#39;</span>)
+			}
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Index</span>(<span style="color:#a6e22e">i</span>)); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+			}
+		}
+		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
+
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Struct</span>: <span style="color:#75715e">// ((name value) ...)
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">NumField</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span> {
+				<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39; &#39;</span>)
+			}
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#e6db74">&#34;(%s &#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>().<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>).<span style="color:#a6e22e">Name</span>)
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>)); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+			}
+			<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
+		}
+		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
+
+	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Map</span>: <span style="color:#75715e">// ((key value) ...)
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">key</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">MapKeys</span>() {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span> {
+				<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39; &#39;</span>)
+			}
+			<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">key</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+			}
+			<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39; &#39;</span>)
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">MapIndex</span>(<span style="color:#a6e22e">key</span>)); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+			}
+			<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
+		}
+		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
+
+	<span style="color:#66d9ef">default</span>: <span style="color:#75715e">// float, complex, bool, chan, func, interface
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;unsupported type: %s&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>())
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+}
+</code></pre></div><p>Marshal函数是对encode的包装，以保持和encoding/&hellip;下其它包有着相似的API：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// Marshal encodes a Go value in S-expression form.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Marshal</span>(<span style="color:#a6e22e">v</span> <span style="color:#66d9ef">interface</span>{}) ([]<span style="color:#66d9ef">byte</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">buf</span> <span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">v</span>)); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">Bytes</span>(), <span style="color:#66d9ef">nil</span>
+}
+</code></pre></div><p>下面是Marshal对12.3节的strangelove变量编码后的结果：</p>
+<pre><code>((Title &quot;Dr. Strangelove&quot;) (Subtitle &quot;How I Learned to Stop Worrying and Lo
+ve the Bomb&quot;) (Year 1964) (Actor ((&quot;Grp. Capt. Lionel Mandrake&quot; &quot;Peter Sell
+ers&quot;) (&quot;Pres. Merkin Muffley&quot; &quot;Peter Sellers&quot;) (&quot;Gen. Buck Turgidson&quot; &quot;Geor
+ge C. Scott&quot;) (&quot;Brig. Gen. Jack D. Ripper&quot; &quot;Sterling Hayden&quot;) (&quot;Maj. T.J. \
+&quot;King\&quot; Kong&quot; &quot;Slim Pickens&quot;) (&quot;Dr. Strangelove&quot; &quot;Peter Sellers&quot;))) (Oscars
+(&quot;Best Actor (Nomin.)&quot; &quot;Best Adapted Screenplay (Nomin.)&quot; &quot;Best Director (N
+omin.)&quot; &quot;Best Picture (Nomin.)&quot;)) (Sequel nil))
+</code></pre><p>整个输出编码为一行中以减少输出的大小，但是也很难阅读。下面是对S表达式手动格式化的结果。编写一个S表达式的美化格式化函数将作为一个具有挑战性的练习任务；不过 <a href="http://gopl.io">http://gopl.io</a> 也提供了一个简单的版本。</p>
+<pre><code>((Title &quot;Dr. Strangelove&quot;)
+ (Subtitle &quot;How I Learned to Stop Worrying and Love the Bomb&quot;)
+ (Year 1964)
+ (Actor ((&quot;Grp. Capt. Lionel Mandrake&quot; &quot;Peter Sellers&quot;)
+         (&quot;Pres. Merkin Muffley&quot; &quot;Peter Sellers&quot;)
+         (&quot;Gen. Buck Turgidson&quot; &quot;George C. Scott&quot;)
+         (&quot;Brig. Gen. Jack D. Ripper&quot; &quot;Sterling Hayden&quot;)
+         (&quot;Maj. T.J. \&quot;King\&quot; Kong&quot; &quot;Slim Pickens&quot;)
+         (&quot;Dr. Strangelove&quot; &quot;Peter Sellers&quot;)))
+ (Oscars (&quot;Best Actor (Nomin.)&quot;
+          &quot;Best Adapted Screenplay (Nomin.)&quot;
+          &quot;Best Director (Nomin.)&quot;
+          &quot;Best Picture (Nomin.)&quot;))
+ (Sequel nil))
+</code></pre><p>和fmt.Print、json.Marshal、Display函数类似，sexpr.Marshal函数处理带环的数据结构也会陷入死循环。</p>
+<p>在12.6节中，我们将给出S表达式解码器的实现步骤，但是在那之前，我们还需要先了解如何通过反射技术来更新程序的变量。</p>
+<p><strong>练习 12.3：</strong> 实现encode函数缺少的分支。将布尔类型编码为t和nil，浮点数编码为Go语言的格式，复数1+2i编码为#C(1.0 2.0)格式。接口编码为类型名和值对，例如（&quot;[]int&rdquo; (1 2 3)），但是这个形式可能会造成歧义：reflect.Type.String方法对于不同的类型可能返回相同的结果。</p>
+<p><strong>练习 12.4：</strong> 修改encode函数，以上面的格式化形式输出S表达式。</p>
+<p><strong>练习 12.5：</strong> 修改encode函数，用JSON格式代替S表达式格式。然后使用标准库提供的json.Unmarshal解码器来验证函数是正确的。</p>
+<p><strong>练习 12.6：</strong> 修改encode，作为一个优化，忽略对是零值对象的编码。</p>
+<p><strong>练习 12.7：</strong> 创建一个基于流式的API，用于S表达式的解码，和json.Decoder(§4.5)函数功能类似。</p>
+
+	</div>
+</div>
+
+		<footer id="footer">
+  <div class="wrapper">
+    <div class="left">
+      
+      <span class="item">
+        <a href="https://github.com/yiminglu">
+          <span class="icon icon--github" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">yiminglu</span>
+        </a>
+      </span>
+      
+    </div>
+
+    <div class="right">
+      <span class="item">
+        &copy; SeasonsRoad
+      </span>
+    </div>
+  </div>
+
+  
+  
+  <script src="/js/main.min.js"></script>
+  
+</footer>
+
+	</body>
+</html>
