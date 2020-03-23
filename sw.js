@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-2f01c463874f14602e57462e5181593be248e07c';
+const cacheName = 'sr-precache-0991ecf1d08a5df86cc7de5b32dad201688e8e8f';
 
 const PrecacheList = [
   "/",
@@ -7,7 +7,6 @@ const PrecacheList = [
   "/js/main.min.js",
   "/js/ga.js",
   "/posts.html",
-  "/contact.html",
   "/about.html",
   "/404.html",
   "/manifest.json",
