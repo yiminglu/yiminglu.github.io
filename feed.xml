@@ -4,10 +4,24 @@
     <link>https://seasonsroad.com/</link>
     <description>SeasonsRoad is the blog for interesting things happening around.</description>
     
-    <lastBuildDate>Tue, 10 Mar 2020 16:10:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2020 18:00:00 +0800</lastBuildDate>
     <generator>Hugo v0.65.1</generator>
     <atom:link href="https://seasonsroad.com/feed.xml" rel="self" type="application/rss+xml" />
       <item>
+        <title>高考延期了</title>
+        <link>https://seasonsroad.com/post/2020/ncee-delayed.html</link>
+        <pubDate>Tue, 31 Mar 2020 18:00:00 +0800</pubDate>
+        <description><![CDATA[<p>大多数人都会经历的一件事，就是『高考』。</p>
+<p>不排除经历了多次的，比如我，比如我媳妇儿，虽然原因不一样。同样，也不排除没有经历过的。这件事依然是很重要的一件事，对于『大多数人』来说。</p>
+<p>就在今年，高考不得不延期了——普遍延期一个月，北京和湖北另行安排。可见，疫情的杀伤力还是相当巨大。</p>
+<p>同样，今天还有另外一个消息，迪爸爸高管们都降薪了。一个『帝国』都经受不了的冲击，更何况是我们这些普通人？</p>
+<br/>
+<p>在顺遂的时候，很多决定都可以很快做下来。但唯独这种时候，需要更加慎重。</p>
+<br/>
+<p>往好了想，环境影响人，但环境也造就人。<br/>
+往坏了想，水能载舟，亦能覆舟。</p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2020/ncee-delayed.html</guid>
+      </item><item>
         <title>关于责任心</title>
         <link>https://seasonsroad.com/post/2020/choice-about-responsibility.html</link>
         <pubDate>Tue, 10 Mar 2020 16:10:00 +0800</pubDate>
@@ -362,78 +376,6 @@ ffmpeg
 </ul>
 <p>Nowadays, more and more systems are distributed. Single Point of Truth becomes so important. If you haven&rsquo;t done it well for your distributed systems, you might encounter unexpected disasters one day as we had..</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2016/spot.html</guid>
-      </item><item>
-        <title>Connect IPv6 with IPv4 via tunnel</title>
-        <link>https://seasonsroad.com/post/2015/connect-ipv6.html</link>
-        <pubDate>Sun, 27 Sep 2015 00:00:00 +0800</pubDate>
-        <description><![CDATA[<p>With IPv6 you can do a lot of things. This is a how-to article for users who only have IPv4 and want to connect IPv6.</p>
-<h2 id="prerequisites">Prerequisites</h2>
-<ul>
-<li>You should have a public address that&rsquo;s ping reachable.</li>
-</ul>
-<h2 id="steps-to-connect">Steps to connect</h2>
-<ol>
-<li>
-<p>Register to <a href="http://www.tunnelbroker.net/">Tunnel Broker</a> and login this website.</p>
-</li>
-<li>
-<p>Click &lsquo;Create Regular Tunnel&rsquo; link inside User Functions panel below Account Menu.</p>
-</li>
-<li>
-<p>Configure your tunnel and create it.</p>
-<ul>
-<li>IPv4 Endpoint is the v4 IP you used to connect Internet. (Remember the IP you use, take it as &lsquo;PUBLIC-IP&rsquo;.)</li>
-<li>If you&rsquo;re inside NAT or router, you can try to use Baidu/Google and search IP. Then you&rsquo;ll know your IP address. Usually, you can use the IP under the input box.</li>
-<li>Make sure your IP is ping reachable. Or Tunnel Broker won&rsquo;t create any tunnel for you.</li>
-<li>Try to choose a server that&rsquo;s nearest to you. However, you can just choose one you like if you have no idea which is nearer.</li>
-</ul>
-</li>
-<li>
-<p>Once you create a tunnel, you&rsquo;ll get the Tunnel Details panel.</p>
-</li>
-<li>
-<p>Connect to the tunnel you created.</p>
-<ul>
-<li>Tunnel Broker helps a lot in connect the tunnel they host with your specific platform.</li>
-<li>In &lsquo;Example Configurations&rsquo; tab, you can select your OS.</li>
-<li>Ensure to read all the tips/NOTEs below the configuration. (You may need sudo to run the command)</li>
-<li><strong>IMPORTANT:</strong> If you&rsquo;re inside an NAT or router, you need to change the &lsquo;PUBLIC-IP&rsquo; in the commands to your own inner IP address.</li>
-</ul>
-</li>
-<li>
-<p>After steps above, you&rsquo;ve created a network interface named <code>gif0</code>.</p>
-<ul>
-<li>You can shut down this tunnel by <code>sudo ifconfig gif0 down</code> or open it with <code>sudo ifconfig gif0 up</code>.</li>
-</ul>
-</li>
-<li>
-<p>Now you have the tunnel. And you still need to update your DNS server to resolve your domain names to IPv6 addresses.</p>
-<ul>
-<li>Use Google IPv4 DNS: 8.8.8.8 (google-public-dns-a.google.com) &amp; 8.8.4.4 (google-public-dns-b.google.com)</li>
-<li>Use Google IPv6 DNS: 2001:4860:4860::8888 &amp; 2001:4860:4860::8844</li>
-<li>Use OpenDNS IPv4: 208.67.222.222 (Resolver1.OpenDNS.com), 208.67.220.220 (Resolver2.OpenDNS.com), 208.67.222.220 (Resolver3.OpenDNS.com) &amp; 208.67.220.222 (Resolver4.OpenDNS.com)</li>
-<li>Use OpenDNS IPv6: 2620:0:ccc::2 &amp; 2620:0:ccd::2</li>
-</ul>
-</li>
-<li>
-<p>You may need to flush your DNS.</p>
-<ul>
-<li>Windows: <code>ipconfig /flushdns</code></li>
-<li>Mac OSX: <code>dscacheutil -flushcache</code></li>
-</ul>
-</li>
-<li>
-<p>Test it now!</p>
-<ul>
-<li><a href="http://www.test-ipv6.com/">test-ipv6.com</a></li>
-<li><a href="http://ipv6-test.com/">ipv6-test.com</a></li>
-<li><a href="https://ipv6.google.com/">ipv6.google.com</a></li>
-</ul>
-</li>
-</ol>
-<h2 id="after-all">After all</h2>
-<p>Now you should have the ability to access IPv6. Go surf the Internet with IPv6 then!</p>]]></description>
-        <guid isPermaLink="true">https://seasonsroad.com/post/2015/connect-ipv6.html</guid>
       </item>
   </channel>
 </rss>
