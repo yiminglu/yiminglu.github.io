@@ -4,10 +4,26 @@
     <link>https://seasonsroad.com/</link>
     <description>SeasonsRoad is the blog for interesting things happening around.</description>
     
-    <lastBuildDate>Tue, 31 Mar 2020 18:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 20 Apr 2020 23:00:00 +0800</lastBuildDate>
     <generator>Hugo v0.65.1</generator>
     <atom:link href="https://seasonsroad.com/feed.xml" rel="self" type="application/rss+xml" />
       <item>
+        <title>Hulu 五周年</title>
+        <link>https://seasonsroad.com/post/2020/fifth-huluversary.html</link>
+        <pubDate>Mon, 20 Apr 2020 23:00:00 +0800</pubDate>
+        <description><![CDATA[<p>&ldquo;Give me FIVE!!&rdquo;</p>
+<p>五年很长，一个人一生职业生涯不过三十年，我已经走过前六分之一了。况且，也不能指望生涯后半段依然像刚入职那样努力，毕竟精力在下降，能力也在下降。</p>
+<p>五年也很短，现在回首看去，依然可以想到很多很多趣事。唯一有点失落的是，想要与人分享时，却发现那只是我自己的记忆。</p>
+<br/>
+<center><p><img src="/post/2020/fifth-huluversary/cake.jpg" alt="The Cake" ></p></center>
+<p>第一次在 Hulu 收到蛋糕庆祝，还是很感动。因为生日大多在假期中间，一般是收到贺卡。当然这次也收到了贺卡，而且很多张，里面也有不少让人感动的文字。蛋糕上有美队和雷神，想想自己从某种程度上也能成为他们一些人心中的超级英雄，感觉也是有丝丝欣慰。</p>
+<p>又想想近况，感觉心里有点苦涩。因为这些不舍的记忆和人，恰恰影响到了这颗想要出逃的心。</p>
+<p>一个前同事发来贺电，『5年前的今天也是个周一，你的周年纪念日很有意义』。。想想，其实也是他的周年纪念日，很怀念那段一起打拼的日子，只不过他早已有了新的周年纪念日。</p>
+<br/>
+<p>最近跟很多人聊，有人想要挽留，有人建议我寻求自我。其实，还是要笃定一些，不是吗？</p>
+<p>『围城』，到底还是围了自己。</p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2020/fifth-huluversary.html</guid>
+      </item><item>
         <title>高考延期了</title>
         <link>https://seasonsroad.com/post/2020/ncee-delayed.html</link>
         <pubDate>Tue, 31 Mar 2020 18:00:00 +0800</pubDate>
@@ -347,35 +363,6 @@ ffmpeg
 <p>This is not a post to praise Google. Actually, Apple is also doing great. A lot of people love iPhones. BTW, I love Mac. Even Microsoft is trying its best to serve bests apps on iOS/Android, when WinPhone has been dying.</p>
 <p>I mean, every company has its good side, and bad side as well. Maybe they are saying &ldquo;don&rsquo;t be evil&rdquo;, while they are doing the evilest things.</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2018/pwa-integration.html</guid>
-      </item><item>
-        <title>Single Point of Truth</title>
-        <link>https://seasonsroad.com/post/2016/spot.html</link>
-        <pubDate>Fri, 18 Nov 2016 00:00:00 +0800</pubDate>
-        <description><![CDATA[<p>Last afternoon, we encountered a bit of down time on our site. Before anybody told us, we didn&rsquo;t even know what&rsquo;s going on.</p>
-<p>We did a deployment for just dark launch of some feature, and it is supposed not to break anything or affect any User Experience. After that, we fixed a small bug and did another deployment. Then we did some sanity check and made it a successful deployment. After that, we continued working on other things.</p>
-<p>We didn&rsquo;t know anything before one colleague from US side HipChated us, that a lot of users reported that they can&rsquo;t even open our site, and see some JavaScript error. The colleague also shot us a <a href="http://downdetector.com/status/hulu">link</a>.</p>
-<center><p><img src="/post/2016/spot/problems.png" alt="Reported problems" style="width: 392px;"/></p></center>
-<p>WTF? Java(Script) error?</p>
-<center><p><img src="/post/2016/spot/comments-1.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
-<center><p><img src="/post/2016/spot/comments-2.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
-<center><p><img src="/post/2016/spot/comments-3.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
-<center><p><img src="/post/2016/spot/comments-4.jpg" alt="Comments on the down detector page" style="width: 485px;"/></p></center>
-<p>One thing occurred to me that, most time for our site, JavaScript error means missing asset. But we still cannot believe this is true.</p>
-<p>From the down detector, we find that most problems are from East Coast. So it might be something wrong with one of our data centers.</p>
-<center><p><img src="/post/2016/spot/geo-impact.png" alt="Geo Impact" style="width: 917px;"/></p></center>
-<p>So I connected to our VPN for this data center, and opened our site, and find that there is one JS 404, just like I guessed.</p>
-<center><p><img src="/post/2016/spot/missing-asset.png" alt="Missing asset" style="width: 867px;"/></p></center>
-<p>I quickly copied things so that it works again. The down time is over.</p>
-<p>But I wonder why. Why can&rsquo;t I find the asset?? We dig into that, only to find that the built outputs are different in different data centers. We did a diff and find that there is a value not the same in the huge JS file, which causing the JS manifest/md5 not the same. So I know the reason.</p>
-<p>We did compilation on different servers with Nginx, and copy the built assets into the local folder to be directly served by Nginx. The output of the compilation contains 2 part: JS part and rails server part.</p>
-<p>And during the compilation, there is a backend call encountered inconsistency issue in different data centers. And they get different values back which is built into the JS part. But we only use only one data center as the running rails server, they just trying to get the assets built in its manifest list which does not exist in other data centers.</p>
-<p>From this incident, we know that:</p>
-<ul>
-<li>We are trying to do SPOT, b/c we have rails server part done with SPOT.</li>
-<li>We should have done better and have JS part done with SPOT.</li>
-</ul>
-<p>Nowadays, more and more systems are distributed. Single Point of Truth becomes so important. If you haven&rsquo;t done it well for your distributed systems, you might encounter unexpected disasters one day as we had..</p>]]></description>
-        <guid isPermaLink="true">https://seasonsroad.com/post/2016/spot.html</guid>
       </item>
   </channel>
 </rss>
