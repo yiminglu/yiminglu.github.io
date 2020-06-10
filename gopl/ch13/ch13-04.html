@@ -129,7 +129,7 @@
 <p><u><i>gopl.io/ch13/bzip</i></u></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#75715e">/* This file is gopl.io/ch13/bzip/bzip2.c,         */</span>
 <span style="color:#75715e">/* a simple wrapper for libbzip2 suitable for cgo. */</span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;bzlib.h&gt;</span><span style="color:#75715e">
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;bzlib.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">bz2compress</span>(bz_stream <span style="color:#f92672">*</span>s, <span style="color:#66d9ef">int</span> action,
                 <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>in, <span style="color:#66d9ef">unsigned</span> <span style="color:#f92672">*</span>inlen, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>out, <span style="color:#66d9ef">unsigned</span> <span style="color:#f92672">*</span>outlen) {

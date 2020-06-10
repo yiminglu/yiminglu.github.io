@@ -122,7 +122,7 @@
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">resp</span>, <span style="color:#e6db74">&#34;Search: %+v\n&#34;</span>, <span style="color:#a6e22e">data</span>)
 }
 </code></pre></div><p>下面的Unpack函数主要完成三件事情。第一，它调用req.ParseForm()来解析HTTP请求。然后，req.Form将包含所有的请求参数，不管HTTP客户端使用的是GET还是POST请求方法。</p>
-<p>下一步，Unpack函数将构建每个结构体成员有效参数名字到成员变量的映射。如果结构体成员有成员标签的话，有效参数名字可能和实际的成员名字不相同。reflect.Type的Field方法将返回一个reflect.StructField，里面含有每个成员的名字、类型和可选的成员标签等信息。其中成员标签信息对应reflect.StructTag类型的字符串，并且提供了Get方法用于解析和根据特定key提取的子串，例如这里的http:&quot;&hellip;&ldquo;形式的子串。</p>
+<p>下一步，Unpack函数将构建每个结构体成员有效参数名字到成员变量的映射。如果结构体成员有成员标签的话，有效参数名字可能和实际的成员名字不相同。reflect.Type的Field方法将返回一个reflect.StructField，里面含有每个成员的名字、类型和可选的成员标签等信息。其中成员标签信息对应reflect.StructTag类型的字符串，并且提供了Get方法用于解析和根据特定key提取的子串，例如这里的http:&rdquo;&hellip;&ldquo;形式的子串。</p>
 <p><u><i>gopl.io/ch12/params</i></u></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// Unpack populates the fields of the struct pointed to by ptr
 </span><span style="color:#75715e">// from the HTTP request parameters in req.
@@ -209,7 +209,7 @@ $ ./fetch 'http://localhost:12345/search?q=hello&amp;max=lots'
 max: strconv.ParseInt: parsing &quot;lots&quot;: invalid syntax
 </code></pre><p><strong>练习 12.11：</strong> 编写相应的Pack函数，给定一个结构体值，Pack函数将返回合并了所有结构体成员和值的URL。</p>
 <p><strong>练习 12.12：</strong> 扩展成员标签以表示一个请求参数的有效值规则。例如，一个字符串可以是有效的email地址或一个信用卡号码，还有一个整数可能需要是有效的邮政编码。修改Unpack函数以检查这些规则。</p>
-<p><strong>练习 12.13：</strong> 修改S表达式的编码器（§12.4）和解码器（§12.6），采用和encoding/json包（§4.5）类似的方式使用成员标签中的sexpr:&quot;&hellip;&ldquo;字串。</p>
+<p><strong>练习 12.13：</strong> 修改S表达式的编码器（§12.4）和解码器（§12.6），采用和encoding/json包（§4.5）类似的方式使用成员标签中的sexpr:&rdquo;&hellip;&ldquo;字串。</p>
 
 	</div>
 </div>

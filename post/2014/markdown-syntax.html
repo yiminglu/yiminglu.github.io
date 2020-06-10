@@ -233,15 +233,15 @@ Use two asterisks for <span style="font-weight:bold">**strong emphasis**</span>.
 
 I wish SmartyPants used named entities like <span style="color:#e6db74">`&amp;mdash;`</span> instead of decimal-encoded entites like <span style="color:#e6db74">`&amp;#8212;`</span>.
 </code></pre></div><p>输出HTML为：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">&lt;p&gt;I strongly recommend against using any&lt;code&gt;&amp;lt;blink&amp;gt;&lt;/code&gt; tags.&lt;/p&gt;
-&lt;p&gt;I wish SmartyPants used named entities like&lt;code&gt;&amp;amp;mdash;&lt;/code&gt; instead of decimal-encoded entites like &lt;code&gt;&amp;amp;#8212;&lt;/code&gt;.&lt;/p&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">&lt;<span style="color:#f92672">p</span>&gt;I strongly recommend against using any&lt;<span style="color:#f92672">code</span>&gt;&amp;lt;blink&amp;gt;&lt;/<span style="color:#f92672">code</span>&gt; tags.&lt;/<span style="color:#f92672">p</span>&gt;
+&lt;<span style="color:#f92672">p</span>&gt;I wish SmartyPants used named entities like&lt;<span style="color:#f92672">code</span>&gt;&amp;amp;mdash;&lt;/<span style="color:#f92672">code</span>&gt; instead of decimal-encoded entites like &lt;<span style="color:#f92672">code</span>&gt;&amp;amp;#8212;&lt;/<span style="color:#f92672">code</span>&gt;.&lt;/<span style="color:#f92672">p</span>&gt;
 </code></pre></div><p>如果要建立一个已经格式化好的代码区块，只要每行都缩进4个空格或是一个tab就可以了，而<code>&amp;</code>、<code>&lt;</code>和<code>&gt;</code>也一样会自动转成HTML实体。</p>
 <p>Markdown语法:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">If you want your page to validate under XHTML 1.0 Strict, you&#39;ve got to put paragraph tags in your blockquotes:
 
-&lt;blockquote&gt;
-&lt;p&gt;For example.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;<span style="color:#f92672">blockquote</span>&gt;
+&lt;<span style="color:#f92672">p</span>&gt;For example.&lt;/<span style="color:#f92672">p</span>&gt;
+&lt;/<span style="color:#f92672">blockquote</span>&gt;
 </code></pre></div><p>输出HTML为：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">	&lt;<span style="color:#f92672">p</span>&gt;If you want your page to validate under XHTML 1.0 Strict, you&#39;ve got to put paragraph tags in your blockquotes:&lt;/<span style="color:#f92672">p</span>&gt;
 	&lt;<span style="color:#f92672">pre</span>&gt;&lt;<span style="color:#f92672">code</span>&gt;&amp;lt;blockquote&amp;gt;

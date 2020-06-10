@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-c9f784cbe6f622a78a001601aec01698d743b2ea';
+const cacheName = 'sr-precache-8570533fbe407a362082ef2ddf2da1ce80360f21';
 
 const PrecacheList = [
   "/",
@@ -12,11 +12,11 @@ const PrecacheList = [
   "/manifest.json",
   "/favicon.ico",
   "billing/index.html",
-  "billing/static/css/2.a7a868a3.chunk.css",
-  "billing/static/css/main.e07fb7e2.chunk.css",
-  "billing/static/js/2.67580f6a.chunk.js",
-  "billing/static/js/2.67580f6a.chunk.js.LICENSE",
-  "billing/static/js/main.4add9681.chunk.js",
+  "billing/static/css/2.28867381.chunk.css",
+  "billing/static/css/main.c849520c.chunk.css",
+  "billing/static/js/2.fe069373.chunk.js",
+  "billing/static/js/2.fe069373.chunk.js.LICENSE",
+  "billing/static/js/main.6b469694.chunk.js",
   "billing/static/js/runtime-main.072db1e7.js",
   "post/2009/luck.html",
   "post/2009/yuanyuan.html",
@@ -65,6 +65,7 @@ const PrecacheList = [
   "post/2019/over-concern.html",
   "post/2019/the-2nd-birthday.html",
   "post/2020/choice-about-responsibility.html",
+  "post/2020/enable-ntfs-mac.html",
   "post/2020/fifth-huluversary.html",
   "post/2020/fifth-huluversary/cake.jpg",
   "post/2020/hevcify-camera-videos.html",

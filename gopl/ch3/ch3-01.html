@@ -198,7 +198,7 @@
 <span style="color:#75715e">// Output:
 </span><span style="color:#75715e">// 3735928559 deadbeef 0xdeadbeef 0XDEADBEEF
 </span></code></pre></div><p>请注意fmt的两个使用技巧。通常Printf格式化字符串包含多个%参数时将会包含对应相同数量的额外操作数，但是%之后的<code>[1]</code>副词告诉Printf函数再次使用第一个操作数。第二，%后的<code>#</code>副词告诉Printf在用%o、%x或%X输出时生成0、0x或0X前缀。</p>
-<p>字符面值通过一对单引号直接包含对应字符。最简单的例子是ASCII中类似&rsquo;a'写法的字符面值，但是我们也可以通过转义的数值来表示任意的Unicode码点对应的字符，马上将会看到这样的例子。</p>
+<p>字符面值通过一对单引号直接包含对应字符。最简单的例子是ASCII中类似&rsquo;a&rsquo;写法的字符面值，但是我们也可以通过转义的数值来表示任意的Unicode码点对应的字符，马上将会看到这样的例子。</p>
 <p>字符使用<code>%c</code>参数打印，或者是用<code>%q</code>参数打印带单引号的字符：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">ascii</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#39;a&#39;</span>
 <span style="color:#a6e22e">unicode</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#39;国&#39;</span>

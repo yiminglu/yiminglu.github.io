@@ -4,10 +4,64 @@
     <link>https://seasonsroad.com/</link>
     <description>SeasonsRoad is the blog for interesting things happening around.</description>
     
-    <lastBuildDate>Mon, 20 Apr 2020 23:00:00 +0800</lastBuildDate>
-    <generator>Hugo v0.65.1</generator>
+    <lastBuildDate>Wed, 10 Jun 2020 07:00:00 +0800</lastBuildDate>
+    <generator>Hugo v0.72.0</generator>
     <atom:link href="https://seasonsroad.com/feed.xml" rel="self" type="application/rss+xml" />
       <item>
+        <title>Enabling NTFS write on macOS 10.15 Catalina</title>
+        <link>https://seasonsroad.com/post/2020/enable-ntfs-mac.html</link>
+        <pubDate>Wed, 10 Jun 2020 07:00:00 +0800</pubDate>
+        <description><![CDATA[<blockquote>
+<p>Source: <a href="https://medium.com/macoclock/enabling-ntfs-write-in-macos-10-15-catalina-the-open-source-way-a5fd0d1cb32e">Enabling NTFS write in macOS 10.15 Catalina the Open source way</a></p>
+</blockquote>
+<p>This is good article, and requires little tech knowledge. Copy it here for future reference. Kudos to the original author.</p>
+<h1 id="highlighted-steps">Highlighted Steps</h1>
+<ol>
+<li>
+<p>Have <a href="https://developer.apple.com/download/more/">Command Line Tools for Xcode</a> installed.</p>
+</li>
+<li>
+<p>Have <a href="https://brew.sh/">Homebrew package manager</a> installed.</p>
+</li>
+<li>
+<p>Install <a href="https://github.com/osxfuse/osxfuse/releases">FUSE for macOS</a></p>
+</li>
+<li>
+<p>Install package ntfs-3g, <code>brew install ntfs-3g</code></p>
+</li>
+<li>
+<p>Disable System Integrity Protection</p>
+</li>
+</ol>
+<ul>
+<li>Restart into Recovery mode by holding <code>Command + R</code> when starting.</li>
+<li>Open Terminal application and input command: <code>csrutil disable</code>.</li>
+<li>Restart</li>
+</ul>
+<ol start="6">
+<li>Changing the system-wide command <code>mount_ntfs</code></li>
+</ol>
+<ul>
+<li>Mount root folder writable, <code>sudo mount -uw /</code>.</li>
+<li>Backup original <code>mount_ntfs</code>, <code>sudo mv /sbin/mount_ntfs /sbin/mount_ntfs.original</code>.</li>
+<li>Switch to new <code>mount_ntfs</code>, <code>sudo ln -s /usr/local/sbin/mount_ntfs /sbin/mount_ntfs</code>.</li>
+</ul>
+<ol start="7">
+<li>Re-enable Mac System Integrity Protection</li>
+</ol>
+<ul>
+<li>Restart into Recovery mode again.</li>
+<li>Open Terminal application and input command: <code>csrutil enable</code>.</li>
+<li>Restart</li>
+</ul>
+<ol start="8">
+<li>Enjoy writing to NTFS!</li>
+</ol>
+<blockquote>
+<p>NOTES: Unfortunately, you have to repeat this procedure every time you update to a new major release of macOS. However, it&rsquo;s far better than doing it every restart. :)</p>
+</blockquote>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2020/enable-ntfs-mac.html</guid>
+      </item><item>
         <title>Hulu 五周年</title>
         <link>https://seasonsroad.com/post/2020/fifth-huluversary.html</link>
         <pubDate>Mon, 20 Apr 2020 23:00:00 +0800</pubDate>
@@ -214,155 +268,6 @@ ffmpeg
 <p>P.S.</p>
 <p>I even updated my blog to the same style.</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2018/migration-to-https.html</guid>
-      </item><item>
-        <title>The Blog as a PWA</title>
-        <link>https://seasonsroad.com/post/2018/pwa-integration.html</link>
-        <pubDate>Wed, 08 Aug 2018 00:00:00 +0800</pubDate>
-        <description><![CDATA[<h2 id="what-is-pwa">What is PWA</h2>
-<p><strong>PWA</strong> is short for <strong>Progressive Web Applications</strong>. If you want to learn more about the basics of PWA, go check the <a href="https://developers.google.com/web/progressive-web-apps/">Google PWA official website</a>.</p>
-<p>Also, I did a brief intro to PWA in the CORP as tech share a while before. The content mainly comes from the PWA official site and the <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">offline cookbook</a>. Check it out if you desire.</p>
-<div class="with-ratio ratio-w5h3" style="max-width: 700px;"><div class="content"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQD3Q6gdHlqp7DSfzXlV5cLFhRTjGmXSqhT1xVjbT8hDgvohWR4pQgy01Bmh2w5XoYQSxyvNbw5O34y/embed?start=false&loop=false&delayms=3000" frameborder="0" width="100%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></div></div>
-<h2 id="apply-pwa-features-to-the-blog">Apply PWA Features to The Blog</h2>
-<p>I want to apply these beautiful PWA features to the blog, so that I can add the app to my home screen and browse the blogs offline. Now, let&rsquo;s go through how to do that step-by-step.</p>
-<h3 id="first-of-all-generate-the-service-worker-javascript">First of all, Generate the Service Worker JavaScript</h3>
-<ul>
-<li>
-<p>I need to generate the <strong>Service Worker JavaScript</strong>, <code>sw.js</code>, with all my content and pre-cache the pages into the cache. This way, when service worker is installed, everything has been pre-cached. It will enable the full off-line mode by all the pre-cached files. This is the so-called <strong>install</strong> step of PWA life-circle.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cacheName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;sr-precache-##REVISION##&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PrecacheList</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">##</span><span style="color:#a6e22e">PRECACHE_LIST</span><span style="color:#960050;background-color:#1e0010">##</span>;
-
-<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;install&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Install&#39;</span>);
-  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">waitUntil</span>(
-    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">open</span>(<span style="color:#a6e22e">cacheName</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">cache</span>) {
-      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Caching all files.&#39;</span>);
-      <span style="color:#a6e22e">cache</span>.<span style="color:#a6e22e">addAll</span>(<span style="color:#a6e22e">PrecacheList</span>);
-      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] SkipWaiting&#39;</span>);
-      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">skipWaiting</span>();
-    })
-  );
-});
-</code></pre></div><p>There will be a post-build script to replace <code>##PRECACHE_LIST##</code> with the files in my <code>public</code> folder after I generated my site. The script will also replace <code>##REVISION##</code> with the git sha of <code>origin/master</code>.</p>
-<p>Also, as you can see, there is a command <code>self.skipWaiting()</code> to tell SW to skip waiting, meaning the service worker activates as soon as it&rsquo;s finished installing, even for updating.</p>
-</li>
-<li>
-<p>Then, I would want SW to use these pre-cached files for the requests. So I added lines to customize the <strong>fetch</strong> event in <code>sw.js</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
-  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">respondWith</span>(
-    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">match</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">request</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">response</span>) {
-      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">request</span>);
-    })
-  );
-});
-</code></pre></div><p>This is a very basic cache strategy, serving from cache and then network, a.k.a, <strong>cache-first</strong>.</p>
-</li>
-<li>
-<p>After the steps above, the web app now works when offline. However, there are still issues.</p>
-<ul>
-<li>The cache will be invalid after I update the site, I need to remove the invalid cache.</li>
-<li>SW will wait for all the tabs to close so that the new <code>sw.js</code> could apply to the tabs.</li>
-</ul>
-<p>So, I need to update the <strong>activate</strong> step so that I can fix these issues.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;activate&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Activate&#39;</span>);
-  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">waitUntil</span>(
-    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">keys</span>().<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">keyList</span>) {
-      <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">keyList</span>.<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">key</span>) {
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">key</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">cacheName</span>) {
-          <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Removing old cache&#39;</span>, <span style="color:#a6e22e">key</span>);
-          <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">caches</span>.<span style="color:#66d9ef">delete</span>(<span style="color:#a6e22e">key</span>);
-        }
-      }));
-    })
-  );
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">clients</span>.<span style="color:#a6e22e">claim</span>();
-});
-</code></pre></div><p>Since every update will change the git sha, I will get a unique new sha whenever there is an update. Then I just need to delete caches which is not the latest one.</p>
-<p>Also, with <code>self.clients.claim()</code>, I can take control of uncontrolled clients/tabs within my service worker once it&rsquo;s activated.</p>
-</li>
-</ul>
-<p>With all these steps above, the basic <code>sw.js</code> is initialized.</p>
-<h3 id="lets-register-the-service-worker-javascript">Let&rsquo;s Register The Service Worker JavaScript</h3>
-<p>It&rsquo;s easy to do this. Just test the browser to see if it supports SW, and register if so.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">if</span> (<span style="color:#e6db74">&#39;serviceWorker&#39;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">navigator</span>) {
-  <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">serviceWorker</span>.<span style="color:#a6e22e">register</span>(<span style="color:#e6db74">&#39;/sw.js&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(){
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Service Worker Registered&#39;</span>);
-  });
-}
-</code></pre></div><h3 id="create-the-web-app-manifest">Create The Web App Manifest</h3>
-<p>The <a href="https://developers.google.com/web/fundamentals/web-app-manifest/">web app manifest</a> is a simple JSON file that tells the browser about your web application and how it should behave when &lsquo;installed&rsquo; on the user&rsquo;s mobile device or desktop. Having a manifest is required by Chrome to show the <strong>Add to Home Screen</strong> prompt.</p>
-<ul>
-<li>Add <code>name</code> &amp; <code>short_name</code>
-<ul>
-<li>The <code>name</code> is used in the <strong>Add to Home Screen</strong> prompt, while the <code>short_name</code> is used as the app name after being added to home screen.</li>
-</ul>
-</li>
-<li>Add Icons
-<ul>
-<li>Ah.. I just used the <code>Preview</code> app on Mac to create my PNG icons.</li>
-</ul>
-</li>
-<li>Add <code>start_url</code> &amp; <code>scope</code>
-<ul>
-<li>The <code>start_url</code> is the url when the app is launched as a fresh start after being added to home screen.</li>
-</ul>
-</li>
-<li>Add <code>backgrou_color</code> &amp; <code>theme_color</code>
-<ul>
-<li>These two will affect the Android Chrome header color and the app splash screen after being added to home screen.</li>
-</ul>
-</li>
-<li>Add <code>display</code>
-<ul>
-<li>If you want the immersive experience, try <code>standalone</code>(with only status bar) or even <code>fullscreen</code>(no status bar).</li>
-</ul>
-</li>
-</ul>
-<p>Now, let&rsquo;s register this configuration file in the <code>&lt;head&gt;</code> tag of all the pages.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;manifest&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/manifest.json&#34;</span>&gt;
-</code></pre></div><h3 id="it-is-not-enough-yet">It is NOT Enough, Yet</h3>
-<ul>
-<li>
-<p>For iOS</p>
-<p>As we all know, PWA is not an Android only feature, it also works on iOS with iOS 11.3. However, you can barely find it on <a href="https://support.apple.com/en-bn/HT208067#113">iOS 11.3 release notes</a>, even Google says <a href="https://medium.com/@firt/progressive-web-apps-on-ios-are-here-d00430dee3a7#b0e7">PWA is firstly introduced by Steve Jobs</a>. And in this medium post, there are a huge ton of useful information about PWA on iOS.</p>
-<ul>
-<li>The Icons for iOS
-<ul>
-<li>If you are looking for Apple official doc, <a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">here it goes</a>.</li>
-</ul>
-</li>
-<li>The Splash Screen for iOS
-<ul>
-<li>Check more details <a href="https://medium.com/appscope/adding-custom-ios-splash-screens-to-your-progressive-web-app-41a9b18bdca3">here</a></li>
-<li><a href="https://appsco.pe/developer/splash-screens">Splash Screen Genertor</a></li>
-</ul>
-</li>
-<li>Status Bar Style
-<ul>
-<li>More details <a href="https://dev.to/oskarlarsson/designing-native-like-progressive-web-apps-for-ios-510o">here</a></li>
-</ul>
-</li>
-</ul>
-<p>Why Google and Apple always do the same thing in a different way? And why Google is doing the standard way and Apple is doing the non-standard way? (Or, at least Google is making his way the standard way. This is the reason why we need to be open, instead of locking ourselves into a cage which looks big, but will become smaller and smaller.)</p>
-</li>
-<li>
-<p>Client Tracking</p>
-<p>With Google Analytics, I can track my blog visits very easily. Google has done really nice shits. (PWA is one of the shits!)</p>
-</li>
-<li>
-<p>Local Dev</p>
-<p>Actually, when you initialized the PWA, you don&rsquo;t need it for dev mode when writing posts or updating blog styles. The cache will breake some functions of the auto-reload logic.</p>
-</li>
-</ul>
-<h2 id="conclusion">Conclusion</h2>
-<p>So, here it comes, the PWA for the blog.</p>
-<center><p><img src="/post/2018/pwa-integration/pwa.gif" alt="The Blog PWA" style="width: 320px; border: 1px solid black;"/></p></center>
-<p>PWA is going to change rules of the game, hopefully, if and only if it will be more and more improved and applied. And it did really pushing the web to the next milestone.</p>
-<p>PS:</p>
-<p>This is not a post to praise Google. Actually, Apple is also doing great. A lot of people love iPhones. BTW, I love Mac. Even Microsoft is trying its best to serve bests apps on iOS/Android, when WinPhone has been dying.</p>
-<p>I mean, every company has its good side, and bad side as well. Maybe they are saying &ldquo;don&rsquo;t be evil&rdquo;, while they are doing the evilest things.</p>]]></description>
-        <guid isPermaLink="true">https://seasonsroad.com/post/2018/pwa-integration.html</guid>
       </item>
   </channel>
 </rss>
