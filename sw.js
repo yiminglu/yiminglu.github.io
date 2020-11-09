@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-3807a6d7f6e452b021700a14f1252b6fcf238244';
+const cacheName = 'sr-precache-aa353b9df24ece32ac26d0f9281a6636baf43d4f';
 
 const PrecacheList = [
   "/",
@@ -14,8 +14,8 @@ const PrecacheList = [
   "billing/index.html",
   "billing/static/css/2.a9340684.chunk.css",
   "billing/static/css/main.1118c526.chunk.css",
-  "billing/static/js/2.568e5946.chunk.js",
-  "billing/static/js/main.44f26387.chunk.js",
+  "billing/static/js/2.1a1ae449.chunk.js",
+  "billing/static/js/main.e1c70460.chunk.js",
   "billing/static/js/runtime~main.65bdb53c.js",
   "post/2009/luck.html",
   "post/2009/yuanyuan.html",
