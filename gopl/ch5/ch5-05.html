@@ -158,7 +158,7 @@
 		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%*s&lt;/%s&gt;\n&#34;</span>, <span style="color:#a6e22e">depth</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Data</span>)
 	}
 }
-</code></pre></div><p>上面的代码利用fmt.Printf的一个小技巧控制输出的缩进。<code>%*s</code>中的<code>*</code>会在字符串之前填充一些空格。在例子中，每次输出会先填充<code>depth*2</code>数量的空格，再输出&rdquo;&quot;，最后再输出HTML标签。</p>
+</code></pre></div><p>上面的代码利用fmt.Printf的一个小技巧控制输出的缩进。<code>%*s</code>中的<code>*</code>会在字符串之前填充一些空格。在例子中，每次输出会先填充<code>depth*2</code>数量的空格，再输出&quot;&quot;，最后再输出HTML标签。</p>
 <p>如果我们像下面这样调用forEachNode：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">forEachNode</span>(<span style="color:#a6e22e">doc</span>, <span style="color:#a6e22e">startElement</span>, <span style="color:#a6e22e">endElement</span>)
 </code></pre></div><p>与之前的outline程序相比，我们得到了更加详细的页面结构：</p>
@@ -182,7 +182,7 @@ $ ./outline2 http://gopl.io
               &lt;img&gt;
               &lt;/img&gt;
 ...
-</code></pre><p><strong>练习 5.7：</strong> 完善startElement和endElement函数，使其成为通用的HTML输出器。要求：输出注释结点，文本结点以及每个元素的属性（&lt; a href=&rsquo;&hellip;&lsquo;&gt;）。使用简略格式输出没有孩子结点的元素（即用<code>&lt;img/&gt;</code>代替<code>&lt;img&gt;&lt;/img&gt;</code>）。编写测试，验证程序输出的格式正确。（详见11章）</p>
+</code></pre><p><strong>练习 5.7：</strong> 完善startElement和endElement函数，使其成为通用的HTML输出器。要求：输出注释结点，文本结点以及每个元素的属性（&lt; a href='&hellip;'&gt;）。使用简略格式输出没有孩子结点的元素（即用<code>&lt;img/&gt;</code>代替<code>&lt;img&gt;&lt;/img&gt;</code>）。编写测试，验证程序输出的格式正确。（详见11章）</p>
 <p><strong>练习 5.8：</strong> 修改pre和post函数，使其返回布尔类型的返回值。返回false时，中止forEachNoded的遍历。使用修改后的代码编写ElementByID函数，根据用户输入的id查找第一个拥有该id元素的HTML元素，查找成功后，停止遍历。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ElementByID</span>(<span style="color:#a6e22e">doc</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Node</span>, <span style="color:#a6e22e">id</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Node</span>
 </code></pre></div><p><strong>练习 5.9：</strong> 编写函数expand，将s中的&quot;foo&quot;替换为f(&ldquo;foo&rdquo;)的返回值。</p>

@@ -147,7 +147,7 @@
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;Dolly&#34;</span>
 <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">c</span>, <span style="color:#e6db74">&#34;hello, %s&#34;</span>, <span style="color:#a6e22e">name</span>)
 <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">c</span>) <span style="color:#75715e">// &#34;12&#34;, = len(&#34;hello, Dolly&#34;)
-</span></code></pre></div><p>除了io.Writer这个接口类型，还有另一个对fmt包很重要的接口类型。Fprintf和Fprintln函数向类型提供了一种控制它们值输出的途径。在2.5节中，我们为Celsius类型提供了一个String方法以便于可以打印成这样&quot;100°C&rdquo; ，在6.5节中我们给*IntSet添加一个String方法，这样集合可以用传统的符号来进行表示就像&rdquo;{1 2 3}&quot;。给一个类型定义String方法，可以让它满足最广泛使用之一的接口类型fmt.Stringer：</p>
+</span></code></pre></div><p>除了io.Writer这个接口类型，还有另一个对fmt包很重要的接口类型。Fprintf和Fprintln函数向类型提供了一种控制它们值输出的途径。在2.5节中，我们为Celsius类型提供了一个String方法以便于可以打印成这样&quot;100°C&quot; ，在6.5节中我们给*IntSet添加一个String方法，这样集合可以用传统的符号来进行表示就像&quot;{1 2 3}&quot;。给一个类型定义String方法，可以让它满足最广泛使用之一的接口类型fmt.Stringer：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">fmt</span>
 
 <span style="color:#75715e">// The String method is used to print values passed

@@ -213,7 +213,7 @@ omin.)&quot; &quot;Best Picture (Nomin.)&quot;)) (Sequel nil))
  (Sequel nil))
 </code></pre><p>和fmt.Print、json.Marshal、Display函数类似，sexpr.Marshal函数处理带环的数据结构也会陷入死循环。</p>
 <p>在12.6节中，我们将给出S表达式解码器的实现步骤，但是在那之前，我们还需要先了解如何通过反射技术来更新程序的变量。</p>
-<p><strong>练习 12.3：</strong> 实现encode函数缺少的分支。将布尔类型编码为t和nil，浮点数编码为Go语言的格式，复数1+2i编码为#C(1.0 2.0)格式。接口编码为类型名和值对，例如（&quot;[]int&rdquo; (1 2 3)），但是这个形式可能会造成歧义：reflect.Type.String方法对于不同的类型可能返回相同的结果。</p>
+<p><strong>练习 12.3：</strong> 实现encode函数缺少的分支。将布尔类型编码为t和nil，浮点数编码为Go语言的格式，复数1+2i编码为#C(1.0 2.0)格式。接口编码为类型名和值对，例如（&quot;[]int&quot; (1 2 3)），但是这个形式可能会造成歧义：reflect.Type.String方法对于不同的类型可能返回相同的结果。</p>
 <p><strong>练习 12.4：</strong> 修改encode函数，以上面的格式化形式输出S表达式。</p>
 <p><strong>练习 12.5：</strong> 修改encode函数，用JSON格式代替S表达式格式。然后使用标准库提供的json.Unmarshal解码器来验证函数是正确的。</p>
 <p><strong>练习 12.6：</strong> 修改encode，作为一个优化，忽略对是零值对象的编码。</p>
