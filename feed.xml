@@ -5,7 +5,7 @@
     <description>SeasonsRoad is the blog for interesting things happening around.</description>
     
     <lastBuildDate>Wed, 10 Jun 2020 07:00:00 +0800</lastBuildDate>
-    <generator>Hugo v0.78.1</generator>
+    <generator>Hugo v0.80.0</generator>
     <atom:link href="https://seasonsroad.com/feed.xml" rel="self" type="application/rss+xml" />
       <item>
         <title>Enabling NTFS write on macOS 10.15 Catalina</title>
@@ -14,7 +14,7 @@
         <description><![CDATA[<blockquote>
 <p>Source: <a href="https://medium.com/macoclock/enabling-ntfs-write-in-macos-10-15-catalina-the-open-source-way-a5fd0d1cb32e">Enabling NTFS write in macOS 10.15 Catalina the Open source way</a></p>
 </blockquote>
-<p>This is good article, and requires little tech knowledge. Copy it here for future reference. Kudos to the original author.</p>
+<p>This is a good article, and requires little tech knowledge. Copy it here for future reference. Kudos to the original author.</p>
 <h1 id="highlighted-steps">Highlighted Steps</h1>
 <ol>
 <li>
@@ -59,7 +59,23 @@
 </ol>
 <blockquote>
 <p>NOTES: Unfortunately, you have to repeat this procedure every time you update to a new major release of macOS. However, it&rsquo;s far better than doing it every restart. :)</p>
-</blockquote>]]></description>
+</blockquote>
+<h2 id="updates-for-mac-11x-big-sur">Updates for Mac 11.x Big Sur</h2>
+<p>We have to use one time set-up now after upgrading to Mac 11.x Big Sur, b/c 1) we can&rsquo;t mount <code>/</code> writable outside recovery mode, and 2) any changes in recovery mode will get reset after reboot.</p>
+<ol>
+<li>
+<p>List all the disk partitions, <code>diskutil list</code></p>
+</li>
+<li>
+<p>Find the NTFS partition and unmount it, <code>sudo umount /dev/disk2s1</code></p>
+</li>
+<li>
+<p>Create the mount point, <code>sudo mkdir /Volumes/NTFS</code></p>
+</li>
+<li>
+<p>Mount the NTFS partition, <code>sudo /usr/local/bin/ntfs-3g /dev/disk2s1 /Volumes/NTFS -olocal -oallow_other</code></p>
+</li>
+</ol>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2020/enable-ntfs-mac.html</guid>
       </item><item>
         <title>Hulu 五周年</title>
