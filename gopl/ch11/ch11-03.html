@@ -104,7 +104,7 @@
 <p>这些启发式方法中，语句的覆盖率是最简单和最广泛使用的。语句的覆盖率是指在测试中至少被运行一次的代码占总代码数的比例。在本节中，我们使用<code>go test</code>命令中集成的测试覆盖率工具，来度量下面代码的测试覆盖率，帮助我们识别测试和我们期望间的差距。</p>
 <p>下面的代码是一个表格驱动的测试，用于测试第七章的表达式求值程序：</p>
 <p><u><i>gopl.io/ch7/eval</i></u></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestCoverage</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestCoverage</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
 	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tests</span> = []<span style="color:#66d9ef">struct</span> {
 		<span style="color:#a6e22e">input</span> <span style="color:#66d9ef">string</span>
 		<span style="color:#a6e22e">env</span>   <span style="color:#a6e22e">Env</span>

@@ -102,7 +102,7 @@
 <p>Go语言里的集合一般会用map[T]bool这种形式来表示，T代表元素类型。集合用map类型来表示虽然非常灵活，但我们可以以一种更好的形式来表示它。例如在数据流分析领域，集合元素通常是一个非负整数，集合会包含很多元素，并且集合会经常进行并集、交集操作，这种情况下，bit数组会比map表现更加理想。（译注：这里再补充一个例子，比如我们执行一个http下载任务，把文件按照16kb一块划分为很多块，需要有一个全局变量来标识哪些块下载完成了，这种时候也需要用到bit数组。）</p>
 <p>一个bit数组通常会用一个无符号数或者称之为“字”的slice来表示，每一个元素的每一位都表示集合里的一个值。当集合的第i位被设置时，我们才说这个集合包含元素i。下面的这个程序展示了一个简单的bit数组类型，并且实现了三个函数来对这个bit数组来进行操作：</p>
 <p><u><i>gopl.io/ch6/intset</i></u></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// An IntSet is a set of small non-negative integers.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// An IntSet is a set of small non-negative integers.
 </span><span style="color:#75715e">// Its zero value represents the empty set.
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">IntSet</span> <span style="color:#66d9ef">struct</span> {
 	<span style="color:#a6e22e">words</span> []<span style="color:#66d9ef">uint64</span>
@@ -136,7 +136,7 @@
 
 </code></pre></div><p>因为每一个字都有64个二进制位，所以为了定位x的bit位，我们用了x/64的商作为字的下标，并且用x%64得到的值作为这个字内的bit的所在位置。UnionWith这个方法里用到了bit位的“或”逻辑操作符号|来一次完成64个元素的或计算。（在练习6.5中我们还会有程序用到这个64位字的例子。）</p>
 <p>当前这个实现还缺少了很多必要的特性，我们把其中一些作为练习题列在本小节之后。但是有一个方法如果缺失的话我们的bit数组可能会比较难混：将IntSet作为一个字符串来打印。这里我们来实现它，让我们来给上面的例子添加一个String方法，类似2.5节中做的那样：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// String returns the set as a string of the form &#34;{1 2 3}&#34;.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// String returns the set as a string of the form &#34;{1 2 3}&#34;.
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">String</span>() <span style="color:#66d9ef">string</span> {
 	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">buf</span> <span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>
 	<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;{&#39;</span>)
@@ -158,7 +158,7 @@
 }
 </code></pre></div><p>这里留意一下String方法，是不是和3.5.4节中的intsToString方法很相似；bytes.Buffer在String方法里经常这么用。当你为一个复杂的类型定义了一个String方法时，fmt包就会特殊对待这种类型的值，这样可以让这些类型在打印的时候看起来更加友好，而不是直接打印其原始的值。fmt会直接调用用户定义的String方法。这种机制依赖于接口和类型断言，在第7章中我们会详细介绍。</p>
 <p>现在我们就可以在实战中直接用上面定义好的IntSet了：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#a6e22e">IntSet</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#a6e22e">IntSet</span>
 <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
 <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">144</span>)
 <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">9</span>)
@@ -172,12 +172,12 @@
 <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">String</span>()) <span style="color:#75715e">// &#34;{1 9 42 144}&#34;
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Has</span>(<span style="color:#ae81ff">9</span>), <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Has</span>(<span style="color:#ae81ff">123</span>)) <span style="color:#75715e">// &#34;true false&#34;
 </span></code></pre></div><p>这里要注意：我们声明的String和Has两个方法都是以指针类型<code>*IntSet</code>来作为接收器的，但实际上对于这两个类型来说，把接收器声明为指针类型也没什么必要。不过另外两个函数就不是这样了，因为另外两个函数操作的是s.words对象，如果你不把接收器声明为指针对象，那么实际操作的是拷贝对象，而不是原来的那个对象。因此，因为我们的String方法定义在IntSet指针上，所以当我们的变量是IntSet类型而不是IntSet指针时，可能会有下面这样让人意外的情况：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">x</span>)         <span style="color:#75715e">// &#34;{1 9 42 144}&#34;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">x</span>)         <span style="color:#75715e">// &#34;{1 9 42 144}&#34;
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">String</span>()) <span style="color:#75715e">// &#34;{1 9 42 144}&#34;
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">x</span>)          <span style="color:#75715e">// &#34;{[4398046511618 0 65536]}&#34;
 </span></code></pre></div><p>在第一个Println中，我们打印一个<code>*IntSet</code>的指针，这个类型的指针确实有自定义的String方法。第二Println，我们直接调用了x变量的String()方法；这种情况下编译器会隐式地在x前插入&amp;操作符，这样相当于我们还是调用的IntSet指针的String方法。在第三个Println中，因为IntSet类型没有String方法，所以Println方法会直接以原始的方式理解并打印。所以在这种情况下&amp;符号是不能忘的。在我们这种场景下，你把String方法绑定到IntSet对象上，而不是IntSet指针上可能会更合适一些，不过这也需要具体问题具体分析。</p>
 <p><strong>练习6.1:</strong> 为bit数组实现下面这些方法</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span>      <span style="color:#75715e">// return the number of elements
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span>      <span style="color:#75715e">// return the number of elements
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">Remove</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">int</span>)  <span style="color:#75715e">// remove x from the set
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">Clear</span>()        <span style="color:#75715e">// remove all elements from the set
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">Copy</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span> <span style="color:#75715e">// return a copy of the set

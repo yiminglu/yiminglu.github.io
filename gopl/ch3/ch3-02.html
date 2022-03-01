@@ -102,15 +102,15 @@
 <p>Go语言提供了两种精度的浮点数，float32和float64。它们的算术规范由IEEE754浮点数国际标准定义，该浮点数规范被所有现代的CPU支持。</p>
 <p>这些浮点数类型的取值范围可以从很微小到很巨大。浮点数的范围极限值可以在math包找到。常量math.MaxFloat32表示float32能表示的最大数值，大约是 3.4e38；对应的math.MaxFloat64常量大约是1.8e308。它们分别能表示的最小值近似为1.4e-45和4.9e-324。</p>
 <p>一个float32类型的浮点数可以提供大约6个十进制数的精度，而float64则可以提供约15个十进制数的精度；通常应该优先使用float64类型，因为float32类型的累计计算误差很容易扩散，并且float32能精确表示的正整数并不是很大（译注：因为float32的有效bit位只有23个，其它的bit位用于指数和符号；当整数大于23bit能表达的范围时，float32的表示将出现误差）：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> <span style="color:#66d9ef">float32</span> = <span style="color:#ae81ff">16777216</span> <span style="color:#75715e">// 1 &lt;&lt; 24
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> <span style="color:#66d9ef">float32</span> = <span style="color:#ae81ff">16777216</span> <span style="color:#75715e">// 1 &lt;&lt; 24
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">f</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">f</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)    <span style="color:#75715e">// &#34;true&#34;!
 </span></code></pre></div><p>浮点数的字面值可以直接写小数部分，像这样：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">e</span> = <span style="color:#ae81ff">2.71828</span> <span style="color:#75715e">// (approximately)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">e</span> = <span style="color:#ae81ff">2.71828</span> <span style="color:#75715e">// (approximately)
 </span></code></pre></div><p>小数点前面或后面的数字都可能被省略（例如.707或1.）。很小或很大的数最好用科学计数法书写，通过e或E来指定指数部分：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Avogadro</span> = <span style="color:#ae81ff">6.02214129e23</span>  <span style="color:#75715e">// 阿伏伽德罗常数
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Avogadro</span> = <span style="color:#ae81ff">6.02214129e23</span>  <span style="color:#75715e">// 阿伏伽德罗常数
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Planck</span>   = <span style="color:#ae81ff">6.62606957e-34</span> <span style="color:#75715e">// 普朗克常数
 </span></code></pre></div><p>用Printf函数的%g参数打印浮点数，将采用更紧凑的表示形式打印，并提供足够的精度，但是对应表格的数据，使用%e（带指数）或%f的形式打印可能更合适。所有的这三个打印形式都可以指定打印的宽度和控制打印精度。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">x</span> &lt; <span style="color:#ae81ff">8</span>; <span style="color:#a6e22e">x</span><span style="color:#f92672">++</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">x</span> &lt; <span style="color:#ae81ff">8</span>; <span style="color:#a6e22e">x</span><span style="color:#f92672">++</span> {
 	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;x = %d e^x = %8.3f\n&#34;</span>, <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Exp</span>(float64(<span style="color:#a6e22e">x</span>)))
 }
 </code></pre></div><p>上面代码打印e的幂，打印精度是小数点后三个小数精度和8个字符宽度：</p>
@@ -123,13 +123,13 @@ x = 5       e^x =  148.413
 x = 6       e^x =  403.429
 x = 7       e^x = 1096.633
 </code></pre><p>math包中除了提供大量常用的数学函数外，还提供了IEEE754浮点数标准中定义的特殊值的创建和测试：正无穷大和负无穷大，分别用于表示太大溢出的数字和除零的结果；还有NaN非数，一般用于表示无效的除法操作结果0/0或Sqrt(-1).</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">z</span> <span style="color:#66d9ef">float64</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">z</span> <span style="color:#66d9ef">float64</span>
 <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">z</span>, <span style="color:#f92672">-</span><span style="color:#a6e22e">z</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#a6e22e">z</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#a6e22e">z</span>, <span style="color:#a6e22e">z</span><span style="color:#f92672">/</span><span style="color:#a6e22e">z</span>) <span style="color:#75715e">// &#34;0 -0 +Inf -Inf NaN&#34;
 </span></code></pre></div><p>函数math.IsNaN用于测试一个数是否是非数NaN，math.NaN则返回非数对应的值。虽然可以用math.NaN来表示一个非法的结果，但是测试一个结果是否是非数NaN则是充满风险的，因为NaN和任何数都是不相等的（译注：在浮点数中，NaN、正无穷大和负无穷大都不是唯一的，每个都有非常多种的bit模式表示）：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">nan</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">NaN</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">nan</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">NaN</span>()
 <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">nan</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">nan</span>, <span style="color:#a6e22e">nan</span> &lt; <span style="color:#a6e22e">nan</span>, <span style="color:#a6e22e">nan</span> &gt; <span style="color:#a6e22e">nan</span>) <span style="color:#75715e">// &#34;false false false&#34;
 </span></code></pre></div><p>如果一个函数返回的浮点数结果可能失败，最好的做法是用单独的标志报告失败，像这样：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">compute</span>() (<span style="color:#a6e22e">value</span> <span style="color:#66d9ef">float64</span>, <span style="color:#a6e22e">ok</span> <span style="color:#66d9ef">bool</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">compute</span>() (<span style="color:#a6e22e">value</span> <span style="color:#66d9ef">float64</span>, <span style="color:#a6e22e">ok</span> <span style="color:#66d9ef">bool</span>) {
 	<span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">failed</span> {
 		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">false</span>
@@ -139,7 +139,7 @@ x = 7       e^x = 1096.633
 </code></pre></div><p>接下来的程序演示了通过浮点计算生成的图形。它是带有两个参数的z = f(x, y)函数的三维形式，使用了可缩放矢量图形（SVG）格式输出，SVG是一个用于矢量线绘制的XML标准。图3.1显示了sin(r)/r函数的输出图形，其中r是<code>sqrt(x*x+y*y)</code>。</p>
 <p><img src="../images/ch3-01.png" alt=""></p>
 <p><u><i>gopl.io/ch3/surface</i></u></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// Surface computes an SVG rendering of a 3-D surface function.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// Surface computes an SVG rendering of a 3-D surface function.
 </span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
 <span style="color:#f92672">import</span> (
@@ -204,7 +204,7 @@ x = 7       e^x = 1096.633
 <p><strong>练习 3.2：</strong> 试验math包中其他函数的渲染图形。你是否能输出一个egg box、moguls或a saddle图案?</p>
 <p><strong>练习 3.3：</strong> 根据高度给每个多边形上色，那样峰值部将是红色（#ff0000），谷部将是蓝色（#0000ff）。</p>
 <p><strong>练习 3.4：</strong> 参考1.7节Lissajous例子的函数，构造一个web服务器，用于计算函数曲面然后返回SVG数据给客户端。服务器必须设置Content-Type头部：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Header</span>().<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;Content-Type&#34;</span>, <span style="color:#e6db74">&#34;image/svg+xml&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Header</span>().<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;Content-Type&#34;</span>, <span style="color:#e6db74">&#34;image/svg+xml&#34;</span>)
 </code></pre></div><p>（这一步在Lissajous例子中不是必须的，因为服务器使用标准的PNG图像格式，可以根据前面的512个字节自动输出对应的头部。）允许客户端通过HTTP请求参数设置高度、宽度和颜色等参数。</p>
 
 	</div>

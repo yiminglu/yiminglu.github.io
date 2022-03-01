@@ -100,15 +100,15 @@
 	<div class="wrapper">
 		<h2 id="79-示例-表达式求值">7.9. 示例: 表达式求值</h2>
 <p>在本节中，我们会构建一个简单算术表达式的求值器。我们将使用一个接口Expr来表示Go语言中任意的表达式。现在这个接口不需要有方法，但是我们后面会为它增加一些。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// An Expr is an arithmetic expression.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// An Expr is an arithmetic expression.
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Expr</span> <span style="color:#66d9ef">interface</span>{}
 </code></pre></div><p>我们的表达式语言由浮点数符号（小数点）；二元操作符+，-，*， 和/；一元操作符-x和+x；调用pow(x,y)，sin(x)，和sqrt(x)的函数；例如x和pi的变量；当然也有括号和标准的优先级运算符。所有的值都是float64类型。这下面是一些表达式的例子：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">A</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">pi</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">A</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">pi</span>)
 <span style="color:#a6e22e">pow</span>(<span style="color:#a6e22e">x</span>, <span style="color:#ae81ff">3</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">pow</span>(<span style="color:#a6e22e">y</span>, <span style="color:#ae81ff">3</span>)
 (<span style="color:#a6e22e">F</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">32</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">9</span>
 </code></pre></div><p>下面的五个具体类型表示了具体的表达式类型。Var类型表示对一个变量的引用。（我们很快会知道为什么它可以被输出。）literal类型表示一个浮点型常量。unary和binary类型表示有一到两个运算对象的运算符表达式，这些操作数可以是任意的Expr类型。call类型表示对一个函数的调用；我们限制它的fn字段只能是pow，sin或者sqrt。</p>
 <p><u><i>gopl.io/ch7/eval</i></u></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// A Var identifies a variable, e.g., x.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// A Var identifies a variable, e.g., x.
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Var</span> <span style="color:#66d9ef">string</span>
 
 <span style="color:#75715e">// A literal is a numeric constant, e.g., 3.141.
@@ -132,14 +132,14 @@
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">args</span> []<span style="color:#a6e22e">Expr</span>
 }
 </code></pre></div><p>为了计算一个包含变量的表达式，我们需要一个environment变量将变量的名字映射成对应的值：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Env</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">float64</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Env</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">float64</span>
 </code></pre></div><p>我们也需要每个表达式去定义一个Eval方法，这个方法会根据给定的environment变量返回表达式的值。因为每个表达式都必须提供这个方法，我们将它加入到Expr接口中。这个包只会对外公开Expr，Env，和Var类型。调用方不需要获取其它的表达式类型就可以使用这个求值器。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Expr</span> <span style="color:#66d9ef">interface</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Expr</span> <span style="color:#66d9ef">interface</span> {
 	<span style="color:#75715e">// Eval returns the value of this Expr in the environment env.
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span>
 }
 </code></pre></div><p>下面给大家展示一个具体的Eval方法。Var类型的这个方法对一个environment变量进行查找，如果这个变量没有在environment中定义过这个方法会返回一个零值，literal类型的这个方法简单的返回它真实的值。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Var</span>) <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Var</span>) <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span> {
 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">env</span>[<span style="color:#a6e22e">v</span>]
 }
 
@@ -147,7 +147,7 @@
 	<span style="color:#66d9ef">return</span> float64(<span style="color:#a6e22e">l</span>)
 }
 </code></pre></div><p>unary和binary的Eval方法会递归的计算它的运算对象，然后将运算符op作用到它们上。我们不将被零或无穷数除作为一个错误，因为它们都会产生一个固定的结果——无限。最后，call的这个方法会计算对于pow，sin，或者sqrt函数的参数值，然后调用对应在math包中的函数。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">u</span> <span style="color:#a6e22e">unary</span>) <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">u</span> <span style="color:#a6e22e">unary</span>) <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span> {
 	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">op</span> {
 	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;+&#39;</span>:
 		<span style="color:#66d9ef">return</span> <span style="color:#f92672">+</span><span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span>)
@@ -184,7 +184,7 @@
 }
 </code></pre></div><p>一些方法会失败。例如，一个call表达式可能有未知的函数或者错误的参数个数。用一个无效的运算符如!或者&lt;去构建一个unary或者binary表达式也是可能会发生的（尽管下面提到的Parse函数不会这样做）。这些错误会让Eval方法panic。其它的错误，像计算一个没有在environment变量中出现过的Var，只会让Eval方法返回一个错误的结果。所有的这些错误都可以通过在计算前检查Expr来发现。这是我们接下来要讲的Check方法的工作，但是让我们先测试Eval方法。</p>
 <p>下面的TestEval函数是对evaluator的一个测试。它使用了我们会在第11章讲解的testing包，但是现在知道调用t.Errof会报告一个错误就足够了。这个函数循环遍历一个表格中的输入，这个表格中定义了三个表达式和针对每个表达式不同的环境变量。第一个表达式根据给定圆的面积A计算它的半径，第二个表达式通过两个变量x和y计算两个立方体的体积之和，第三个表达式将华氏温度F转换成摄氏度。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestEval</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestEval</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
 	<span style="color:#a6e22e">tests</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">struct</span> {
 		<span style="color:#a6e22e">expr</span> <span style="color:#66d9ef">string</span>
 		<span style="color:#a6e22e">env</span>  <span style="color:#a6e22e">Env</span>
@@ -234,13 +234,13 @@ pow(x, 3) + pow(y, 3)
     map[F:212] =&gt; 100
 </code></pre><p>幸运的是目前为止所有的输入都是适合的格式，但是我们的运气不可能一直都有。甚至在解释型语言中，为了静态错误检查语法是非常常见的；静态错误就是不用运行程序就可以检测出来的错误。通过将静态检查和动态的部分分开，我们可以快速的检查错误并且对于多次检查只执行一次而不是每次表达式计算的时候都进行检查。</p>
 <p>让我们往Expr接口中增加另一个方法。Check方法对一个表达式语义树检查出静态错误。我们马上会说明它的vars参数。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Expr</span> <span style="color:#66d9ef">interface</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Expr</span> <span style="color:#66d9ef">interface</span> {
 	<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span>
 	<span style="color:#75715e">// Check reports errors in this Expr and adds its Vars to the set.
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#66d9ef">error</span>
 }
 </code></pre></div><p>具体的Check方法展示在下面。literal和Var类型的计算不可能失败，所以这些类型的Check方法会返回一个nil值。对于unary和binary的Check方法会首先检查操作符是否有效，然后递归的检查运算单元。相似地对于call的这个方法首先检查调用的函数是否已知并且有没有正确个数的参数，然后递归的检查每一个参数。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Var</span>) <span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#66d9ef">error</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Var</span>) <span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#66d9ef">error</span> {
 	<span style="color:#a6e22e">vars</span>[<span style="color:#a6e22e">v</span>] = <span style="color:#66d9ef">true</span>
 	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
 }
@@ -296,7 +296,7 @@ sqrt(1, 2)          call to sqrt has 2 args, want 1
 <p>在第3.2节中，我们绘制了一个在编译期才确定的函数f(x,y)。现在我们可以解析，检查和计算在字符串中的表达式，我们可以构建一个在运行时从客户端接收表达式的web应用并且它会绘制这个函数的表示的曲面。我们可以使用集合vars来检查表达式是否是一个只有两个变量x和y的函数——实际上是3个，因为我们为了方便会提供半径大小r。并且我们会在计算前使用Check方法拒绝有格式问题的表达式，这样我们就不会在下面函数的40000个计算过程（100x100个栅格，每一个有4个角）重复这些检查。</p>
 <p>这个ParseAndCheck函数混合了解析和检查步骤的过程：</p>
 <p><u><i>gopl.io/ch7/surface</i></u></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;gopl.io/ch7/eval&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;gopl.io/ch7/eval&#34;</span>
 
 <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">parseAndCheck</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">eval</span>.<span style="color:#a6e22e">Expr</span>, <span style="color:#66d9ef">error</span>) {
 	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
@@ -318,7 +318,7 @@ sqrt(1, 2)          call to sqrt has 2 args, want 1
 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">expr</span>, <span style="color:#66d9ef">nil</span>
 }
 </code></pre></div><p>为了编写这个web应用，所有我们需要做的就是下面这个plot函数，这个函数有和http.HandlerFunc相似的签名：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
 	<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">ParseForm</span>()
 	<span style="color:#a6e22e">expr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">parseAndCheck</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Form</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;expr&#34;</span>))
 	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {

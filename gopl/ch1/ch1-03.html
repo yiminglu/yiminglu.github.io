@@ -102,7 +102,7 @@
 <p>对文件做拷贝、打印、搜索、排序、统计或类似事情的程序都有一个差不多的程序结构：一个处理输入的循环，在每个元素上执行计算处理，在处理的同时或最后产生输出。我们会展示一个名为<code>dup</code>的程序的三个版本；灵感来自于Unix的<code>uniq</code>命令，其寻找相邻的重复行。该程序使用的结构和包是个参考范例，可以方便地修改。</p>
 <p><code>dup</code>的第一个版本打印标准输入中多次出现的行，以重复次数开头。该程序将引入<code>if</code>语句，<code>map</code>数据类型以及<code>bufio</code>包。</p>
 <p><u><i>gopl.io/ch1/dup1</i></u></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Dup1 prints the text of each line that appears more than
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Dup1 prints the text of each line that appears more than
 </span><span style="color:#75715e">// once in the standard input, preceded by its count.
 </span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
@@ -129,7 +129,7 @@
 <p><strong>map</strong>存储了键/值（key/value）的集合，对集合元素，提供常数时间的存、取或测试操作。键可以是任意类型，只要其值能用<code>==</code>运算符比较，最常见的例子是字符串；值则可以是任意类型。这个例子中的键是字符串，值是整数。内置函数<code>make</code>创建空<code>map</code>，此外，它还有别的作用。4.3节讨论<code>map</code>。</p>
 <p>（译注：从功能和实现上说，<code>Go</code>的<code>map</code>类似于<code>Java</code>语言中的<code>HashMap</code>，Python语言中的<code>dict</code>，<code>Lua</code>语言中的<code>table</code>，通常使用<code>hash</code>实现。遗憾的是，对于该词的翻译并不统一，数学界术语为<code>映射</code>，而计算机界众说纷纭莫衷一是。为了防止对读者造成误解，保留不译。）</p>
 <p>每次<code>dup</code>读取一行输入，该行被当做键存入<code>map</code>，其对应的值递增。<code>counts[input.Text()]++</code>语句等价下面两句：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">line</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Text</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">line</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Text</span>()
 <span style="color:#a6e22e">counts</span>[<span style="color:#a6e22e">line</span>] = <span style="color:#a6e22e">counts</span>[<span style="color:#a6e22e">line</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
 </code></pre></div><p><code>map</code>中不含某个键时不用担心，首次读到新行时，等号右边的表达式<code>counts[line]</code>的值将被计算为其类型的零值，对于<code>int</code>即0。</p>
 <p>为了打印结果，我们使用了基于<code>range</code>的循环，并在<code>counts</code>这个<code>map</code>上迭代。跟之前类似，每次迭代得到两个结果，键和其在<code>map</code>中对应的值。<code>map</code>的迭代顺序并不确定，从实践来看，该顺序随机，每次运行都会变化。这种设计是有意为之的，因为能防止程序依赖特定遍历顺序，而这是无法保证的。（译注：具体可以参见这里http://stackoverflow.com/questions/11853396/google-go-lang-assignment-order）</p>
@@ -152,7 +152,7 @@
 </code></pre><p><code>dup1</code>的格式字符串中还含有制表符<code>\t</code>和换行符<code>\n</code>。字符串字面上可能含有这些代表不可见字符的<strong>转义字符（escape sequences）</strong>。默认情况下，<code>Printf</code>不会换行。按照惯例，以字母<code>f</code>结尾的格式化函数，如<code>log.Printf</code>和<code>fmt.Errorf</code>，都采用<code>fmt.Printf</code>的格式化准则。而以<code>ln</code>结尾的格式化函数，则遵循<code>Println</code>的方式，以跟<code>%v</code>差不多的方式格式化参数，并在最后添加一个换行符。（译注：后缀<code>f</code>指<code>format</code>，<code>ln</code>指<code>line</code>。）</p>
 <p>很多程序要么从标准输入中读取数据，如上面的例子所示，要么从一系列具名文件中读取数据。<code>dup</code>程序的下个版本读取标准输入或是使用<code>os.Open</code>打开各个具名文件，并操作它们。</p>
 <p><u><i>gopl.io/ch1/dup2</i></u></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Dup2 prints the count and text of lines that appear more than once
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Dup2 prints the count and text of lines that appear more than once
 </span><span style="color:#75715e">// in the input.  It reads from stdin or from a list of named files.
 </span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
@@ -200,7 +200,7 @@
 <p><code>dup</code>的前两个版本以&quot;流”模式读取输入，并根据需要拆分成多个行。理论上，这些程序可以处理任意数量的输入数据。还有另一个方法，就是一口气把全部输入数据读到内存中，一次分割为多行，然后处理它们。下面这个版本，<code>dup3</code>，就是这么操作的。这个例子引入了<code>ReadFile</code>函数（来自于<code>io/ioutil</code>包），其读取指定文件的全部内容，<code>strings.Split</code>函数把字符串分割成子串的切片。（<code>Split</code>的作用与前文提到的<code>strings.Join</code>相反。）</p>
 <p>我们略微简化了<code>dup3</code>。首先，由于<code>ReadFile</code>函数需要文件名作为参数，因此只读指定文件，不读标准输入。其次，由于行计数代码只在一处用到，故将其移回<code>main</code>函数。</p>
 <p><u><i>gopl.io/ch1/dup3</i></u></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
 <span style="color:#f92672">import</span> (
 	<span style="color:#e6db74">&#34;fmt&#34;</span>

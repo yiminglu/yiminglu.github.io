@@ -100,7 +100,7 @@
 	<div class="wrapper">
 		<h2 id="55-函数值">5.5. 函数值</h2>
 <p>在Go中，函数被看作第一类值（first-class values）：函数像其他值一样，拥有类型，可以被赋值给其他变量，传递给函数，从函数返回。对函数值（function value）的调用类似函数调用。例子如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go">	<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">square</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">n</span> }
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go">	<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">square</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">n</span> }
 	<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">negative</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> { <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">n</span> }
 	<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">product</span>(<span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">n</span> }
 
@@ -113,23 +113,23 @@
 </span><span style="color:#75715e"></span>
 	<span style="color:#a6e22e">f</span> = <span style="color:#a6e22e">product</span> <span style="color:#75715e">// compile error: can&#39;t assign func(int, int) int to func(int) int
 </span></code></pre></div><p>函数类型的零值是nil。调用值为nil的函数值会引起panic错误：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go">	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go">	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span>
 	<span style="color:#a6e22e">f</span>(<span style="color:#ae81ff">3</span>) <span style="color:#75715e">// 此处f的值为nil, 会引起panic错误
 </span></code></pre></div><p>函数值可以与nil比较：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go">	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go">	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span>
 	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">f</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
 		<span style="color:#a6e22e">f</span>(<span style="color:#ae81ff">3</span>)
 	}
 </code></pre></div><p>但是函数值之间是不可比较的，也不能用函数值作为map的key。</p>
 <p>函数值使得我们不仅仅可以通过数据来参数化函数，亦可通过行为。标准库中包含许多这样的例子。下面的代码展示了如何使用这个技巧。strings.Map对字符串中的每个字符调用add1函数，并将每个add1函数的返回值组成一个新的字符串返回给调用者。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go">	<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add1</span>(<span style="color:#a6e22e">r</span> <span style="color:#66d9ef">rune</span>) <span style="color:#66d9ef">rune</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> }
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go">	<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add1</span>(<span style="color:#a6e22e">r</span> <span style="color:#66d9ef">rune</span>) <span style="color:#66d9ef">rune</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> }
 
 	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Map</span>(<span style="color:#a6e22e">add1</span>, <span style="color:#e6db74">&#34;HAL-9000&#34;</span>)) <span style="color:#75715e">// &#34;IBM.:111&#34;
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Map</span>(<span style="color:#a6e22e">add1</span>, <span style="color:#e6db74">&#34;VMS&#34;</span>))      <span style="color:#75715e">// &#34;WNT&#34;
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Map</span>(<span style="color:#a6e22e">add1</span>, <span style="color:#e6db74">&#34;Admix&#34;</span>))    <span style="color:#75715e">// &#34;Benjy&#34;
 </span></code></pre></div><p>5.2节的findLinks函数使用了辅助函数visit，遍历和操作了HTML页面的所有结点。使用函数值，我们可以将遍历结点的逻辑和操作结点的逻辑分离，使得我们可以复用遍历的逻辑，从而对结点进行不同的操作。</p>
 <p><u><i>gopl.io/ch5/outline2</i></u></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// forEachNode针对每个结点x，都会调用pre(x)和post(x)。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// forEachNode针对每个结点x，都会调用pre(x)和post(x)。
 </span><span style="color:#75715e">// pre和post都是可选的。
 </span><span style="color:#75715e">// 遍历孩子结点之前，pre被调用
 </span><span style="color:#75715e">// 遍历孩子结点之后，post被调用
@@ -145,7 +145,7 @@
 	}
 }
 </code></pre></div><p>该函数接收2个函数作为参数，分别在结点的孩子被访问前和访问后调用。这样的设计给调用者更大的灵活性。举个例子，现在我们有startElemen和endElement两个函数用于输出HTML元素的开始标签和结束标签<code>&lt;b&gt;...&lt;/b&gt;</code>：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">depth</span> <span style="color:#66d9ef">int</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">depth</span> <span style="color:#66d9ef">int</span>
 <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">startElement</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Node</span>) {
 	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Type</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">ElementNode</span> {
 		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%*s&lt;%s&gt;\n&#34;</span>, <span style="color:#a6e22e">depth</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Data</span>)
@@ -160,7 +160,7 @@
 }
 </code></pre></div><p>上面的代码利用fmt.Printf的一个小技巧控制输出的缩进。<code>%*s</code>中的<code>*</code>会在字符串之前填充一些空格。在例子中，每次输出会先填充<code>depth*2</code>数量的空格，再输出&quot;&quot;，最后再输出HTML标签。</p>
 <p>如果我们像下面这样调用forEachNode：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">forEachNode</span>(<span style="color:#a6e22e">doc</span>, <span style="color:#a6e22e">startElement</span>, <span style="color:#a6e22e">endElement</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">forEachNode</span>(<span style="color:#a6e22e">doc</span>, <span style="color:#a6e22e">startElement</span>, <span style="color:#a6e22e">endElement</span>)
 </code></pre></div><p>与之前的outline程序相比，我们得到了更加详细的页面结构：</p>
 <pre><code>$ go build gopl.io/ch5/outline2
 $ ./outline2 http://gopl.io
@@ -184,9 +184,9 @@ $ ./outline2 http://gopl.io
 ...
 </code></pre><p><strong>练习 5.7：</strong> 完善startElement和endElement函数，使其成为通用的HTML输出器。要求：输出注释结点，文本结点以及每个元素的属性（&lt; a href='&hellip;'&gt;）。使用简略格式输出没有孩子结点的元素（即用<code>&lt;img/&gt;</code>代替<code>&lt;img&gt;&lt;/img&gt;</code>）。编写测试，验证程序输出的格式正确。（详见11章）</p>
 <p><strong>练习 5.8：</strong> 修改pre和post函数，使其返回布尔类型的返回值。返回false时，中止forEachNoded的遍历。使用修改后的代码编写ElementByID函数，根据用户输入的id查找第一个拥有该id元素的HTML元素，查找成功后，停止遍历。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ElementByID</span>(<span style="color:#a6e22e">doc</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Node</span>, <span style="color:#a6e22e">id</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Node</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ElementByID</span>(<span style="color:#a6e22e">doc</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Node</span>, <span style="color:#a6e22e">id</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Node</span>
 </code></pre></div><p><strong>练习 5.9：</strong> 编写函数expand，将s中的&quot;foo&quot;替换为f(&ldquo;foo&rdquo;)的返回值。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">expand</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">f</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">expand</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">f</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>
 </code></pre></div>
 	</div>
 </div>

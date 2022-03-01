@@ -101,7 +101,7 @@
 		<h2 id="73-实现接口的条件">7.3. 实现接口的条件</h2>
 <p>一个类型如果拥有一个接口需要的所有方法，那么这个类型就实现了这个接口。例如，<code>*os.File</code>类型实现了io.Reader，Writer，Closer，和ReadWriter接口。<code>*bytes.Buffer</code>实现了Reader，Writer，和ReadWriter这些接口，但是它没有实现Closer接口因为它不具有Close方法。Go的程序员经常会简要的把一个具体的类型描述成一个特定的接口类型。举个例子，<code>*bytes.Buffer</code>是io.Writer；<code>*os.Files</code>是io.ReadWriter。</p>
 <p>接口指定的规则非常简单：表达一个类型属于某个接口只要这个类型实现这个接口。所以：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">w</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Writer</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">w</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Writer</span>
 <span style="color:#a6e22e">w</span> = <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>           <span style="color:#75715e">// OK: *os.File has Write method
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">w</span> = new(<span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>)   <span style="color:#75715e">// OK: *bytes.Buffer has Write method
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">w</span> = <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>         <span style="color:#75715e">// compile error: time.Duration lacks Write method
@@ -110,23 +110,23 @@
 <span style="color:#a6e22e">rwc</span> = <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>         <span style="color:#75715e">// OK: *os.File has Read, Write, Close methods
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">rwc</span> = new(<span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>) <span style="color:#75715e">// compile error: *bytes.Buffer lacks Close method
 </span></code></pre></div><p>这个规则甚至适用于等式右边本身也是一个接口类型</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">w</span> = <span style="color:#a6e22e">rwc</span>                 <span style="color:#75715e">// OK: io.ReadWriteCloser has Write method
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">w</span> = <span style="color:#a6e22e">rwc</span>                 <span style="color:#75715e">// OK: io.ReadWriteCloser has Write method
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">rwc</span> = <span style="color:#a6e22e">w</span>                 <span style="color:#75715e">// compile error: io.Writer lacks Close method
 </span></code></pre></div><p>因为ReadWriter和ReadWriteCloser包含有Writer的方法，所以任何实现了ReadWriter和ReadWriteCloser的类型必定也实现了Writer接口</p>
 <p>在进一步学习前，必须先解释一个类型持有一个方法的表示当中的细节。回想在6.2章中，对于每一个命名过的具体类型T；它的一些方法的接收者是类型T本身然而另一些则是一个<code>*T</code>的指针。还记得在T类型的参数上调用一个<code>*T</code>的方法是合法的，只要这个参数是一个变量；编译器隐式的获取了它的地址。但这仅仅是一个语法糖：T类型的值不拥有所有<code>*T</code>指针的方法，这样它就可能只实现了更少的接口。</p>
 <p>举个例子可能会更清晰一点。在第6.5章中，IntSet类型的String方法的接收者是一个指针类型，所以我们不能在一个不能寻址的IntSet值上调用这个方法：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">IntSet</span> <span style="color:#66d9ef">struct</span> { <span style="color:#75715e">/* ... */</span> }
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">IntSet</span> <span style="color:#66d9ef">struct</span> { <span style="color:#75715e">/* ... */</span> }
 <span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">IntSet</span>) <span style="color:#a6e22e">String</span>() <span style="color:#66d9ef">string</span>
 <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">IntSet</span>{}.<span style="color:#a6e22e">String</span>() <span style="color:#75715e">// compile error: String requires *IntSet receiver
 </span></code></pre></div><p>但是我们可以在一个IntSet变量上调用这个方法：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#a6e22e">IntSet</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#a6e22e">IntSet</span>
 <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">String</span>() <span style="color:#75715e">// OK: s is a variable and &amp;s has a String method
 </span></code></pre></div><p>然而，由于只有<code>*IntSet</code>类型有String方法，所以也只有<code>*IntSet</code>类型实现了fmt.Stringer接口：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Stringer</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span> <span style="color:#75715e">// OK
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Stringer</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span> <span style="color:#75715e">// OK
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Stringer</span> = <span style="color:#a6e22e">s</span>  <span style="color:#75715e">// compile error: IntSet lacks String method
 </span></code></pre></div><p>12.8章包含了一个打印出任意值的所有方法的程序，然后可以使用godoc -analysis=type tool(§10.7.4)展示每个类型的方法和具体类型和接口之间的关系</p>
 <p>就像信封封装和隐藏起信件来一样，接口类型封装和隐藏具体类型和它的值。即使具体类型有其它的方法，也只有接口类型暴露出来的方法会被调用到：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#e6db74">&#34;hello&#34;</span>)) <span style="color:#75715e">// OK: *os.File has Write method
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#e6db74">&#34;hello&#34;</span>)) <span style="color:#75715e">// OK: *os.File has Write method
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>.<span style="color:#a6e22e">Close</span>()                <span style="color:#75715e">// OK: *os.File has Close method
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">w</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Writer</span>
@@ -135,7 +135,7 @@
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Close</span>()                <span style="color:#75715e">// compile error: io.Writer lacks Close method
 </span></code></pre></div><p>一个有更多方法的接口类型，比如io.ReadWriter，和少一些方法的接口类型例如io.Reader，进行对比；更多方法的接口类型会告诉我们更多关于它的值持有的信息，并且对实现它的类型要求更加严格。那么关于interface{}类型，它没有任何方法，请讲出哪些具体的类型实现了它？</p>
 <p>这看上去好像没有用，但实际上interface{}被称为空接口类型是不可或缺的。因为空接口类型对实现它的类型没有要求，所以我们可以将任意一个值赋给空接口类型。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">any</span> <span style="color:#66d9ef">interface</span>{}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">any</span> <span style="color:#66d9ef">interface</span>{}
 <span style="color:#a6e22e">any</span> = <span style="color:#66d9ef">true</span>
 <span style="color:#a6e22e">any</span> = <span style="color:#ae81ff">12.34</span>
 <span style="color:#a6e22e">any</span> = <span style="color:#e6db74">&#34;hello&#34;</span>
@@ -144,10 +144,10 @@
 </code></pre></div><p>尽管不是很明显，从本书最早的例子中我们就已经在使用空接口类型。它允许像fmt.Println或者5.7章中的errorf函数接受任何类型的参数。</p>
 <p>对于创建的一个interface{}值持有一个boolean，float，string，map，pointer，或者任意其它的类型；我们当然不能直接对它持有的值做操作，因为interface{}没有任何方法。我们会在7.10章中学到一种用类型断言来获取interface{}中值的方法。</p>
 <p>因为接口与实现只依赖于判断两个类型的方法，所以没有必要定义一个具体类型和它实现的接口之间的关系。也就是说，有意地在文档里说明或者程序上断言这种关系偶尔是有用的，但程序上不强制这么做。下面的定义在编译期断言一个<code>*bytes.Buffer</code>的值实现了io.Writer接口类型:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// *bytes.Buffer must satisfy io.Writer
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// *bytes.Buffer must satisfy io.Writer
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">w</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Writer</span> = new(<span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>)
 </code></pre></div><p>因为任意<code>*bytes.Buffer</code>的值，甚至包括nil通过<code>(*bytes.Buffer)(nil)</code>进行显示的转换都实现了这个接口，所以我们不必分配一个新的变量。并且因为我们绝不会引用变量w，我们可以使用空标识符来进行代替。总的看，这些变化可以让我们得到一个更朴素的版本：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// *bytes.Buffer must satisfy io.Writer
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// *bytes.Buffer must satisfy io.Writer
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Writer</span> = (<span style="color:#f92672">*</span><span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>)(<span style="color:#66d9ef">nil</span>)
 </code></pre></div><p>非空的接口类型比如io.Writer经常被指针类型实现，尤其当一个或多个接口方法像Write方法那样隐式的给接收者带来变化的时候。一个结构体的指针是非常常见的承载方法的类型。</p>
 <p>但是并不意味着只有指针类型满足接口类型，甚至连一些有设置方法的接口类型也可能会被Go语言中其它的引用类型实现。我们已经看过slice类型的方法（geometry.Path，§6.1）和map类型的方法（url.Values，§6.2.1），后面还会看到函数类型的方法的例子（http.HandlerFunc，§7.7）。甚至基本的类型也可能会实现一些接口；就如我们在7.4章中看到的time.Duration类型实现了fmt.Stringer接口。</p>
@@ -160,13 +160,13 @@ Podcast
 TVEpisode
 Track
 </code></pre><p>我们可以把每个抽象的特点用接口来表示。一些特性对于所有的这些文化产品都是共通的，例如标题，创作日期和作者列表。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Artifact</span> <span style="color:#66d9ef">interface</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Artifact</span> <span style="color:#66d9ef">interface</span> {
 	<span style="color:#a6e22e">Title</span>() <span style="color:#66d9ef">string</span>
 	<span style="color:#a6e22e">Creators</span>() []<span style="color:#66d9ef">string</span>
 	<span style="color:#a6e22e">Created</span>() <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>
 }
 </code></pre></div><p>其它的一些特性只对特定类型的文化产品才有。和文字排版特性相关的只有books和magazines，还有只有movies和TV剧集和屏幕分辨率相关。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Text</span> <span style="color:#66d9ef">interface</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Text</span> <span style="color:#66d9ef">interface</span> {
 	<span style="color:#a6e22e">Pages</span>() <span style="color:#66d9ef">int</span>
 	<span style="color:#a6e22e">Words</span>() <span style="color:#66d9ef">int</span>
 	<span style="color:#a6e22e">PageSize</span>() <span style="color:#66d9ef">int</span>
@@ -183,7 +183,7 @@ Track
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Resolution</span>() (<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">int</span>)
 }
 </code></pre></div><p>这些接口不止是一种有用的方式来分组相关的具体类型和表示他们之间的共同特点。我们后面可能会发现其它的分组。举例，如果我们发现我们需要以同样的方式处理Audio和Video，我们可以定义一个Streamer接口来代表它们之间相同的部分而不必对已经存在的类型做改变。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Streamer</span> <span style="color:#66d9ef">interface</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Streamer</span> <span style="color:#66d9ef">interface</span> {
 	<span style="color:#a6e22e">Stream</span>() (<span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">ReadCloser</span>, <span style="color:#66d9ef">error</span>)
 	<span style="color:#a6e22e">RunningTime</span>() <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>
 	<span style="color:#a6e22e">Format</span>() <span style="color:#66d9ef">string</span>
