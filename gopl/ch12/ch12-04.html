@@ -102,8 +102,8 @@
 <p>Display是一个用于显示结构化数据的调试工具，但是它并不能将任意的Go语言对象编码为通用消息然后用于进程间通信。</p>
 <p>正如我们在4.5节中中看到的，Go语言的标准库支持了包括JSON、XML和ASN.1等多种编码格式。还有另一种依然被广泛使用的格式是S表达式格式，采用Lisp语言的语法。但是和其他编码格式不同的是，Go语言自带的标准库并不支持S表达式，主要是因为它没有一个公认的标准规范。</p>
 <p>在本节中，我们将定义一个包用于将任意的Go语言对象编码为S表达式格式，它支持以下结构：</p>
-<pre><code>42          integer
-&quot;hello&quot;     string（带有Go风格的引号）
+<pre tabindex="0"><code>42          integer
+&#34;hello&#34;     string（带有Go风格的引号）
 foo         symbol（未用引号括起来的名字）
 (1 2 3)     list  （括号包起来的0个或多个元素）
 </code></pre><p>布尔型习惯上使用t符号表示true，空列表或nil符号表示false，但是为了简单起见，我们暂时忽略布尔类型。同时忽略的还有chan管道和函数，因为通过反射并无法知道它们的确切状态。我们忽略的还有浮点数、复数和interface。支持它们是练习12.3的任务。</p>
@@ -111,105 +111,105 @@ foo         symbol（未用引号括起来的名字）
 <p>结构体被编码为成员对象的列表，每个成员对象对应一个有两个元素的子列表，子列表的第一个元素是成员的名字，第二个元素是成员的值。Map被编码为键值对的列表。传统上，S表达式使用点状符号列表(key . value)结构来表示key/value对，而不是用一个含双元素的列表，不过为了简单我们忽略了点状符号列表。</p>
 <p>编码是由一个encode递归函数完成，如下所示。它的结构本质上和前面的Display函数类似：</p>
 <p><u><i>gopl.io/ch12/sexpr</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>, <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>) <span style="color:#66d9ef">error</span> {
-	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Kind</span>() {
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Invalid</span>:
-		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteString</span>(<span style="color:#e6db74">&#34;nil&#34;</span>)
-
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int8</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int16</span>,
-		<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int32</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int64</span>:
-		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Int</span>())
-
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint8</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint16</span>,
-		<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint32</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint64</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uintptr</span>:
-		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Uint</span>())
-
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">String</span>:
-		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#e6db74">&#34;%q&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">String</span>())
-
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Ptr</span>:
-		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Elem</span>())
-
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Array</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Slice</span>: <span style="color:#75715e">// (value ...)
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
-		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Len</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span> {
-				<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39; &#39;</span>)
-			}
-			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Index</span>(<span style="color:#a6e22e">i</span>)); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
-			}
-		}
-		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
-
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Struct</span>: <span style="color:#75715e">// ((name value) ...)
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
-		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">NumField</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span> {
-				<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39; &#39;</span>)
-			}
-			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#e6db74">&#34;(%s &#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>().<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>).<span style="color:#a6e22e">Name</span>)
-			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>)); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
-			}
-			<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
-		}
-		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
-
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Map</span>: <span style="color:#75715e">// ((key value) ...)
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
-		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">key</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">MapKeys</span>() {
-			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span> {
-				<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39; &#39;</span>)
-			}
-			<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
-			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">key</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
-			}
-			<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39; &#39;</span>)
-			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">MapIndex</span>(<span style="color:#a6e22e">key</span>)); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
-			}
-			<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
-		}
-		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
-
-	<span style="color:#66d9ef">default</span>: <span style="color:#75715e">// float, complex, bool, chan, func, interface
-</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;unsupported type: %s&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>())
-	}
-	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-}
-</code></pre></div><p>Marshal函数是对encode的包装，以保持和encoding/&hellip;下其它包有着相似的API：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// Marshal encodes a Go value in S-expression form.
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Marshal</span>(<span style="color:#a6e22e">v</span> <span style="color:#66d9ef">interface</span>{}) ([]<span style="color:#66d9ef">byte</span>, <span style="color:#66d9ef">error</span>) {
-	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">buf</span> <span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">v</span>)); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
-	}
-	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">Bytes</span>(), <span style="color:#66d9ef">nil</span>
-}
-</code></pre></div><p>下面是Marshal对12.3节的strangelove变量编码后的结果：</p>
-<pre><code>((Title &quot;Dr. Strangelove&quot;) (Subtitle &quot;How I Learned to Stop Worrying and Lo
-ve the Bomb&quot;) (Year 1964) (Actor ((&quot;Grp. Capt. Lionel Mandrake&quot; &quot;Peter Sell
-ers&quot;) (&quot;Pres. Merkin Muffley&quot; &quot;Peter Sellers&quot;) (&quot;Gen. Buck Turgidson&quot; &quot;Geor
-ge C. Scott&quot;) (&quot;Brig. Gen. Jack D. Ripper&quot; &quot;Sterling Hayden&quot;) (&quot;Maj. T.J. \
-&quot;King\&quot; Kong&quot; &quot;Slim Pickens&quot;) (&quot;Dr. Strangelove&quot; &quot;Peter Sellers&quot;))) (Oscars
-(&quot;Best Actor (Nomin.)&quot; &quot;Best Adapted Screenplay (Nomin.)&quot; &quot;Best Director (N
-omin.)&quot; &quot;Best Picture (Nomin.)&quot;)) (Sequel nil))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>, <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Kind</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Invalid</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteString</span>(<span style="color:#e6db74">&#34;nil&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int8</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int16</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int32</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int64</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Int</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint8</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint16</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint32</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uint64</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Uintptr</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Uint</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">String</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#e6db74">&#34;%q&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">String</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Ptr</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Elem</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Array</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Slice</span>: <span style="color:#75715e">// (value ...)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Len</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39; &#39;</span>)
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Index</span>(<span style="color:#a6e22e">i</span>)); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Struct</span>: <span style="color:#75715e">// ((name value) ...)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">NumField</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39; &#39;</span>)
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#e6db74">&#34;(%s &#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>().<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>).<span style="color:#a6e22e">Name</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>)); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Map</span>: <span style="color:#75715e">// ((key value) ...)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">key</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">MapKeys</span>() {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39; &#39;</span>)
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">key</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39; &#39;</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">MapIndex</span>(<span style="color:#a6e22e">key</span>)); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteByte</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">default</span>: <span style="color:#75715e">// float, complex, bool, chan, func, interface
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;unsupported type: %s&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>())
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Marshal函数是对encode的包装，以保持和encoding/&hellip;下其它包有着相似的API：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// Marshal encodes a Go value in S-expression form.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Marshal</span>(<span style="color:#a6e22e">v</span> <span style="color:#66d9ef">interface</span>{}) ([]<span style="color:#66d9ef">byte</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">buf</span> <span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">encode</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">v</span>)); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">Bytes</span>(), <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>下面是Marshal对12.3节的strangelove变量编码后的结果：</p>
+<pre tabindex="0"><code>((Title &#34;Dr. Strangelove&#34;) (Subtitle &#34;How I Learned to Stop Worrying and Lo
+ve the Bomb&#34;) (Year 1964) (Actor ((&#34;Grp. Capt. Lionel Mandrake&#34; &#34;Peter Sell
+ers&#34;) (&#34;Pres. Merkin Muffley&#34; &#34;Peter Sellers&#34;) (&#34;Gen. Buck Turgidson&#34; &#34;Geor
+ge C. Scott&#34;) (&#34;Brig. Gen. Jack D. Ripper&#34; &#34;Sterling Hayden&#34;) (&#34;Maj. T.J. \
+&#34;King\&#34; Kong&#34; &#34;Slim Pickens&#34;) (&#34;Dr. Strangelove&#34; &#34;Peter Sellers&#34;))) (Oscars
+(&#34;Best Actor (Nomin.)&#34; &#34;Best Adapted Screenplay (Nomin.)&#34; &#34;Best Director (N
+omin.)&#34; &#34;Best Picture (Nomin.)&#34;)) (Sequel nil))
 </code></pre><p>整个输出编码为一行中以减少输出的大小，但是也很难阅读。下面是对S表达式手动格式化的结果。编写一个S表达式的美化格式化函数将作为一个具有挑战性的练习任务；不过 <a href="http://gopl.io">http://gopl.io</a> 也提供了一个简单的版本。</p>
-<pre><code>((Title &quot;Dr. Strangelove&quot;)
- (Subtitle &quot;How I Learned to Stop Worrying and Love the Bomb&quot;)
+<pre tabindex="0"><code>((Title &#34;Dr. Strangelove&#34;)
+ (Subtitle &#34;How I Learned to Stop Worrying and Love the Bomb&#34;)
  (Year 1964)
- (Actor ((&quot;Grp. Capt. Lionel Mandrake&quot; &quot;Peter Sellers&quot;)
-         (&quot;Pres. Merkin Muffley&quot; &quot;Peter Sellers&quot;)
-         (&quot;Gen. Buck Turgidson&quot; &quot;George C. Scott&quot;)
-         (&quot;Brig. Gen. Jack D. Ripper&quot; &quot;Sterling Hayden&quot;)
-         (&quot;Maj. T.J. \&quot;King\&quot; Kong&quot; &quot;Slim Pickens&quot;)
-         (&quot;Dr. Strangelove&quot; &quot;Peter Sellers&quot;)))
- (Oscars (&quot;Best Actor (Nomin.)&quot;
-          &quot;Best Adapted Screenplay (Nomin.)&quot;
-          &quot;Best Director (Nomin.)&quot;
-          &quot;Best Picture (Nomin.)&quot;))
+ (Actor ((&#34;Grp. Capt. Lionel Mandrake&#34; &#34;Peter Sellers&#34;)
+         (&#34;Pres. Merkin Muffley&#34; &#34;Peter Sellers&#34;)
+         (&#34;Gen. Buck Turgidson&#34; &#34;George C. Scott&#34;)
+         (&#34;Brig. Gen. Jack D. Ripper&#34; &#34;Sterling Hayden&#34;)
+         (&#34;Maj. T.J. \&#34;King\&#34; Kong&#34; &#34;Slim Pickens&#34;)
+         (&#34;Dr. Strangelove&#34; &#34;Peter Sellers&#34;)))
+ (Oscars (&#34;Best Actor (Nomin.)&#34;
+          &#34;Best Adapted Screenplay (Nomin.)&#34;
+          &#34;Best Director (Nomin.)&#34;
+          &#34;Best Picture (Nomin.)&#34;))
  (Sequel nil))
 </code></pre><p>和fmt.Print、json.Marshal、Display函数类似，sexpr.Marshal函数处理带环的数据结构也会陷入死循环。</p>
 <p>在12.6节中，我们将给出S表达式解码器的实现步骤，但是在那之前，我们还需要先了解如何通过反射技术来更新程序的变量。</p>

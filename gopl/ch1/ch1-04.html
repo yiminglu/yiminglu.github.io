@@ -105,71 +105,70 @@
 <p><img src="../images/ch1-01.gif" alt=""></p>
 <p>这段代码里我们用了一些新的结构，包括const声明，struct结构体类型，复合声明。和我们举的其它的例子不太一样，这一个例子包含了浮点数运算。这些概念我们只在这里简单地说明一下，之后的章节会更详细地讲解。</p>
 <p><u><i>gopl.io/ch1/lissajous</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Lissajous generates GIF animations of random Lissajous figures.
-</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> (
-	<span style="color:#e6db74">&#34;image&#34;</span>
-	<span style="color:#e6db74">&#34;image/color&#34;</span>
-	<span style="color:#e6db74">&#34;image/gif&#34;</span>
-	<span style="color:#e6db74">&#34;io&#34;</span>
-	<span style="color:#e6db74">&#34;math&#34;</span>
-	<span style="color:#e6db74">&#34;math/rand&#34;</span>
-	<span style="color:#e6db74">&#34;os&#34;</span>
-	<span style="color:#e6db74">&#34;time&#34;</span>
-)
-
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">palette</span> = []<span style="color:#a6e22e">color</span>.<span style="color:#a6e22e">Color</span>{<span style="color:#a6e22e">color</span>.<span style="color:#a6e22e">White</span>, <span style="color:#a6e22e">color</span>.<span style="color:#a6e22e">Black</span>}
-
-<span style="color:#66d9ef">const</span> (
-	<span style="color:#a6e22e">whiteIndex</span> = <span style="color:#ae81ff">0</span> <span style="color:#75715e">// first color in palette
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">blackIndex</span> = <span style="color:#ae81ff">1</span> <span style="color:#75715e">// next color in palette
-</span><span style="color:#75715e"></span>)
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#75715e">// The sequence of images is deterministic unless we seed
-</span><span style="color:#75715e"></span>	<span style="color:#75715e">// the pseudo-random number generator using the current time.
-</span><span style="color:#75715e"></span>	<span style="color:#75715e">// Thanks to Randall McPherson for pointing out the omission.
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">UTC</span>().<span style="color:#a6e22e">UnixNano</span>())
-	<span style="color:#a6e22e">lissajous</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>)
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">lissajous</span>(<span style="color:#a6e22e">out</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Writer</span>) {
-	<span style="color:#66d9ef">const</span> (
-		<span style="color:#a6e22e">cycles</span>  = <span style="color:#ae81ff">5</span>     <span style="color:#75715e">// number of complete x oscillator revolutions
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">res</span>     = <span style="color:#ae81ff">0.001</span> <span style="color:#75715e">// angular resolution
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">size</span>    = <span style="color:#ae81ff">100</span>   <span style="color:#75715e">// image canvas covers [-size..+size]
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">nframes</span> = <span style="color:#ae81ff">64</span>    <span style="color:#75715e">// number of animation frames
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">delay</span>   = <span style="color:#ae81ff">8</span>     <span style="color:#75715e">// delay between frames in 10ms units
-</span><span style="color:#75715e"></span>	)
-
-	<span style="color:#a6e22e">freq</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Float64</span>() <span style="color:#f92672">*</span> <span style="color:#ae81ff">3.0</span> <span style="color:#75715e">// relative frequency of y oscillator
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">anim</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gif</span>.<span style="color:#a6e22e">GIF</span>{<span style="color:#a6e22e">LoopCount</span>: <span style="color:#a6e22e">nframes</span>}
-	<span style="color:#a6e22e">phase</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0.0</span> <span style="color:#75715e">// phase difference
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">nframes</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-		<span style="color:#a6e22e">rect</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">Rect</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">size</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">size</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
-		<span style="color:#a6e22e">img</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">NewPaletted</span>(<span style="color:#a6e22e">rect</span>, <span style="color:#a6e22e">palette</span>)
-		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0.0</span>; <span style="color:#a6e22e">t</span> &lt; <span style="color:#a6e22e">cycles</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Pi</span>; <span style="color:#a6e22e">t</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">res</span> {
-			<span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Sin</span>(<span style="color:#a6e22e">t</span>)
-			<span style="color:#a6e22e">y</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Sin</span>(<span style="color:#a6e22e">t</span><span style="color:#f92672">*</span><span style="color:#a6e22e">freq</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">phase</span>)
-			<span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">SetColorIndex</span>(<span style="color:#a6e22e">size</span><span style="color:#f92672">+</span>int(<span style="color:#a6e22e">x</span><span style="color:#f92672">*</span><span style="color:#a6e22e">size</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0.5</span>), <span style="color:#a6e22e">size</span><span style="color:#f92672">+</span>int(<span style="color:#a6e22e">y</span><span style="color:#f92672">*</span><span style="color:#a6e22e">size</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0.5</span>),
-				<span style="color:#a6e22e">blackIndex</span>)
-		}
-		<span style="color:#a6e22e">phase</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">0.1</span>
-		<span style="color:#a6e22e">anim</span>.<span style="color:#a6e22e">Delay</span> = append(<span style="color:#a6e22e">anim</span>.<span style="color:#a6e22e">Delay</span>, <span style="color:#a6e22e">delay</span>)
-		<span style="color:#a6e22e">anim</span>.<span style="color:#a6e22e">Image</span> = append(<span style="color:#a6e22e">anim</span>.<span style="color:#a6e22e">Image</span>, <span style="color:#a6e22e">img</span>)
-	}
-	<span style="color:#a6e22e">gif</span>.<span style="color:#a6e22e">EncodeAll</span>(<span style="color:#a6e22e">out</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">anim</span>) <span style="color:#75715e">// NOTE: ignoring encoding errors
-</span><span style="color:#75715e"></span>}
-
-</code></pre></div><p>当我们import了一个包路径包含有多个单词的package时，比如image/color（image和color两个单词），通常我们只需要用最后那个单词表示这个包就可以。所以当我们写color.White时，这个变量指向的是image/color包里的变量，同理gif.GIF是属于image/gif包里的变量。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Lissajous generates GIF animations of random Lissajous figures.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;image&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;image/color&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;image/gif&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;io&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;math/rand&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">palette</span> = []<span style="color:#a6e22e">color</span>.<span style="color:#a6e22e">Color</span>{<span style="color:#a6e22e">color</span>.<span style="color:#a6e22e">White</span>, <span style="color:#a6e22e">color</span>.<span style="color:#a6e22e">Black</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">whiteIndex</span> = <span style="color:#ae81ff">0</span> <span style="color:#75715e">// first color in palette
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">blackIndex</span> = <span style="color:#ae81ff">1</span> <span style="color:#75715e">// next color in palette
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// The sequence of images is deterministic unless we seed
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// the pseudo-random number generator using the current time.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// Thanks to Randall McPherson for pointing out the omission.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">UTC</span>().<span style="color:#a6e22e">UnixNano</span>())
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">lissajous</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">lissajous</span>(<span style="color:#a6e22e">out</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Writer</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">const</span> (
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">cycles</span>  = <span style="color:#ae81ff">5</span>     <span style="color:#75715e">// number of complete x oscillator revolutions
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">res</span>     = <span style="color:#ae81ff">0.001</span> <span style="color:#75715e">// angular resolution
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">size</span>    = <span style="color:#ae81ff">100</span>   <span style="color:#75715e">// image canvas covers [-size..+size]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">nframes</span> = <span style="color:#ae81ff">64</span>    <span style="color:#75715e">// number of animation frames
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">delay</span>   = <span style="color:#ae81ff">8</span>     <span style="color:#75715e">// delay between frames in 10ms units
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">freq</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Float64</span>() <span style="color:#f92672">*</span> <span style="color:#ae81ff">3.0</span> <span style="color:#75715e">// relative frequency of y oscillator
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">anim</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gif</span>.<span style="color:#a6e22e">GIF</span>{<span style="color:#a6e22e">LoopCount</span>: <span style="color:#a6e22e">nframes</span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">phase</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0.0</span> <span style="color:#75715e">// phase difference
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">nframes</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">rect</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">Rect</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">size</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">size</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">img</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">NewPaletted</span>(<span style="color:#a6e22e">rect</span>, <span style="color:#a6e22e">palette</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0.0</span>; <span style="color:#a6e22e">t</span> &lt; <span style="color:#a6e22e">cycles</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Pi</span>; <span style="color:#a6e22e">t</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">res</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Sin</span>(<span style="color:#a6e22e">t</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">y</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Sin</span>(<span style="color:#a6e22e">t</span><span style="color:#f92672">*</span><span style="color:#a6e22e">freq</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">phase</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">SetColorIndex</span>(<span style="color:#a6e22e">size</span><span style="color:#f92672">+</span>int(<span style="color:#a6e22e">x</span><span style="color:#f92672">*</span><span style="color:#a6e22e">size</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0.5</span>), <span style="color:#a6e22e">size</span><span style="color:#f92672">+</span>int(<span style="color:#a6e22e">y</span><span style="color:#f92672">*</span><span style="color:#a6e22e">size</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0.5</span>),
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">blackIndex</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">phase</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">0.1</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">anim</span>.<span style="color:#a6e22e">Delay</span> = append(<span style="color:#a6e22e">anim</span>.<span style="color:#a6e22e">Delay</span>, <span style="color:#a6e22e">delay</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">anim</span>.<span style="color:#a6e22e">Image</span> = append(<span style="color:#a6e22e">anim</span>.<span style="color:#a6e22e">Image</span>, <span style="color:#a6e22e">img</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">gif</span>.<span style="color:#a6e22e">EncodeAll</span>(<span style="color:#a6e22e">out</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">anim</span>) <span style="color:#75715e">// NOTE: ignoring encoding errors
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>当我们import了一个包路径包含有多个单词的package时，比如image/color（image和color两个单词），通常我们只需要用最后那个单词表示这个包就可以。所以当我们写color.White时，这个变量指向的是image/color包里的变量，同理gif.GIF是属于image/gif包里的变量。</p>
 <p>这个程序里的常量声明给出了一系列的常量值，常量是指在程序编译后运行时始终都不会变化的值，比如圈数、帧数、延迟值。常量声明和变量声明一般都会出现在包级别，所以这些常量在整个包中都是可以共享的，或者你也可以把常量声明定义在函数体内部，那么这种常量就只能在函数体内用。目前常量声明的值必须是一个数字值、字符串或者一个固定的boolean值。</p>
 <p>[]color.Color{&hellip;}和gif.GIF{&hellip;}这两个表达式就是我们说的复合声明（4.2和4.4.1节有说明）。这是实例化Go语言里的复合类型的一种写法。这里的前者生成的是一个slice切片，后者生成的是一个struct结构体。</p>
 <p>gif.GIF是一个struct类型（参考4.4节）。struct是一组值或者叫字段的集合，不同的类型集合在一个struct可以让我们以一个统一的单元进行处理。anim是一个gif.GIF类型的struct变量。这种写法会生成一个struct变量，并且其内部变量LoopCount字段会被设置为nframes；而其它的字段会被设置为各自类型默认的零值。struct内部的变量可以以一个点（.）来进行访问，就像在最后两个赋值语句中显式地更新了anim这个struct的Delay和Image字段。</p>
 <p>lissajous函数内部有两层嵌套的for循环。外层循环会循环64次，每一次都会生成一个单独的动画帧。它生成了一个包含两种颜色的201*201大小的图片，白色和黑色。所有像素点都会被默认设置为其零值（也就是调色板palette里的第0个值），这里我们设置的是白色。每次外层循环都会生成一张新图片，并将一些像素设置为黑色。其结果会append到之前结果之后。这里我们用到了append(参考4.2.1)内置函数，将结果append到anim中的帧列表末尾，并设置一个默认的80ms的延迟值。循环结束后所有的延迟值被编码进了GIF图片中，并将结果写入到输出流。out这个变量是io.Writer类型，这个类型支持把输出结果写到很多目标，很快我们就可以看到例子。</p>
 <p>内层循环设置两个偏振值。x轴偏振使用sin函数。y轴偏振也是正弦波，但其相对x轴的偏振是一个0-3的随机值，初始偏振值是一个零值，随着动画的每一帧逐渐增加。循环会一直跑到x轴完成五次完整的循环。每一步它都会调用SetColorIndex来为(x,y)点来染黑色。</p>
 <p>main函数调用lissajous函数，用它来向标准输出流打印信息，所以下面这个命令会像图1.1中产生一个GIF动画。</p>
-<pre><code>$ go build gopl.io/ch1/lissajous
+<pre tabindex="0"><code>$ go build gopl.io/ch1/lissajous
 $ ./lissajous &gt;out.gif
 </code></pre><p><strong>练习 1.5：</strong> 修改前面的Lissajous程序里的调色板，由黑色改为绿色。我们可以用<code>color.RGBA{0xRR, 0xGG, 0xBB, 0xff}</code>来得到<code>#RRGGBB</code>这个色值，三个十六进制的字符串分别代表红、绿、蓝像素。</p>
 <p><strong>练习 1.6：</strong> 修改Lissajous程序，修改其调色板来生成更丰富的颜色，然后修改SetColorIndex的第三个参数，看看显示结果吧。</p>

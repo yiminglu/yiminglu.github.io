@@ -100,43 +100,43 @@
 	<div class="wrapper">
 		<h2 id="83-示例-并发的echo服务">8.3. 示例: 并发的Echo服务</h2>
 <p>clock服务器每一个连接都会起一个goroutine。在本节中我们会创建一个echo服务器，这个服务在每个连接中会有多个goroutine。大多数echo服务仅仅会返回他们读取到的内容，就像下面这个简单的handleConn函数所做的一样：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">handleConn</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Conn</span>) {
-	<span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Copy</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">c</span>) <span style="color:#75715e">// NOTE: ignoring errors
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Close</span>()
-}
-</code></pre></div><p>一个更有意思的echo服务应该模拟一个实际的echo的“回响”，并且一开始要用大写HELLO来表示“声音很大”，之后经过一小段延迟返回一个有所缓和的Hello，然后一个全小写字母的hello表示声音渐渐变小直至消失，像下面这个版本的handleConn(译注：笑看作者脑洞大开)：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">handleConn</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Conn</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Copy</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">c</span>) <span style="color:#75715e">// NOTE: ignoring errors
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>一个更有意思的echo服务应该模拟一个实际的echo的“回响”，并且一开始要用大写HELLO来表示“声音很大”，之后经过一小段延迟返回一个有所缓和的Hello，然后一个全小写字母的hello表示声音渐渐变小直至消失，像下面这个版本的handleConn(译注：笑看作者脑洞大开)：</p>
 <p><u><i>gopl.io/ch8/reverb1</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">echo</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Conn</span>, <span style="color:#a6e22e">shout</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">delay</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>) {
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintln</span>(<span style="color:#a6e22e">c</span>, <span style="color:#e6db74">&#34;\t&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">ToUpper</span>(<span style="color:#a6e22e">shout</span>))
-	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">delay</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintln</span>(<span style="color:#a6e22e">c</span>, <span style="color:#e6db74">&#34;\t&#34;</span>, <span style="color:#a6e22e">shout</span>)
-	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">delay</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintln</span>(<span style="color:#a6e22e">c</span>, <span style="color:#e6db74">&#34;\t&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">ToLower</span>(<span style="color:#a6e22e">shout</span>))
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">handleConn</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Conn</span>) {
-	<span style="color:#a6e22e">input</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bufio</span>.<span style="color:#a6e22e">NewScanner</span>(<span style="color:#a6e22e">c</span>)
-	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Scan</span>() {
-		<span style="color:#a6e22e">echo</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Text</span>(), <span style="color:#ae81ff">1</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
-	}
-	<span style="color:#75715e">// NOTE: ignoring potential errors from input.Err()
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Close</span>()
-}
-</code></pre></div><p>我们需要升级我们的客户端程序，这样它就可以发送终端的输入到服务器，并把服务端的返回输出到终端上，这使我们有了使用并发的另一个好机会：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">echo</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Conn</span>, <span style="color:#a6e22e">shout</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">delay</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintln</span>(<span style="color:#a6e22e">c</span>, <span style="color:#e6db74">&#34;\t&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">ToUpper</span>(<span style="color:#a6e22e">shout</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">delay</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintln</span>(<span style="color:#a6e22e">c</span>, <span style="color:#e6db74">&#34;\t&#34;</span>, <span style="color:#a6e22e">shout</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">delay</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintln</span>(<span style="color:#a6e22e">c</span>, <span style="color:#e6db74">&#34;\t&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">ToLower</span>(<span style="color:#a6e22e">shout</span>))
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">handleConn</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Conn</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">input</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bufio</span>.<span style="color:#a6e22e">NewScanner</span>(<span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Scan</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">echo</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Text</span>(), <span style="color:#ae81ff">1</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// NOTE: ignoring potential errors from input.Err()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>我们需要升级我们的客户端程序，这样它就可以发送终端的输入到服务器，并把服务端的返回输出到终端上，这使我们有了使用并发的另一个好机会：</p>
 <p><u><i>gopl.io/ch8/netcat2</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#a6e22e">conn</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Dial</span>(<span style="color:#e6db74">&#34;tcp&#34;</span>, <span style="color:#e6db74">&#34;localhost:8000&#34;</span>)
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
-	}
-	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Close</span>()
-	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">mustCopy</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>, <span style="color:#a6e22e">conn</span>)
-	<span style="color:#a6e22e">mustCopy</span>(<span style="color:#a6e22e">conn</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdin</span>)
-}
-</code></pre></div><p>当main goroutine从标准输入流中读取内容并将其发送给服务器时，另一个goroutine会读取并打印服务端的响应。当main goroutine碰到输入终止时，例如，用户在终端中按了Control-D(^D)，在windows上是Control-Z，这时程序就会被终止，尽管其它goroutine中还有进行中的任务。（在8.4.1中引入了channels后我们会明白如何让程序等待两边都结束。）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">conn</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Dial</span>(<span style="color:#e6db74">&#34;tcp&#34;</span>, <span style="color:#e6db74">&#34;localhost:8000&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">mustCopy</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>, <span style="color:#a6e22e">conn</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mustCopy</span>(<span style="color:#a6e22e">conn</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdin</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>当main goroutine从标准输入流中读取内容并将其发送给服务器时，另一个goroutine会读取并打印服务端的响应。当main goroutine碰到输入终止时，例如，用户在终端中按了Control-D(^D)，在windows上是Control-Z，这时程序就会被终止，尽管其它goroutine中还有进行中的任务。（在8.4.1中引入了channels后我们会明白如何让程序等待两边都结束。）</p>
 <p>下面这个会话中，客户端的输入是左对齐的，服务端的响应会用缩进来区别显示。
 客户端会向服务器“喊三次话”：</p>
-<pre><code>$ go build gopl.io/ch8/reverb1
+<pre tabindex="0"><code>$ go build gopl.io/ch8/reverb1
 $ ./reverb1 &amp;
 $ go build gopl.io/ch8/netcat2
 $ ./netcat2
@@ -156,17 +156,17 @@ Yooo-hooo!
 $ killall reverb1
 </code></pre><p>注意客户端的第三次shout在前一个shout处理完成之前一直没有被处理，这貌似看起来不是特别“现实”。真实世界里的回响应该是会由三次shout的回声组合而成的。为了模拟真实世界的回响，我们需要更多的goroutine来做这件事情。这样我们就再一次地需要go这个关键词了，这次我们用它来调用echo：</p>
 <p><u><i>gopl.io/ch8/reverb2</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">handleConn</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Conn</span>) {
-	<span style="color:#a6e22e">input</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bufio</span>.<span style="color:#a6e22e">NewScanner</span>(<span style="color:#a6e22e">c</span>)
-	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Scan</span>() {
-		<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">echo</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Text</span>(), <span style="color:#ae81ff">1</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
-	}
-	<span style="color:#75715e">// NOTE: ignoring potential errors from input.Err()
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Close</span>()
-}
-</code></pre></div><p>go后跟的函数的参数会在go语句自身执行时被求值；因此input.Text()会在main goroutine中被求值。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">handleConn</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Conn</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">input</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bufio</span>.<span style="color:#a6e22e">NewScanner</span>(<span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Scan</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">echo</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Text</span>(), <span style="color:#ae81ff">1</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// NOTE: ignoring potential errors from input.Err()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>go后跟的函数的参数会在go语句自身执行时被求值；因此input.Text()会在main goroutine中被求值。
 现在回响是并发并且会按时间来覆盖掉其它响应了：</p>
-<pre><code>$ go build gopl.io/ch8/reverb2
+<pre tabindex="0"><code>$ go build gopl.io/ch8/reverb2
 $ ./reverb2 &amp;
 $ ./netcat2
 Is there anybody there?

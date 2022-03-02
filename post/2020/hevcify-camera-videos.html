@@ -122,30 +122,30 @@
 <h3 id="step-1-1">Step 1</h3>
 <p>ADB or Network ADB. <code>brew cask install android-platform-tools</code> to install <code>adb</code>.</p>
 <p>For network ADB,</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># while connecting the phone to mac</span>
-adb tcpip <span style="color:#ae81ff">5555</span>
-
-<span style="color:#75715e"># network adb connect</span>
-adb connect 192.168.xxx.xxx:5555
-</code></pre></div><h3 id="step-2-1">Step 2</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># while connecting the phone to mac</span>
+</span></span><span style="display:flex;"><span>adb tcpip <span style="color:#ae81ff">5555</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># network adb connect</span>
+</span></span><span style="display:flex;"><span>adb connect 192.168.xxx.xxx:5555
+</span></span></code></pre></div><h3 id="step-2-1">Step 2</h3>
 <p>Pull the video files to Mac.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">adb pull /sdcard/DCIM/Camera/VID_20200202_020202.mp4
-</code></pre></div><h3 id="step-3-1">Step 3</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>adb pull /sdcard/DCIM/Camera/VID_20200202_020202.mp4
+</span></span></code></pre></div><h3 id="step-3-1">Step 3</h3>
 <p>Encode with <code>ffmpeg</code>. <code>brew install ffmpeg</code> to install <code>ffmpeg</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ffmpeg -i VID_20200202_020202.mp4 -c:v libx265 -c:a aac VID_20200202_020202_HEVC.mp4
-
-<span style="color:#75715e"># if you want to customize the parameters, check the ffmpeg manual.</span>
-man ffmpeg
-
-<span style="color:#75715e"># or just</span>
-ffmpeg
-</code></pre></div><h3 id="step-4">Step 4</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffmpeg -i VID_20200202_020202.mp4 -c:v libx265 -c:a aac VID_20200202_020202_HEVC.mp4
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># if you want to customize the parameters, check the ffmpeg manual.</span>
+</span></span><span style="display:flex;"><span>man ffmpeg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># or just</span>
+</span></span><span style="display:flex;"><span>ffmpeg
+</span></span></code></pre></div><h3 id="step-4">Step 4</h3>
 <p>Restore EXIF metadata with <code>exiftool</code> to copy original EXIF tags to the new video file. <code>brew install exiftool</code> to install <code>exiftool</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">exiftool -tagsFromFile VID_20200202_020202.mp4 VID_20200202_020202_HEVC.mp4
-</code></pre></div><h3 id="step-5">Step 5</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>exiftool -tagsFromFile VID_20200202_020202.mp4 VID_20200202_020202_HEVC.mp4
+</span></span></code></pre></div><h3 id="step-5">Step 5</h3>
 <p>Send video file back to phone.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">adb push VID_20200202_020202_HEVC.mp4 /sdcard/DCIM/
-</code></pre></div><h3 id="step-6">Step 6</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>adb push VID_20200202_020202_HEVC.mp4 /sdcard/DCIM/
+</span></span></code></pre></div><h3 id="step-6">Step 6</h3>
 <p>Now compare these two videos.</p>
 <h2 id="at-last">At last</h2>
 <p>Now, it&rsquo;s been a while since the first encoding. And the result till now is pretty promising. At this moment, I&rsquo;ve got ~500M of videos files encoded from ~5G original video files.</p>
@@ -154,7 +154,7 @@ ffmpeg
   <div class="post-comments">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
