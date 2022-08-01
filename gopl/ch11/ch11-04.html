@@ -109,7 +109,7 @@
 	}
 }
 </code></pre></div><p>我们用下面的命令运行基准测试。和普通测试不同的是，默认情况下不运行任何基准测试。我们需要通过<code>-bench</code>命令行标志参数手工指定要运行的基准测试函数。该参数是一个正则表达式，用于匹配要执行的基准测试函数的名字，默认值是空的。其中“.”模式将可以匹配所有基准测试函数，但因为这里只有一个基准测试函数，因此和<code>-bench=IsPalindrome</code>参数是等价的效果。</p>
-<pre tabindex="0"><code>$ cd $GOPATH/src/gopl.io/ch11/word2
+<pre><code>$ cd $GOPATH/src/gopl.io/ch11/word2
 $ go test -bench=.
 PASS
 BenchmarkIsPalindrome-8 1000000                1035 ns/op
@@ -126,7 +126,7 @@ ok      gopl.io/ch11/word2      2.179s
 }
 <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
 </code></pre></div><p>不过很多情况下，一个显而易见的优化未必能带来预期的效果。这个改进在基准测试中只带来了4%的性能提升。</p>
-<pre tabindex="0"><code>$ go test -bench=.
+<pre><code>$ go test -bench=.
 PASS
 BenchmarkIsPalindrome-8 1000000              992 ns/op
 ok      gopl.io/ch11/word2      2.093s
@@ -138,16 +138,16 @@ ok      gopl.io/ch11/word2      2.093s
 	}
 }
 </code></pre></div><p>这个改进提升性能约35%，报告结果是基于2,000,000次迭代的平均运行时间统计。</p>
-<pre tabindex="0"><code>$ go test -bench=.
+<pre><code>$ go test -bench=.
 PASS
 BenchmarkIsPalindrome-8 2000000                      697 ns/op
 ok      gopl.io/ch11/word2      1.468s
 </code></pre><p>如这个例子所示，快的程序往往是伴随着较少的内存分配。<code>-benchmem</code>命令行标志参数将在报告中包含内存的分配数据统计。我们可以比较优化前后内存的分配情况：</p>
-<pre tabindex="0"><code>$ go test -bench=. -benchmem
+<pre><code>$ go test -bench=. -benchmem
 PASS
 BenchmarkIsPalindrome    1000000   1026 ns/op    304 B/op  4 allocs/op
 </code></pre><p>这是优化之后的结果：</p>
-<pre tabindex="0"><code>$ go test -bench=. -benchmem
+<pre><code>$ go test -bench=. -benchmem
 PASS
 BenchmarkIsPalindrome    2000000    807 ns/op    128 B/op  1 allocs/op
 </code></pre><p>用一次内存分配代替多次的内存分配节省了75%的分配调用次数和减少近一半的内存需求。</p>

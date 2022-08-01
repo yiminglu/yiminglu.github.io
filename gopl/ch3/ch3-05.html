@@ -129,11 +129,11 @@
 </span></code></pre></div><p>不变性意味着如果两个字符串共享相同的底层数据的话也是安全的，这使得复制任何长度的字符串代价是低廉的。同样，一个字符串s和对应的子字符串切片s[7:]的操作也可以安全地共享相同的内存，因此字符串切片操作代价也是低廉的。在这两种情况下都没有必要分配新的内存。 图3.4演示了一个字符串和两个子串共享相同的底层数据。</p>
 <h3 id="351-字符串面值">3.5.1. 字符串面值</h3>
 <p>字符串值也可以用字符串面值方式编写，只要将一系列字节序列包含在双引号内即可：</p>
-<pre tabindex="0"><code>&quot;Hello, 世界&quot;
+<pre><code>&quot;Hello, 世界&quot;
 </code></pre><p><img src="../images/ch3-04.png" alt=""></p>
 <p>因为Go语言源文件总是用UTF8编码，并且Go语言的文本字符串也以UTF8编码的方式处理，因此我们可以将Unicode码点也写到字符串面值中。</p>
 <p>在一个双引号包含的字符串面值中，可以用以反斜杠<code>\</code>开头的转义序列插入任意的数据。下面的换行、回车和制表符等是常见的ASCII控制代码的转义方式：</p>
-<pre tabindex="0"><code>\a      响铃
+<pre><code>\a      响铃
 \b      退格
 \f      换页
 \n      换行
@@ -158,20 +158,20 @@
 <p>我们可以将一个符文序列表示为一个int32序列。这种编码方式叫UTF-32或UCS-4，每个Unicode码点都使用同样大小的32bit来表示。这种方式比较简单统一，但是它会浪费很多存储空间，因为大多数计算机可读的文本是ASCII字符，本来每个ASCII字符只需要8bit或1字节就能表示。而且即使是常用的字符也远少于65,536个，也就是说用16bit编码方式就能表达常用字符。但是，还有其它更好的编码方法吗？</p>
 <h3 id="353-utf-8">3.5.3. UTF-8</h3>
 <p>UTF8是一个将Unicode码点编码为字节序列的变长编码。UTF8编码是由Go语言之父Ken Thompson和Rob Pike共同发明的，现在已经是Unicode的标准。UTF8编码使用1到4个字节来表示每个Unicode码点，ASCII部分字符只使用1个字节，常用字符部分使用2或3个字节表示。每个符号编码后第一个字节的高端bit位用于表示编码总共有多少个字节。如果第一个字节的高端bit为0，则表示对应7bit的ASCII字符，ASCII字符每个字符依然是一个字节，和传统的ASCII编码兼容。如果第一个字节的高端bit是110，则说明需要2个字节；后续的每个高端bit都以10开头。更大的Unicode码点也是采用类似的策略处理。</p>
-<pre tabindex="0"><code>0xxxxxxx                             runes 0-127    (ASCII)
+<pre><code>0xxxxxxx                             runes 0-127    (ASCII)
 110xxxxx 10xxxxxx                    128-2047       (values &lt;128 unused)
 1110xxxx 10xxxxxx 10xxxxxx           2048-65535     (values &lt;2048 unused)
 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx  65536-0x10ffff (other values unused)
 </code></pre><p>变长的编码无法直接通过索引来访问第n个字符，但是UTF8编码获得了很多额外的优点。首先UTF8编码比较紧凑，完全兼容ASCII码，并且可以自动同步：它可以通过向前回朔最多3个字节就能确定当前字符编码的开始字节的位置。它也是一个前缀编码，所以当从左向右解码时不会有任何歧义也并不需要向前查看（译注：像GBK之类的编码，如果不知道起点位置则可能会出现歧义）。没有任何字符的编码是其它字符编码的子串，或是其它编码序列的字串，因此搜索一个字符时只要搜索它的字节编码序列即可，不用担心前后的上下文会对搜索结果产生干扰。同时UTF8编码的顺序和Unicode码点的顺序一致，因此可以直接排序UTF8编码序列。同时因为没有嵌入的NUL(0)字节，可以很好地兼容那些使用NUL作为字符串结尾的编程语言。</p>
 <p>Go语言的源文件采用UTF8编码，并且Go语言处理UTF8编码的文本也很出色。unicode包提供了诸多处理rune字符相关功能的函数（比如区分字母和数字，或者是字母的大写和小写转换等），unicode/utf8包则提供了用于rune字符序列的UTF8编码和解码的功能。</p>
 <p>有很多Unicode字符很难直接从键盘输入，并且还有很多字符有着相似的结构；有一些甚至是不可见的字符（译注：中文和日文就有很多相似但不同的字）。Go语言字符串面值中的Unicode转义字符让我们可以通过Unicode码点输入特殊的字符。有两种形式：<code>\uhhhh</code>对应16bit的码点值，<code>\Uhhhhhhhh</code>对应32bit的码点值，其中h是一个十六进制数字；一般很少需要使用32bit的形式。每一个对应码点的UTF8编码。例如：下面的字母串面值都表示相同的值：</p>
-<pre tabindex="0"><code>&quot;世界&quot;
+<pre><code>&quot;世界&quot;
 &quot;\xe4\xb8\x96\xe7\x95\x8c&quot;
 &quot;\u4e16\u754c&quot;
 &quot;\U00004e16\U0000754c&quot;
 </code></pre><p>上面三个转义序列都为第一个字符串提供替代写法，但是它们的值都是相同的。</p>
 <p>Unicode转义也可以使用在rune字符中。下面三个字符是等价的：</p>
-<pre tabindex="0"><code>'世' '\u4e16' '\U00004e16'
+<pre><code>'世' '\u4e16' '\U00004e16'
 </code></pre><p>对于小于256的码点值可以写在一个十六进制转义字节中，例如<code>\x41</code>对应字符&rsquo;A'，但是对于更大的码点则必须使用<code>\u</code>或<code>\U</code>转义形式。因此，<code>\xe4\xb8\x96</code>并不是一个合法的rune字符，虽然这三个字节对应一个有效的UTF8编码的码点。</p>
 <p>得益于UTF8编码优良的设计，诸多字符串操作都不需要解码操作。我们可以不用解码直接测试一个字符串是否是另一个字符串的前缀：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">HasPrefix</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">prefix</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {

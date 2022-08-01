@@ -187,7 +187,7 @@ $ git rebase --onto HEAD~n HEAD~<span style="color:#f92672">(</span>n-1<span sty
 <p>then the command</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"></code></pre></div></blockquote>
 <p>$ git rebase &ndash;onto topicA~5 topicA~3 topicA</p>
-<pre tabindex="0"><code>&gt; would result in the removal of commits F and G:
+<pre><code>&gt; would result in the removal of commits F and G:
 &gt;
 &gt; E'---H'---I'---J'  topicA
 
@@ -200,7 +200,7 @@ $ git branch -D test
 </code></pre><p>Get the <code>XXXXXX</code> with <code>git log</code> in test branch.</p>
 <h2 id="check-inpush-an-old-commit">Check in(push) an old commit</h2>
 <p>Use <a href="#rebase">rebase</a> to go to this very old commit, use <code>git push</code>, you&rsquo;ll get this message:</p>
-<pre tabindex="0"><code>fatal: You are not currently on a branch.
+<pre><code>fatal: You are not currently on a branch.
 To push the history leading to the current (detached HEAD)
 state now, use
 

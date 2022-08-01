@@ -102,7 +102,7 @@
 <p>Display是一个用于显示结构化数据的调试工具，但是它并不能将任意的Go语言对象编码为通用消息然后用于进程间通信。</p>
 <p>正如我们在4.5节中中看到的，Go语言的标准库支持了包括JSON、XML和ASN.1等多种编码格式。还有另一种依然被广泛使用的格式是S表达式格式，采用Lisp语言的语法。但是和其他编码格式不同的是，Go语言自带的标准库并不支持S表达式，主要是因为它没有一个公认的标准规范。</p>
 <p>在本节中，我们将定义一个包用于将任意的Go语言对象编码为S表达式格式，它支持以下结构：</p>
-<pre tabindex="0"><code>42          integer
+<pre><code>42          integer
 &quot;hello&quot;     string（带有Go风格的引号）
 foo         symbol（未用引号括起来的名字）
 (1 2 3)     list  （括号包起来的0个或多个元素）
@@ -189,7 +189,7 @@ foo         symbol（未用引号括起来的名字）
 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">Bytes</span>(), <span style="color:#66d9ef">nil</span>
 }
 </code></pre></div><p>下面是Marshal对12.3节的strangelove变量编码后的结果：</p>
-<pre tabindex="0"><code>((Title &quot;Dr. Strangelove&quot;) (Subtitle &quot;How I Learned to Stop Worrying and Lo
+<pre><code>((Title &quot;Dr. Strangelove&quot;) (Subtitle &quot;How I Learned to Stop Worrying and Lo
 ve the Bomb&quot;) (Year 1964) (Actor ((&quot;Grp. Capt. Lionel Mandrake&quot; &quot;Peter Sell
 ers&quot;) (&quot;Pres. Merkin Muffley&quot; &quot;Peter Sellers&quot;) (&quot;Gen. Buck Turgidson&quot; &quot;Geor
 ge C. Scott&quot;) (&quot;Brig. Gen. Jack D. Ripper&quot; &quot;Sterling Hayden&quot;) (&quot;Maj. T.J. \
@@ -197,7 +197,7 @@ ge C. Scott&quot;) (&quot;Brig. Gen. Jack D. Ripper&quot; &quot;Sterling Hayden&
 (&quot;Best Actor (Nomin.)&quot; &quot;Best Adapted Screenplay (Nomin.)&quot; &quot;Best Director (N
 omin.)&quot; &quot;Best Picture (Nomin.)&quot;)) (Sequel nil))
 </code></pre><p>整个输出编码为一行中以减少输出的大小，但是也很难阅读。下面是对S表达式手动格式化的结果。编写一个S表达式的美化格式化函数将作为一个具有挑战性的练习任务；不过 <a href="http://gopl.io">http://gopl.io</a> 也提供了一个简单的版本。</p>
-<pre tabindex="0"><code>((Title &quot;Dr. Strangelove&quot;)
+<pre><code>((Title &quot;Dr. Strangelove&quot;)
  (Subtitle &quot;How I Learned to Stop Worrying and Love the Bomb&quot;)
  (Year 1964)
  (Actor ((&quot;Grp. Capt. Lionel Mandrake&quot; &quot;Peter Sellers&quot;)

@@ -177,7 +177,7 @@
 </span><span style="color:#75715e"></span>	<span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>}
 </code></pre></div><p>在topsort中，首先对prereqs中的key排序，再调用visitAll。因为prereqs映射的是切片而不是更复杂的map，所以数据的遍历次序是固定的，这意味着你每次运行topsort得到的输出都是一样的。	topsort的输出结果如下:</p>
-<pre tabindex="0"><code>1: intro to programming
+<pre><code>1: intro to programming
 2: discrete math
 3: data structures
 4: algorithms
@@ -270,7 +270,7 @@
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">breadthFirst</span>(<span style="color:#a6e22e">crawl</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Args</span>[<span style="color:#ae81ff">1</span>:])
 }
 </code></pre></div><p>让我们从 <a href="https://golang.org">https://golang.org</a> 开始，下面是程序的输出结果：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch5/findlinks3
+<pre><code>$ go build gopl.io/ch5/findlinks3
 $ ./findlinks3 https://golang.org
 https://golang.org/
 https://golang.org/doc/

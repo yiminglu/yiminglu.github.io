@@ -133,12 +133,12 @@
 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">jpeg</span>.<span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">out</span>, <span style="color:#a6e22e">img</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">jpeg</span>.<span style="color:#a6e22e">Options</span>{<span style="color:#a6e22e">Quality</span>: <span style="color:#ae81ff">95</span>})
 }
 </code></pre></div><p>如果我们将<code>gopl.io/ch3/mandelbrot</code>（§3.3）的输出导入到这个程序的标准输入，它将解码输入的PNG格式图像，然后转换为JPEG格式的图像输出（图3.3）。</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch3/mandelbrot
+<pre><code>$ go build gopl.io/ch3/mandelbrot
 $ go build gopl.io/ch10/jpeg
 $ ./mandelbrot | ./jpeg &gt;mandelbrot.jpg
 Input format = png
 </code></pre><p>要注意image/png包的匿名导入语句。如果没有这一行语句，程序依然可以编译和运行，但是它将不能正确识别和解码PNG格式的图像：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch10/jpeg
+<pre><code>$ go build gopl.io/ch10/jpeg
 $ ./mandelbrot | ./jpeg &gt;mandelbrot.jpg
 jpeg: image: unknown format
 </code></pre><p>下面的代码演示了它的工作机制。标准库还提供了GIF、PNG和JPEG等格式图像的解码器，用户也可以提供自己的解码器，但是为了保持程序体积较小，很多解码器并没有被全部包含，除非是明确需要支持的格式。image.Decode函数在解码时会依次查询支持的格式列表。每个格式驱动列表的每个入口指定了四件事情：格式的名称；一个用于描述这种图像数据开头部分模式的字符串，用于解码器检测识别；一个Decode函数用于完成解码图像工作；一个DecodeConfig函数用于解码图像的大小和颜色空间的信息。每个驱动入口是通过调用image.RegisterFormat函数注册，一般是在每个格式包的init初始化函数中调用，例如image/png包是这样注册的：</p>

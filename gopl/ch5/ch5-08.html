@@ -127,7 +127,7 @@
 	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
 }
 </code></pre></div><p>下面展示了运行效果：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch5/title1
+<pre><code>$ go build gopl.io/ch5/title1
 $ ./title1 http://gopl.io
 The Go Programming Language
 $ ./title1 https://golang.org/doc/effective_go.html
@@ -189,7 +189,7 @@ title1: https://golang.org/doc/gopher/frontpage.png has type image/png, not text
 	}
 }
 </code></pre></div><p>每一次bigSlowOperation被调用，程序都会记录函数的进入，退出，持续时间。（我们用time.Sleep模拟一个耗时的操作）</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch5/trace
+<pre><code>$ go build gopl.io/ch5/trace
 $ ./trace
 2015/11/18 09:53:26 enter bigSlowOperation
 2015/11/18 09:53:36 exit bigSlowOperation (10.000589217s)

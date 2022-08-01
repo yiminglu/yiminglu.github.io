@@ -111,12 +111,12 @@
 <p>每一章都有一些练习题，你可以用来测试你对Go的理解，你也可以探讨书中这些例子的扩展和替代。</p>
 <p>书中所有的代码都可以从 <a href="http://gopl.io">http://gopl.io</a> 上的Git仓库下载。go get命令根据每个例子的导入路径智能地获取、构建并安装。只需要选择一个目录作为工作空间，然后将GOPATH环境变量设置为该路径。</p>
 <p>必要时，Go语言工具会创建目录。例如：</p>
-<pre tabindex="0"><code>$ export GOPATH=$HOME/gobook    # 选择工作目录
+<pre><code>$ export GOPATH=$HOME/gobook    # 选择工作目录
 $ go get gopl.io/ch1/helloworld # 获取/编译/安装
 $ $GOPATH/bin/helloworld        # 运行程序
 Hello, 世界                     # 这是中文
 </code></pre><p>运行这些例子需要安装Go1.5以上的版本。</p>
-<pre tabindex="0"><code>$ go version
+<pre><code>$ go version
 go version go1.5 linux/amd64
 </code></pre><p>如果使用其他的操作系统，请参考 <a href="https://golang.org/doc/install">https://golang.org/doc/install</a> 提供的说明安装。</p>
 

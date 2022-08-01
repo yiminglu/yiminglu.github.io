@@ -112,12 +112,12 @@
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#e6db74">&#34;x:&#34;</span>, <span style="color:#a6e22e">x</span>, <span style="color:#e6db74">&#34; &#34;</span>) <span style="color:#75715e">// B2
 </span><span style="color:#75715e"></span>}()
 </code></pre></div><p>因为两个goroutine是并发执行，并且访问共享变量时也没有互斥，会有数据竞争，所以程序的运行结果没法预测的话也请不要惊讶。我们可能希望它能够打印出下面这四种结果中的一种，相当于几种不同的交错执行时的情况：</p>
-<pre tabindex="0"><code>y:0 x:1
+<pre><code>y:0 x:1
 x:0 y:1
 x:1 y:1
 y:1 x:1
 </code></pre><p>第四行可以被解释为执行顺序A1,B1,A2,B2或者B1,A1,A2,B2的执行结果。然而实际运行时还是有些情况让我们有点惊讶：</p>
-<pre tabindex="0"><code>x:0 y:0
+<pre><code>x:0 y:0
 y:0 x:0
 </code></pre><p>根据所使用的编译器，CPU，或者其它很多影响因子，这两种情况也是有可能发生的。那么这两种情况要怎么解释呢？</p>
 <p>在一个独立的goroutine中，每一个语句的执行顺序是可以被保证的，也就是说goroutine内顺序是连贯的。但是在不使用channel且不使用mutex这样的显式同步操作时，我们就没法保证事件在不同的goroutine中看到的执行顺序是一致的了。尽管goroutine A中一定需要观察到x=1执行成功之后才会去读取y，但它没法确保自己观察得到goroutine B中对y的写入，所以A还可能会打印出y的一个旧版的值。</p>

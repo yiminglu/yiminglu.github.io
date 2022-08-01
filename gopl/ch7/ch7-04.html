@@ -110,11 +110,11 @@
 	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>()
 }
 </code></pre></div><p>在它休眠前它会打印出休眠的时间周期。fmt包调用time.Duration的String方法打印这个时间周期是以用户友好的注解方式，而不是一个纳秒数字：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch7/sleep
+<pre><code>$ go build gopl.io/ch7/sleep
 $ ./sleep
 Sleeping for 1s...
 </code></pre><p>默认情况下，休眠周期是一秒，但是可以通过 -period 这个命令行标记来控制。flag.Duration函数创建一个time.Duration类型的标记变量并且允许用户通过多种用户友好的方式来设置这个变量的大小，这种方式还包括和String方法相同的符号排版形式。这种对称设计使得用户交互良好。</p>
-<pre tabindex="0"><code>$ ./sleep -period 50ms
+<pre><code>$ ./sleep -period 50ms
 Sleeping for 50ms...
 $ ./sleep -period 2m30s
 Sleeping for 2m30s...
@@ -169,7 +169,7 @@ invalid value &quot;1 day&quot; for flag -period: time: invalid duration 1 day
 	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">temp</span>)
 }
 </code></pre></div><p>下面是典型的场景：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch7/tempflag
+<pre><code>$ go build gopl.io/ch7/tempflag
 $ ./tempflag
 20°C
 $ ./tempflag -temp -18C

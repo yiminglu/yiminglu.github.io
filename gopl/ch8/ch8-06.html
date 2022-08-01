@@ -131,7 +131,7 @@
 }
 </code></pre></div><p>注意这里的crawl所在的goroutine会将link作为一个显式的参数传入，来避免“循环变量快照”的问题（在5.6.1中有讲解）。另外注意这里将命令行参数传入worklist也是在一个另外的goroutine中进行的，这是为了避免channel两端的main goroutine与crawler goroutine都尝试向对方发送内容，却没有一端接收内容时发生死锁。当然，这里我们也可以用buffered channel来解决问题，这里不再赘述。</p>
 <p>现在爬虫可以高并发地运行起来，并且可以产生一大坨的URL了，不过还是会有俩问题。一个问题是在运行一段时间后可能会出现在log的错误信息里的：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch8/crawl1
+<pre><code>$ go build gopl.io/ch8/crawl1
 $ ./crawl1 http://gopl.io/
 http://gopl.io/
 https://golang.org/help/

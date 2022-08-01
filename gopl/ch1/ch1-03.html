@@ -135,11 +135,11 @@
 <p>为了打印结果，我们使用了基于<code>range</code>的循环，并在<code>counts</code>这个<code>map</code>上迭代。跟之前类似，每次迭代得到两个结果，键和其在<code>map</code>中对应的值。<code>map</code>的迭代顺序并不确定，从实践来看，该顺序随机，每次运行都会变化。这种设计是有意为之的，因为能防止程序依赖特定遍历顺序，而这是无法保证的。（译注：具体可以参见这里http://stackoverflow.com/questions/11853396/google-go-lang-assignment-order）</p>
 <p>继续来看<code>bufio</code>包，它使处理输入和输出方便又高效。<code>Scanner</code>类型是该包最有用的特性之一，它读取输入并将其拆成行或单词；通常是处理行形式的输入最简单的方法。</p>
 <p>程序使用短变量声明创建<code>bufio.Scanner</code>类型的变量<code>input</code>。</p>
-<pre tabindex="0"><code>input := bufio.NewScanner(os.Stdin)
+<pre><code>input := bufio.NewScanner(os.Stdin)
 </code></pre><p>该变量从程序的标准输入中读取内容。每次调用<code>input.Scan()</code>，即读入下一行，并移除行末的换行符；读取的内容可以调用<code>input.Text()</code>得到。<code>Scan</code>函数在读到一行时返回<code>true</code>，不再有输入时返回<code>false</code>。</p>
 <p>类似于C或其它语言里的<code>printf</code>函数，<code>fmt.Printf</code>函数对一些表达式产生格式化输出。该函数的首个参数是个格式字符串，指定后续参数被如何格式化。各个参数的格式取决于“转换字符”（conversion character），形式为百分号后跟一个字母。举个例子，<code>%d</code>表示以十进制形式打印一个整型操作数，而<code>%s</code>则表示把字符串型操作数的值展开。</p>
 <p><code>Printf</code>有一大堆这种转换，Go程序员称之为<em>动词（verb）</em>。下面的表格虽然远不是完整的规范，但展示了可用的很多特性：</p>
-<pre tabindex="0"><code>%d          十进制整数
+<pre><code>%d          十进制整数
 %x, %o, %b  十六进制，八进制，二进制整数。
 %f, %g, %e  浮点数： 3.141593 3.141592653589793 3.141593e+00
 %t          布尔：true或false

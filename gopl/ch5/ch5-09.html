@@ -141,14 +141,14 @@
 	<span style="color:#a6e22e">f</span>(<span style="color:#a6e22e">x</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
 }
 </code></pre></div><p>上例中的运行输出如下：</p>
-<pre tabindex="0"><code>f(3)
+<pre><code>f(3)
 f(2)
 f(1)
 defer 1
 defer 2
 defer 3
 </code></pre><p>当f(0)被调用时，发生panic异常，之前被延迟执行的3个fmt.Printf被调用。程序中断执行后，panic信息和堆栈信息会被输出（下面是简化的输出）：</p>
-<pre tabindex="0"><code>panic: runtime error: integer divide by zero
+<pre><code>panic: runtime error: integer divide by zero
 main.f(0)
 src/gopl.io/ch5/defer1/defer.go:14
 main.f(1)
@@ -172,7 +172,7 @@ src/gopl.io/ch5/defer1/defer.go:10
 	<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>.<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">buf</span>[:<span style="color:#a6e22e">n</span>])
 }
 </code></pre></div><p>printStack的简化输出如下（下面只是printStack的输出，不包括panic的日志信息）：</p>
-<pre tabindex="0"><code>goroutine 1 [running]:
+<pre><code>goroutine 1 [running]:
 main.printStack()
 src/gopl.io/ch5/defer2/defer.go:20
 main.f(0)

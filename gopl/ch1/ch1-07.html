@@ -121,9 +121,9 @@
 }
 </code></pre></div><p>我们只用了八九行代码就实现了一个Web服务程序，这都是多亏了标准库里的方法已经帮我们完成了大量工作。main函数将所有发送到/路径下的请求和handler函数关联起来，/开头的请求其实就是所有发送到当前站点上的请求，服务监听8000端口。发送到这个服务的“请求”是一个http.Request类型的对象，这个对象中包含了请求中的一系列相关字段，其中就包括我们需要的URL。当请求到达服务器时，这个请求会被传给handler函数来处理，这个函数会将/hello这个路径从请求的URL中解析出来，然后把其发送到响应中，这里我们用的是标准输出流的fmt.Fprintf。Web服务会在第7.7节中做更详细的阐述。</p>
 <p>让我们在后台运行这个服务程序。如果你的操作系统是Mac OS X或者Linux，那么在运行命令的末尾加上一个&amp;符号，即可让程序简单地跑在后台，windows下可以在另外一个命令行窗口去运行这个程序。</p>
-<pre tabindex="0"><code>$ go run src/gopl.io/ch1/server1/main.go &amp;
+<pre><code>$ go run src/gopl.io/ch1/server1/main.go &amp;
 </code></pre><p>现在可以通过命令行来发送客户端请求了：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch1/fetch
+<pre><code>$ go build gopl.io/ch1/fetch
 $ ./fetch http://localhost:8000
 URL.Path = &quot;/&quot;
 $ ./fetch http://localhost:8000/help
@@ -184,7 +184,7 @@ URL.Path = &quot;/help&quot;
 	}
 }
 </code></pre></div><p>我们用http.Request这个struct里的字段来输出下面这样的内容：</p>
-<pre tabindex="0"><code>GET /?q=query HTTP/1.1
+<pre><code>GET /?q=query HTTP/1.1
 Header[&quot;Accept-Encoding&quot;] = [&quot;gzip, deflate, sdch&quot;]
 Header[&quot;Accept-Language&quot;] = [&quot;en-US,en;q=0.8&quot;]
 Header[&quot;Connection&quot;] = [&quot;keep-alive&quot;]

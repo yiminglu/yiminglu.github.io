@@ -156,7 +156,7 @@
 	<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">start</span>), len(<span style="color:#a6e22e">value</span>.([]<span style="color:#66d9ef">byte</span>)))
 }
 </code></pre></div><p>我们可以使用测试包（第11章的主题）来系统地鉴定缓存的效果。从下面的测试输出，我们可以看到URL流包含了一些重复的情况，尽管我们第一次对每一个URL的<code>(*Memo).Get</code>的调用都会花上几百毫秒，但第二次就只需要花1毫秒就可以返回完整的数据了。</p>
-<pre tabindex="0"><code>$ go test -v gopl.io/ch9/memo1
+<pre><code>$ go test -v gopl.io/ch9/memo1
 === RUN   Test
 https://golang.org, 175.026418ms, 7537 bytes
 https://godoc.org, 172.686825ms, 6878 bytes
@@ -189,7 +189,7 @@ ok  gopl.io/ch9/memo1   1.257s
 <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Wait</span>()
 </code></pre></div><p>这次测试跑起来更快了，然而不幸的是貌似这个测试不是每次都能够正常工作。我们注意到有一些意料之外的cache miss（缓存未命中），或者命中了缓存但却返回了错误的值，或者甚至会直接崩溃。</p>
 <p>但更糟糕的是，有时候这个程序还是能正确的运行（译：也就是最让人崩溃的偶发bug），所以我们甚至可能都不会意识到这个程序有bug。但是我们可以使用-race这个flag来运行程序，竞争检测器（§9.6）会打印像下面这样的报告：</p>
-<pre tabindex="0"><code>$ go test -run=TestConcurrent -race -v gopl.io/ch9/memo1
+<pre><code>$ go test -run=TestConcurrent -race -v gopl.io/ch9/memo1
 === RUN   TestConcurrent
 ...
 WARNING: DATA RACE

@@ -212,7 +212,7 @@ make([]<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">len</sp
 	}
 }
 </code></pre></div><p>每一次容量的变化都会导致重新分配内存和copy操作：</p>
-<pre tabindex="0"><code>0  cap=1    [0]
+<pre><code>0  cap=1    [0]
 1  cap=2    [0 1]
 2  cap=4    [0 1 2]
 3  cap=4    [0 1 2 3]

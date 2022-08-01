@@ -109,17 +109,17 @@
 	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Hello, 世界&#34;</span>)
 }
 </code></pre></div><p>Go是一门编译型语言，Go语言的工具链将源代码及其依赖转换成计算机的机器指令（译注：静态编译）。Go语言提供的工具都通过一个单独的命令<code>go</code>调用，<code>go</code>命令有一系列子命令。最简单的一个子命令就是run。这个命令编译一个或多个以.go结尾的源文件，链接库文件，并运行最终生成的可执行文件。（本书使用$表示命令行提示符。）</p>
-<pre tabindex="0"><code>$ go run helloworld.go
+<pre><code>$ go run helloworld.go
 </code></pre><p>毫无意外，这个命令会输出：</p>
-<pre tabindex="0"><code>Hello, 世界
+<pre><code>Hello, 世界
 </code></pre><p>Go语言原生支持Unicode，它可以处理全世界任何语言的文本。</p>
 <p>如果不只是一次性实验，你肯定希望能够编译这个程序，保存编译结果以备将来之用。可以用build子命令：</p>
-<pre tabindex="0"><code>$ go build helloworld.go
+<pre><code>$ go build helloworld.go
 </code></pre><p>这个命令生成一个名为helloworld的可执行的二进制文件（译注：Windows系统下生成的可执行文件是helloworld.exe，增加了.exe后缀名），之后你可以随时运行它（译注：在Windows系统下在命令行直接输入helloworld.exe命令运行），不需任何处理（译注：因为静态编译，所以不用担心在系统库更新的时候冲突，幸福感满满）。</p>
-<pre tabindex="0"><code>$ ./helloworld
+<pre><code>$ ./helloworld
 Hello, 世界
 </code></pre><p>本书中所有示例代码上都有一行标记，利用这些标记可以从<a href="http://gopl.io">gopl.io</a>网站上本书源码仓库里获取代码：</p>
-<pre tabindex="0"><code>gopl.io/ch1/helloworld
+<pre><code>gopl.io/ch1/helloworld
 </code></pre><p>执行 <code>go get gopl.io/ch1/helloworld</code> 命令，就会从网上获取代码，并放到对应目录中（需要先安装Git或Hg之类的版本管理工具，并将对应的命令添加到PATH环境变量中。序言已经提及，需要先设置好GOPATH环境变量，下载的代码会放在<code>$GOPATH/src/gopl.io/ch1/helloworld</code>目录）。2.6和10.7节有这方面更详细的介绍。</p>
 <p>来讨论下程序本身。Go语言的代码通过<strong>包</strong>（package）组织，包类似于其它语言里的库（libraries）或者模块（modules）。一个包由位于单个目录下的一个或多个.go源代码文件组成，目录定义包的作用。每个源文件都以一条<code>package</code>声明语句开始，这个例子里就是<code>package main</code>，表示该文件属于哪个包，紧跟着一系列导入（import）的包，之后是存储在这个文件里的程序语句。</p>
 <p>Go的标准库提供了100多个包，以支持常见功能，如输入、输出、排序以及文本处理。比如<code>fmt</code>包，就含有格式化输出、接收输入的函数。<code>Println</code>是其中一个基础函数，可以打印以空格间隔的一个或多个值，并在最后添加一个换行符，从而输出一整行。</p>
@@ -131,7 +131,7 @@ Hello, 世界
 <p>Go语言不需要在语句或者声明的末尾添加分号，除非一行上有多条语句。实际上，编译器会主动把特定符号后的换行符转换为分号，因此换行符添加的位置会影响Go代码的正确解析（译注：比如行末是标识符、整数、浮点数、虚数、字符或字符串文字、关键字<code>break</code>、<code>continue</code>、<code>fallthrough</code>或<code>return</code>中的一个、运算符和分隔符<code>++</code>、<code>--</code>、<code>)</code>、<code>]</code>或<code>}</code>中的一个）。举个例子，函数的左括号<code>{</code>必须和<code>func</code>函数声明在同一行上，且位于末尾，不能独占一行，而在表达式<code>x + y</code>中，可在<code>+</code>后换行，不能在<code>+</code>前换行（译注：以+结尾的话不会被插入分号分隔符，但是以x结尾的话则会被分号分隔符，从而导致编译错误）。</p>
 <p>Go语言在代码格式上采取了很强硬的态度。<code>gofmt</code>工具把代码格式化为标准格式（译注：这个格式化工具没有任何可以调整代码格式的参数，Go语言就是这么任性），并且<code>go</code>工具中的<code>fmt</code>子命令会对指定包，否则默认为当前目录中所有.go源文件应用<code>gofmt</code>命令。本书中的所有代码都被gofmt过。你也应该养成格式化自己的代码的习惯。以法令方式规定标准的代码格式可以避免无尽的无意义的琐碎争执（译注：也导致了Go语言的TIOBE排名较低，因为缺少撕逼的话题）。更重要的是，这样可以做多种自动源码转换，如果放任Go语言代码格式，这些转换就不大可能了。</p>
 <p>很多文本编辑器都可以配置为保存文件时自动执行<code>gofmt</code>，这样你的源代码总会被恰当地格式化。还有个相关的工具，<code>goimports</code>，可以根据代码需要，自动地添加或删除<code>import</code>声明。这个工具并没有包含在标准的分发包中，可以用下面的命令安装：</p>
-<pre tabindex="0"><code>$ go get golang.org/x/tools/cmd/goimports
+<pre><code>$ go get golang.org/x/tools/cmd/goimports
 </code></pre><p>对于大多数用户来说，下载、编译包、运行测试用例、察看Go语言的文档等等常用功能都可以用go的工具完成。10.7节详细介绍这些知识。</p>
 
 	</div>

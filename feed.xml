@@ -5,7 +5,7 @@
     <description>SeasonsRoad is the blog for interesting things happening around.</description>
     
     <lastBuildDate>Wed, 10 Jun 2020 07:00:00 +0800</lastBuildDate>
-    <generator>Hugo v0.92.0</generator>
+    <generator>Hugo v0.86.1</generator>
     <atom:link href="https://seasonsroad.com/feed.xml" rel="self" type="application/rss+xml" />
       <item>
         <title>Enabling NTFS write on macOS 10.15 Catalina</title>
@@ -234,8 +234,8 @@ ffmpeg
 <h2 id="写在最后">写在最后</h2>
 <p>这都是闺女两岁生日的这段时间发生的一系列事情，以及我个人的一系列联想。</p>
 <p>人生要继续，上行还是下行，都是自己的选择。或者说，至少我还能做选择。</p>
-<br />
-<br />
+<p><br />
+<br /></p>
 <p>注：</p>
 <p>并不是所有都能如意，毕竟有的时候还是看命的。自己的努力不到位，也没有特别多的遗憾。毕竟，备选方案太让人觉得安全了。。</p>
 <p>想来，新的一年又要到来了。所以，还是要好好准备下的。</p>
@@ -280,7 +280,7 @@ ffmpeg
 <center><p><img src="/post/2018/migration-to-https/cert.png" alt="The Cert" style="width: 485px;"/></p></center>
 <p>All of a sudden, my blog goes https. It now looks really nice. At least, Chrome won&rsquo;t say it&rsquo;s unsecure. 😂</p>
 <center><p><img src="/post/2018/migration-to-https/secure.png" alt="Secure" style="width: 333px;"/></p></center>
-<br />
+<p><br /></p>
 <p>P.S.</p>
 <p>I even updated my blog to the same style.</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2018/migration-to-https.html</guid>

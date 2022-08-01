@@ -165,7 +165,7 @@
 	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d files  %.1f GB\n&#34;</span>, <span style="color:#a6e22e">nfiles</span>, float64(<span style="color:#a6e22e">nbytes</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">1e9</span>)
 }
 </code></pre></div><p>这个程序会在打印其结果之前卡住很长时间。</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch8/du1
+<pre><code>$ go build gopl.io/ch8/du1
 $ ./du1 $HOME /usr /bin /etc
 213201 files  62.7 GB
 </code></pre><p>如果在运行的时候能够让我们知道处理进度的话想必更好。但是，如果简单地把printDiskUsage函数调用移动到循环里会导致其打印出成百上千的输出。</p>
@@ -199,7 +199,7 @@ $ ./du1 $HOME /usr /bin /etc
 </span><span style="color:#75715e"></span>}
 </code></pre></div><p>由于我们的程序不再使用range循环，第一个select的case必须显式地判断fileSizes的channel是不是已经被关闭了，这里可以用到channel接收的二值形式。如果channel已经被关闭了的话，程序会直接退出循环。这里的break语句用到了标签break，这样可以同时终结select和for两个循环；如果没有用标签就break的话只会退出内层的select循环，而外层的for循环会使之进入下一轮select循环。</p>
 <p>现在程序会悠闲地为我们打印更新流：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch8/du2
+<pre><code>$ go build gopl.io/ch8/du2
 $ ./du2 -v $HOME /usr /bin /etc
 28608 files  8.3 GB
 54147 files  10.3 GB

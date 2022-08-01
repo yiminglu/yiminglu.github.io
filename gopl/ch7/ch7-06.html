@@ -163,7 +163,7 @@
 </code></pre></div><p>为了调用通用的排序程序，我们必须先将tracks转换为新的byArtist类型，它定义了具体的排序：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">byArtist</span>(<span style="color:#a6e22e">tracks</span>))
 </code></pre></div><p>在按照artist对这个切片进行排序后，printTrack的输出如下</p>
-<pre tabindex="0"><code>Title       Artist          Album               Year Length
+<pre><code>Title       Artist          Album               Year Length
 -----       ------          -----               ---- ------
 Go Ahead    Alicia Keys     As I Am             2007 4m36s
 Go          Delilah         From the Roots Up   2012 3m38s
@@ -172,7 +172,7 @@ Go          Moby            Moby                1992 3m37s
 </code></pre><p>如果用户第二次请求“按照artist排序”，我们会对tracks进行逆向排序。然而我们不需要定义一个有颠倒Less方法的新类型byReverseArtist，因为sort包中提供了Reverse函数将排序顺序转换成逆序。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Reverse</span>(<span style="color:#a6e22e">byArtist</span>(<span style="color:#a6e22e">tracks</span>)))
 </code></pre></div><p>在按照artist对这个切片进行逆向排序后，printTrack的输出如下</p>
-<pre tabindex="0"><code>Title       Artist          Album               Year Length
+<pre><code>Title       Artist          Album               Year Length
 -----       ------          -----               ---- ------
 Go          Moby            Moby                1992 3m37s
 Ready 2 Go  Martin Solveig  Smash               2011 4m24s
@@ -193,7 +193,7 @@ Go Ahead    Alicia Keys     As I Am             2007 4m36s
 <span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">x</span> <span style="color:#a6e22e">byYear</span>) <span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">Year</span> &lt; <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">Year</span> }
 <span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">x</span> <span style="color:#a6e22e">byYear</span>) <span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)      { <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">x</span>[<span style="color:#a6e22e">i</span>] }
 </code></pre></div><p>在使用sort.Sort(byYear(tracks))按照年对tracks进行排序后，printTrack展示了一个按时间先后顺序的列表：</p>
-<pre tabindex="0"><code>Title       Artist          Album               Year Length
+<pre><code>Title       Artist          Album               Year Length
 -----       ------          -----               ---- ------
 Go          Moby            Moby                1992 3m37s
 Go Ahead    Alicia Keys     As I Am             2007 4m36s
@@ -222,7 +222,7 @@ Go          Delilah         From the Roots Up   2012 3m38s
 	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
 }})
 </code></pre></div><p>这下面是排序的结果。注意到两个标题是“Go”的track按照标题排序是相同的顺序，但是在按照year排序上更久的那个track优先。</p>
-<pre tabindex="0"><code>Title       Artist          Album               Year Length
+<pre><code>Title       Artist          Album               Year Length
 -----       ------          -----               ---- ------
 Go          Moby            Moby                1992 3m37s
 Go          Delilah         From the Roots Up   2012 3m38s

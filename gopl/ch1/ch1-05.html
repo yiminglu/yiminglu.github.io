@@ -129,17 +129,17 @@
 	}
 }
 </code></pre></div><p>这个程序从两个package中导入了函数，net/http和io/ioutil包，http.Get函数是创建HTTP请求的函数，如果获取过程没有出错，那么会在resp这个结构体中得到访问的请求结果。resp的Body字段包括一个可读的服务器响应流。ioutil.ReadAll函数从response中读取到全部内容；将其结果保存在变量b中。resp.Body.Close关闭resp的Body流，防止资源泄露，Printf函数会将结果b写出到标准输出流中。</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch1/fetch
+<pre><code>$ go build gopl.io/ch1/fetch
 $ ./fetch http://gopl.io
 &lt;html&gt;
 &lt;head&gt;
 &lt;title&gt;The Go Programming Language&lt;/title&gt;title&gt;
 ...
 </code></pre><p>HTTP请求如果失败了的话，会得到下面这样的结果：</p>
-<pre tabindex="0"><code>$ ./fetch http://bad.gopl.io
+<pre><code>$ ./fetch http://bad.gopl.io
 fetch: Get http://bad.gopl.io: dial tcp: lookup bad.gopl.io: no such host
 </code></pre><p>译注：在大天朝的网络环境下很容易重现这种错误，下面是Windows下运行得到的错误信息：</p>
-<pre tabindex="0"><code>$ go run main.go http://gopl.io
+<pre><code>$ go run main.go http://gopl.io
 fetch: Get http://gopl.io: dial tcp: lookup gopl.io: getaddrinfow: No such host is known.
 </code></pre><p>无论哪种失败原因，我们的程序都用了os.Exit函数来终止进程，并且返回一个status错误码，其值为1。</p>
 <p><strong>练习 1.7：</strong> 函数调用io.Copy(dst, src)会从src中读取内容，并将读到的结果写入到dst中，使用这个函数替代掉例子中的ioutil.ReadAll来拷贝响应结构体到os.Stdout，避免申请一个缓冲区（例子中的b）来存储。记得处理io.Copy返回结果中的错误。</p>

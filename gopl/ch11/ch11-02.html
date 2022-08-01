@@ -142,7 +142,7 @@
 	}
 }
 </code></pre></div><p><code>go test</code>命令如果没有参数指定包那么将默认采用当前目录对应的包（和<code>go build</code>命令一样）。我们可以用下面的命令构建和运行测试。</p>
-<pre tabindex="0"><code>$ cd $GOPATH/src/gopl.io/ch11/word1
+<pre><code>$ cd $GOPATH/src/gopl.io/ch11/word1
 $ go test
 ok   gopl.io/ch11/word1  0.008s
 </code></pre><p>结果还比较满意，我们运行了这个程序， 不过没有提前退出是因为还没有遇到BUG报告。不过一个法国名为“Noelle Eve Elleon”的用户会抱怨IsPalindrome函数不能识别“été”。另外一个来自美国中部用户的抱怨则是不能识别“A man, a plan, a canal: Panama.”。执行特殊和小的BUG报告为我们提供了新的更自然的测试用例。</p>
@@ -160,7 +160,7 @@ ok   gopl.io/ch11/word1  0.008s
 }
 </code></pre></div><p>为了避免两次输入较长的字符串，我们使用了提供了有类似Printf格式化功能的 Errorf函数来汇报错误结果。</p>
 <p>当添加了这两个测试用例之后，<code>go test</code>返回了测试失败的信息。</p>
-<pre tabindex="0"><code>$ go test
+<pre><code>$ go test
 --- FAIL: TestFrenchPalindrome (0.00s)
     word_test.go:28: IsPalindrome(&quot;été&quot;) = false
 --- FAIL: TestCanalPalindrome (0.00s)
@@ -170,7 +170,7 @@ FAIL    gopl.io/ch11/word1  0.014s
 </code></pre><p>先编写测试用例并观察到测试用例触发了和用户报告的错误相同的描述是一个好的测试习惯。只有这样，我们才能定位我们要真正解决的问题。</p>
 <p>先写测试用例的另外的好处是，运行测试通常会比手工描述报告的处理更快，这让我们可以进行快速地迭代。如果测试集有很多运行缓慢的测试，我们可以通过只选择运行某些特定的测试来加快测试速度。</p>
 <p>参数<code>-v</code>可用于打印每个测试函数的名字和运行时间：</p>
-<pre tabindex="0"><code>$ go test -v
+<pre><code>$ go test -v
 === RUN TestPalindrome
 --- PASS: TestPalindrome (0.00s)
 === RUN TestNonPalindrome
@@ -185,7 +185,7 @@ FAIL
 exit status 1
 FAIL    gopl.io/ch11/word1  0.017s
 </code></pre><p>参数<code>-run</code>对应一个正则表达式，只有测试函数名被它正确匹配的测试函数才会被<code>go test</code>测试命令运行：</p>
-<pre tabindex="0"><code>$ go test -v -run=&quot;French|Canal&quot;
+<pre><code>$ go test -v -run=&quot;French|Canal&quot;
 === RUN TestFrenchPalindrome
 --- FAIL: TestFrenchPalindrome (0.00s)
     word_test.go:28: IsPalindrome(&quot;été&quot;) = false
@@ -247,7 +247,7 @@ FAIL    gopl.io/ch11/word1  0.014s
 	}
 }
 </code></pre></div><p>现在我们的新测试都通过了：</p>
-<pre tabindex="0"><code>$ go test gopl.io/ch11/word2
+<pre><code>$ go test gopl.io/ch11/word2
 ok      gopl.io/ch11/word2      0.015s
 </code></pre><p>这种表格驱动的测试在Go语言中很常见。我们可以很容易地向表格添加新的测试数据，并且后面的测试逻辑也没有冗余，这样我们可以有更多的精力去完善错误信息。</p>
 <p>失败测试的输出并不包括调用t.Errorf时刻的堆栈调用信息。和其他编程语言或测试框架的assert断言不同，t.Errorf调用也没有引起panic异常或停止测试的执行。即使表格中前面的数据导致了测试的失败，表格后面的测试数据依然会运行测试，因此在一个测试中我们可能了解多个失败的信息。</p>
@@ -370,7 +370,7 @@ ok      gopl.io/ch11/word2      0.015s
 <p>通过将测试放到表格中，我们很容易添加新的测试用例。让我通过增加下面的测试用例来看看失败的情况是怎么样的：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go">{<span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;,&#34;</span>, []<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;c&#34;</span>}, <span style="color:#e6db74">&#34;a b c\n&#34;</span>}, <span style="color:#75715e">// NOTE: wrong expectation!
 </span></code></pre></div><p><code>go test</code>输出如下：</p>
-<pre tabindex="0"><code>$ go test gopl.io/ch11/echo
+<pre><code>$ go test gopl.io/ch11/echo
 --- FAIL: TestEcho (0.00s)
     echo_test.go:31: echo(true, &quot;,&quot;, [&quot;a&quot; &quot;b&quot; &quot;c&quot;]) = &quot;a,b,c&quot;, want &quot;a b c\n&quot;
 FAIL
@@ -494,18 +494,18 @@ FAIL        gopl.io/ch11/echo         0.006s
 <p>通过避免循环的导入依赖，外部测试包可以更灵活地编写测试，特别是集成测试（需要测试多个组件之间的交互），可以像普通应用程序那样自由地导入其他包。</p>
 <p>我们可以用go list命令查看包对应目录中哪些Go源文件是产品代码，哪些是包内测试，还有哪些是外部测试包。我们以fmt包作为一个例子：GoFiles表示产品代码对应的Go源文件列表；也就是go build命令要编译的部分。</p>
 <p>{% raw %}</p>
-<pre tabindex="0"><code>$ go list -f={{.GoFiles}} fmt
+<pre><code>$ go list -f={{.GoFiles}} fmt
 [doc.go format.go print.go scan.go]
 </code></pre><p>{% endraw %}</p>
 <p>TestGoFiles表示的是fmt包内部测试代码，以_test.go为后缀文件名，不过只在测试时被构建：</p>
 <p>{% raw %}</p>
-<pre tabindex="0"><code>$ go list -f={{.TestGoFiles}} fmt
+<pre><code>$ go list -f={{.TestGoFiles}} fmt
 [export_test.go]
 </code></pre><p>{% endraw %}</p>
 <p>包的测试代码通常都在这些文件中，不过fmt包并非如此；稍后我们再解释export_test.go文件的作用。</p>
 <p>XTestGoFiles表示的是属于外部测试包的测试代码，也就是fmt_test包，因此它们必须先导入fmt包。同样，这些文件也只是在测试时被构建运行：</p>
 <p>{% raw %}</p>
-<pre tabindex="0"><code>$ go list -f={{.XTestGoFiles}} fmt
+<pre><code>$ go list -f={{.XTestGoFiles}} fmt
 [fmt_test.go scan_test.go stringer_test.go]
 </code></pre><p>{% endraw %}</p>
 <p>有时候外部测试包也需要访问被测试包内部的代码，例如在一个为了避免循环导入而被独立到外部测试包的白盒测试。在这种情况下，我们可以通过一些技巧解决：我们在包内的一个_test.go文件中导出一个内部的实现给外部测试包。因为这些代码只有在测试时才需要，因此一般会放在export_test.go文件中。</p>

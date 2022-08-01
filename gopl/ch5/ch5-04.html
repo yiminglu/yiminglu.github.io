@@ -130,7 +130,7 @@
 	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;parsing %s as HTML: %v&#34;</span>, <span style="color:#a6e22e">url</span>,<span style="color:#a6e22e">err</span>)
 }
 </code></pre></div><p>fmt.Errorf函数使用fmt.Sprintf格式化错误信息并返回。我们使用该函数添加额外的前缀上下文信息到原始错误信息。当错误最终由main函数处理时，错误信息应提供清晰的从原因到后果的因果链，就像美国宇航局事故调查时做的那样：</p>
-<pre tabindex="0"><code>genesis: crashed: no parachute: G-switch failed: bad relay orientation
+<pre><code>genesis: crashed: no parachute: G-switch failed: bad relay orientation
 </code></pre><p>由于错误信息经常是以链式组合在一起的，所以错误信息中应避免大写和换行符。最终的错误信息可能很长，我们可以通过类似grep的工具处理错误信息（译者注：grep是一种文本搜索工具）。</p>
 <p>编写错误信息时，我们要确保错误信息对问题细节的描述是详尽的。尤其是要注意错误信息表达的一致性，即相同的函数或同包内的同一组函数返回的错误在构成和处理方式上是相似的。</p>
 <p>以os包为例，os包确保文件操作（如os.Open、Read、Write、Close）返回的每个错误的描述不仅仅包含错误的原因（如无权限，文件目录不存在）也包含文件名，这样调用者在构造新的错误信息时无需再添加这些信息。</p>
@@ -164,7 +164,7 @@
 	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;Site is down: %v\n&#34;</span>, <span style="color:#a6e22e">err</span>)
 }
 </code></pre></div><p>长时间运行的服务器常采用默认的时间格式，而交互式工具很少采用包含如此多信息的格式。</p>
-<pre tabindex="0"><code>2006/01/02 15:04:05 Site is down: no such domain:
+<pre><code>2006/01/02 15:04:05 Site is down: no such domain:
 bad.gopl.io
 </code></pre><p>我们可以设置log的前缀信息屏蔽时间信息，一般而言，前缀信息会被设置成命令名。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">SetPrefix</span>(<span style="color:#e6db74">&#34;wait: &#34;</span>)

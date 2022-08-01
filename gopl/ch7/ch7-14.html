@@ -180,7 +180,7 @@
 }
 </code></pre></div><p>main函数中的循环每遇到一个StartElement时，它把这个元素的名称压到一个栈里，并且每次遇到EndElement时，它将名称从这个栈中推出。这个API保证了StartElement和EndElement的序列可以被完全的匹配，甚至在一个糟糕的文档格式中。注释会被忽略。当xmlselect遇到一个CharData时，只有当栈中有序地包含所有通过命令行参数传入的元素名称时，它才会输出相应的文本。</p>
 <p>下面的命令打印出任意出现在两层div元素下的h2元素的文本。它的输入是XML的说明文档，并且它自己就是XML文档格式的。</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch1/fetch
+<pre><code>$ go build gopl.io/ch1/fetch
 $ ./fetch http://www.w3.org/TR/2006/REC-xml11-20060816 |
     ./xmlselect div div h2
 html body div div h2: 1 Introduction

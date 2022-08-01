@@ -143,7 +143,7 @@
 	<span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%.2fs  %7d  %s&#34;</span>, <span style="color:#a6e22e">secs</span>, <span style="color:#a6e22e">nbytes</span>, <span style="color:#a6e22e">url</span>)
 }
 </code></pre></div><p>下面使用fetchall来请求几个地址：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch1/fetchall
+<pre><code>$ go build gopl.io/ch1/fetchall
 $ ./fetchall https://golang.org http://gopl.io https://godoc.org
 0.14s     6852  https://godoc.org
 0.16s     7261  https://golang.org

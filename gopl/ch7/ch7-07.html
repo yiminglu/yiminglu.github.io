@@ -128,10 +128,10 @@
 	}
 }
 </code></pre></div><p>如果我们启动这个服务，</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch7/http1
+<pre><code>$ go build gopl.io/ch7/http1
 $ ./http1 &amp;
 </code></pre><p>然后用1.5节中的获取程序（如果你更喜欢可以使用web浏览器）来连接服务器，我们得到下面的输出：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch1/fetch
+<pre><code>$ go build gopl.io/ch1/fetch
 $ ./fetch http://localhost:8000
 shoes: $50.00
 socks: $5.00
@@ -162,7 +162,7 @@ socks: $5.00
 <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">msg</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusNotFound</span>) <span style="color:#75715e">// 404
 </span></code></pre></div><p>/price的case会调用URL的Query方法来将HTTP请求参数解析为一个map，或者更准确地说一个net/url包中url.Values(§6.2.1)类型的多重映射。然后找到第一个item参数并查找它的价格。如果这个货品没有找到会返回一个错误。</p>
 <p>这里是一个和新服务器会话的例子：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch7/http2
+<pre><code>$ go build gopl.io/ch7/http2
 $ go build gopl.io/ch1/fetch
 $ ./http2 &amp;
 $ ./fetch http://localhost:8000/list

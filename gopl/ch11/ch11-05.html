@@ -110,14 +110,14 @@
 <p>堆剖析则标识了最耗内存的语句。剖析库会记录调用内部内存分配的操作，平均每512KB的内存申请会触发一个剖析数据。</p>
 <p>阻塞剖析则记录阻塞goroutine最久的操作，例如系统调用、管道发送和接收，还有获取锁等。每当goroutine被这些操作阻塞时，剖析库都会记录相应的事件。</p>
 <p>只需要开启下面其中一个标志参数就可以生成各种分析文件。当同时使用多个标志参数时需要当心，因为一项分析操作可能会影响其他项的分析结果。</p>
-<pre tabindex="0"><code>$ go test -cpuprofile=cpu.out
+<pre><code>$ go test -cpuprofile=cpu.out
 $ go test -blockprofile=block.out
 $ go test -memprofile=mem.out
 </code></pre><p>对于一些非测试程序也很容易进行剖析，具体的实现方式，与程序是短时间运行的小工具还是长时间运行的服务会有很大不同。剖析对于长期运行的程序尤其有用，因此可以通过调用Go的runtime API来启用运行时剖析。</p>
 <p>一旦我们已经收集到了用于分析的采样数据，我们就可以使用pprof来分析这些数据。这是Go工具箱自带的一个工具，但并不是一个日常工具，它对应<code>go tool pprof</code>命令。该命令有许多特性和选项，但是最基本的是两个参数：生成这个概要文件的可执行程序和对应的剖析数据。</p>
 <p>为了提高分析效率和减少空间，分析日志本身并不包含函数的名字；它只包含函数对应的地址。也就是说pprof需要对应的可执行程序来解读剖析数据。虽然<code>go test</code>通常在测试完成后就丢弃临时用的测试程序，但是在启用分析的时候会将测试程序保存为foo.test文件，其中foo部分对应待测包的名字。</p>
 <p>下面的命令演示了如何收集并展示一个CPU分析文件。我们选择<code>net/http</code>包的一个基准测试为例。通常最好是对业务关键代码的部分设计专门的基准测试。因为简单的基准测试几乎没法代表业务场景，因此我们用-run=NONE参数禁止那些简单测试。</p>
-<pre tabindex="0"><code>$ go test -run=NONE -bench=ClientServerParallelTLS64 \
+<pre><code>$ go test -run=NONE -bench=ClientServerParallelTLS64 \
     -cpuprofile=cpu.log net/http
  PASS
  BenchmarkClientServerParallelTLS64-8  1000

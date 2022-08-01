@@ -172,12 +172,12 @@
 </code></pre></div><p>下面显示了对x和它的三个字段调用unsafe包相关函数的计算结果：</p>
 <p><img src="../images/ch13-01.png" alt=""></p>
 <p>32位系统：</p>
-<pre tabindex="0"><code>Sizeof(x)   = 16  Alignof(x)   = 4
+<pre><code>Sizeof(x)   = 16  Alignof(x)   = 4
 Sizeof(x.a) = 1   Alignof(x.a) = 1 Offsetof(x.a) = 0
 Sizeof(x.b) = 2   Alignof(x.b) = 2 Offsetof(x.b) = 2
 Sizeof(x.c) = 12  Alignof(x.c) = 4 Offsetof(x.c) = 4
 </code></pre><p>64位系统：</p>
-<pre tabindex="0"><code>Sizeof(x)   = 32  Alignof(x)   = 8
+<pre><code>Sizeof(x)   = 32  Alignof(x)   = 8
 Sizeof(x.a) = 1   Alignof(x.a) = 1 Offsetof(x.a) = 0
 Sizeof(x.b) = 2   Alignof(x.b) = 2 Offsetof(x.b) = 2
 Sizeof(x.c) = 24  Alignof(x.c) = 8 Offsetof(x.c) = 8

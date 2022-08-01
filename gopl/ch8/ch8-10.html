@@ -174,7 +174,7 @@
 }
 </code></pre></div><p>另外，handleConn为每一个客户端创建了一个clientWriter的goroutine，用来接收向客户端发送消息的channel中的广播消息，并将它们写入到客户端的网络连接。客户端的读取循环会在broadcaster接收到leaving通知并关闭了channel后终止。</p>
 <p>下面演示的是当服务器有两个活动的客户端连接，并且在两个窗口中运行的情况，使用netcat来聊天：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch8/chat
+<pre><code>$ go build gopl.io/ch8/chat
 $ go build gopl.io/ch8/netcat3
 $ ./chat &amp;
 $ ./netcat3

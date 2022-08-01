@@ -102,7 +102,7 @@
 <p>本章剩下的部分将讨论Go语言工具箱的具体功能，包括如何下载、格式化、构建、测试和安装Go语言编写的程序。</p>
 <p>Go语言的工具箱集合了一系列功能的命令集。它可以看作是一个包管理器（类似于Linux中的apt和rpm工具），用于包的查询、计算包的依赖关系、从远程版本控制系统下载它们等任务。它也是一个构建系统，计算文件的依赖关系，然后调用编译器、汇编器和链接器构建程序，虽然它故意被设计成没有标准的make命令那么复杂。它也是一个单元测试和基准测试的驱动程序，我们将在第11章讨论测试话题。</p>
 <p>Go语言工具箱的命令有着类似“瑞士军刀”的风格，带着一打的子命令，有一些我们经常用到，例如get、run、build和fmt等。你可以运行go或go help命令查看内置的帮助文档，为了查询方便，我们列出了最常用的命令：</p>
-<pre tabindex="0"><code>$ go
+<pre><code>$ go
 ...
 	build            compile packages and dependencies
 	clean            remove object files
@@ -122,10 +122,10 @@ Use &quot;go help [command]&quot; for more information about a command.
 </code></pre><p>为了达到零配置的设计目标，Go语言的工具箱很多地方都依赖各种约定。例如，根据给定的源文件的名称，Go语言的工具可以找到源文件对应的包，因为每个目录只包含了单一的包，并且包的导入路径和工作区的目录结构是对应的。给定一个包的导入路径，Go语言的工具可以找到与之对应的存储着实体文件的目录。它还可以根据导入路径找到存储代码的仓库的远程服务器URL。</p>
 <h3 id="1071-工作区结构">10.7.1. 工作区结构</h3>
 <p>对于大多数的Go语言用户，只需要配置一个名叫GOPATH的环境变量，用来指定当前工作目录即可。当需要切换到不同工作区的时候，只要更新GOPATH就可以了。例如，我们在编写本书时将GOPATH设置为<code>$HOME/gobook</code>：</p>
-<pre tabindex="0"><code>$ export GOPATH=$HOME/gobook
+<pre><code>$ export GOPATH=$HOME/gobook
 $ go get gopl.io/...
 </code></pre><p>当你用前面介绍的命令下载本书全部的例子源码之后，你的当前工作区的目录结构应该是这样的：</p>
-<pre tabindex="0"><code>GOPATH/
+<pre><code>GOPATH/
 	src/
 		gopl.io/
 			.git/
@@ -150,7 +150,7 @@ $ go get gopl.io/...
 </code></pre><p>GOPATH对应的工作区目录有三个子目录。其中src子目录用于存储源代码。每个包被保存在与$GOPATH/src的相对路径为包导入路径的子目录中，例如gopl.io/ch1/helloworld相对应的路径目录。我们看到，一个GOPATH工作区的src目录中可能有多个独立的版本控制系统，例如gopl.io和golang.org分别对应不同的Git仓库。其中pkg子目录用于保存编译后的包的目标文件，bin子目录用于保存编译后的可执行程序，例如helloworld可执行程序。</p>
 <p>第二个环境变量GOROOT用来指定Go的安装目录，还有它自带的标准库包的位置。GOROOT的目录结构和GOPATH类似，因此存放fmt包的源代码对应目录应该为$GOROOT/src/fmt。用户一般不需要设置GOROOT，默认情况下Go语言安装工具会将其设置为安装的目录路径。</p>
 <p>其中<code>go env</code>命令用于查看Go语言工具涉及的所有环境变量的值，包括未设置环境变量的默认值。GOOS环境变量用于指定目标操作系统（例如android、linux、darwin或windows），GOARCH环境变量用于指定处理器的类型，例如amd64、386或arm等。虽然GOPATH环境变量是唯一必须要设置的，但是其它环境变量也会偶尔用到。</p>
-<pre tabindex="0"><code>$ go env
+<pre><code>$ go env
 GOPATH=&quot;/home/gopher/gobook&quot;
 GOROOT=&quot;/usr/local/go&quot;
 GOARCH=&quot;amd64&quot;
@@ -160,18 +160,18 @@ GOOS=&quot;darwin&quot;
 <p>使用Go语言工具箱的go命令，不仅可以根据包导入路径找到本地工作区的包，甚至可以从互联网上找到和更新包。</p>
 <p>使用命令<code>go get</code>可以下载一个单一的包或者用<code>...</code>下载整个子目录里面的每个包。Go语言工具箱的go命令同时计算并下载所依赖的每个包，这也是前一个例子中golang.org/x/net/html自动出现在本地工作区目录的原因。</p>
 <p>一旦<code>go get</code>命令下载了包，然后就是安装包或包对应的可执行的程序。我们将在下一节再关注它的细节，现在只是展示整个下载过程是如何的简单。第一个命令是获取golint工具，它用于检测Go源代码的编程风格是否有问题。第二个命令是用golint命令对2.6.2节的gopl.io/ch2/popcount包代码进行编码风格检查。它友好地报告了忘记了包的文档：</p>
-<pre tabindex="0"><code>$ go get github.com/golang/lint/golint
+<pre><code>$ go get github.com/golang/lint/golint
 $ $GOPATH/bin/golint gopl.io/ch2/popcount
 src/gopl.io/ch2/popcount/main.go:1:1:
   package comment should be of the form &quot;Package popcount ...&quot;
 </code></pre><p><code>go get</code>命令支持当前流行的托管网站GitHub、Bitbucket和Launchpad，可以直接向它们的版本控制系统请求代码。对于其它的网站，你可能需要指定版本控制系统的具体路径和协议，例如 Git或Mercurial。运行<code>go help importpath</code>获取相关的信息。</p>
 <p><code>go get</code>命令获取的代码是真实的本地存储仓库，而不仅仅只是复制源文件，因此你依然可以使用版本管理工具比较本地代码的变更或者切换到其它的版本。例如golang.org/x/net包目录对应一个Git仓库：</p>
-<pre tabindex="0"><code>$ cd $GOPATH/src/golang.org/x/net
+<pre><code>$ cd $GOPATH/src/golang.org/x/net
 $ git remote -v
 origin  https://go.googlesource.com/net (fetch)
 origin  https://go.googlesource.com/net (push)
 </code></pre><p>需要注意的是导入路径含有的网站域名和本地Git仓库对应远程服务地址并不相同，真实的Git地址是go.googlesource.com。这其实是Go语言工具的一个特性，可以让包用一个自定义的导入路径，但是真实的代码却是由更通用的服务提供，例如googlesource.com或github.com。因为页面 <a href="https://golang.org/x/net/html">https://golang.org/x/net/html</a> 包含了如下的元数据，它告诉Go语言的工具当前包真实的Git仓库托管地址：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch1/fetch
+<pre><code>$ go build gopl.io/ch1/fetch
 $ ./fetch https://golang.org/x/net/html | grep go-import
 &lt;meta name=&quot;go-import&quot;
       content=&quot;golang.org/x/net git https://go.googlesource.com/net&quot;&gt;
@@ -183,20 +183,20 @@ $ ./fetch https://golang.org/x/net/html | grep go-import
 <p><code>go build</code>命令编译命令行参数指定的每个包。如果包是一个库，则忽略输出结果；这可以用于检测包是可以正确编译的。如果包的名字是main，<code>go build</code>将调用链接器在当前目录创建一个可执行程序；以导入路径的最后一段作为可执行程序的名字。</p>
 <p>由于每个目录只包含一个包，因此每个对应可执行程序或者叫Unix术语中的命令的包，会要求放到一个独立的目录中。这些目录有时候会放在名叫cmd目录的子目录下面，例如用于提供Go文档服务的golang.org/x/tools/cmd/godoc命令就是放在cmd子目录（§10.7.4）。</p>
 <p>每个包可以由它们的导入路径指定，就像前面看到的那样，或者用一个相对目录的路径名指定，相对路径必须以<code>.</code>或<code>..</code>开头。如果没有指定参数，那么默认指定为当前目录对应的包。下面的命令用于构建同一个包，虽然它们的写法各不相同：</p>
-<pre tabindex="0"><code>$ cd $GOPATH/src/gopl.io/ch1/helloworld
+<pre><code>$ cd $GOPATH/src/gopl.io/ch1/helloworld
 $ go build
 </code></pre><p>或者：</p>
-<pre tabindex="0"><code>$ cd anywhere
+<pre><code>$ cd anywhere
 $ go build gopl.io/ch1/helloworld
 </code></pre><p>或者：</p>
-<pre tabindex="0"><code>$ cd $GOPATH
+<pre><code>$ cd $GOPATH
 $ go build ./src/gopl.io/ch1/helloworld
 </code></pre><p>但不能这样：</p>
-<pre tabindex="0"><code>$ cd $GOPATH
+<pre><code>$ cd $GOPATH
 $ go build src/gopl.io/ch1/helloworld
 Error: cannot find package &quot;src/gopl.io/ch1/helloworld&quot;.
 </code></pre><p>也可以指定包的源文件列表，这一般只用于构建一些小程序或做一些临时性的实验。如果是main包，将会以第一个Go源文件的基础文件名作为最终的可执行程序的名字。</p>
-<pre tabindex="0"><code>$ cat quoteargs.go
+<pre><code>$ cat quoteargs.go
 package main
 
 import (
@@ -211,7 +211,7 @@ $ go build quoteargs.go
 $ ./quoteargs one &quot;two three&quot; four\ five
 [&quot;one&quot; &quot;two three&quot; &quot;four five&quot;]
 </code></pre><p>特别是对于这类一次性运行的程序，我们希望尽快的构建并运行它。<code>go run</code>命令实际上是结合了构建和运行的两个步骤：</p>
-<pre tabindex="0"><code>$ go run quoteargs.go one &quot;two three&quot; four\ five
+<pre><code>$ go run quoteargs.go one &quot;two three&quot; four\ five
 [&quot;one&quot; &quot;two three&quot; &quot;four five&quot;]
 </code></pre><p>(译注：其实也可以偷懒，直接go run <code>*.go</code>)</p>
 <p>第一行的参数列表中，第一个不是以<code>.go</code>结尾的将作为可执行程序的参数运行。</p>
@@ -224,7 +224,7 @@ $ ./quoteargs one &quot;two three&quot; four\ five
 	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">GOOS</span>, <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">GOARCH</span>)
 }
 </code></pre></div><p>下面以64位和32位环境分别编译和执行：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch10/cross
+<pre><code>$ go build gopl.io/ch10/cross
 $ ./cross
 darwin amd64
 $ GOARCH=386 go build gopl.io/ch10/cross
@@ -235,7 +235,7 @@ darwin 386
 </span></code></pre></div><p>在包声明和包注释的前面，该构建注释参数告诉<code>go build</code>只在编译程序对应的目标操作系统是Linux或Mac OS X时才编译这个文件。下面的构建注释则表示不编译这个文件：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// +build ignore
 </span></code></pre></div><p>更多细节，可以参考go/build包的构建约束部分的文档。</p>
-<pre tabindex="0"><code>$ go doc go/build
+<pre><code>$ go doc go/build
 </code></pre><h3 id="1074-包文档">10.7.4. 包文档</h3>
 <p>Go语言的编码风格鼓励为每个包提供良好的文档。包中每个导出的成员和包声明前都应该包含目的和用法说明的注释。</p>
 <p>Go语言中的文档注释一般是完整的句子，第一行通常是摘要说明，以被注释者的名字开头。注释中函数的参数或其它的标识符并不需要额外的引号或其它标记注明。例如，下面是fmt.Fprintf的文档注释。</p>
@@ -246,7 +246,7 @@ darwin 386
 <p>好的文档并不需要面面俱到，文档本身应该是简洁但不可忽略的。事实上，Go语言的风格更喜欢简洁的文档，并且文档也是需要像代码一样维护的。对于一组声明语句，可以用一个精炼的句子描述，如果是显而易见的功能则并不需要注释。</p>
 <p>在本书中，只要空间允许，我们之前很多包声明都包含了注释文档，但你可以从标准库中发现很多更好的例子。有两个工具可以帮到你。</p>
 <p>首先是<code>go doc</code>命令，该命令打印其后所指定的实体的声明与文档注释，该实体可能是一个包：</p>
-<pre tabindex="0"><code>$ go doc time
+<pre><code>$ go doc time
 package time // import &quot;time&quot;
 
 Package time provides functionality for measuring and displaying time.
@@ -260,18 +260,18 @@ type Duration int64
 type Time struct { ... }
 ...many more...
 </code></pre><p>或者是某个具体的包成员：</p>
-<pre tabindex="0"><code>$ go doc time.Since
+<pre><code>$ go doc time.Since
 func Since(t Time) Duration
 
 	Since returns the time elapsed since t.
 	It is shorthand for time.Now().Sub(t).
 </code></pre><p>或者是一个方法：</p>
-<pre tabindex="0"><code>$ go doc time.Duration.Seconds
+<pre><code>$ go doc time.Duration.Seconds
 func (d Duration) Seconds() float64
 
 	Seconds returns the duration as a floating-point number of seconds.
 </code></pre><p>该命令并不需要输入完整的包导入路径或正确的大小写。下面的命令将打印encoding/json包的<code>(*json.Decoder).Decode</code>方法的文档：</p>
-<pre tabindex="0"><code>$ go doc json.decode
+<pre><code>$ go doc json.decode
 func (dec *Decoder) Decode(v interface{}) error
 
 	Decode reads the next JSON-encoded value from its input and stores
@@ -279,22 +279,22 @@ func (dec *Decoder) Decode(v interface{}) error
 </code></pre><p>第二个工具，名字也叫godoc，它提供可以相互交叉引用的HTML页面，但是包含和<code>go doc</code>命令相同以及更多的信息。图10.1演示了time包的文档，11.6节将看到godoc演示可以交互的示例程序。godoc的在线服务 <a href="https://godoc.org">https://godoc.org</a> ，包含了成千上万的开源包的检索工具。</p>
 <p><img src="../images/ch10-01.png" alt=""></p>
 <p>你也可以在自己的工作区目录运行godoc服务。运行下面的命令，然后在浏览器查看 http://localhost:8000/pkg 页面：</p>
-<pre tabindex="0"><code>$ godoc -http :8000
+<pre><code>$ godoc -http :8000
 </code></pre><p>其中<code>-analysis=type</code>和<code>-analysis=pointer</code>命令行标志参数用于打开文档和代码中关于静态分析的结果。</p>
 <h3 id="1075-内部包">10.7.5. 内部包</h3>
 <p>在Go语言程序中，包是最重要的封装机制。没有导出的标识符只在同一个包内部可以访问，而导出的标识符则是面向全宇宙都是可见的。</p>
 <p>有时候，一个中间的状态可能也是有用的，标识符对于一小部分信任的包是可见的，但并不是对所有调用者都可见。例如，当我们计划将一个大的包拆分为很多小的更容易维护的子包，但是我们并不想将内部的子包结构也完全暴露出去。同时，我们可能还希望在内部子包之间共享一些通用的处理包，或者我们只是想实验一个新包的还并不稳定的接口，暂时只暴露给一些受限制的用户使用。</p>
 <p>为了满足这些需求，Go语言的构建工具对包含internal名字的路径段的包导入路径做了特殊处理。这种包叫internal包，一个internal包只能被和internal目录有同一个父目录的包所导入。例如，net/http/internal/chunked内部包只能被net/http/httputil或net/http包导入，但是不能被net/url包导入。不过net/url包却可以导入net/http/httputil包。</p>
-<pre tabindex="0"><code>net/http
+<pre><code>net/http
 net/http/internal/chunked
 net/http/httputil
 net/url
 </code></pre><h3 id="1076-查询包">10.7.6. 查询包</h3>
 <p><code>go list</code>命令可以查询可用包的信息。其最简单的形式，可以测试包是否在工作区并打印它的导入路径：</p>
-<pre tabindex="0"><code>$ go list github.com/go-sql-driver/mysql
+<pre><code>$ go list github.com/go-sql-driver/mysql
 github.com/go-sql-driver/mysql
 </code></pre><p><code>go list</code>命令的参数还可以用<code>&quot;...&quot;</code>表示匹配任意的包的导入路径。我们可以用它来列出工作区中的所有包：</p>
-<pre tabindex="0"><code>$ go list ...
+<pre><code>$ go list ...
 archive/tar
 archive/zip
 bufio
@@ -303,7 +303,7 @@ cmd/addr2line
 cmd/api
 ...many more...
 </code></pre><p>或者是特定子目录下的所有包：</p>
-<pre tabindex="0"><code>$ go list gopl.io/ch3/...
+<pre><code>$ go list gopl.io/ch3/...
 gopl.io/ch3/basename1
 gopl.io/ch3/basename2
 gopl.io/ch3/comma
@@ -312,11 +312,11 @@ gopl.io/ch3/netflag
 gopl.io/ch3/printints
 gopl.io/ch3/surface
 </code></pre><p>或者是和某个主题相关的所有包:</p>
-<pre tabindex="0"><code>$ go list ...xml...
+<pre><code>$ go list ...xml...
 encoding/xml
 gopl.io/ch7/xmlselect
 </code></pre><p><code>go list</code>命令还可以获取每个包完整的元信息，而不仅仅只是导入路径，这些元信息可以以不同格式提供给用户。其中<code>-json</code>命令行参数表示用JSON格式打印每个包的元信息。</p>
-<pre tabindex="0"><code>$ go list -json hash
+<pre><code>$ go list -json hash
 {
 	&quot;Dir&quot;: &quot;/home/gopher/go/src/hash&quot;,
 	&quot;ImportPath&quot;: &quot;hash&quot;,
@@ -343,16 +343,16 @@ gopl.io/ch7/xmlselect
 }
 </code></pre><p>命令行参数<code>-f</code>则允许用户使用text/template包（§4.6）的模板语言定义输出文本的格式。下面的命令将打印strconv包的依赖的包，然后用join模板函数将结果链接为一行，连接时每个结果之间用一个空格分隔：</p>
 <p>{% raw %}</p>
-<pre tabindex="0"><code>$ go list -f '{{join .Deps &quot; &quot;}}' strconv
+<pre><code>$ go list -f '{{join .Deps &quot; &quot;}}' strconv
 errors math runtime unicode/utf8 unsafe
 </code></pre><p>{% endraw %}</p>
 <p>译注：上面的命令在Windows的命令行运行会遇到<code>template: main:1: unclosed action</code>的错误。产生这个错误的原因是因为命令行对命令中的<code>&quot; &quot;</code>参数进行了转义处理。可以按照下面的方法解决转义字符串的问题：</p>
 <p>{% raw %}</p>
-<pre tabindex="0"><code>$ go list -f &quot;{{join .Deps \&quot; \&quot;}}&quot; strconv
+<pre><code>$ go list -f &quot;{{join .Deps \&quot; \&quot;}}&quot; strconv
 </code></pre><p>{% endraw %}</p>
 <p>下面的命令打印compress子目录下所有包的导入包列表：</p>
 <p>{% raw %}</p>
-<pre tabindex="0"><code>$ go list -f '{{.ImportPath}} -&gt; {{join .Imports &quot; &quot;}}' compress/...
+<pre><code>$ go list -f '{{.ImportPath}} -&gt; {{join .Imports &quot; &quot;}}' compress/...
 compress/bzip2 -&gt; bufio io sort
 compress/flate -&gt; bufio fmt io math sort strconv
 compress/gzip -&gt; bufio compress/flate errors fmt hash hash/crc32 io time
@@ -361,7 +361,7 @@ compress/zlib -&gt; bufio compress/flate errors fmt hash hash/adler32 io
 </code></pre><p>{% endraw %}</p>
 <p>译注：Windows下有同样有问题，要避免转义字符串的干扰：</p>
 <p>{% raw %}</p>
-<pre tabindex="0"><code>$ go list -f &quot;{{.ImportPath}} -&gt; {{join .Imports \&quot; \&quot;}}&quot; compress/...
+<pre><code>$ go list -f &quot;{{.ImportPath}} -&gt; {{join .Imports \&quot; \&quot;}}&quot; compress/...
 </code></pre><p>{% endraw %}</p>
 <p><code>go list</code>命令对于一次性的交互式查询或自动化构建或测试脚本都很有帮助。我们将在11.2.4节中再次使用它。每个子命令的更多信息，包括可设置的字段和意义，可以用<code>go help list</code>命令查看。</p>
 <p>在本章，我们解释了Go语言工具中除了测试命令之外的所有重要的子命令。在下一章，我们将看到如何用<code>go test</code>命令去运行Go语言程序中的测试代码。</p>

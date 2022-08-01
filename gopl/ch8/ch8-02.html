@@ -143,7 +143,7 @@
 <p>handleConn函数会处理一个完整的客户端连接。在一个for死循环中，用time.Now()获取当前时刻，然后写到客户端。由于net.Conn实现了io.Writer接口，我们可以直接向其写入内容。这个死循环会一直执行，直到写入失败。最可能的原因是客户端主动断开连接。这种情况下handleConn函数会用defer调用关闭服务器侧的连接，然后返回到主函数，继续等待下一个连接请求。</p>
 <p>time.Time.Format方法提供了一种格式化日期和时间信息的方式。它的参数是一个格式化模板，标识如何来格式化时间，而这个格式化模板限定为Mon Jan 2 03:04:05PM 2006 UTC-0700。有8个部分（周几、月份、一个月的第几天……）。可以以任意的形式来组合前面这个模板；出现在模板中的部分会作为参考来对时间格式进行输出。在上面的例子中我们只用到了小时、分钟和秒。time包里定义了很多标准时间格式，比如time.RFC1123。在进行格式化的逆向操作time.Parse时，也会用到同样的策略。（译注：这是go语言和其它语言相比比较奇葩的一个地方。你需要记住格式化字符串是1月2日下午3点4分5秒零六年UTC-0700，而不像其它语言那样Y-m-d H:i:s一样，当然了这里可以用1234567的方式来记忆，倒是也不麻烦。）</p>
 <p>为了连接例子里的服务器，我们需要一个客户端程序，比如netcat这个工具（nc命令），这个工具可以用来执行网络连接操作。</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch8/clock1
+<pre><code>$ go build gopl.io/ch8/clock1
 $ ./clock1 &amp;
 $ nc localhost 8000
 13:58:54
@@ -178,7 +178,7 @@ $ nc localhost 8000
 	}
 }
 </code></pre></div><p>这个程序会从连接中读取数据，并将读到的内容写到标准输出中，直到遇到end of file的条件或者发生错误。mustCopy这个函数我们在本节的几个例子中都会用到。让我们同时运行两个客户端来进行一个测试，这里可以开两个终端窗口，下面左边的是其中的一个的输出，右边的是另一个的输出：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch8/netcat1
+<pre><code>$ go build gopl.io/ch8/netcat1
 $ ./netcat1
 13:58:54                               $ ./netcat1
 13:58:55
@@ -202,7 +202,7 @@ $ killall clock1
 </span><span style="color:#75715e"></span>}
 
 </code></pre></div><p>现在多个客户端可以同时接收到时间了：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch8/clock2
+<pre><code>$ go build gopl.io/ch8/clock2
 $ ./clock2 &amp;
 $ go build gopl.io/ch8/netcat1
 $ ./netcat1
@@ -218,7 +218,7 @@ $ ./netcat1
                                        ^C
 $ killall clock2
 </code></pre><p><strong>练习 8.1：</strong> 修改clock2来支持传入参数作为端口号，然后写一个clockwall的程序，这个程序可以同时与多个clock服务器通信，从多个服务器中读取时间，并且在一个表格中一次显示所有服务器传回的结果，类似于你在某些办公室里看到的时钟墙。如果你有地理学上分布式的服务器可以用的话，让这些服务器跑在不同的机器上面；或者在同一台机器上跑多个不同的实例，这些实例监听不同的端口，假装自己在不同的时区。像下面这样：</p>
-<pre tabindex="0"><code>$ TZ=US/Eastern    ./clock2 -port 8010 &amp;
+<pre><code>$ TZ=US/Eastern    ./clock2 -port 8010 &amp;
 $ TZ=Asia/Tokyo    ./clock2 -port 8020 &amp;
 $ TZ=Europe/London ./clock2 -port 8030 &amp;
 $ clockwall NewYork=localhost:8010 Tokyo=localhost:8020 London=localhost:8030

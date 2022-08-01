@@ -134,7 +134,7 @@
 <p><strong>方法和接口：</strong> 方法是和命名类型关联的一类函数。Go语言里比较特殊的是方法可以被关联到任意一种命名类型。在第六章我们会详细地讲方法。接口是一种抽象类型，这种类型可以让我们以同样的方式来处理不同的固有类型，不用关心它们的具体实现，而只需要关注它们提供的方法。第七章中会详细说明这些内容。</p>
 <p><strong>包（packages）：</strong> Go语言提供了一些很好用的package，并且这些package是可以扩展的。Go语言社区已经创造并且分享了很多很多。所以Go语言编程大多数情况下就是用已有的package来写我们自己的代码。通过这本书，我们会讲解一些重要的标准库内的package，但是还是有很多限于篇幅没有去说明，因为我们没法在这样的厚度的书里去做一部代码大全。</p>
 <p>在你开始写一个新程序之前，最好先去检查一下是不是已经有了现成的库可以帮助你更高效地完成这件事情。你可以在 <a href="https://golang.org/pkg">https://golang.org/pkg</a> 和 <a href="https://godoc.org">https://godoc.org</a> 中找到标准库和社区写的package。godoc这个工具可以让你直接在本地命令行阅读标准库的文档。比如下面这个例子。</p>
-<pre tabindex="0"><code>$ go doc http.ListenAndServe
+<pre><code>$ go doc http.ListenAndServe
 package http // import &quot;net/http&quot;
 func ListenAndServe(addr string, handler Handler) error
     ListenAndServe listens on the TCP network address addr and then

@@ -251,7 +251,7 @@
 	}
 }
 </code></pre></div><p>在上面的场景中，我们使用bzipper压缩了/usr/share/dict/words系统自带的词典，从938,848字节压缩到335,405字节。大约是原始数据大小的三分之一。然后使用系统自带的bunzip2命令进行解压。压缩前后文件的SHA256哈希码是相同了，这也说明了我们的压缩工具是正确的。（如果你的系统没有sha256sum命令，那么请先按照练习4.2实现一个类似的工具）</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch13/bzipper
+<pre><code>$ go build gopl.io/ch13/bzipper
 $ wc -c &lt; /usr/share/dict/words
 938848
 $ sha256sum &lt; /usr/share/dict/words

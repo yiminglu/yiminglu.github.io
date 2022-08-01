@@ -167,7 +167,7 @@
 }
 </code></pre></div><p>为了遍历结点n的所有后代结点，每次遇到n的孩子结点时，visit递归的调用自身。这些孩子结点存放在FirstChild链表中。</p>
 <p>让我们以Go的主页（golang.org）作为目标，运行findlinks。我们以fetch（1.5章）的输出作为findlinks的输入。下面的输出做了简化处理。</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch1/fetch
+<pre><code>$ go build gopl.io/ch1/fetch
 $ go build gopl.io/ch5/findlinks1
 $ ./fetch https://golang.org | ./findlinks1
 #
@@ -204,7 +204,7 @@ http://www.google.com/intl/en/policies/privacy/
 }
 </code></pre></div><p>有一点值得注意：outline有入栈操作，但没有相对应的出栈操作。当outline调用自身时，被调用者接收的是stack的拷贝。被调用者对stack的元素追加操作，修改的是stack的拷贝，其可能会修改slice底层的数组甚至是申请一块新的内存空间进行扩容；但这个过程并不会修改调用方的stack。因此当函数返回时，调用方的stack与其调用自身之前完全一致。</p>
 <p>下面是 <a href="https://golang.org">https://golang.org</a> 页面的简要结构:</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch5/outline
+<pre><code>$ go build gopl.io/ch5/outline
 $ ./fetch https://golang.org | ./outline
 [html]
 [html head]

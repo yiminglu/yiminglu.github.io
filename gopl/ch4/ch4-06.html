@@ -142,7 +142,7 @@
 	}
 }
 </code></pre></div><p>程序输出一个纯文本报告：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch4/issuesreport
+<pre><code>$ go build gopl.io/ch4/issuesreport
 $ ./issuesreport repo:golang/go is:open json decoder
 13 issues:
 ----------------------------------------
@@ -184,12 +184,12 @@ Age:       695 days
 </span><span style="color:#e6db74">`</span>))
 </code></pre></div><p>{% endraw %}</p>
 <p>下面的命令将在新的模板上执行一个稍微不同的查询：</p>
-<pre tabindex="0"><code>$ go build gopl.io/ch4/issueshtml
+<pre><code>$ go build gopl.io/ch4/issueshtml
 $ ./issueshtml repo:golang/go commenter:gopherbot json encoder &gt;issues.html
 </code></pre><p>图4.4显示了在web浏览器中的效果图。每个issue包含到Github对应页面的链接。</p>
 <p><img src="../images/ch4-04.png" alt=""></p>
 <p>图4.4中issue没有包含会对HTML格式产生冲突的特殊字符，但是我们马上将看到标题中含有<code>&amp;</code>和<code>&lt;</code>字符的issue。下面的命令选择了两个这样的issue：</p>
-<pre tabindex="0"><code>$ ./issueshtml repo:golang/go 3133 10535 &gt;issues2.html
+<pre><code>$ ./issueshtml repo:golang/go 3133 10535 &gt;issues2.html
 </code></pre><p>图4.5显示了该查询的结果。注意，html/template包已经自动将特殊字符转义，因此我们依然可以看到正确的字面值。如果我们使用text/template包的话，这2个issue将会产生错误，其中“&amp;lt;”四个字符将会被当作小于字符“&lt;”处理，同时“&lt;link&gt;”字符串将会被当作一个链接元素处理，它们都会导致HTML文档结构的改变，从而导致有未知的风险。</p>
 <p>我们也可以通过对信任的HTML字符串使用template.HTML类型来抑制这种自动转义的行为。还有很多采用类型命名的字符串类型分别对应信任的JavaScript、CSS和URL。下面的程序演示了两个使用不同类型的相同字符串产生的不同结果：A是一个普通字符串，B是一个信任的template.HTML字符串类型。</p>
 <p><img src="../images/ch4-05.png" alt=""></p>
@@ -212,7 +212,7 @@ $ ./issueshtml repo:golang/go commenter:gopherbot json encoder &gt;issues.html
 <p>图4.6显示了出现在浏览器中的模板输出。我们看到A的黑体标记被转义失效了，但是B没有。</p>
 <p><img src="../images/ch4-06.png" alt=""></p>
 <p>我们这里只讲述了模板系统中最基本的特性。一如既往，如果想了解更多的信息，请自己查看包文档：</p>
-<pre tabindex="0"><code>$ go doc text/template
+<pre><code>$ go doc text/template
 $ go doc html/template
 </code></pre><p><strong>练习 4.14：</strong> 创建一个web服务器，查询一次GitHub，然后生成BUG报告、里程碑和对应的用户信息。</p>
 
