@@ -112,17 +112,17 @@
 <h3 id="983-gomaxprocs">9.8.3. GOMAXPROCS</h3>
 <p>Go的调度器使用了一个叫做GOMAXPROCS的变量来决定会有多少个操作系统的线程同时执行Go的代码。其默认的值是运行机器上的CPU的核心数，所以在一个有8个核心的机器上时，调度器一次会在8个OS线程上去调度GO代码。（GOMAXPROCS是前面说的m:n调度中的n）。在休眠中的或者在通信中被阻塞的goroutine是不需要一个对应的线程来做调度的。在I/O中或系统调用中或调用非Go语言函数时，是需要一个对应的操作系统线程的，但是GOMAXPROCS并不需要将这几种情况计算在内。</p>
 <p>你可以用GOMAXPROCS的环境变量来显式地控制这个参数，或者也可以在运行时用runtime.GOMAXPROCS函数来修改它。我们在下面的小程序中会看到GOMAXPROCS的效果，这个程序会无限打印0和1。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#a6e22e">GOMAXPROCS</span>=<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">hacker</span><span style="color:#f92672">-</span><span style="color:#a6e22e">cliché</span>.<span style="color:#66d9ef">go</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">111111111111111111110000000000000000000011111.</span>..
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#a6e22e">GOMAXPROCS</span>=<span style="color:#ae81ff">2</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">hacker</span><span style="color:#f92672">-</span><span style="color:#a6e22e">cliché</span>.<span style="color:#66d9ef">go</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">010101010101010101011001100101011010010100110.</span>..
-</span></span></code></pre></div><p>在第一次执行时，最多同时只能有一个goroutine被执行。初始情况下只有main goroutine被执行，所以会打印很多1。过了一段时间后，GO调度器会将其置为休眠，并唤醒另一个goroutine，这时候就开始打印很多0了，在打印的时候，goroutine是被调度到操作系统线程上的。在第二次执行时，我们使用了两个操作系统线程，所以两个goroutine可以一起被执行，以同样的频率交替打印0和1。我们必须强调的是goroutine的调度是受很多因子影响的，而runtime也是在不断地发展演进的，所以这里的你实际得到的结果可能会因为版本的不同而与我们运行的结果有所不同。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">for</span> {
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#ae81ff">0</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#ae81ff">1</span>)
+}
+
+<span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#a6e22e">GOMAXPROCS</span>=<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">hacker</span><span style="color:#f92672">-</span><span style="color:#a6e22e">cliché</span>.<span style="color:#66d9ef">go</span>
+<span style="color:#ae81ff">111111111111111111110000000000000000000011111.</span>..
+
+<span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#a6e22e">GOMAXPROCS</span>=<span style="color:#ae81ff">2</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">hacker</span><span style="color:#f92672">-</span><span style="color:#a6e22e">cliché</span>.<span style="color:#66d9ef">go</span>
+<span style="color:#ae81ff">010101010101010101011001100101011010010100110.</span>..
+</code></pre></div><p>在第一次执行时，最多同时只能有一个goroutine被执行。初始情况下只有main goroutine被执行，所以会打印很多1。过了一段时间后，GO调度器会将其置为休眠，并唤醒另一个goroutine，这时候就开始打印很多0了，在打印的时候，goroutine是被调度到操作系统线程上的。在第二次执行时，我们使用了两个操作系统线程，所以两个goroutine可以一起被执行，以同样的频率交替打印0和1。我们必须强调的是goroutine的调度是受很多因子影响的，而runtime也是在不断地发展演进的，所以这里的你实际得到的结果可能会因为版本的不同而与我们运行的结果有所不同。</p>
 <p>** 练习9.6:** 测试一下计算密集型的并发程序（练习8.5那样的）会被GOMAXPROCS怎样影响到。在你的电脑上最佳的值是多少？你的电脑CPU有多少个核心？</p>
 <h3 id="984-goroutine没有id号">9.8.4. Goroutine没有ID号</h3>
 <p>在大多数支持多线程的操作系统和程序语言中，当前的线程都有一个独特的身份（id），并且这个身份信息可以以一个普通值的形式被很容易地获取到，典型的可以是一个integer或者指针值。这种情况下我们做一个抽象化的thread-local storage（线程本地存储，多线程编程中不希望其它线程访问的内容）就很容易，只需要以线程的id作为key的一个map就可以解决问题，每一个线程以其id就能从中获取到值，且和其它线程互不冲突。</p>

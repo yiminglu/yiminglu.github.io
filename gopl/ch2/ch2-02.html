@@ -102,39 +102,39 @@
 <p>声明语句定义了程序的各种实体对象以及部分或全部的属性。Go语言主要有四种类型的声明语句：var、const、type和func，分别对应变量、常量、类型和函数实体对象的声明。这一章我们重点讨论变量和类型的声明，第三章将讨论常量的声明，第五章将讨论函数的声明。</p>
 <p>一个Go语言编写的程序对应一个或多个以.go为文件后缀名的源文件。每个源文件中以包的声明语句开始，说明该源文件是属于哪个包。包声明语句之后是import语句导入依赖的其它包，然后是包一级的类型、变量、常量、函数的声明语句，包一级的各种类型的声明语句的顺序无关紧要（译注：函数内部的名字则必须先声明之后才能使用）。例如，下面的例子中声明了一个常量、一个函数和两个变量：</p>
 <p><u><i>gopl.io/ch2/boiling</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// Boiling prints the boiling point of water.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">boilingF</span> = <span style="color:#ae81ff">212.0</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> = <span style="color:#a6e22e">boilingF</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> = (<span style="color:#a6e22e">f</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">32</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">9</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;boiling point = %g°F or %g°C\n&#34;</span>, <span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">c</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Output:
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// boiling point = 212°F or 100°C
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p>其中常量boilingF是在包一级范围声明语句声明的，然后f和c两个变量是在main函数内部声明的声明语句声明的。在包一级声明语句声明的名字可在整个包对应的每个源文件中访问，而不是仅仅在其声明语句所在的源文件中访问。相比之下，局部声明的名字就只能在函数内部很小的范围被访问。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// Boiling prints the boiling point of water.
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">boilingF</span> = <span style="color:#ae81ff">212.0</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> = <span style="color:#a6e22e">boilingF</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> = (<span style="color:#a6e22e">f</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">32</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">9</span>
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;boiling point = %g°F or %g°C\n&#34;</span>, <span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">c</span>)
+	<span style="color:#75715e">// Output:
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// boiling point = 212°F or 100°C
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>其中常量boilingF是在包一级范围声明语句声明的，然后f和c两个变量是在main函数内部声明的声明语句声明的。在包一级声明语句声明的名字可在整个包对应的每个源文件中访问，而不是仅仅在其声明语句所在的源文件中访问。相比之下，局部声明的名字就只能在函数内部很小的范围被访问。</p>
 <p>一个函数的声明由一个函数名字、参数列表（由函数的调用者提供参数变量的具体值）、一个可选的返回值列表和包含函数定义的函数体组成。如果函数没有返回值，那么返回值列表是省略的。执行函数从函数的第一个语句开始，依次顺序执行直到遇到return返回语句，如果没有返回语句则是执行到函数末尾，然后返回到函数调用者。</p>
 <p>我们已经看到过很多函数声明和函数调用的例子了，在第五章将深入讨论函数的相关细节，这里只简单解释下。下面的fToC函数封装了温度转换的处理逻辑，这样它只需要被定义一次，就可以在多个地方多次被使用。在这个例子中，main函数就调用了两次fToC函数，分别使用在局部定义的两个常量作为调用函数的参数。</p>
 <p><u><i>gopl.io/ch2/ftoc</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// Ftoc prints two Fahrenheit-to-Celsius conversions.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">freezingF</span>, <span style="color:#a6e22e">boilingF</span> = <span style="color:#ae81ff">32.0</span>, <span style="color:#ae81ff">212.0</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%g°F = %g°C\n&#34;</span>, <span style="color:#a6e22e">freezingF</span>, <span style="color:#a6e22e">fToC</span>(<span style="color:#a6e22e">freezingF</span>)) <span style="color:#75715e">// &#34;32°F = 0°C&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%g°F = %g°C\n&#34;</span>, <span style="color:#a6e22e">boilingF</span>, <span style="color:#a6e22e">fToC</span>(<span style="color:#a6e22e">boilingF</span>))   <span style="color:#75715e">// &#34;212°F = 100°C&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fToC</span>(<span style="color:#a6e22e">f</span> <span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">float64</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">32</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">9</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// Ftoc prints two Fahrenheit-to-Celsius conversions.
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">freezingF</span>, <span style="color:#a6e22e">boilingF</span> = <span style="color:#ae81ff">32.0</span>, <span style="color:#ae81ff">212.0</span>
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%g°F = %g°C\n&#34;</span>, <span style="color:#a6e22e">freezingF</span>, <span style="color:#a6e22e">fToC</span>(<span style="color:#a6e22e">freezingF</span>)) <span style="color:#75715e">// &#34;32°F = 0°C&#34;
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%g°F = %g°C\n&#34;</span>, <span style="color:#a6e22e">boilingF</span>, <span style="color:#a6e22e">fToC</span>(<span style="color:#a6e22e">boilingF</span>))   <span style="color:#75715e">// &#34;212°F = 100°C&#34;
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fToC</span>(<span style="color:#a6e22e">f</span> <span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">float64</span> {
+	<span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">32</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">9</span>
+}
+</code></pre></div>
 	</div>
 </div>
 

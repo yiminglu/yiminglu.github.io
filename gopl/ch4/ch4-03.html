@@ -102,156 +102,156 @@
 <p>哈希表是一种巧妙并且实用的数据结构。它是一个无序的key/value对的集合，其中所有的key都是不同的，然后通过给定的key可以在常数时间复杂度内检索、更新或删除对应的value。</p>
 <p>在Go语言中，一个map就是一个哈希表的引用，map类型可以写为map[K]V，其中K和V分别对应key和value。map中所有的key都有相同的类型，所有的value也有着相同的类型，但是key和value之间可以是不同的数据类型。其中K对应的key必须是支持==比较运算符的数据类型，所以map可以通过测试key是否相等来判断是否已经存在。虽然浮点数类型也是支持相等运算符比较的，但是将浮点数用做key类型则是一个坏的想法，正如第三章提到的，最坏的情况是可能出现的NaN和任何浮点数都不相等。对于V对应的value数据类型则没有任何的限制。</p>
 <p>内置的make函数可以创建一个map：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">ages</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>) <span style="color:#75715e">// mapping from strings to ints
-</span></span></span></code></pre></div><p>我们也可以用map字面值的语法创建map，同时还可以指定一些最初的key/value：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">ages</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>{
-</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;alice&#34;</span>:   <span style="color:#ae81ff">31</span>,
-</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;charlie&#34;</span>: <span style="color:#ae81ff">34</span>,
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>这相当于</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">ages</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;alice&#34;</span>] = <span style="color:#ae81ff">31</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;charlie&#34;</span>] = <span style="color:#ae81ff">34</span>
-</span></span></code></pre></div><p>因此，另一种创建空的map的表达式是<code>map[string]int{}</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">ages</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>) <span style="color:#75715e">// mapping from strings to ints
+</span></code></pre></div><p>我们也可以用map字面值的语法创建map，同时还可以指定一些最初的key/value：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">ages</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>{
+	<span style="color:#e6db74">&#34;alice&#34;</span>:   <span style="color:#ae81ff">31</span>,
+	<span style="color:#e6db74">&#34;charlie&#34;</span>: <span style="color:#ae81ff">34</span>,
+}
+</code></pre></div><p>这相当于</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">ages</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>)
+<span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;alice&#34;</span>] = <span style="color:#ae81ff">31</span>
+<span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;charlie&#34;</span>] = <span style="color:#ae81ff">34</span>
+</code></pre></div><p>因此，另一种创建空的map的表达式是<code>map[string]int{}</code>。</p>
 <p>Map中的元素通过key对应的下标语法访问：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;alice&#34;</span>] = <span style="color:#ae81ff">32</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;alice&#34;</span>]) <span style="color:#75715e">// &#34;32&#34;
-</span></span></span></code></pre></div><p>使用内置的delete函数可以删除元素：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span>delete(<span style="color:#a6e22e">ages</span>, <span style="color:#e6db74">&#34;alice&#34;</span>) <span style="color:#75715e">// remove element ages[&#34;alice&#34;]
-</span></span></span></code></pre></div><p>所有这些操作是安全的，即使这些元素不在map中也没有关系；如果一个查找失败将返回value类型对应的零值，例如，即使map中不存在“bob”下面的代码也可以正常工作，因为ages[&ldquo;bob&rdquo;]失败时将返回0。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;bob&#34;</span>] = <span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;bob&#34;</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e">// happy birthday!
-</span></span></span></code></pre></div><p>而且<code>x += y</code>和<code>x++</code>等简短赋值语法也可以用在map上，所以上面的代码可以改写成</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;bob&#34;</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-</span></span></code></pre></div><p>更简单的写法</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;bob&#34;</span>]<span style="color:#f92672">++</span>
-</span></span></code></pre></div><p>但是map中的元素并不是一个变量，因此我们不能对map的元素进行取址操作：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">_</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;bob&#34;</span>] <span style="color:#75715e">// compile error: cannot take address of map element
-</span></span></span></code></pre></div><p>禁止对map元素取址的原因是map可能随着元素数量的增长而重新分配更大的内存空间，从而可能导致之前的地址无效。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;alice&#34;</span>] = <span style="color:#ae81ff">32</span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;alice&#34;</span>]) <span style="color:#75715e">// &#34;32&#34;
+</span></code></pre></div><p>使用内置的delete函数可以删除元素：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go">delete(<span style="color:#a6e22e">ages</span>, <span style="color:#e6db74">&#34;alice&#34;</span>) <span style="color:#75715e">// remove element ages[&#34;alice&#34;]
+</span></code></pre></div><p>所有这些操作是安全的，即使这些元素不在map中也没有关系；如果一个查找失败将返回value类型对应的零值，例如，即使map中不存在“bob”下面的代码也可以正常工作，因为ages[&ldquo;bob&rdquo;]失败时将返回0。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;bob&#34;</span>] = <span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;bob&#34;</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e">// happy birthday!
+</span></code></pre></div><p>而且<code>x += y</code>和<code>x++</code>等简短赋值语法也可以用在map上，所以上面的代码可以改写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;bob&#34;</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</code></pre></div><p>更简单的写法</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;bob&#34;</span>]<span style="color:#f92672">++</span>
+</code></pre></div><p>但是map中的元素并不是一个变量，因此我们不能对map的元素进行取址操作：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">_</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;bob&#34;</span>] <span style="color:#75715e">// compile error: cannot take address of map element
+</span></code></pre></div><p>禁止对map元素取址的原因是map可能随着元素数量的增长而重新分配更大的内存空间，从而可能导致之前的地址无效。</p>
 <p>要想遍历map中全部的key/value对的话，可以使用range风格的for循环实现，和之前的slice遍历语法类似。下面的迭代语句将在每次迭代时设置name和age变量，它们对应下一个键/值对：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">ages</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s\t%d\n&#34;</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Map的迭代顺序是不确定的，并且不同的哈希函数实现可能导致不同的遍历顺序。在实践中，遍历的顺序是随机的，每一次遍历的顺序都不相同。这是故意的，每次都使用随机的遍历顺序可以强制要求程序不会依赖具体的哈希函数实现。如果要按顺序遍历key/value对，我们必须显式地对key进行排序，可以使用sort包的Strings函数对字符串slice进行排序。下面是常见的处理方式：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;sort&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">names</span> []<span style="color:#66d9ef">string</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">ages</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">names</span> = append(<span style="color:#a6e22e">names</span>, <span style="color:#a6e22e">name</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Strings</span>(<span style="color:#a6e22e">names</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">names</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s\t%d\n&#34;</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">ages</span>[<span style="color:#a6e22e">name</span>])
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>因为我们一开始就知道names的最终大小，因此给slice分配一个合适的大小将会更有效。下面的代码创建了一个空的slice，但是slice的容量刚好可以放下map中全部的key：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">names</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">ages</span>))
-</span></span></code></pre></div><p>在上面的第一个range循环中，我们只关心map中的key，所以我们忽略了第二个循环变量。在第二个循环中，我们只关心names中的名字，所以我们使用“_”空白标识符来忽略第一个循环变量，也就是迭代slice时的索引。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">ages</span> {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s\t%d\n&#34;</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>)
+}
+</code></pre></div><p>Map的迭代顺序是不确定的，并且不同的哈希函数实现可能导致不同的遍历顺序。在实践中，遍历的顺序是随机的，每一次遍历的顺序都不相同。这是故意的，每次都使用随机的遍历顺序可以强制要求程序不会依赖具体的哈希函数实现。如果要按顺序遍历key/value对，我们必须显式地对key进行排序，可以使用sort包的Strings函数对字符串slice进行排序。下面是常见的处理方式：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;sort&#34;</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">names</span> []<span style="color:#66d9ef">string</span>
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">ages</span> {
+	<span style="color:#a6e22e">names</span> = append(<span style="color:#a6e22e">names</span>, <span style="color:#a6e22e">name</span>)
+}
+<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Strings</span>(<span style="color:#a6e22e">names</span>)
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">names</span> {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s\t%d\n&#34;</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">ages</span>[<span style="color:#a6e22e">name</span>])
+}
+</code></pre></div><p>因为我们一开始就知道names的最终大小，因此给slice分配一个合适的大小将会更有效。下面的代码创建了一个空的slice，但是slice的容量刚好可以放下map中全部的key：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">names</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">ages</span>))
+</code></pre></div><p>在上面的第一个range循环中，我们只关心map中的key，所以我们忽略了第二个循环变量。在第二个循环中，我们只关心names中的名字，所以我们使用“_”空白标识符来忽略第一个循环变量，也就是迭代slice时的索引。</p>
 <p>map类型的零值是nil，也就是没有引用任何哈希表。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ages</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">ages</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span>)    <span style="color:#75715e">// &#34;true&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(len(<span style="color:#a6e22e">ages</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#75715e">// &#34;true&#34;
-</span></span></span></code></pre></div><p>map上的大部分操作，包括查找、删除、len和range循环都可以安全工作在nil值的map上，它们的行为和一个空的map类似。但是向一个nil值的map存入元素将导致一个panic异常：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;carol&#34;</span>] = <span style="color:#ae81ff">21</span> <span style="color:#75715e">// panic: assignment to entry in nil map
-</span></span></span></code></pre></div><p>在向map存数据前必须先创建map。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ages</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">ages</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span>)    <span style="color:#75715e">// &#34;true&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(len(<span style="color:#a6e22e">ages</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#75715e">// &#34;true&#34;
+</span></code></pre></div><p>map上的大部分操作，包括查找、删除、len和range循环都可以安全工作在nil值的map上，它们的行为和一个空的map类似。但是向一个nil值的map存入元素将导致一个panic异常：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;carol&#34;</span>] = <span style="color:#ae81ff">21</span> <span style="color:#75715e">// panic: assignment to entry in nil map
+</span></code></pre></div><p>在向map存数据前必须先创建map。</p>
 <p>通过key作为索引下标来访问map将产生一个value。如果key在map中是存在的，那么将得到与key对应的value；如果key不存在，那么将得到value对应类型的零值，正如我们前面看到的ages[&ldquo;bob&rdquo;]那样。这个规则很实用，但是有时候可能需要知道对应的元素是否真的是在map之中。例如，如果元素类型是一个数字，你可能需要区分一个已经存在的0，和不存在而返回零值的0，可以像下面这样测试：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">age</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;bob&#34;</span>]
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> { <span style="color:#75715e">/* &#34;bob&#34; is not a key in this map; age == 0. */</span> }
-</span></span></code></pre></div><p>你会经常看到将这两个结合起来使用，像这样：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">age</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;bob&#34;</span>]; !<span style="color:#a6e22e">ok</span> { <span style="color:#75715e">/* ... */</span> }
-</span></span></code></pre></div><p>在这种场景下，map的下标语法将产生两个值；第二个是一个布尔值，用于报告元素是否真的存在。布尔变量一般命名为ok，特别适合马上用于if条件判断部分。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">age</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;bob&#34;</span>]
+<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> { <span style="color:#75715e">/* &#34;bob&#34; is not a key in this map; age == 0. */</span> }
+</code></pre></div><p>你会经常看到将这两个结合起来使用，像这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">age</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ages</span>[<span style="color:#e6db74">&#34;bob&#34;</span>]; !<span style="color:#a6e22e">ok</span> { <span style="color:#75715e">/* ... */</span> }
+</code></pre></div><p>在这种场景下，map的下标语法将产生两个值；第二个是一个布尔值，用于报告元素是否真的存在。布尔变量一般命名为ok，特别适合马上用于if条件判断部分。</p>
 <p>和slice一样，map之间也不能进行相等比较；唯一的例外是和nil进行比较。要判断两个map是否包含相同的key和value，我们必须通过一个循环实现：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">equal</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">x</span>) <span style="color:#f92672">!=</span> len(<span style="color:#a6e22e">y</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">xv</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">x</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">yv</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">y</span>[<span style="color:#a6e22e">k</span>]; !<span style="color:#a6e22e">ok</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">yv</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">xv</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>从例子中可以看到如何用!ok来区分元素不存在，与元素存在但为0的。我们不能简单地用xv != y[k]判断，那样会导致在判断下面两个map时产生错误的结果：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// True if equal is written incorrectly.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">equal</span>(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>{<span style="color:#e6db74">&#34;A&#34;</span>: <span style="color:#ae81ff">0</span>}, <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>{<span style="color:#e6db74">&#34;B&#34;</span>: <span style="color:#ae81ff">42</span>})
-</span></span></code></pre></div><p>Go语言中并没有提供一个set类型，但是map中的key也是不相同的，可以用map实现类似set的功能。为了说明这一点，下面的dedup程序读取多行输入，但是只打印第一次出现的行。（它是1.3节中出现的dup程序的变体。）dedup程序通过map来表示所有的输入行所对应的set集合，以确保已经在集合存在的行不会被重复打印。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">equal</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">x</span>) <span style="color:#f92672">!=</span> len(<span style="color:#a6e22e">y</span>) {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+	}
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">xv</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">x</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">yv</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">y</span>[<span style="color:#a6e22e">k</span>]; !<span style="color:#a6e22e">ok</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">yv</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">xv</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+		}
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+}
+</code></pre></div><p>从例子中可以看到如何用!ok来区分元素不存在，与元素存在但为0的。我们不能简单地用xv != y[k]判断，那样会导致在判断下面两个map时产生错误的结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// True if equal is written incorrectly.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">equal</span>(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>{<span style="color:#e6db74">&#34;A&#34;</span>: <span style="color:#ae81ff">0</span>}, <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>{<span style="color:#e6db74">&#34;B&#34;</span>: <span style="color:#ae81ff">42</span>})
+</code></pre></div><p>Go语言中并没有提供一个set类型，但是map中的key也是不相同的，可以用map实现类似set的功能。为了说明这一点，下面的dedup程序读取多行输入，但是只打印第一次出现的行。（它是1.3节中出现的dup程序的变体。）dedup程序通过map来表示所有的输入行所对应的set集合，以确保已经在集合存在的行不会被重复打印。</p>
 <p><u><i>gopl.io/ch4/dedup</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">seen</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#75715e">// a set of strings
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">input</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bufio</span>.<span style="color:#a6e22e">NewScanner</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdin</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Scan</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">line</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Text</span>()
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">seen</span>[<span style="color:#a6e22e">line</span>] {
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">seen</span>[<span style="color:#a6e22e">line</span>] = <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">line</span>)
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Err</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">&#34;dedup: %v\n&#34;</span>, <span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Go程序员将这种忽略value的map当作一个字符串集合，并非所有<code>map[string]bool</code>类型value都是无关紧要的；有一些则可能会同时包含true和false的值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">seen</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#75715e">// a set of strings
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">input</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bufio</span>.<span style="color:#a6e22e">NewScanner</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdin</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Scan</span>() {
+		<span style="color:#a6e22e">line</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Text</span>()
+		<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">seen</span>[<span style="color:#a6e22e">line</span>] {
+			<span style="color:#a6e22e">seen</span>[<span style="color:#a6e22e">line</span>] = <span style="color:#66d9ef">true</span>
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">line</span>)
+		}
+	}
+
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Err</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">&#34;dedup: %v\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+		<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
+	}
+}
+</code></pre></div><p>Go程序员将这种忽略value的map当作一个字符串集合，并非所有<code>map[string]bool</code>类型value都是无关紧要的；有一些则可能会同时包含true和false的值。</p>
 <p>有时候我们需要一个map或set的key是slice类型，但是map的key必须是可比较的类型，但是slice并不满足这个条件。不过，我们可以通过两个步骤绕过这个限制。第一步，定义一个辅助函数k，将slice转为map对应的string类型的key，确保只有x和y相等时k(x) == k(y)才成立。然后创建一个key为string类型的map，在每次对map操作时先用k辅助函数将slice转化为string类型。</p>
 <p>下面的例子演示了如何使用map来记录提交相同的字符串列表的次数。它使用了fmt.Sprintf函数将字符串列表转换为一个字符串以用于map的key，通过%q参数忠实地记录每个字符串元素的信息：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">m</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">k</span>(<span style="color:#a6e22e">list</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%q&#34;</span>, <span style="color:#a6e22e">list</span>) }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">list</span> []<span style="color:#66d9ef">string</span>)       { <span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">k</span>(<span style="color:#a6e22e">list</span>)]<span style="color:#f92672">++</span> }
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Count</span>(<span style="color:#a6e22e">list</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">k</span>(<span style="color:#a6e22e">list</span>)] }
-</span></span></code></pre></div><p>使用同样的技术可以处理任何不可比较的key类型，而不仅仅是slice类型。这种技术对于想使用自定义key比较函数的时候也很有用，例如在比较字符串的时候忽略大小写。同时，辅助函数k(x)也不一定是字符串类型，它可以返回任何可比较的类型，例如整数、数组或结构体等。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">m</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">k</span>(<span style="color:#a6e22e">list</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%q&#34;</span>, <span style="color:#a6e22e">list</span>) }
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">list</span> []<span style="color:#66d9ef">string</span>)       { <span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">k</span>(<span style="color:#a6e22e">list</span>)]<span style="color:#f92672">++</span> }
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Count</span>(<span style="color:#a6e22e">list</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">k</span>(<span style="color:#a6e22e">list</span>)] }
+</code></pre></div><p>使用同样的技术可以处理任何不可比较的key类型，而不仅仅是slice类型。这种技术对于想使用自定义key比较函数的时候也很有用，例如在比较字符串的时候忽略大小写。同时，辅助函数k(x)也不一定是字符串类型，它可以返回任何可比较的类型，例如整数、数组或结构体等。</p>
 <p>这是map的另一个例子，下面的程序用于统计输入中每个Unicode码点出现的次数。虽然Unicode全部码点的数量巨大，但是出现在特定文档中的字符种类并没有多少，使用map可以用比较自然的方式来跟踪那些出现过的字符的次数。</p>
 <p><u><i>gopl.io/ch4/charcount</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// Charcount computes counts of Unicode characters.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;bufio&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;io&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;os&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;unicode&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;unicode/utf8&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">counts</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">rune</span>]<span style="color:#66d9ef">int</span>)    <span style="color:#75715e">// counts of Unicode characters
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">utflen</span> [<span style="color:#a6e22e">utf8</span>.<span style="color:#a6e22e">UTFMax</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]<span style="color:#66d9ef">int</span> <span style="color:#75715e">// count of lengths of UTF-8 encodings
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">invalid</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>                    <span style="color:#75715e">// count of invalid UTF-8 characters
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">in</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bufio</span>.<span style="color:#a6e22e">NewReader</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdin</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">ReadRune</span>() <span style="color:#75715e">// returns rune, nbytes, error
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">EOF</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">&#34;charcount: %v\n&#34;</span>, <span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">unicode</span>.<span style="color:#a6e22e">ReplacementChar</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">invalid</span><span style="color:#f92672">++</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">continue</span>
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">counts</span>[<span style="color:#a6e22e">r</span>]<span style="color:#f92672">++</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">utflen</span>[<span style="color:#a6e22e">n</span>]<span style="color:#f92672">++</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;rune\tcount\n&#34;</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">counts</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%q\t%d\n&#34;</span>, <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">n</span>)
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#e6db74">&#34;\nlen\tcount\n&#34;</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">utflen</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d\t%d\n&#34;</span>, <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">n</span>)
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">invalid</span> &gt; <span style="color:#ae81ff">0</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;\n%d invalid UTF-8 characters\n&#34;</span>, <span style="color:#a6e22e">invalid</span>)
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>ReadRune方法执行UTF-8解码并返回三个值：解码的rune字符的值，字符UTF-8编码后的长度，和一个错误值。我们可预期的错误值只有对应文件结尾的io.EOF。如果输入的是无效的UTF-8编码的字符，返回的将是unicode.ReplacementChar表示无效字符，并且编码长度是1。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// Charcount computes counts of Unicode characters.
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;bufio&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;io&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+	<span style="color:#e6db74">&#34;unicode&#34;</span>
+	<span style="color:#e6db74">&#34;unicode/utf8&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">counts</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">rune</span>]<span style="color:#66d9ef">int</span>)    <span style="color:#75715e">// counts of Unicode characters
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">utflen</span> [<span style="color:#a6e22e">utf8</span>.<span style="color:#a6e22e">UTFMax</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]<span style="color:#66d9ef">int</span> <span style="color:#75715e">// count of lengths of UTF-8 encodings
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">invalid</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>                    <span style="color:#75715e">// count of invalid UTF-8 characters
+</span><span style="color:#75715e"></span>
+	<span style="color:#a6e22e">in</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bufio</span>.<span style="color:#a6e22e">NewReader</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdin</span>)
+	<span style="color:#66d9ef">for</span> {
+		<span style="color:#a6e22e">r</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">ReadRune</span>() <span style="color:#75715e">// returns rune, nbytes, error
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">EOF</span> {
+			<span style="color:#66d9ef">break</span>
+		}
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">&#34;charcount: %v\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+			<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
+		}
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">unicode</span>.<span style="color:#a6e22e">ReplacementChar</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+			<span style="color:#a6e22e">invalid</span><span style="color:#f92672">++</span>
+			<span style="color:#66d9ef">continue</span>
+		}
+		<span style="color:#a6e22e">counts</span>[<span style="color:#a6e22e">r</span>]<span style="color:#f92672">++</span>
+		<span style="color:#a6e22e">utflen</span>[<span style="color:#a6e22e">n</span>]<span style="color:#f92672">++</span>
+	}
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;rune\tcount\n&#34;</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">counts</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%q\t%d\n&#34;</span>, <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">n</span>)
+	}
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#e6db74">&#34;\nlen\tcount\n&#34;</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">utflen</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span> {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d\t%d\n&#34;</span>, <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">n</span>)
+		}
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">invalid</span> &gt; <span style="color:#ae81ff">0</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;\n%d invalid UTF-8 characters\n&#34;</span>, <span style="color:#a6e22e">invalid</span>)
+	}
+}
+</code></pre></div><p>ReadRune方法执行UTF-8解码并返回三个值：解码的rune字符的值，字符UTF-8编码后的长度，和一个错误值。我们可预期的错误值只有对应文件结尾的io.EOF。如果输入的是无效的UTF-8编码的字符，返回的将是unicode.ReplacementChar表示无效字符，并且编码长度是1。</p>
 <p>charcount程序同时打印不同UTF-8编码长度的字符数目。对此，map并不是一个合适的数据结构；因为UTF-8编码的长度总是从1到utf8.UTFMax（最大是4个字节），使用数组将更有效。</p>
 <p>作为一个实验，我们用charcount程序对英文版原稿的字符进行了统计。虽然大部分是英语，但是也有一些非ASCII字符。下面是排名前10的非ASCII字符：</p>
 <p><img src="../images/ch4-xx-01.png" alt=""></p>
@@ -263,21 +263,21 @@
 4   0
 </code></pre><p>Map的value类型也可以是一个聚合类型，比如是一个map或slice。在下面的代码中，图graph的key类型是一个字符串，value类型map[string]bool代表一个字符串集合。从概念上讲，graph将一个字符串类型的key映射到一组相关的字符串集合，它们指向新的graph的key。</p>
 <p><u><i>gopl.io/ch4/graph</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">graph</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">addEdge</span>(<span style="color:#a6e22e">from</span>, <span style="color:#a6e22e">to</span> <span style="color:#66d9ef">string</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">edges</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">graph</span>[<span style="color:#a6e22e">from</span>]
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">edges</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">edges</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>)
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">graph</span>[<span style="color:#a6e22e">from</span>] = <span style="color:#a6e22e">edges</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">edges</span>[<span style="color:#a6e22e">to</span>] = <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">hasEdge</span>(<span style="color:#a6e22e">from</span>, <span style="color:#a6e22e">to</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">graph</span>[<span style="color:#a6e22e">from</span>][<span style="color:#a6e22e">to</span>]
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>其中addEdge函数惰性初始化map是一个惯用方式，也就是说在每个值首次作为key时才初始化。addEdge函数显示了如何让map的零值也能正常工作；即使from到to的边不存在，graph[from][to]依然可以返回一个有意义的结果。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">graph</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">addEdge</span>(<span style="color:#a6e22e">from</span>, <span style="color:#a6e22e">to</span> <span style="color:#66d9ef">string</span>) {
+	<span style="color:#a6e22e">edges</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">graph</span>[<span style="color:#a6e22e">from</span>]
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">edges</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">edges</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>)
+		<span style="color:#a6e22e">graph</span>[<span style="color:#a6e22e">from</span>] = <span style="color:#a6e22e">edges</span>
+	}
+	<span style="color:#a6e22e">edges</span>[<span style="color:#a6e22e">to</span>] = <span style="color:#66d9ef">true</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">hasEdge</span>(<span style="color:#a6e22e">from</span>, <span style="color:#a6e22e">to</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">graph</span>[<span style="color:#a6e22e">from</span>][<span style="color:#a6e22e">to</span>]
+}
+</code></pre></div><p>其中addEdge函数惰性初始化map是一个惯用方式，也就是说在每个值首次作为key时才初始化。addEdge函数显示了如何让map的零值也能正常工作；即使from到to的边不存在，graph[from][to]依然可以返回一个有意义的结果。</p>
 <p><strong>练习 4.8：</strong> 修改charcount程序，使用unicode.IsLetter等相关的函数，统计字母、数字等Unicode中不同的字符类别。</p>
 <p><strong>练习 4.9：</strong> 编写一个程序wordfreq程序，报告输入文本中每个单词出现的频率。在第一次调用Scan前先调用input.Split(bufio.ScanWords)函数，这样可以按单词而不是按行输入。</p>
 

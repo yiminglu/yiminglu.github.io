@@ -102,78 +102,78 @@
 <p>在Go中，一个函数可以返回多个值。我们已经在之前例子中看到，许多标准库中的函数返回2个值，一个是期望得到的返回值，另一个是函数出错时的错误信息。下面的例子会展示如何编写多返回值的函数。</p>
 <p>下面的程序是findlinks的改进版本。修改后的findlinks可以自己发起HTTP请求，这样我们就不必再运行fetch。因为HTTP请求和解析操作可能会失败，因此findlinks声明了2个返回值：链接列表和错误信息。一般而言，HTML的解析器可以处理HTML页面的错误结点，构造出HTML页面结构，所以解析HTML很少失败。这意味着如果findlinks函数失败了，很可能是由于I/O的错误导致的。</p>
 <p><u><i>gopl.io/ch5/findlinks2</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">url</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Args</span>[<span style="color:#ae81ff">1</span>:] {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">links</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findLinks</span>(<span style="color:#a6e22e">url</span>)
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">&#34;findlinks2: %v\n&#34;</span>, <span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">continue</span>
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">link</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">links</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">link</span>)
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// findLinks performs an HTTP GET request for url, parses the
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// response as HTML, and extracts and returns the links.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findLinks</span>(<span style="color:#a6e22e">url</span> <span style="color:#66d9ef">string</span>) ([]<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">resp</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">url</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">StatusCode</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Close</span>()
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;getting %s: %s&#34;</span>, <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Status</span>)
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">doc</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Close</span>()
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;parsing %s as HTML: %v&#34;</span>, <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">visit</span>(<span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">doc</span>), <span style="color:#66d9ef">nil</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>在findlinks中，有4处return语句，每一处return都返回了一组值。前三处return，将http和html包中的错误信息传递给findlinks的调用者。第一处return直接返回错误信息，其他两处通过fmt.Errorf（§7.8）输出详细的错误信息。如果findlinks成功结束，最后的return语句将一组解析获得的连接返回给用户。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">url</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Args</span>[<span style="color:#ae81ff">1</span>:] {
+		<span style="color:#a6e22e">links</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findLinks</span>(<span style="color:#a6e22e">url</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">&#34;findlinks2: %v\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+			<span style="color:#66d9ef">continue</span>
+		}
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">link</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">links</span> {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">link</span>)
+		}
+	}
+}
+
+<span style="color:#75715e">// findLinks performs an HTTP GET request for url, parses the
+</span><span style="color:#75715e">// response as HTML, and extracts and returns the links.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findLinks</span>(<span style="color:#a6e22e">url</span> <span style="color:#66d9ef">string</span>) ([]<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">resp</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">url</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">StatusCode</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span> {
+		<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Close</span>()
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;getting %s: %s&#34;</span>, <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Status</span>)
+	}
+	<span style="color:#a6e22e">doc</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>)
+	<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Close</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;parsing %s as HTML: %v&#34;</span>, <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">err</span>)
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">visit</span>(<span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">doc</span>), <span style="color:#66d9ef">nil</span>
+}
+</code></pre></div><p>在findlinks中，有4处return语句，每一处return都返回了一组值。前三处return，将http和html包中的错误信息传递给findlinks的调用者。第一处return直接返回错误信息，其他两处通过fmt.Errorf（§7.8）输出详细的错误信息。如果findlinks成功结束，最后的return语句将一组解析获得的连接返回给用户。</p>
 <p>在findlinks中，我们必须确保resp.Body被关闭，释放网络资源。虽然Go的垃圾回收机制会回收不被使用的内存，但是这不包括操作系统层面的资源，比如打开的文件、网络连接。因此我们必须显式的释放这些资源。</p>
 <p>调用多返回值函数时，返回给调用者的是一组值，调用者必须显式的将这些值分配给变量:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">links</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findLinks</span>(<span style="color:#a6e22e">url</span>)
-</span></span></code></pre></div><p>如果某个值不被使用，可以将其分配给blank identifier:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">links</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findLinks</span>(<span style="color:#a6e22e">url</span>) <span style="color:#75715e">// errors ignored
-</span></span></span></code></pre></div><p>一个函数内部可以将另一个有多返回值的函数调用作为返回值，下面的例子展示了与findLinks有相同功能的函数，两者的区别在于下面的例子先输出参数：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findLinksLog</span>(<span style="color:#a6e22e">url</span> <span style="color:#66d9ef">string</span>) ([]<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;findLinks %s&#34;</span>, <span style="color:#a6e22e">url</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">findLinks</span>(<span style="color:#a6e22e">url</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>当你调用接受多参数的函数时，可以将一个返回多参数的函数调用作为该函数的参数。虽然这很少出现在实际生产代码中，但这个特性在debug时很方便，我们只需要一条语句就可以输出所有的返回值。下面的代码是等价的：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">findLinks</span>(<span style="color:#a6e22e">url</span>))
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">links</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findLinks</span>(<span style="color:#a6e22e">url</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">links</span>, <span style="color:#a6e22e">err</span>)
-</span></span></code></pre></div><p>准确的变量名可以传达函数返回值的含义。尤其在返回值的类型都相同时，就像下面这样：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Size</span>(<span style="color:#a6e22e">rect</span> <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">Rectangle</span>) (<span style="color:#a6e22e">width</span>, <span style="color:#a6e22e">height</span> <span style="color:#66d9ef">int</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Split</span>(<span style="color:#a6e22e">path</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">dir</span>, <span style="color:#a6e22e">file</span> <span style="color:#66d9ef">string</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">HourMinSec</span>(<span style="color:#a6e22e">t</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>) (<span style="color:#a6e22e">hour</span>, <span style="color:#a6e22e">minute</span>, <span style="color:#a6e22e">second</span> <span style="color:#66d9ef">int</span>)
-</span></span></code></pre></div><p>虽然良好的命名很重要，但你也不必为每一个返回值都取一个适当的名字。比如，按照惯例，函数的最后一个bool类型的返回值表示函数是否运行成功，error类型的返回值代表函数的错误信息，对于这些类似的惯例，我们不必思考合适的命名，它们都无需解释。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">links</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findLinks</span>(<span style="color:#a6e22e">url</span>)
+</code></pre></div><p>如果某个值不被使用，可以将其分配给blank identifier:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">links</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findLinks</span>(<span style="color:#a6e22e">url</span>) <span style="color:#75715e">// errors ignored
+</span></code></pre></div><p>一个函数内部可以将另一个有多返回值的函数调用作为返回值，下面的例子展示了与findLinks有相同功能的函数，两者的区别在于下面的例子先输出参数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findLinksLog</span>(<span style="color:#a6e22e">url</span> <span style="color:#66d9ef">string</span>) ([]<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;findLinks %s&#34;</span>, <span style="color:#a6e22e">url</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">findLinks</span>(<span style="color:#a6e22e">url</span>)
+}
+</code></pre></div><p>当你调用接受多参数的函数时，可以将一个返回多参数的函数调用作为该函数的参数。虽然这很少出现在实际生产代码中，但这个特性在debug时很方便，我们只需要一条语句就可以输出所有的返回值。下面的代码是等价的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">findLinks</span>(<span style="color:#a6e22e">url</span>))
+<span style="color:#a6e22e">links</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">findLinks</span>(<span style="color:#a6e22e">url</span>)
+<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">links</span>, <span style="color:#a6e22e">err</span>)
+</code></pre></div><p>准确的变量名可以传达函数返回值的含义。尤其在返回值的类型都相同时，就像下面这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Size</span>(<span style="color:#a6e22e">rect</span> <span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">Rectangle</span>) (<span style="color:#a6e22e">width</span>, <span style="color:#a6e22e">height</span> <span style="color:#66d9ef">int</span>)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Split</span>(<span style="color:#a6e22e">path</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">dir</span>, <span style="color:#a6e22e">file</span> <span style="color:#66d9ef">string</span>)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">HourMinSec</span>(<span style="color:#a6e22e">t</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>) (<span style="color:#a6e22e">hour</span>, <span style="color:#a6e22e">minute</span>, <span style="color:#a6e22e">second</span> <span style="color:#66d9ef">int</span>)
+</code></pre></div><p>虽然良好的命名很重要，但你也不必为每一个返回值都取一个适当的名字。比如，按照惯例，函数的最后一个bool类型的返回值表示函数是否运行成功，error类型的返回值代表函数的错误信息，对于这些类似的惯例，我们不必思考合适的命名，它们都无需解释。</p>
 <p>如果一个函数所有的返回值都有显式的变量名，那么该函数的return语句可以省略操作数。这称之为bare return。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// CountWordsAndImages does an HTTP GET request for the HTML
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// document url and returns the number of words and images in it.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">CountWordsAndImages</span>(<span style="color:#a6e22e">url</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">words</span>, <span style="color:#a6e22e">images</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">resp</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">url</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">doc</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Close</span>()
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;parsing HTML: %s&#34;</span>, <span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">words</span>, <span style="color:#a6e22e">images</span> = <span style="color:#a6e22e">countWordsAndImages</span>(<span style="color:#a6e22e">doc</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">countWordsAndImages</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Node</span>) (<span style="color:#a6e22e">words</span>, <span style="color:#a6e22e">images</span> <span style="color:#66d9ef">int</span>) { <span style="color:#75715e">/* ... */</span> }
-</span></span></code></pre></div><p>按照返回值列表的次序，返回所有的返回值，在上面的例子中，每一个return语句等价于：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">return</span> <span style="color:#a6e22e">words</span>, <span style="color:#a6e22e">images</span>, <span style="color:#a6e22e">err</span>
-</span></span></code></pre></div><p>当一个函数有多处return语句以及许多返回值时，bare return 可以减少代码的重复，但是使得代码难以被理解。举个例子，如果你没有仔细的审查代码，很难发现前2处return等价于 return 0,0,err（Go会将返回值 words和images在函数体的开始处，根据它们的类型，将其初始化为0），最后一处return等价于 return words, image, nil。基于以上原因，不宜过度使用bare return。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// CountWordsAndImages does an HTTP GET request for the HTML
+</span><span style="color:#75715e">// document url and returns the number of words and images in it.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">CountWordsAndImages</span>(<span style="color:#a6e22e">url</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">words</span>, <span style="color:#a6e22e">images</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">resp</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">url</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span>
+	}
+	<span style="color:#a6e22e">doc</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>)
+	<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Close</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;parsing HTML: %s&#34;</span>, <span style="color:#a6e22e">err</span>)
+		<span style="color:#66d9ef">return</span>
+	}
+	<span style="color:#a6e22e">words</span>, <span style="color:#a6e22e">images</span> = <span style="color:#a6e22e">countWordsAndImages</span>(<span style="color:#a6e22e">doc</span>)
+	<span style="color:#66d9ef">return</span>
+}
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">countWordsAndImages</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">html</span>.<span style="color:#a6e22e">Node</span>) (<span style="color:#a6e22e">words</span>, <span style="color:#a6e22e">images</span> <span style="color:#66d9ef">int</span>) { <span style="color:#75715e">/* ... */</span> }
+</code></pre></div><p>按照返回值列表的次序，返回所有的返回值，在上面的例子中，每一个return语句等价于：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">return</span> <span style="color:#a6e22e">words</span>, <span style="color:#a6e22e">images</span>, <span style="color:#a6e22e">err</span>
+</code></pre></div><p>当一个函数有多处return语句以及许多返回值时，bare return 可以减少代码的重复，但是使得代码难以被理解。举个例子，如果你没有仔细的审查代码，很难发现前2处return等价于 return 0,0,err（Go会将返回值 words和images在函数体的开始处，根据它们的类型，将其初始化为0），最后一处return等价于 return words, image, nil。基于以上原因，不宜过度使用bare return。</p>
 <p><strong>练习 5.5：</strong> 实现countWordsAndImages。（参考练习4.9如何分词）</p>
 <p><strong>练习 5.6：</strong> 修改gopl.io/ch3/surface（§3.2）中的corner函数，将返回值命名，并使用bare return。</p>
 

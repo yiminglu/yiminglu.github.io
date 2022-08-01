@@ -101,15 +101,15 @@
 		<h2 id="74-flagvalue接口">7.4. flag.Value接口</h2>
 <p>在本章，我们会学到另一个标准的接口类型flag.Value是怎么帮助命令行标记定义新的符号的。思考下面这个会休眠特定时间的程序：</p>
 <p><u><i>gopl.io/ch7/sleep</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">period</span> = <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Duration</span>(<span style="color:#e6db74">&#34;period&#34;</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>, <span style="color:#e6db74">&#34;sleep period&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parse</span>()
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Sleeping for %v...&#34;</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">period</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">period</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>()
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>在它休眠前它会打印出休眠的时间周期。fmt包调用time.Duration的String方法打印这个时间周期是以用户友好的注解方式，而不是一个纳秒数字：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">period</span> = <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Duration</span>(<span style="color:#e6db74">&#34;period&#34;</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>, <span style="color:#e6db74">&#34;sleep period&#34;</span>)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parse</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Sleeping for %v...&#34;</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">period</span>)
+	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">period</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>()
+}
+</code></pre></div><p>在它休眠前它会打印出休眠的时间周期。fmt包调用time.Duration的String方法打印这个时间周期是以用户友好的注解方式，而不是一个纳秒数字：</p>
 <pre tabindex="0"><code>$ go build gopl.io/ch7/sleep
 $ ./sleep
 Sleeping for 1s...
@@ -120,55 +120,55 @@ $ ./sleep -period 2m30s
 Sleeping for 2m30s...
 $ ./sleep -period 1.5h
 Sleeping for 1h30m0s...
-$ ./sleep -period &#34;1 day&#34;
-invalid value &#34;1 day&#34; for flag -period: time: invalid duration 1 day
+$ ./sleep -period &quot;1 day&quot;
+invalid value &quot;1 day&quot; for flag -period: time: invalid duration 1 day
 </code></pre><p>因为时间周期标记值非常的有用，所以这个特性被构建到了flag包中；但是我们为我们自己的数据类型定义新的标记符号是简单容易的。我们只需要定义一个实现flag.Value接口的类型，如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">flag</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Value is the interface to the value stored in a flag.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">interface</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">String</span>() <span style="color:#66d9ef">string</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Set</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>String方法格式化标记的值用在命令行帮助消息中；这样每一个flag.Value也是一个fmt.Stringer。Set方法解析它的字符串参数并且更新标记变量的值。实际上，Set方法和String是两个相反的操作，所以最好的办法就是对他们使用相同的注解方式。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">flag</span>
+
+<span style="color:#75715e">// Value is the interface to the value stored in a flag.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">String</span>() <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Set</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span>
+}
+</code></pre></div><p>String方法格式化标记的值用在命令行帮助消息中；这样每一个flag.Value也是一个fmt.Stringer。Set方法解析它的字符串参数并且更新标记变量的值。实际上，Set方法和String是两个相反的操作，所以最好的办法就是对他们使用相同的注解方式。</p>
 <p>让我们定义一个允许通过摄氏度或者华氏温度变换的形式指定温度的celsiusFlag类型。注意celsiusFlag内嵌了一个Celsius类型（§2.5），因此不用实现本身就已经有String方法了。为了实现flag.Value，我们只需要定义Set方法：</p>
 <p><u><i>gopl.io/ch7/tempconv</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// *celsiusFlag satisfies the flag.Value interface.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">celsiusFlag</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">Celsius</span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">celsiusFlag</span>) <span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">unit</span> <span style="color:#66d9ef">string</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">value</span> <span style="color:#66d9ef">float64</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sscanf</span>(<span style="color:#a6e22e">s</span>, <span style="color:#e6db74">&#34;%f%s&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">value</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">unit</span>) <span style="color:#75715e">// no error check needed
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">unit</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;C&#34;</span>, <span style="color:#e6db74">&#34;°C&#34;</span>:
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Celsius</span> = <span style="color:#a6e22e">Celsius</span>(<span style="color:#a6e22e">value</span>)
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;F&#34;</span>, <span style="color:#e6db74">&#34;°F&#34;</span>:
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Celsius</span> = <span style="color:#a6e22e">FToC</span>(<span style="color:#a6e22e">Fahrenheit</span>(<span style="color:#a6e22e">value</span>))
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;invalid temperature %q&#34;</span>, <span style="color:#a6e22e">s</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>调用fmt.Sscanf函数从输入s中解析一个浮点数（value）和一个字符串（unit）。虽然通常必须检查Sscanf的错误返回，但是在这个例子中我们不需要因为如果有错误发生，就没有switch case会匹配到。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// *celsiusFlag satisfies the flag.Value interface.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">celsiusFlag</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">Celsius</span> }
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">celsiusFlag</span>) <span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">unit</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">value</span> <span style="color:#66d9ef">float64</span>
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sscanf</span>(<span style="color:#a6e22e">s</span>, <span style="color:#e6db74">&#34;%f%s&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">value</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">unit</span>) <span style="color:#75715e">// no error check needed
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">unit</span> {
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;C&#34;</span>, <span style="color:#e6db74">&#34;°C&#34;</span>:
+		<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Celsius</span> = <span style="color:#a6e22e">Celsius</span>(<span style="color:#a6e22e">value</span>)
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;F&#34;</span>, <span style="color:#e6db74">&#34;°F&#34;</span>:
+		<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Celsius</span> = <span style="color:#a6e22e">FToC</span>(<span style="color:#a6e22e">Fahrenheit</span>(<span style="color:#a6e22e">value</span>))
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;invalid temperature %q&#34;</span>, <span style="color:#a6e22e">s</span>)
+}
+</code></pre></div><p>调用fmt.Sscanf函数从输入s中解析一个浮点数（value）和一个字符串（unit）。虽然通常必须检查Sscanf的错误返回，但是在这个例子中我们不需要因为如果有错误发生，就没有switch case会匹配到。</p>
 <p>下面的CelsiusFlag函数将所有逻辑都封装在一起。它返回一个内嵌在celsiusFlag变量f中的Celsius指针给调用者。Celsius字段是一个会通过Set方法在标记处理的过程中更新的变量。调用Var方法将标记加入应用的命令行标记集合中，有异常复杂命令行接口的全局变量flag.CommandLine.Programs可能有几个这个类型的变量。调用Var方法将一个<code>*celsiusFlag</code>参数赋值给一个flag.Value参数，导致编译器去检查<code>*celsiusFlag</code>是否有必须的方法。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// CelsiusFlag defines a Celsius flag with the specified name,
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// default value, and usage, and returns the address of the flag variable.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// The flag argument must have a quantity and a unit, e.g., &#34;100C&#34;.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">CelsiusFlag</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">value</span> <span style="color:#a6e22e">Celsius</span>, <span style="color:#a6e22e">usage</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Celsius</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">f</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">celsiusFlag</span>{<span style="color:#a6e22e">value</span>}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">CommandLine</span>.<span style="color:#a6e22e">Var</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">usage</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Celsius</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>现在我们可以开始在我们的程序中使用新的标记：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// CelsiusFlag defines a Celsius flag with the specified name,
+</span><span style="color:#75715e">// default value, and usage, and returns the address of the flag variable.
+</span><span style="color:#75715e">// The flag argument must have a quantity and a unit, e.g., &#34;100C&#34;.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">CelsiusFlag</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">value</span> <span style="color:#a6e22e">Celsius</span>, <span style="color:#a6e22e">usage</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Celsius</span> {
+	<span style="color:#a6e22e">f</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">celsiusFlag</span>{<span style="color:#a6e22e">value</span>}
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">CommandLine</span>.<span style="color:#a6e22e">Var</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">usage</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Celsius</span>
+}
+</code></pre></div><p>现在我们可以开始在我们的程序中使用新的标记：</p>
 <p><u><i>gopl.io/ch7/tempflag</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">temp</span> = <span style="color:#a6e22e">tempconv</span>.<span style="color:#a6e22e">CelsiusFlag</span>(<span style="color:#e6db74">&#34;temp&#34;</span>, <span style="color:#ae81ff">20.0</span>, <span style="color:#e6db74">&#34;the temperature&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parse</span>()
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">temp</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>下面是典型的场景：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">temp</span> = <span style="color:#a6e22e">tempconv</span>.<span style="color:#a6e22e">CelsiusFlag</span>(<span style="color:#e6db74">&#34;temp&#34;</span>, <span style="color:#ae81ff">20.0</span>, <span style="color:#e6db74">&#34;the temperature&#34;</span>)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parse</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">temp</span>)
+}
+</code></pre></div><p>下面是典型的场景：</p>
 <pre tabindex="0"><code>$ go build gopl.io/ch7/tempflag
 $ ./tempflag
 20°C
@@ -177,7 +177,7 @@ $ ./tempflag -temp -18C
 $ ./tempflag -temp 212°F
 100°C
 $ ./tempflag -temp 273.15K
-invalid value &#34;273.15K&#34; for flag -temp: invalid temperature &#34;273.15K&#34;
+invalid value &quot;273.15K&quot; for flag -temp: invalid temperature &quot;273.15K&quot;
 Usage of ./tempflag:
   -temp value
         the temperature (default 20°C)

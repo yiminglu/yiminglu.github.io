@@ -113,8 +113,8 @@
   default = current
 
 [alias]
-  l = log --color --graph --pretty=format:&#39;%C(auto)%h %s%d %C(green)%ad %C(blue)[%an]%C(reset)&#39; --relative-date --decorate
-  ll = log --color --graph --pretty=format:&#39;%C(auto)%h %s%d %C(green)%ad %C(blue)[%an / %cn]%C(reset)&#39; --relative-date --decorate
+  l = log --color --graph --pretty=format:'%C(auto)%h %s%d %C(green)%ad %C(blue)[%an]%C(reset)' --relative-date --decorate
+  ll = log --color --graph --pretty=format:'%C(auto)%h %s%d %C(green)%ad %C(blue)[%an / %cn]%C(reset)' --relative-date --decorate
   l0 = log --color --graph --decorate --pretty=oneline --abbrev-commit -U0
   la = log --color --graph --decorate --pretty=oneline --abbrev-commit --all
   lb = log --color --graph --decorate --pretty=oneline --abbrev-commit --all --simplify-by-decoration
@@ -177,7 +177,7 @@
   cloner = clone --recursive
   rpo = remote prune origin
 
-  mgnff = &#34;!mff() { git merge --ff-only \&#34;$1\&#34; &amp;&amp; git reset --hard HEAD@{1} &amp;&amp; git merge --no-ff \&#34;$1\&#34;; }; mff&#34;
+  mgnff = &quot;!mff() { git merge --ff-only \&quot;$1\&quot; &amp;&amp; git reset --hard HEAD@{1} &amp;&amp; git merge --no-ff \&quot;$1\&quot;; }; mff&quot;
 </code></pre><p>Now, go configure yours at <code>~/.gitconfig</code>.</p>
 <br />
 <h2 id="updated-at-20181108">Updated at 2018/11/08</h2>
@@ -192,7 +192,7 @@
   <div class="post-comments">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    window.disqus_config = function () {
+    var disqus_config = function () {
     
     
     

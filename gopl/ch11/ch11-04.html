@@ -101,14 +101,14 @@
 		<h2 id="114-基准测试">11.4. 基准测试</h2>
 <p>基准测试是测量一个程序在固定工作负载下的性能。在Go语言中，基准测试函数和普通测试函数写法类似，但是以Benchmark为前缀名，并且带有一个<code>*testing.B</code>类型的参数；<code>*testing.B</code>参数除了提供和<code>*testing.T</code>类似的方法，还有额外一些和性能测量相关的方法。它还提供了一个整数N，用于指定操作执行的循环次数。</p>
 <p>下面是IsPalindrome函数的基准测试，其中循环将执行N次。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;testing&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkIsPalindrome</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">IsPalindrome</span>(<span style="color:#e6db74">&#34;A man, a plan, a canal: Panama&#34;</span>)
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>我们用下面的命令运行基准测试。和普通测试不同的是，默认情况下不运行任何基准测试。我们需要通过<code>-bench</code>命令行标志参数手工指定要运行的基准测试函数。该参数是一个正则表达式，用于匹配要执行的基准测试函数的名字，默认值是空的。其中“.”模式将可以匹配所有基准测试函数，但因为这里只有一个基准测试函数，因此和<code>-bench=IsPalindrome</code>参数是等价的效果。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;testing&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkIsPalindrome</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">IsPalindrome</span>(<span style="color:#e6db74">&#34;A man, a plan, a canal: Panama&#34;</span>)
+	}
+}
+</code></pre></div><p>我们用下面的命令运行基准测试。和普通测试不同的是，默认情况下不运行任何基准测试。我们需要通过<code>-bench</code>命令行标志参数手工指定要运行的基准测试函数。该参数是一个正则表达式，用于匹配要执行的基准测试函数的名字，默认值是空的。其中“.”模式将可以匹配所有基准测试函数，但因为这里只有一个基准测试函数，因此和<code>-bench=IsPalindrome</code>参数是等价的效果。</p>
 <pre tabindex="0"><code>$ cd $GOPATH/src/gopl.io/ch11/word2
 $ go test -bench=.
 PASS
@@ -118,26 +118,26 @@ ok      gopl.io/ch11/word2      2.179s
 <p>报告显示每次调用IsPalindrome函数花费1.035微秒，是执行1,000,000次的平均时间。因为基准测试驱动器开始时并不知道每个基准测试函数运行所花的时间，它会尝试在真正运行基准测试前先尝试用较小的N运行测试来估算基准测试函数所需要的时间，然后推断一个较大的时间保证稳定的测量结果。</p>
 <p>循环在基准测试函数内实现，而不是放在基准测试框架内实现，这样可以让每个基准测试函数有机会在循环启动前执行初始化代码，这样并不会显著影响每次迭代的平均运行时间。如果还是担心初始化代码部分对测量时间带来干扰，那么可以通过testing.B参数提供的方法来临时关闭或重置计时器，不过这些一般很少会用到。</p>
 <p>现在我们有了一个基准测试和普通测试，我们可以很容易测试改进程序运行速度的想法。也许最明显的优化是在IsPalindrome函数中第二个循环的停止检查，这样可以避免每个比较都做两次：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">letters</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">letters</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">!=</span> <span style="color:#a6e22e">letters</span>[len(<span style="color:#a6e22e">letters</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>] {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
-</span></span></code></pre></div><p>不过很多情况下，一个显而易见的优化未必能带来预期的效果。这个改进在基准测试中只带来了4%的性能提升。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">letters</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">letters</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">!=</span> <span style="color:#a6e22e">letters</span>[len(<span style="color:#a6e22e">letters</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>] {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+	}
+}
+<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+</code></pre></div><p>不过很多情况下，一个显而易见的优化未必能带来预期的效果。这个改进在基准测试中只带来了4%的性能提升。</p>
 <pre tabindex="0"><code>$ go test -bench=.
 PASS
 BenchmarkIsPalindrome-8 1000000              992 ns/op
 ok      gopl.io/ch11/word2      2.093s
 </code></pre><p>另一个改进想法是在开始为每个字符预先分配一个足够大的数组，这样就可以避免在append调用时可能会导致内存的多次重新分配。声明一个letters数组变量，并指定合适的大小，像下面这样，</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">letters</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">rune</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">s</span>))
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">unicode</span>.<span style="color:#a6e22e">IsLetter</span>(<span style="color:#a6e22e">r</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">letters</span> = append(<span style="color:#a6e22e">letters</span>, <span style="color:#a6e22e">unicode</span>.<span style="color:#a6e22e">ToLower</span>(<span style="color:#a6e22e">r</span>))
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>这个改进提升性能约35%，报告结果是基于2,000,000次迭代的平均运行时间统计。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">letters</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">rune</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">s</span>))
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">unicode</span>.<span style="color:#a6e22e">IsLetter</span>(<span style="color:#a6e22e">r</span>) {
+		<span style="color:#a6e22e">letters</span> = append(<span style="color:#a6e22e">letters</span>, <span style="color:#a6e22e">unicode</span>.<span style="color:#a6e22e">ToLower</span>(<span style="color:#a6e22e">r</span>))
+	}
+}
+</code></pre></div><p>这个改进提升性能约35%，报告结果是基于2,000,000次迭代的平均运行时间统计。</p>
 <pre tabindex="0"><code>$ go test -bench=.
 PASS
 BenchmarkIsPalindrome-8 2000000                      697 ns/op
@@ -153,11 +153,11 @@ BenchmarkIsPalindrome    2000000    807 ns/op    128 B/op  1 allocs/op
 </code></pre><p>用一次内存分配代替多次的内存分配节省了75%的分配调用次数和减少近一半的内存需求。</p>
 <p>这个基准测试告诉了我们某个具体操作所需的绝对时间，但我们往往想知道的是两个不同的操作的时间对比。例如，如果一个函数需要1ms处理1,000个元素，那么处理10000或1百万将需要多少时间呢？这样的比较揭示了渐近增长函数的运行时间。另一个例子：I/O缓存该设置为多大呢？基准测试可以帮助我们选择在性能达标情况下所需的最小内存。第三个例子：对于一个确定的工作哪种算法更好？基准测试可以评估两种不同算法对于相同的输入在不同的场景和负载下的优缺点。</p>
 <p>比较型的基准测试就是普通程序代码。它们通常是单参数的函数，由几个不同数量级的基准测试函数调用，就像这样：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">benchmark</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>, <span style="color:#a6e22e">size</span> <span style="color:#66d9ef">int</span>) { <span style="color:#75715e">/* ... */</span> }
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Benchmark10</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>)         { <span style="color:#a6e22e">benchmark</span>(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">10</span>) }
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Benchmark100</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>)        { <span style="color:#a6e22e">benchmark</span>(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">100</span>) }
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Benchmark1000</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>)       { <span style="color:#a6e22e">benchmark</span>(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">1000</span>) }
-</span></span></code></pre></div><p>通过函数参数来指定输入的大小，但是参数变量对于每个具体的基准测试都是固定的。要避免直接修改b.N来控制输入的大小。除非你将它作为一个固定大小的迭代计算输入，否则基准测试的结果将毫无意义。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">benchmark</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>, <span style="color:#a6e22e">size</span> <span style="color:#66d9ef">int</span>) { <span style="color:#75715e">/* ... */</span> }
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Benchmark10</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>)         { <span style="color:#a6e22e">benchmark</span>(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">10</span>) }
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Benchmark100</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>)        { <span style="color:#a6e22e">benchmark</span>(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">100</span>) }
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Benchmark1000</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>)       { <span style="color:#a6e22e">benchmark</span>(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">1000</span>) }
+</code></pre></div><p>通过函数参数来指定输入的大小，但是参数变量对于每个具体的基准测试都是固定的。要避免直接修改b.N来控制输入的大小。除非你将它作为一个固定大小的迭代计算输入，否则基准测试的结果将毫无意义。</p>
 <p>比较型的基准测试反映出的模式在程序设计阶段是很有帮助的，但是即使程序完工了也应当保留基准测试代码。因为随着项目的发展，或者是输入的增加，或者是部署到新的操作系统或不同的处理器，我们可以再次用基准测试来帮助我们改进设计。</p>
 <p><strong>练习 11.6:</strong> 为2.6.2节的练习2.4和练习2.5的PopCount函数编写基准测试。看看基于表格算法在不同情况下对提升性能会有多大帮助。</p>
 <p><strong>练习 11.7:</strong> 为<code>*IntSet</code>（§6.5）的Add、UnionWith和其他方法编写基准测试，使用大量随机输入。你可以让这些方法跑多快？选择字的大小对于性能的影响如何？IntSet和基于内建map的实现相比有多快？</p>

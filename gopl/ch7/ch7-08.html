@@ -100,50 +100,50 @@
 	<div class="wrapper">
 		<h2 id="78-error接口">7.8. error接口</h2>
 <p>从本书的开始，我们就已经创建和使用过神秘的预定义error类型，而且没有解释它究竟是什么。实际上它就是interface类型，这个类型有一个返回错误信息的单一方法：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#66d9ef">error</span> <span style="color:#66d9ef">interface</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Error</span>() <span style="color:#66d9ef">string</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>创建一个error最简单的方法就是调用errors.New函数，它会根据传入的错误信息返回一个新的error。整个errors包仅只有4行：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">errors</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> { <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">errorString</span>{<span style="color:#a6e22e">text</span>} }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">errorString</span> <span style="color:#66d9ef">struct</span> { <span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">e</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">errorString</span>) <span style="color:#a6e22e">Error</span>() <span style="color:#66d9ef">string</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">text</span> }
-</span></span></code></pre></div><p>承载errorString的类型是一个结构体而非一个字符串，这是为了保护它表示的错误避免粗心（或有意）的更新。并且因为是指针类型<code>*errorString</code>满足error接口而非errorString类型，所以每个New函数的调用都分配了一个独特的和其他错误不相同的实例。我们也不想要重要的error例如io.EOF和一个刚好有相同错误消息的error比较后相等。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;EOF&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;EOF&#34;</span>)) <span style="color:#75715e">// &#34;false&#34;
-</span></span></span></code></pre></div><p>调用errors.New函数是非常稀少的，因为有一个方便的封装函数fmt.Errorf，它还会处理字符串格式化。我们曾多次在第5章中用到它。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">fmt</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;errors&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Errorf</span>(<span style="color:#a6e22e">format</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">args</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">error</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">Sprintf</span>(<span style="color:#a6e22e">format</span>, <span style="color:#a6e22e">args</span><span style="color:#f92672">...</span>))
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>虽然<code>*errorString</code>可能是最简单的错误类型，但远非只有它一个。例如，syscall包提供了Go语言底层系统调用API。在多个平台上，它定义一个实现error接口的数字类型Errno，并且在Unix平台上，Errno的Error方法会从一个字符串表中查找错误消息，如下面展示的这样：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">syscall</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Errno</span> <span style="color:#66d9ef">uintptr</span> <span style="color:#75715e">// operating system error code
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">errors</span> = [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">string</span>{
-</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">1</span>:   <span style="color:#e6db74">&#34;operation not permitted&#34;</span>,   <span style="color:#75715e">// EPERM
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#ae81ff">2</span>:   <span style="color:#e6db74">&#34;no such file or directory&#34;</span>, <span style="color:#75715e">// ENOENT
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#ae81ff">3</span>:   <span style="color:#e6db74">&#34;no such process&#34;</span>,           <span style="color:#75715e">// ESRCH
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">e</span> <span style="color:#a6e22e">Errno</span>) <span style="color:#a6e22e">Error</span>() <span style="color:#66d9ef">string</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;=</span> int(<span style="color:#a6e22e">e</span>) <span style="color:#f92672">&amp;&amp;</span> int(<span style="color:#a6e22e">e</span>) &lt; len(<span style="color:#a6e22e">errors</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">errors</span>[<span style="color:#a6e22e">e</span>]
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;errno %d&#34;</span>, <span style="color:#a6e22e">e</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>下面的语句创建了一个持有Errno值为2的接口值，表示POSIX ENOENT状况：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span> = <span style="color:#a6e22e">syscall</span>.<span style="color:#a6e22e">Errno</span>(<span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>()) <span style="color:#75715e">// &#34;no such file or directory&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)         <span style="color:#75715e">// &#34;no such file or directory&#34;
-</span></span></span></code></pre></div><p>err的值图形化的呈现在图7.6中。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#66d9ef">error</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Error</span>() <span style="color:#66d9ef">string</span>
+}
+</code></pre></div><p>创建一个error最简单的方法就是调用errors.New函数，它会根据传入的错误信息返回一个新的error。整个errors包仅只有4行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">errors</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> { <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">errorString</span>{<span style="color:#a6e22e">text</span>} }
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">errorString</span> <span style="color:#66d9ef">struct</span> { <span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span> }
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">e</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">errorString</span>) <span style="color:#a6e22e">Error</span>() <span style="color:#66d9ef">string</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">text</span> }
+</code></pre></div><p>承载errorString的类型是一个结构体而非一个字符串，这是为了保护它表示的错误避免粗心（或有意）的更新。并且因为是指针类型<code>*errorString</code>满足error接口而非errorString类型，所以每个New函数的调用都分配了一个独特的和其他错误不相同的实例。我们也不想要重要的error例如io.EOF和一个刚好有相同错误消息的error比较后相等。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;EOF&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;EOF&#34;</span>)) <span style="color:#75715e">// &#34;false&#34;
+</span></code></pre></div><p>调用errors.New函数是非常稀少的，因为有一个方便的封装函数fmt.Errorf，它还会处理字符串格式化。我们曾多次在第5章中用到它。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">fmt</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;errors&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Errorf</span>(<span style="color:#a6e22e">format</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">args</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">error</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">Sprintf</span>(<span style="color:#a6e22e">format</span>, <span style="color:#a6e22e">args</span><span style="color:#f92672">...</span>))
+}
+</code></pre></div><p>虽然<code>*errorString</code>可能是最简单的错误类型，但远非只有它一个。例如，syscall包提供了Go语言底层系统调用API。在多个平台上，它定义一个实现error接口的数字类型Errno，并且在Unix平台上，Errno的Error方法会从一个字符串表中查找错误消息，如下面展示的这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">syscall</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Errno</span> <span style="color:#66d9ef">uintptr</span> <span style="color:#75715e">// operating system error code
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">errors</span> = [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">string</span>{
+	<span style="color:#ae81ff">1</span>:   <span style="color:#e6db74">&#34;operation not permitted&#34;</span>,   <span style="color:#75715e">// EPERM
+</span><span style="color:#75715e"></span>	<span style="color:#ae81ff">2</span>:   <span style="color:#e6db74">&#34;no such file or directory&#34;</span>, <span style="color:#75715e">// ENOENT
+</span><span style="color:#75715e"></span>	<span style="color:#ae81ff">3</span>:   <span style="color:#e6db74">&#34;no such process&#34;</span>,           <span style="color:#75715e">// ESRCH
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">e</span> <span style="color:#a6e22e">Errno</span>) <span style="color:#a6e22e">Error</span>() <span style="color:#66d9ef">string</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;=</span> int(<span style="color:#a6e22e">e</span>) <span style="color:#f92672">&amp;&amp;</span> int(<span style="color:#a6e22e">e</span>) &lt; len(<span style="color:#a6e22e">errors</span>) {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">errors</span>[<span style="color:#a6e22e">e</span>]
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;errno %d&#34;</span>, <span style="color:#a6e22e">e</span>)
+}
+</code></pre></div><p>下面的语句创建了一个持有Errno值为2的接口值，表示POSIX ENOENT状况：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span> = <span style="color:#a6e22e">syscall</span>.<span style="color:#a6e22e">Errno</span>(<span style="color:#ae81ff">2</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>()) <span style="color:#75715e">// &#34;no such file or directory&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)         <span style="color:#75715e">// &#34;no such file or directory&#34;
+</span></code></pre></div><p>err的值图形化的呈现在图7.6中。</p>
 <p><img src="../images/ch7-06.png" alt=""></p>
 <p>Errno是一个系统调用错误的高效表示方式，它通过一个有限的集合进行描述，并且它满足标准的错误接口。我们会在第7.11节了解到其它满足这个接口的类型。</p>
 

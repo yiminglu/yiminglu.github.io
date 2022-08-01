@@ -113,34 +113,34 @@
 <ul>
 <li>
 <p>I need to generate the <strong>Service Worker JavaScript</strong>, <code>sw.js</code>, with all my content and pre-cache the pages into the cache. This way, when service worker is installed, everything has been pre-cached. It will enable the full off-line mode by all the pre-cached files. This is the so-called <strong>install</strong> step of PWA life-circle.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cacheName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;sr-precache-##REVISION##&#39;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PrecacheList</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">##</span><span style="color:#a6e22e">PRECACHE_LIST</span><span style="color:#960050;background-color:#1e0010">##</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;install&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Install&#39;</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">waitUntil</span>(
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">open</span>(<span style="color:#a6e22e">cacheName</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">cache</span>) {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Caching all files.&#39;</span>);
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">cache</span>.<span style="color:#a6e22e">addAll</span>(<span style="color:#a6e22e">PrecacheList</span>);
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] SkipWaiting&#39;</span>);
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">skipWaiting</span>();
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>  );
-</span></span><span style="display:flex;"><span>});
-</span></span></code></pre></div><p>There will be a post-build script to replace <code>##PRECACHE_LIST##</code> with the files in my <code>public</code> folder after I generated my site. The script will also replace <code>##REVISION##</code> with the git sha of <code>origin/master</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cacheName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;sr-precache-##REVISION##&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PrecacheList</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">##</span><span style="color:#a6e22e">PRECACHE_LIST</span><span style="color:#960050;background-color:#1e0010">##</span>;
+
+<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;install&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Install&#39;</span>);
+  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">waitUntil</span>(
+    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">open</span>(<span style="color:#a6e22e">cacheName</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">cache</span>) {
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Caching all files.&#39;</span>);
+      <span style="color:#a6e22e">cache</span>.<span style="color:#a6e22e">addAll</span>(<span style="color:#a6e22e">PrecacheList</span>);
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] SkipWaiting&#39;</span>);
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">skipWaiting</span>();
+    })
+  );
+});
+</code></pre></div><p>There will be a post-build script to replace <code>##PRECACHE_LIST##</code> with the files in my <code>public</code> folder after I generated my site. The script will also replace <code>##REVISION##</code> with the git sha of <code>origin/master</code>.</p>
 <p>Also, as you can see, there is a command <code>self.skipWaiting()</code> to tell SW to skip waiting, meaning the service worker activates as soon as it&rsquo;s finished installing, even for updating.</p>
 </li>
 <li>
 <p>Then, I would want SW to use these pre-cached files for the requests. So I added lines to customize the <strong>fetch</strong> event in <code>sw.js</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">respondWith</span>(
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">match</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">request</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">response</span>) {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">request</span>);
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>  );
-</span></span><span style="display:flex;"><span>});
-</span></span></code></pre></div><p>This is a very basic cache strategy, serving from cache and then network, a.k.a, <strong>cache-first</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
+  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">respondWith</span>(
+    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">match</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">request</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">response</span>) {
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">request</span>);
+    })
+  );
+});
+</code></pre></div><p>This is a very basic cache strategy, serving from cache and then network, a.k.a, <strong>cache-first</strong>.</p>
 </li>
 <li>
 <p>After the steps above, the web app now works when offline. However, there are still issues.</p>
@@ -149,33 +149,33 @@
 <li>SW will wait for all the tabs to close so that the new <code>sw.js</code> could apply to the tabs.</li>
 </ul>
 <p>So, I need to update the <strong>activate</strong> step so that I can fix these issues.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;activate&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Activate&#39;</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">waitUntil</span>(
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">keys</span>().<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">keyList</span>) {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">keyList</span>.<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">key</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">key</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">cacheName</span>) {
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Removing old cache&#39;</span>, <span style="color:#a6e22e">key</span>);
-</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">caches</span>.<span style="color:#66d9ef">delete</span>(<span style="color:#a6e22e">key</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>      }));
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>  );
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">clients</span>.<span style="color:#a6e22e">claim</span>();
-</span></span><span style="display:flex;"><span>});
-</span></span></code></pre></div><p>Since every update will change the git sha, I will get a unique new sha whenever there is an update. Then I just need to delete caches which is not the latest one.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;activate&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Activate&#39;</span>);
+  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">waitUntil</span>(
+    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">keys</span>().<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">keyList</span>) {
+      <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">keyList</span>.<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">key</span>) {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">key</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">cacheName</span>) {
+          <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[SW] Removing old cache&#39;</span>, <span style="color:#a6e22e">key</span>);
+          <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">caches</span>.<span style="color:#66d9ef">delete</span>(<span style="color:#a6e22e">key</span>);
+        }
+      }));
+    })
+  );
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">clients</span>.<span style="color:#a6e22e">claim</span>();
+});
+</code></pre></div><p>Since every update will change the git sha, I will get a unique new sha whenever there is an update. Then I just need to delete caches which is not the latest one.</p>
 <p>Also, with <code>self.clients.claim()</code>, I can take control of uncontrolled clients/tabs within my service worker once it&rsquo;s activated.</p>
 </li>
 </ul>
 <p>With all these steps above, the basic <code>sw.js</code> is initialized.</p>
 <h3 id="lets-register-the-service-worker-javascript">Let&rsquo;s Register The Service Worker JavaScript</h3>
 <p>It&rsquo;s easy to do this. Just test the browser to see if it supports SW, and register if so.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#e6db74">&#39;serviceWorker&#39;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">navigator</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">serviceWorker</span>.<span style="color:#a6e22e">register</span>(<span style="color:#e6db74">&#39;/sw.js&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Service Worker Registered&#39;</span>);
-</span></span><span style="display:flex;"><span>  });
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="create-the-web-app-manifest">Create The Web App Manifest</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">if</span> (<span style="color:#e6db74">&#39;serviceWorker&#39;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">navigator</span>) {
+  <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">serviceWorker</span>.<span style="color:#a6e22e">register</span>(<span style="color:#e6db74">&#39;/sw.js&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(){
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Service Worker Registered&#39;</span>);
+  });
+}
+</code></pre></div><h3 id="create-the-web-app-manifest">Create The Web App Manifest</h3>
 <p>The <a href="https://developers.google.com/web/fundamentals/web-app-manifest/">web app manifest</a> is a simple JSON file that tells the browser about your web application and how it should behave when &lsquo;installed&rsquo; on the user&rsquo;s mobile device or desktop. Having a manifest is required by Chrome to show the <strong>Add to Home Screen</strong> prompt.</p>
 <ul>
 <li>Add <code>name</code> &amp; <code>short_name</code>
@@ -205,8 +205,8 @@
 </li>
 </ul>
 <p>Now, let&rsquo;s register this configuration file in the <code>&lt;head&gt;</code> tag of all the pages.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;manifest&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/manifest.json&#34;</span>&gt;
-</span></span></code></pre></div><h3 id="it-is-not-enough-yet">It is NOT Enough, Yet</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;manifest&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/manifest.json&#34;</span>&gt;
+</code></pre></div><h3 id="it-is-not-enough-yet">It is NOT Enough, Yet</h3>
 <ul>
 <li>
 <p>For iOS</p>
@@ -252,7 +252,7 @@
   <div class="post-comments">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    window.disqus_config = function () {
+    var disqus_config = function () {
     
     
     
