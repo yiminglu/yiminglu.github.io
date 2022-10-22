@@ -108,24 +108,24 @@
 <p>Download the Stock Firmware you want (FTF-File, aka Firmware.ftf).</p>
 <h2 id="step-2">Step 2</h2>
 <p>Rename the <code>Firmware.ftf</code> to <code>Firmware.zip</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mv Firmware.ftf Firmware.zip
-</code></pre></div><h2 id="step-3">Step 3</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ mv Firmware.ftf Firmware.zip
+</span></span></code></pre></div><h2 id="step-3">Step 3</h2>
 <p>Extract the <code>system.zip</code> to <code>SomeFolder</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">unzip system.zip -d SomeFolder
-</code></pre></div><h2 id="step-4">Step 4</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>unzip system.zip -d SomeFolder
+</span></span></code></pre></div><h2 id="step-4">Step 4</h2>
 <p>Open Flashtool go to &ldquo;Tools&rdquo; -&gt; &ldquo;Sin Editor&rdquo; -&gt; Choose the extracted system.sin and push &ldquo;extract&rdquo; Data and get a <code>system.ext4</code> file.</p>
 <h2 id="step-5">Step 5</h2>
 <p>Mount <code>system.ext4</code> (With Fuse-Ext2, <a href="http://omaimac.blogspot.com/2012/10/how-to-mount-ext4-linux-partition-on-mac.html">TUTORIAL</a>) and put the files inside into a folder named <code>system</code>.</p>
 <h2 id="step-6">Step 6</h2>
 <p>Download the <a href="/post/2015/ftf-to-zip/META-INF.zip">META-INF File</a> and extract it to <code>META-INF</code> folder.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">unzip META-INF.zip
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>unzip META-INF.zip
+</span></span></code></pre></div><blockquote>
 <p>Now we can even use a GUI tool, named <a href="http://forum.xda-developers.com/showthread.php?p=28706056#post28706056">Aroma</a>, to do some multi-selections and radio-buttons.</p>
 </blockquote>
 <h2 id="step-7">Step 7</h2>
 <p>Now we have your two folders: <code>system</code> and <code>META-INF</code>. Just ZIP them!</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ zip -roZ store Firmware.zip system META-INF
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ zip -roZ store Firmware.zip system META-INF
+</span></span></code></pre></div><ul>
 <li><code>-r</code> or <code>--recurse-paths</code>
 Travel the directory structure recursively</li>
 <li><code>-o</code> or <code>--latest-time</code>
@@ -136,13 +136,13 @@ Set the default compression method.  Currently the main methods supported by zip
 </ul>
 <h2 id="step-8">Step 8</h2>
 <p>Push the zip File to SD-Card and flash it with recovery.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">adb push Firmware.zip /sdcard/Firmware.zip
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>adb push Firmware.zip /sdcard/Firmware.zip
+</span></span></code></pre></div>
   </article>
   <div class="post-comments">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

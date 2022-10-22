@@ -100,65 +100,65 @@
 	<div class="wrapper">
 		<h2 id="64-方法值和方法表达式">6.4. 方法值和方法表达式</h2>
 <p>我们经常选择一个方法，并且在同一个表达式里执行，比如常见的p.Distance()形式，实际上将其分成两步来执行也是可能的。p.Distance叫作“选择器”，选择器会返回一个方法“值”-&gt;一个将方法（Point.Distance）绑定到特定接收器变量的函数。这个函数可以不通过指定其接收器即可被调用；即调用时不需要指定接收器（译注：因为已经在前文中指定过了），只要传入函数的参数即可：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}
-<span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>}
-
-<span style="color:#a6e22e">distanceFromP</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Distance</span>        <span style="color:#75715e">// method value
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">distanceFromP</span>(<span style="color:#a6e22e">q</span>))      <span style="color:#75715e">// &#34;5&#34;
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">origin</span> <span style="color:#a6e22e">Point</span>                   <span style="color:#75715e">// {0, 0}
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">distanceFromP</span>(<span style="color:#a6e22e">origin</span>)) <span style="color:#75715e">// &#34;2.23606797749979&#34;, sqrt(5)
-</span><span style="color:#75715e"></span>
-<span style="color:#a6e22e">scaleP</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">ScaleBy</span> <span style="color:#75715e">// method value
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">scaleP</span>(<span style="color:#ae81ff">2</span>)           <span style="color:#75715e">// p becomes (2, 4)
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">scaleP</span>(<span style="color:#ae81ff">3</span>)           <span style="color:#75715e">//      then (6, 12)
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">scaleP</span>(<span style="color:#ae81ff">10</span>)          <span style="color:#75715e">//      then (60, 120)
-</span></code></pre></div><p>在一个包的API需要一个函数值、且调用方希望操作的是某一个绑定了对象的方法的话，方法“值”会非常实用（``=_=`真是绕）。举例来说，下面例子中的time.AfterFunc这个函数的功能是在指定的延迟时间之后来执行一个（译注：另外的）函数。且这个函数操作的是一个Rocket对象r</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Rocket</span> <span style="color:#66d9ef">struct</span> { <span style="color:#75715e">/* ... */</span> }
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Rocket</span>) <span style="color:#a6e22e">Launch</span>() { <span style="color:#75715e">/* ... */</span> }
-<span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">Rocket</span>)
-<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">AfterFunc</span>(<span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>, <span style="color:#66d9ef">func</span>() { <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Launch</span>() })
-</code></pre></div><p>直接用方法“值”传入AfterFunc的话可以更为简短：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">AfterFunc</span>(<span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Launch</span>)
-</code></pre></div><p>译注：省掉了上面那个例子里的匿名函数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">distanceFromP</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Distance</span>        <span style="color:#75715e">// method value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">distanceFromP</span>(<span style="color:#a6e22e">q</span>))      <span style="color:#75715e">// &#34;5&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">origin</span> <span style="color:#a6e22e">Point</span>                   <span style="color:#75715e">// {0, 0}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">distanceFromP</span>(<span style="color:#a6e22e">origin</span>)) <span style="color:#75715e">// &#34;2.23606797749979&#34;, sqrt(5)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">scaleP</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">ScaleBy</span> <span style="color:#75715e">// method value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">scaleP</span>(<span style="color:#ae81ff">2</span>)           <span style="color:#75715e">// p becomes (2, 4)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">scaleP</span>(<span style="color:#ae81ff">3</span>)           <span style="color:#75715e">//      then (6, 12)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">scaleP</span>(<span style="color:#ae81ff">10</span>)          <span style="color:#75715e">//      then (60, 120)
+</span></span></span></code></pre></div><p>在一个包的API需要一个函数值、且调用方希望操作的是某一个绑定了对象的方法的话，方法“值”会非常实用（``=_=`真是绕）。举例来说，下面例子中的time.AfterFunc这个函数的功能是在指定的延迟时间之后来执行一个（译注：另外的）函数。且这个函数操作的是一个Rocket对象r</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Rocket</span> <span style="color:#66d9ef">struct</span> { <span style="color:#75715e">/* ... */</span> }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Rocket</span>) <span style="color:#a6e22e">Launch</span>() { <span style="color:#75715e">/* ... */</span> }
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">Rocket</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">AfterFunc</span>(<span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>, <span style="color:#66d9ef">func</span>() { <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Launch</span>() })
+</span></span></code></pre></div><p>直接用方法“值”传入AfterFunc的话可以更为简短：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">AfterFunc</span>(<span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Launch</span>)
+</span></span></code></pre></div><p>译注：省掉了上面那个例子里的匿名函数。</p>
 <p>和方法“值”相关的还有方法表达式。当调用一个方法时，与调用一个普通的函数相比，我们必须要用选择器（p.Distance）语法来指定方法的接收器。</p>
 <p>当T是一个类型时，方法表达式可能会写作<code>T.f</code>或者<code>(*T).f</code>，会返回一个函数“值”，这种函数会将其第一个参数用作接收器，所以可以用通常（译注：不写选择器）的方式来对其进行调用：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}
-<span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>}
-
-<span style="color:#a6e22e">distance</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>.<span style="color:#a6e22e">Distance</span>   <span style="color:#75715e">// method expression
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">distance</span>(<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">q</span>))  <span style="color:#75715e">// &#34;5&#34;
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%T\n&#34;</span>, <span style="color:#a6e22e">distance</span>) <span style="color:#75715e">// &#34;func(Point, Point) float64&#34;
-</span><span style="color:#75715e"></span>
-<span style="color:#a6e22e">scale</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">Point</span>).<span style="color:#a6e22e">ScaleBy</span>
-<span style="color:#a6e22e">scale</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">p</span>, <span style="color:#ae81ff">2</span>)
-<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>)            <span style="color:#75715e">// &#34;{2 4}&#34;
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%T\n&#34;</span>, <span style="color:#a6e22e">scale</span>) <span style="color:#75715e">// &#34;func(*Point, float64)&#34;
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">// 译注：这个Distance实际上是指定了Point对象为接收器的一个方法func (p Point) Distance()，
-</span><span style="color:#75715e">// 但通过Point.Distance得到的函数需要比实际的Distance方法多一个参数，
-</span><span style="color:#75715e">// 即其需要用第一个额外参数指定接收器，后面排列Distance方法的参数。
-</span><span style="color:#75715e">// 看起来本书中函数和方法的区别是指有没有接收器，而不像其他语言那样是指有没有返回值。
-</span></code></pre></div><p>当你根据一个变量来决定调用同一个类型的哪个函数时，方法表达式就显得很有用了。你可以根据选择来调用接收器各不相同的方法。下面的例子，变量op代表Point类型的addition或者subtraction方法，Path.TranslateBy方法会为其Path数组中的每一个Point来调用对应的方法：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Point</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">Y</span> <span style="color:#66d9ef">float64</span> }
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">q</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Point</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Point</span>{<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">X</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Y</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Y</span>} }
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">q</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Point</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Point</span>{<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">X</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Y</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Y</span>} }
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Path</span> []<span style="color:#a6e22e">Point</span>
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">path</span> <span style="color:#a6e22e">Path</span>) <span style="color:#a6e22e">TranslateBy</span>(<span style="color:#a6e22e">offset</span> <span style="color:#a6e22e">Point</span>, <span style="color:#a6e22e">add</span> <span style="color:#66d9ef">bool</span>) {
-	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">op</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">q</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Point</span>
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">add</span> {
-		<span style="color:#a6e22e">op</span> = <span style="color:#a6e22e">Point</span>.<span style="color:#a6e22e">Add</span>
-	} <span style="color:#66d9ef">else</span> {
-		<span style="color:#a6e22e">op</span> = <span style="color:#a6e22e">Point</span>.<span style="color:#a6e22e">Sub</span>
-	}
-	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">path</span> {
-		<span style="color:#75715e">// Call either path[i].Add(offset) or path[i].Sub(offset).
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">path</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">op</span>(<span style="color:#a6e22e">path</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">offset</span>)
-	}
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">distance</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>.<span style="color:#a6e22e">Distance</span>   <span style="color:#75715e">// method expression
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">distance</span>(<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">q</span>))  <span style="color:#75715e">// &#34;5&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%T\n&#34;</span>, <span style="color:#a6e22e">distance</span>) <span style="color:#75715e">// &#34;func(Point, Point) float64&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">scale</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">Point</span>).<span style="color:#a6e22e">ScaleBy</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">scale</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">p</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>)            <span style="color:#75715e">// &#34;{2 4}&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%T\n&#34;</span>, <span style="color:#a6e22e">scale</span>) <span style="color:#75715e">// &#34;func(*Point, float64)&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 译注：这个Distance实际上是指定了Point对象为接收器的一个方法func (p Point) Distance()，
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 但通过Point.Distance得到的函数需要比实际的Distance方法多一个参数，
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 即其需要用第一个额外参数指定接收器，后面排列Distance方法的参数。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 看起来本书中函数和方法的区别是指有没有接收器，而不像其他语言那样是指有没有返回值。
+</span></span></span></code></pre></div><p>当你根据一个变量来决定调用同一个类型的哪个函数时，方法表达式就显得很有用了。你可以根据选择来调用接收器各不相同的方法。下面的例子，变量op代表Point类型的addition或者subtraction方法，Path.TranslateBy方法会为其Path数组中的每一个Point来调用对应的方法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Point</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">Y</span> <span style="color:#66d9ef">float64</span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">q</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Point</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Point</span>{<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">X</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Y</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Y</span>} }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">q</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Point</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Point</span>{<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">X</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Y</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Y</span>} }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Path</span> []<span style="color:#a6e22e">Point</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">path</span> <span style="color:#a6e22e">Path</span>) <span style="color:#a6e22e">TranslateBy</span>(<span style="color:#a6e22e">offset</span> <span style="color:#a6e22e">Point</span>, <span style="color:#a6e22e">add</span> <span style="color:#66d9ef">bool</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">op</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">q</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Point</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">add</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">op</span> = <span style="color:#a6e22e">Point</span>.<span style="color:#a6e22e">Add</span>
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">op</span> = <span style="color:#a6e22e">Point</span>.<span style="color:#a6e22e">Sub</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">path</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// Call either path[i].Add(offset) or path[i].Sub(offset).
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">path</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">op</span>(<span style="color:#a6e22e">path</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">offset</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
 	</div>
 </div>
 

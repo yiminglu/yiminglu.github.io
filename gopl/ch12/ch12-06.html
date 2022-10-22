@@ -100,130 +100,130 @@
 	<div class="wrapper">
 		<h2 id="126-示例-解码s表达式">12.6. 示例: 解码S表达式</h2>
 <p>标准库中encoding/&hellip;下每个包中提供的Marshal编码函数都有一个对应的Unmarshal函数用于解码。例如，我们在4.5节中看到的，要将包含JSON编码格式的字节slice数据解码为我们自己的Movie类型（§12.3），我们可以这样做：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">byte</span>{<span style="color:#75715e">/* ... */</span>}
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">movie</span> <span style="color:#a6e22e">Movie</span>
-<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Unmarshal</span>(<span style="color:#a6e22e">data</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">movie</span>)
-</code></pre></div><p>Unmarshal函数使用了反射机制类修改movie变量的每个成员，根据输入的内容为Movie成员创建对应的map、结构体和slice。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">byte</span>{<span style="color:#75715e">/* ... */</span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">movie</span> <span style="color:#a6e22e">Movie</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Unmarshal</span>(<span style="color:#a6e22e">data</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">movie</span>)
+</span></span></code></pre></div><p>Unmarshal函数使用了反射机制类修改movie变量的每个成员，根据输入的内容为Movie成员创建对应的map、结构体和slice。</p>
 <p>现在让我们为S表达式编码实现一个简易的Unmarshal，类似于前面的json.Unmarshal标准库函数，对应我们之前实现的sexpr.Marshal函数的逆操作。我们必须提醒一下，一个健壮的和通用的实现通常需要比例子更多的代码，为了便于演示我们采用了精简的实现。我们只支持S表达式有限的子集，同时处理错误的方式也比较粗暴，代码的目的是为了演示反射的用法，而不是构造一个实用的S表达式的解码器。</p>
 <p>词法分析器lexer使用了标准库中的text/scanner包将输入流的字节数据解析为一个个类似注释、标识符、字符串面值和数字面值之类的标记。输入扫描器scanner的Scan方法将提前扫描和返回下一个记号，对于rune类型。大多数记号，比如“(”，对应一个单一rune可表示的Unicode字符，但是text/scanner也可以用小的负数表示记号标识符、字符串等由多个字符组成的记号。调用Scan方法将返回这些记号的类型，接着调用TokenText方法将返回记号对应的文本内容。</p>
 <p>因为每个解析器可能需要多次使用当前的记号，但是Scan会一直向前扫描，所以我们包装了一个lexer扫描器辅助类型，用于跟踪最近由Scan方法返回的记号。</p>
 <p><u><i>gopl.io/ch12/sexpr</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">lexer</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">scan</span>  <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Scanner</span>
-	<span style="color:#a6e22e">token</span> <span style="color:#66d9ef">rune</span> <span style="color:#75715e">// the current token
-</span><span style="color:#75715e"></span>}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">lex</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">lexer</span>) <span style="color:#a6e22e">next</span>()        { <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">token</span> = <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">scan</span>.<span style="color:#a6e22e">Scan</span>() }
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">lex</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">lexer</span>) <span style="color:#a6e22e">text</span>() <span style="color:#66d9ef">string</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">scan</span>.<span style="color:#a6e22e">TokenText</span>() }
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">lex</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">lexer</span>) <span style="color:#a6e22e">consume</span>(<span style="color:#a6e22e">want</span> <span style="color:#66d9ef">rune</span>) {
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">token</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">want</span> { <span style="color:#75715e">// NOTE: Not an example of good error handling.
-</span><span style="color:#75715e"></span>		panic(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;got %q, want %q&#34;</span>, <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">text</span>(), <span style="color:#a6e22e">want</span>))
-	}
-	<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>()
-}
-</code></pre></div><p>现在让我们转到语法解析器。它主要包含两个功能。第一个是read函数，用于读取S表达式的当前标记，然后根据S表达式的当前标记更新可取地址的reflect.Value对应的变量v。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">lex</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">lexer</span>, <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>) {
-	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">token</span> {
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Ident</span>:
-		<span style="color:#75715e">// The only valid identifiers are
-</span><span style="color:#75715e"></span>		<span style="color:#75715e">// &#34;nil&#34; and struct field names.
-</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">text</span>() <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;nil&#34;</span> {
-			<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Zero</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>()))
-			<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>()
-			<span style="color:#66d9ef">return</span>
-		}
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">String</span>:
-		<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Unquote</span>(<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">text</span>()) <span style="color:#75715e">// NOTE: ignoring errors
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">SetString</span>(<span style="color:#a6e22e">s</span>)
-		<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>()
-		<span style="color:#66d9ef">return</span>
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Int</span>:
-		<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">text</span>()) <span style="color:#75715e">// NOTE: ignoring errors
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">SetInt</span>(int64(<span style="color:#a6e22e">i</span>))
-		<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>()
-		<span style="color:#66d9ef">return</span>
-	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;(&#39;</span>:
-		<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>()
-		<span style="color:#a6e22e">readList</span>(<span style="color:#a6e22e">lex</span>, <span style="color:#a6e22e">v</span>)
-		<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>() <span style="color:#75715e">// consume &#39;)&#39;
-</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">return</span>
-	}
-	panic(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;unexpected token %q&#34;</span>, <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">text</span>()))
-}
-</code></pre></div><p>我们的S表达式使用标识符区分两个不同类型，结构体成员名和nil值的指针。read函数值处理nil类型的标识符。当遇到scanner.Ident为“nil”是，使用reflect.Zero函数将变量v设置为零值。而其它任何类型的标识符，我们都作为错误处理。后面的readList函数将处理结构体的成员名。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">lexer</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">scan</span>  <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Scanner</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">token</span> <span style="color:#66d9ef">rune</span> <span style="color:#75715e">// the current token
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">lex</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">lexer</span>) <span style="color:#a6e22e">next</span>()        { <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">token</span> = <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">scan</span>.<span style="color:#a6e22e">Scan</span>() }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">lex</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">lexer</span>) <span style="color:#a6e22e">text</span>() <span style="color:#66d9ef">string</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">scan</span>.<span style="color:#a6e22e">TokenText</span>() }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">lex</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">lexer</span>) <span style="color:#a6e22e">consume</span>(<span style="color:#a6e22e">want</span> <span style="color:#66d9ef">rune</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">token</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">want</span> { <span style="color:#75715e">// NOTE: Not an example of good error handling.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		panic(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;got %q, want %q&#34;</span>, <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">text</span>(), <span style="color:#a6e22e">want</span>))
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>现在让我们转到语法解析器。它主要包含两个功能。第一个是read函数，用于读取S表达式的当前标记，然后根据S表达式的当前标记更新可取地址的reflect.Value对应的变量v。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">lex</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">lexer</span>, <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">token</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Ident</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// The only valid identifiers are
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">// &#34;nil&#34; and struct field names.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">text</span>() <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;nil&#34;</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Zero</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>()))
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>()
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">String</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Unquote</span>(<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">text</span>()) <span style="color:#75715e">// NOTE: ignoring errors
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">SetString</span>(<span style="color:#a6e22e">s</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Int</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">text</span>()) <span style="color:#75715e">// NOTE: ignoring errors
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">SetInt</span>(int64(<span style="color:#a6e22e">i</span>))
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;(&#39;</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">readList</span>(<span style="color:#a6e22e">lex</span>, <span style="color:#a6e22e">v</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>() <span style="color:#75715e">// consume &#39;)&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	panic(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;unexpected token %q&#34;</span>, <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">text</span>()))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>我们的S表达式使用标识符区分两个不同类型，结构体成员名和nil值的指针。read函数值处理nil类型的标识符。当遇到scanner.Ident为“nil”是，使用reflect.Zero函数将变量v设置为零值。而其它任何类型的标识符，我们都作为错误处理。后面的readList函数将处理结构体的成员名。</p>
 <p>一个“(”标记对应一个列表的开始。第二个函数readList，将一个列表解码到一个聚合类型中（map、结构体、slice或数组），具体类型依然于传入待填充变量的类型。每次遇到这种情况，循环继续解析每个元素直到遇到于开始标记匹配的结束标记“)”，endList函数用于检测结束标记。</p>
 <p>最有趣的部分是递归。最简单的是对数组类型的处理。直到遇到“)”结束标记，我们使用Index函数来获取数组每个元素的地址，然后递归调用read函数处理。和其它错误类似，如果输入数据导致解码器的引用超出了数组的范围，解码器将抛出panic异常。slice也采用类似方法解析，不同的是我们将为每个元素创建新的变量，然后将元素添加到slice的末尾。</p>
 <p>在循环处理结构体和map每个元素时必须解码一个(key value)格式的对应子列表。对于结构体，key部分对于成员的名字。和数组类似，我们使用FieldByName找到结构体对应成员的变量，然后递归调用read函数处理。对于map，key可能是任意类型，对元素的处理方式和slice类似，我们创建一个新的变量，然后递归填充它，最后将新解析到的key/value对添加到map。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">readList</span>(<span style="color:#a6e22e">lex</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">lexer</span>, <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>) {
-	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Kind</span>() {
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Array</span>: <span style="color:#75715e">// (item ...)
-</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; !<span style="color:#a6e22e">endList</span>(<span style="color:#a6e22e">lex</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-			<span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">lex</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Index</span>(<span style="color:#a6e22e">i</span>))
-		}
-
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Slice</span>: <span style="color:#75715e">// (item ...)
-</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">for</span> !<span style="color:#a6e22e">endList</span>(<span style="color:#a6e22e">lex</span>) {
-			<span style="color:#a6e22e">item</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>().<span style="color:#a6e22e">Elem</span>()).<span style="color:#a6e22e">Elem</span>()
-			<span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">lex</span>, <span style="color:#a6e22e">item</span>)
-			<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Append</span>(<span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">item</span>))
-		}
-
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Struct</span>: <span style="color:#75715e">// ((name value) ...)
-</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">for</span> !<span style="color:#a6e22e">endList</span>(<span style="color:#a6e22e">lex</span>) {
-			<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">consume</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
-			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">token</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Ident</span> {
-				panic(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;got token %q, want field name&#34;</span>, <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">text</span>()))
-			}
-			<span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">text</span>()
-			<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>()
-			<span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">lex</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">FieldByName</span>(<span style="color:#a6e22e">name</span>))
-			<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">consume</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
-		}
-
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Map</span>: <span style="color:#75715e">// ((key value) ...)
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">MakeMap</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>()))
-		<span style="color:#66d9ef">for</span> !<span style="color:#a6e22e">endList</span>(<span style="color:#a6e22e">lex</span>) {
-			<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">consume</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
-			<span style="color:#a6e22e">key</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>().<span style="color:#a6e22e">Key</span>()).<span style="color:#a6e22e">Elem</span>()
-			<span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">lex</span>, <span style="color:#a6e22e">key</span>)
-			<span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>().<span style="color:#a6e22e">Elem</span>()).<span style="color:#a6e22e">Elem</span>()
-			<span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">lex</span>, <span style="color:#a6e22e">value</span>)
-			<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">SetMapIndex</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>)
-			<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">consume</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
-		}
-
-	<span style="color:#66d9ef">default</span>:
-		panic(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;cannot decode list into %v&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>()))
-	}
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">endList</span>(<span style="color:#a6e22e">lex</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">lexer</span>) <span style="color:#66d9ef">bool</span> {
-	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">token</span> {
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">EOF</span>:
-		panic(<span style="color:#e6db74">&#34;end of file&#34;</span>)
-	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;)&#39;</span>:
-		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
-	}
-	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
-}
-</code></pre></div><p>最后，我们将解析器包装为导出的Unmarshal解码函数，隐藏了一些初始化和清理等边缘处理。内部解析器以panic的方式抛出错误，但是Unmarshal函数通过在defer语句调用recover函数来捕获内部panic（§5.10），然后返回一个对panic对应的错误信息。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// Unmarshal parses S-expression data and populates the variable
-</span><span style="color:#75715e">// whose address is in the non-nil pointer out.
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Unmarshal</span>(<span style="color:#a6e22e">data</span> []<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">out</span> <span style="color:#66d9ef">interface</span>{}) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
-	<span style="color:#a6e22e">lex</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">lexer</span>{<span style="color:#a6e22e">scan</span>: <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Scanner</span>{<span style="color:#a6e22e">Mode</span>: <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">GoTokens</span>}}
-	<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">scan</span>.<span style="color:#a6e22e">Init</span>(<span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">NewReader</span>(<span style="color:#a6e22e">data</span>))
-	<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>() <span style="color:#75715e">// get the first token
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
-		<span style="color:#75715e">// NOTE: this is not an example of ideal error handling.
-</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> recover(); <span style="color:#a6e22e">x</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-			<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;error at %s: %v&#34;</span>, <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">scan</span>.<span style="color:#a6e22e">Position</span>, <span style="color:#a6e22e">x</span>)
-		}
-	}()
-	<span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">lex</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">out</span>).<span style="color:#a6e22e">Elem</span>())
-	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-}
-</code></pre></div><p>生产实现不应该对任何输入问题都用panic形式报告，而且应该报告一些错误相关的信息，例如出现错误输入的行号和位置等。尽管如此，我们希望通过这个例子来展示类似encoding/json等包底层代码的实现思路，以及如何使用反射机制来填充数据结构。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">readList</span>(<span style="color:#a6e22e">lex</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">lexer</span>, <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Kind</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Array</span>: <span style="color:#75715e">// (item ...)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; !<span style="color:#a6e22e">endList</span>(<span style="color:#a6e22e">lex</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">lex</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Index</span>(<span style="color:#a6e22e">i</span>))
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Slice</span>: <span style="color:#75715e">// (item ...)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">for</span> !<span style="color:#a6e22e">endList</span>(<span style="color:#a6e22e">lex</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">item</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>().<span style="color:#a6e22e">Elem</span>()).<span style="color:#a6e22e">Elem</span>()
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">lex</span>, <span style="color:#a6e22e">item</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Append</span>(<span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">item</span>))
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Struct</span>: <span style="color:#75715e">// ((name value) ...)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">for</span> !<span style="color:#a6e22e">endList</span>(<span style="color:#a6e22e">lex</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">consume</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">token</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Ident</span> {
+</span></span><span style="display:flex;"><span>				panic(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;got token %q, want field name&#34;</span>, <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">text</span>()))
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">text</span>()
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>()
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">lex</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">FieldByName</span>(<span style="color:#a6e22e">name</span>))
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">consume</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Map</span>: <span style="color:#75715e">// ((key value) ...)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">MakeMap</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>()))
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> !<span style="color:#a6e22e">endList</span>(<span style="color:#a6e22e">lex</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">consume</span>(<span style="color:#e6db74">&#39;(&#39;</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">key</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>().<span style="color:#a6e22e">Key</span>()).<span style="color:#a6e22e">Elem</span>()
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">lex</span>, <span style="color:#a6e22e">key</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>().<span style="color:#a6e22e">Elem</span>()).<span style="color:#a6e22e">Elem</span>()
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">lex</span>, <span style="color:#a6e22e">value</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">SetMapIndex</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">consume</span>(<span style="color:#e6db74">&#39;)&#39;</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>		panic(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;cannot decode list into %v&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>()))
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">endList</span>(<span style="color:#a6e22e">lex</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">lexer</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">token</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">EOF</span>:
+</span></span><span style="display:flex;"><span>		panic(<span style="color:#e6db74">&#34;end of file&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;)&#39;</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>最后，我们将解析器包装为导出的Unmarshal解码函数，隐藏了一些初始化和清理等边缘处理。内部解析器以panic的方式抛出错误，但是Unmarshal函数通过在defer语句调用recover函数来捕获内部panic（§5.10），然后返回一个对panic对应的错误信息。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// Unmarshal parses S-expression data and populates the variable
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// whose address is in the non-nil pointer out.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Unmarshal</span>(<span style="color:#a6e22e">data</span> []<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">out</span> <span style="color:#66d9ef">interface</span>{}) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">lex</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">lexer</span>{<span style="color:#a6e22e">scan</span>: <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Scanner</span>{<span style="color:#a6e22e">Mode</span>: <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">GoTokens</span>}}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">scan</span>.<span style="color:#a6e22e">Init</span>(<span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">NewReader</span>(<span style="color:#a6e22e">data</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">next</span>() <span style="color:#75715e">// get the first token
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// NOTE: this is not an example of ideal error handling.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> recover(); <span style="color:#a6e22e">x</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;error at %s: %v&#34;</span>, <span style="color:#a6e22e">lex</span>.<span style="color:#a6e22e">scan</span>.<span style="color:#a6e22e">Position</span>, <span style="color:#a6e22e">x</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">read</span>(<span style="color:#a6e22e">lex</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">out</span>).<span style="color:#a6e22e">Elem</span>())
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>生产实现不应该对任何输入问题都用panic形式报告，而且应该报告一些错误相关的信息，例如出现错误输入的行号和位置等。尽管如此，我们希望通过这个例子来展示类似encoding/json等包底层代码的实现思路，以及如何使用反射机制来填充数据结构。</p>
 <p><strong>练习 12.8：</strong> sexpr.Unmarshal函数和json.Unmarshal一样，都要求在解码前输入完整的字节slice。定义一个和json.Decoder类似的sexpr.Decoder类型，支持从一个io.Reader流解码。修改sexpr.Unmarshal函数，使用这个新的类型实现。</p>
 <p><strong>练习 12.9：</strong> 编写一个基于标记的API用于解码S表达式，参考xml.Decoder（7.14）的风格。你将需要五种类型的标记：Symbol、String、Int、StartList和EndList。</p>
 <p><strong>练习 12.10：</strong> 扩展sexpr.Unmarshal函数，支持布尔型、浮点数和interface类型的解码，使用 <strong>练习 12.3：</strong> 的方案。（提示：要解码接口，你需要将name映射到每个支持类型的reflect.Type。）</p>

@@ -102,61 +102,61 @@
 <p>在函数声明时，在其名字之前放上一个变量，即是一个方法。这个附加的参数会将该函数附加到这种类型上，即相当于为这种类型定义了一个独占的方法。</p>
 <p>下面来写我们第一个方法的例子，这个例子在package geometry下：</p>
 <p><u><i>gopl.io/ch6/geometry</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">geometry</span>
-
-<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;math&#34;</span>
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Point</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">Y</span> <span style="color:#66d9ef">float64</span> }
-
-<span style="color:#75715e">// traditional function
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">q</span> <span style="color:#a6e22e">Point</span>) <span style="color:#66d9ef">float64</span> {
-	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Hypot</span>(<span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">X</span><span style="color:#f92672">-</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Y</span><span style="color:#f92672">-</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Y</span>)
-}
-
-<span style="color:#75715e">// same thing, but as a method of the Point type
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">q</span> <span style="color:#a6e22e">Point</span>) <span style="color:#66d9ef">float64</span> {
-	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Hypot</span>(<span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">X</span><span style="color:#f92672">-</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Y</span><span style="color:#f92672">-</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Y</span>)
-}
-</code></pre></div><p>上面的代码里那个附加的参数p，叫做方法的接收器（receiver），早期的面向对象语言留下的遗产将调用一个方法称为“向一个对象发送消息”。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">geometry</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Point</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">Y</span> <span style="color:#66d9ef">float64</span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// traditional function
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">q</span> <span style="color:#a6e22e">Point</span>) <span style="color:#66d9ef">float64</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Hypot</span>(<span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">X</span><span style="color:#f92672">-</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Y</span><span style="color:#f92672">-</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Y</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// same thing, but as a method of the Point type
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Point</span>) <span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">q</span> <span style="color:#a6e22e">Point</span>) <span style="color:#66d9ef">float64</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Hypot</span>(<span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">X</span><span style="color:#f92672">-</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Y</span><span style="color:#f92672">-</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Y</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面的代码里那个附加的参数p，叫做方法的接收器（receiver），早期的面向对象语言留下的遗产将调用一个方法称为“向一个对象发送消息”。</p>
 <p>在Go语言中，我们并不会像其它语言那样用this或者self作为接收器；我们可以任意的选择接收器的名字。由于接收器的名字经常会被使用到，所以保持其在方法间传递时的一致性和简短性是不错的主意。这里的建议是可以使用其类型的第一个字母，比如这里使用了Point的首字母p。</p>
 <p>在方法调用过程中，接收器参数一般会在方法名之前出现。这和方法声明是一样的，都是接收器参数在方法名字之前。下面是例子：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}
-<span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>}
-<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">q</span>)) <span style="color:#75715e">// &#34;5&#34;, function call
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">q</span>))  <span style="color:#75715e">// &#34;5&#34;, method call
-</span></code></pre></div><p>可以看到，上面的两个函数调用都是Distance，但是却没有发生冲突。第一个Distance的调用实际上用的是包级别的函数geometry.Distance，而第二个则是使用刚刚声明的Point，调用的是Point类下声明的Point.Distance方法。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">q</span>)) <span style="color:#75715e">// &#34;5&#34;, function call
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">q</span>))  <span style="color:#75715e">// &#34;5&#34;, method call
+</span></span></span></code></pre></div><p>可以看到，上面的两个函数调用都是Distance，但是却没有发生冲突。第一个Distance的调用实际上用的是包级别的函数geometry.Distance，而第二个则是使用刚刚声明的Point，调用的是Point类下声明的Point.Distance方法。</p>
 <p>这种p.Distance的表达式叫做选择器，因为他会选择合适的对应p这个对象的Distance方法来执行。选择器也会被用来选择一个struct类型的字段，比如p.X。由于方法和字段都是在同一命名空间，所以如果我们在这里声明一个X方法的话，编译器会报错，因为在调用p.X时会有歧义（译注：这里确实挺奇怪的）。</p>
 <p>因为每种类型都有其方法的命名空间，我们在用Distance这个名字的时候，不同的Distance调用指向了不同类型里的Distance方法。让我们来定义一个Path类型，这个Path代表一个线段的集合，并且也给这个Path定义一个叫Distance的方法。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#75715e">// A Path is a journey connecting the points with straight lines.
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Path</span> []<span style="color:#a6e22e">Point</span>
-<span style="color:#75715e">// Distance returns the distance traveled along the path.
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">path</span> <span style="color:#a6e22e">Path</span>) <span style="color:#a6e22e">Distance</span>() <span style="color:#66d9ef">float64</span> {
-	<span style="color:#a6e22e">sum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0.0</span>
-	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">path</span> {
-		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span> {
-			<span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">path</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">path</span>[<span style="color:#a6e22e">i</span>])
-		}
-	}
-	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sum</span>
-}
-</code></pre></div><p>Path是一个命名的slice类型，而不是Point那样的struct类型，然而我们依然可以为它定义方法。在能够给任意类型定义方法这一点上，Go和很多其它的面向对象的语言不太一样。因此在Go语言里，我们为一些简单的数值、字符串、slice、map来定义一些附加行为很方便。我们可以给同一个包内的任意命名类型定义方法，只要这个命名类型的底层类型（译注：这个例子里，底层类型是指[]Point这个slice，Path就是命名类型）不是指针或者interface。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// A Path is a journey connecting the points with straight lines.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Path</span> []<span style="color:#a6e22e">Point</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Distance returns the distance traveled along the path.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">path</span> <span style="color:#a6e22e">Path</span>) <span style="color:#a6e22e">Distance</span>() <span style="color:#66d9ef">float64</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">sum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">path</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">path</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">Distance</span>(<span style="color:#a6e22e">path</span>[<span style="color:#a6e22e">i</span>])
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sum</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Path是一个命名的slice类型，而不是Point那样的struct类型，然而我们依然可以为它定义方法。在能够给任意类型定义方法这一点上，Go和很多其它的面向对象的语言不太一样。因此在Go语言里，我们为一些简单的数值、字符串、slice、map来定义一些附加行为很方便。我们可以给同一个包内的任意命名类型定义方法，只要这个命名类型的底层类型（译注：这个例子里，底层类型是指[]Point这个slice，Path就是命名类型）不是指针或者interface。</p>
 <p>两个Distance方法有不同的类型。他们两个方法之间没有任何关系，尽管Path的Distance方法会在内部调用Point.Distance方法来计算每个连接邻接点的线段的长度。</p>
 <p>让我们来调用一个新方法，计算三角形的周长：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#a6e22e">perim</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Path</span>{
-	{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>},
-	{<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">1</span>},
-	{<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>},
-	{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>},
-}
-<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">perim</span>.<span style="color:#a6e22e">Distance</span>()) <span style="color:#75715e">// &#34;12&#34;
-</span></code></pre></div><p>在上面两个对Distance名字的方法的调用中，编译器会根据方法的名字以及接收器来决定具体调用的是哪一个函数。第一个例子中path[i-1]数组中的类型是Point，因此Point.Distance这个方法被调用；在第二个例子中perim的类型是Path，因此Distance调用的是Path.Distance。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">perim</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Path</span>{
+</span></span><span style="display:flex;"><span>	{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>},
+</span></span><span style="display:flex;"><span>	{<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">1</span>},
+</span></span><span style="display:flex;"><span>	{<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>},
+</span></span><span style="display:flex;"><span>	{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>},
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">perim</span>.<span style="color:#a6e22e">Distance</span>()) <span style="color:#75715e">// &#34;12&#34;
+</span></span></span></code></pre></div><p>在上面两个对Distance名字的方法的调用中，编译器会根据方法的名字以及接收器来决定具体调用的是哪一个函数。第一个例子中path[i-1]数组中的类型是Point，因此Point.Distance这个方法被调用；在第二个例子中perim的类型是Path，因此Distance调用的是Path.Distance。</p>
 <p>对于一个给定的类型，其内部的方法都必须有唯一的方法名，但是不同的类型却可以有同样的方法名，比如我们这里Point和Path就都有Distance这个名字的方法；所以我们没有必要非在方法名之前加类型名来消除歧义，比如PathDistance。这里我们已经看到了方法比之函数的一些好处：方法名可以简短。当我们在包外调用的时候这种好处就会被放大，因为我们可以使用这个短名字，而可以省略掉包的名字，下面是例子：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;gopl.io/ch6/geometry&#34;</span>
-
-<span style="color:#a6e22e">perim</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">geometry</span>.<span style="color:#a6e22e">Path</span>{{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>}, {<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">1</span>}, {<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>}, {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>}}
-<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">geometry</span>.<span style="color:#a6e22e">PathDistance</span>(<span style="color:#a6e22e">perim</span>)) <span style="color:#75715e">// &#34;12&#34;, standalone function
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">perim</span>.<span style="color:#a6e22e">Distance</span>())             <span style="color:#75715e">// &#34;12&#34;, method of geometry.Path
-</span></code></pre></div><p><strong>译注：</strong> 如果我们要用方法去计算perim的distance，还需要去写全geometry的包名，和其函数名，但是因为Path这个类型定义了一个可以直接用的Distance方法，所以我们可以直接写perim.Distance()。相当于可以少打很多字，作者应该是这个意思。因为在Go里包外调用函数需要带上包名，还是挺麻烦的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;gopl.io/ch6/geometry&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">perim</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">geometry</span>.<span style="color:#a6e22e">Path</span>{{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>}, {<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">1</span>}, {<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>}, {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>}}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">geometry</span>.<span style="color:#a6e22e">PathDistance</span>(<span style="color:#a6e22e">perim</span>)) <span style="color:#75715e">// &#34;12&#34;, standalone function
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">perim</span>.<span style="color:#a6e22e">Distance</span>())             <span style="color:#75715e">// &#34;12&#34;, method of geometry.Path
+</span></span></span></code></pre></div><p><strong>译注：</strong> 如果我们要用方法去计算perim的distance，还需要去写全geometry的包名，和其函数名，但是因为Path这个类型定义了一个可以直接用的Distance方法，所以我们可以直接写perim.Distance()。相当于可以少打很多字，作者应该是这个意思。因为在Go里包外调用函数需要带上包名，还是挺麻烦的。</p>
 
 	</div>
 </div>
