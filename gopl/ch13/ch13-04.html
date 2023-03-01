@@ -137,7 +137,7 @@
 </span></span><span style="display:flex;"><span>	s<span style="color:#f92672">-&gt;</span>avail_in <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>inlen;
 </span></span><span style="display:flex;"><span>	s<span style="color:#f92672">-&gt;</span>next_out <span style="color:#f92672">=</span> out;
 </span></span><span style="display:flex;"><span>	s<span style="color:#f92672">-&gt;</span>avail_out <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>outlen;
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> BZ2_bzCompress(s, action);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> <span style="color:#a6e22e">BZ2_bzCompress</span>(s, action);
 </span></span><span style="display:flex;"><span>	<span style="color:#f92672">*</span>inlen <span style="color:#f92672">-=</span> s<span style="color:#f92672">-&gt;</span>avail_in;
 </span></span><span style="display:flex;"><span>	<span style="color:#f92672">*</span>outlen <span style="color:#f92672">-=</span> s<span style="color:#f92672">-&gt;</span>avail_out;
 </span></span><span style="display:flex;"><span>	s<span style="color:#f92672">-&gt;</span>next_in <span style="color:#f92672">=</span> s<span style="color:#f92672">-&gt;</span>next_out <span style="color:#f92672">=</span> NULL;
