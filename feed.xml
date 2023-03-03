@@ -4,10 +4,42 @@
     <link>https://seasonsroad.com/</link>
     <description>SeasonsRoad is the blog for interesting things happening around.</description>
     
-    <lastBuildDate>Wed, 10 Jun 2020 07:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 03 Mar 2023 15:03:03 +0800</lastBuildDate>
     <generator>Hugo v0.110.0</generator>
     <atom:link href="https://seasonsroad.com/feed.xml" rel="self" type="application/rss+xml" />
       <item>
+        <title>Life&#39;s Hard</title>
+        <link>https://seasonsroad.com/post/2023/lifes-hard.html</link>
+        <pubDate>Fri, 03 Mar 2023 15:03:03 +0800</pubDate>
+        <description><![CDATA[<h1 id="引">引</h1>
+<p>『人生如寄，多忧何为？』</p>
+<h1 id="正文">正文</h1>
+<p>从来都没想到会有这么一天。
+或许，意外都是在最确信的地方发生。
+同样，我们往往在最值得信任的人那里，丢掉了信任。</p>
+<p>回过头来，感觉自己似乎没有任何资格说这样的话。
+从无数的错误中走出来，有些改正了，有些甚至都没有。
+那，凭什么，可以要求别人不能犯错误？</p>
+<p>从自己现在的痛苦中，才理解了别人的痛苦。
+果然，只有真正体验了苦痛的人才能了解它有多痛。</p>
+<p>那，又为什么这么痛？
+是因为第一次吗？我猜是的吧。
+或者，也有可能是自己太笃定了，从未准备过会有这样的冲击。</p>
+<h1 id="忧愁">忧愁</h1>
+<p>人生短暂，我们不过寄宿在这个世上。
+如果，真的是这样，我们又为何如此多的忧愁。</p>
+<h1 id="快乐">快乐</h1>
+<p>『人的行为都是快乐驱使的』
+我曾经很怀疑这句话，因为觉得只有自己是俗人。
+现在，我信了。
+克制和隐忍，都是有尽头的。
+出走，并寻找快乐，才是大家都在做的事情。</p>
+<h1 id="最后">最后</h1>
+<p>想明白了，又似乎没想明白。
+这，又是一个路口。
+可能真的要停下来好好想想了。</p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2023/lifes-hard.html</guid>
+      </item><item>
         <title>Enabling NTFS write on macOS 10.15 Catalina</title>
         <link>https://seasonsroad.com/post/2020/enable-ntfs-mac.html</link>
         <pubDate>Wed, 10 Jun 2020 07:00:00 +0800</pubDate>
@@ -269,21 +301,6 @@
 <p>公司到底算什么？第一家公司又算什么？到底留恋的是什么？可能我在心理上还算年轻吧，一份工作在别人眼中可能只是一个踏脚石，踏过去就是下一个。</p>
 <p>不过，人不也都在成长？就像我之前说的，我也看淡了一些。</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2018/feelings-of-leaving.html</guid>
-      </item><item>
-        <title>Migrate the Blog to HTTPS</title>
-        <link>https://seasonsroad.com/post/2018/migration-to-https.html</link>
-        <pubDate>Wed, 07 Nov 2018 00:00:00 +0800</pubDate>
-        <description><![CDATA[<p>I have this idea for a long time when we migrate <a href="https://www.hulu.com/">hulu.com</a> to https.</p>
-<p>I tried a few other free cert signature solution. None of them works very well. When I saw <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a> a few days ago, I had the same idea. I was firstly attracted by the design of the main site of Let&rsquo;s Encrypt. So, I decided to give it a try.</p>
-<p>With the easy steps of <a href="https://certbot.eff.org/">certbot</a>, I configured my VPS with Nginx on Ubuntu 16.04. It was so easy to use certbot to renew the certificates automatically. With the support of certbot, I could do it once and for all. It&rsquo;s really a good solution.</p>
-<p>And now my site is fully secured.</p>
-<center><p><img src="/post/2018/migration-to-https/cert.png" alt="The Cert" style="width: 485px;"/></p></center>
-<p>All of a sudden, my blog goes https. It now looks really nice. At least, Chrome won&rsquo;t say it&rsquo;s unsecure. 😂</p>
-<center><p><img src="/post/2018/migration-to-https/secure.png" alt="Secure" style="width: 333px;"/></p></center>
-<br />
-<p>P.S.</p>
-<p>I even updated my blog to the same style.</p>]]></description>
-        <guid isPermaLink="true">https://seasonsroad.com/post/2018/migration-to-https.html</guid>
       </item>
   </channel>
 </rss>
