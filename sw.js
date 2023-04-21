@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-e14a243ebdd7a5b091956460e5a692b6e0812e59';
+const cacheName = 'sr-precache-beb1e26cdb91957ef84832832ac5175f2fd0b654';
 
 const PrecacheList = [
   "/",
@@ -22,9 +22,9 @@ const PrecacheList = [
   "imggps/static/images/drop-image.png",
   "imggps/static/js/101.d06ad948.chunk.js",
   "imggps/static/js/129.70bc55ec.chunk.js",
-  "imggps/static/js/267.2ad92c89.chunk.js",
+  "imggps/static/js/267.dcc5ef16.chunk.js",
   "imggps/static/js/27.3da58fbf.chunk.js",
-  "imggps/static/js/main.38df1c93.js",
+  "imggps/static/js/main.9e802327.js",
   "post/2009/luck.html",
   "post/2009/yuanyuan.html",
   "post/2013/git-config.html",
