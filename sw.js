@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-beb1e26cdb91957ef84832832ac5175f2fd0b654';
+const cacheName = 'sr-precache-f31b76e48d7298638fbec181f9e167492d41d19f';
 
 const PrecacheList = [
   "/",
@@ -77,6 +77,9 @@ const PrecacheList = [
   "post/2020/fifth-huluversary/cake.jpg",
   "post/2020/hevcify-camera-videos.html",
   "post/2020/ncee-delayed.html",
+  "post/2023/eighth-huluversary.html",
+  "post/2023/eighth-huluversary/cake.jpg",
+  "post/2023/eighth-huluversary/team.jpg",
   "post/2023/lifes-hard.html",
   "images/logo/daisy.png",
   "images/logo/leaf-1.png",
