@@ -2,3 +2,4 @@ User-agent: *
 Disallow: /billing/
 Disallow: /imggps/
 
+Disallow: post/2023/qing-gan-grand-loop/
