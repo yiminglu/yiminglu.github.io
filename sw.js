@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-26aca0172ca844f97b23815354b277e58ea89832';
+const cacheName = 'sr-precache-b2a328ceaf1a831fa655d12129733f883712e63e';
 
 const PrecacheList = [
   "/",

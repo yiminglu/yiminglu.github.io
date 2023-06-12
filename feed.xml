@@ -16,6 +16,12 @@
     max-width: 900px;
     max-height: 700px;
   }
+
+  @media screen and (max-width: 1000px) {
+    img {
+      max-width: 100%;
+    }
+  }
 </style>
 <h2 id="前序">前序</h2>
 <blockquote>
