@@ -5,9 +5,30 @@
     <description>SeasonsRoad is the blog for interesting things happening around.</description>
     <language>en</language>
     <lastBuildDate>Sun, 27 Sep 2015 00:00:00 +0800</lastBuildDate>
-    <generator>Hugo v0.120.4</generator>
+    <generator>Hugo v0.123.8</generator>
     <atom:link href="https://seasonsroad.com/tags/ipv6/feed.xml" rel="self" type="application/rss+xml" />
       <item>
+        <title>为什么活得如此艰辛？</title>
+        <link>https://seasonsroad.com/post/2024/why-working-hard.html</link>
+        <pubDate>Mon, 11 Mar 2024 13:00:00 +0800</pubDate>
+        <description><![CDATA[<p>生活的本来面貌并不是艰辛，它是由一系列简单而美好的瞬间组成。日出日落，四季更替，人与人之间的温情，这些都是生活赋予我们的宝贵财富。</p>
+<p>然而，我们往往因为忙碌而忽略了这些简单的美好，将目光聚焦在了那些看似更为重要的事情上。在这个快节奏的时代，我们似乎生活在一个永不停歇的跑步机上，每个人都在为了不被甩下而拼命奔跑。生活，这本应是充满色彩和活力的存在，却在许多人眼中变得如此艰辛。
+在这个被“鸡血”文化所驱动的时代，社会的竞争压力、成功的定义被不断放大，人们被灌输着“不进则退”的观念。在这样的环境下，我们不断地给自己设定目标，追求更高的成就，仿佛只有不断地超越自我，才能证明自己的价值。</p>
+<p>人总是有太多的顾虑。我们担心未来，担心失败，担心别人的眼光。这些顾虑像一层层的枷锁，将我们牢牢地锁在了原地。我们害怕一旦做出改变，就会失去现有的稳定和安逸，因此宁愿选择忍受现状的艰辛，也不愿意迈出那一步。</p>
+<p>我们看到那些似乎能够自由自在生活的人，内心充满了羡慕。他们不受世俗的束缚，能够按照自己的意愿，活出自我。然而，当我们自己试图成为那样的人时，却发现自己不过是行动上的矮子。我们被自己的顾虑所束缚，害怕改变，害怕失去现有的一切。
+我们渴望跳出这个无形的“牢笼”，渴望能够像那些自由的人一样，展翅高飞。但是，当我们真正站在牢笼的边缘时，却发现自己不知道应该飞向哪里。我们对未来的不确定感到恐惧，对未知的领域感到迷茫。这种迷茫让我们犹豫不决，让我们在牢笼的边缘徘徊，不敢迈出那一步。</p>
+<p>活得艰辛，并非生活的本质，而是我们自己选择的结果。我们可以选择放下那些不必要的顾虑，勇敢地追求自己真正想要的生活。也许，当我们开始尝试着去理解和接受生活的多样性，去欣赏那些简单而美好的瞬间，我们会发现，生活其实可以不那么艰辛。让我们学会在忙碌中寻找平衡，在压力中寻找出口，在迷茫中寻找方向，活出一个更加真实和自在的自己。</p>
+<center><p><img src="/post/2024/why-working-hard/01.jpg" alt="01.jpg" ></p></center>
+<center><p><img src="/post/2024/why-working-hard/02.jpg" alt="01.jpg" ></p></center>
+<center><p><img src="/post/2024/why-working-hard/03.jpg" alt="01.jpg" ></p></center>
+<center><p><img src="/post/2024/why-working-hard/04.jpg" alt="01.jpg" ></p></center>
+<center><p><img src="/post/2024/why-working-hard/05.jpg" alt="01.jpg" ></p></center>
+<center><p><img src="/post/2024/why-working-hard/06.jpg" alt="01.jpg" ></p></center>
+<center><p><img src="/post/2024/why-working-hard/07.jpg" alt="01.jpg" ></p></center>
+<center><p><img src="/post/2024/why-working-hard/08.jpg" alt="01.jpg" ></p></center>
+<p style="font-size:10px;font-color:#888;">哦，明白了，原来这些简单而美好的瞬间，都需要花钱。</p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2024/why-working-hard.html</guid>
+      </item><item>
         <title>青甘大环线</title>
         <link>https://seasonsroad.com/post/2023/qing-gan-grand-loop.html</link>
         <pubDate>Sun, 04 Jun 2023 23:00:00 +0800</pubDate>
@@ -497,27 +518,6 @@
         <description><![CDATA[<p>『若要人不知，除非己莫为。』</p>
 <p>即便骗过了别人，也骗不过自己。</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2019/over-concern.html</guid>
-      </item><item>
-        <title>Adding Dark Mode to the Blog</title>
-        <link>https://seasonsroad.com/post/2019/adding-dark-mode.html</link>
-        <pubDate>Fri, 06 Dec 2019 02:00:00 +0800</pubDate>
-        <description><![CDATA[<h2 id="代码量不多效果很大">代码量不多，效果很大</h2>
-<p>现在视觉舒适度越来越重要了，无论是 Mac、Windows、iOS 还是 Android 都添加了暗夜模式，那网站也就支持一下吧，也不麻烦。</p>
-<p>只是简单的加了几个 CSS 的 global 变量，通过 <code>prefers-color-scheme: dark</code> 覆盖下就直接 work 了。</p>
-<p>过程中重新梳理了一下全局所有的颜色，分了一下类，以后改动也不必随便添加了，拿来定义好的就可以直接用了。</p>
-<p>当然，这样颜色也更容易维护了。</p>
-<h2 id="before--after">Before &amp; After</h2>
-<center>
-<span><img src="/post/2019/adding-dark-mode/before.jpg" alt="Before" style="width: 320px; border: 1px solid black; margin: 10px;"/></span>
-<span><img src="/post/2019/adding-dark-mode/after.jpg" alt="After" style="width: 320px; border: 1px solid white; margin: 10px;"/></span>
-</center>
-<h2 id="benefits">Benefits</h2>
-<ul>
-<li>Reduce Eye Strain</li>
-<li>Improve Battery Life</li>
-<li>It Looks Amazing!</li>
-</ul>]]></description>
-        <guid isPermaLink="true">https://seasonsroad.com/post/2019/adding-dark-mode.html</guid>
       </item>
   </channel>
 </rss>
