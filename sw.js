@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-b2a328ceaf1a831fa655d12129733f883712e63e';
+const cacheName = 'sr-precache-ec6aafd52995e4a3b7cb8a60650c465024d942ec';
 
 const PrecacheList = [
   "/",
@@ -83,6 +83,14 @@ const PrecacheList = [
   "post/2023/lifes-hard.html",
   "post/2023/qing-gan-grand-loop.html",
   "post/2023/qing-gan-grand-loop/01-01.jpg",
+  "post/2024/why-working-hard/01.jpg",
+  "post/2024/why-working-hard/02.jpg",
+  "post/2024/why-working-hard/03.jpg",
+  "post/2024/why-working-hard/04.jpg",
+  "post/2024/why-working-hard/05.jpg",
+  "post/2024/why-working-hard/06.jpg",
+  "post/2024/why-working-hard/07.jpg",
+  "post/2024/why-working-hard/08.jpg",
   "images/logo/daisy.png",
   "images/logo/leaf-1.png",
   "images/logo/leaf-2.png",

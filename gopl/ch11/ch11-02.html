@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
 	<head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
     <script src="/js/ga.js"></script>
@@ -539,13 +539,13 @@ FAIL        gopl.io/ch11/echo         0.006s
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestSplit</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">words</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Split</span>(<span style="color:#e6db74">&#34;a🅱️c&#34;</span>, <span style="color:#e6db74">&#34;:&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">words</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Split</span>(<span style="color:#e6db74">&#34;a:b:c&#34;</span>, <span style="color:#e6db74">&#34;:&#34;</span>)
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">assertEqual</span>(len(<span style="color:#a6e22e">words</span>), <span style="color:#ae81ff">3</span>)
 </span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ...
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
 </span></span></code></pre></div><p>从这个意义上说，断言函数犯了过早抽象的错误：仅仅测试两个整数是否相同，而没能根据上下文提供更有意义的错误信息。我们可以根据具体的错误打印一个更有价值的错误信息，就像下面例子那样。只有在测试中出现重复模式时才采用抽象。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestSplit</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">sep</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;a🅱️c&#34;</span>, <span style="color:#e6db74">&#34;:&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">sep</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;a:b:c&#34;</span>, <span style="color:#e6db74">&#34;:&#34;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">words</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Split</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">sep</span>)
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">got</span>, <span style="color:#a6e22e">want</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">words</span>), <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">got</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">want</span> {
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;Split(%q, %q) returned %d words, want %d&#34;</span>,
