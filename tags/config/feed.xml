@@ -8,6 +8,12 @@
     <generator>Hugo v0.124.1</generator>
     <atom:link href="https://seasonsroad.com/tags/config/feed.xml" rel="self" type="application/rss+xml" />
       <item>
+        <title>Life&#39;s Fragile</title>
+        <link>https://seasonsroad.com/post/2024/lifes-fragile.html</link>
+        <pubDate>Wed, 27 Mar 2024 13:00:00 +0800</pubDate>
+        <description><![CDATA[<p>从来都说生命是顽强的，可为什么同时又如此脆弱？</p>]]></description>
+        <guid isPermaLink="true">https://seasonsroad.com/post/2024/lifes-fragile.html</guid>
+      </item><item>
         <title>为什么活得如此艰辛？</title>
         <link>https://seasonsroad.com/post/2024/why-working-hard.html</link>
         <pubDate>Mon, 11 Mar 2024 13:00:00 +0800</pubDate>
@@ -511,13 +517,6 @@
 <h2 id="at-last">At last</h2>
 <p>Now, it&rsquo;s been a while since the first encoding. And the result till now is pretty promising. At this moment, I&rsquo;ve got ~500M of videos files encoded from ~5G original video files.</p>]]></description>
         <guid isPermaLink="true">https://seasonsroad.com/post/2020/hevcify-camera-videos.html</guid>
-      </item><item>
-        <title>过度担忧</title>
-        <link>https://seasonsroad.com/post/2019/over-concern.html</link>
-        <pubDate>Mon, 09 Dec 2019 02:00:00 +0800</pubDate>
-        <description><![CDATA[<p>『若要人不知，除非己莫为。』</p>
-<p>即便骗过了别人，也骗不过自己。</p>]]></description>
-        <guid isPermaLink="true">https://seasonsroad.com/post/2019/over-concern.html</guid>
       </item>
   </channel>
 </rss>
