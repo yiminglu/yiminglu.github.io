@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-a085e42f048da5aa5873210ccff89aeeca6a5aaa';
+const cacheName = 'sr-precache-11fb5de66b13ccbf330d3d8ef1fdd933e6590732';
 
 const PrecacheList = [
   "/",
@@ -38,7 +38,7 @@ const PrecacheList = [
   "/post/2015/git-best-practices.html",
   "/post/2015/go-chase-our-dreams.html",
   "/post/2015/responsive-design.html",
-  "/post/2016/spot.html",
+  "/post/2016/ssot.html",
   "/post/2018/feelings-of-leaving.html",
   "/post/2018/migration-to-https.html",
   "/post/2018/pwa-integration.html",
