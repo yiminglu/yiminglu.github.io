@@ -4,3 +4,9 @@ Disallow: /imggps/
 
 Disallow: /post/2023/qing-gan-grand-loop/
 Disallow: /posts/2023/qing-gan-grand-loop/
+
+Disallow: /post/2023/hulun-buir/
+Disallow: /posts/2023/hulun-buir/
+
+Disallow: /post/2024/hongkong/
+Disallow: /posts/2024/hongkong/
