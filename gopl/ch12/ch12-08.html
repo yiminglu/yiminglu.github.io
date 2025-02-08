@@ -109,8 +109,8 @@
 		<h2 id="128-显示一个类型的方法集">12.8. 显示一个类型的方法集</h2>
 <p>我们的最后一个例子是使用reflect.Type来打印任意值的类型和枚举它的方法：</p>
 <p><u><i>gopl.io/ch12/methods</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// Print prints the method set of the value x.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">interface</span>{}) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// Print prints the method set of the value x.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">interface</span>{}) {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">x</span>)
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">t</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Type</span>()
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type %s\n&#34;</span>, <span style="color:#a6e22e">t</span>)
@@ -124,20 +124,20 @@
 </span></span></code></pre></div><p>reflect.Type和reflect.Value都提供了一个Method方法。每次t.Method(i)调用将一个reflect.Method的实例，对应一个用于描述一个方法的名称和类型的结构体。每次v.Method(i)方法调用都返回一个reflect.Value以表示对应的值（§6.4），也就是一个方法是帮到它的接收者的。使用reflect.Value.Call方法（我们这里没有演示），将可以调用一个Func类型的Value，但是这个例子中只用到了它的类型。</p>
 <p>这是属于time.Duration和<code>*strings.Replacer</code>两个类型的方法：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">methods</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Hour</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output:
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// type time.Duration
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// func (time.Duration) Hours() float64
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// func (time.Duration) Minutes() float64
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// func (time.Duration) Nanoseconds() int64
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// func (time.Duration) Seconds() float64
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// func (time.Duration) String() string
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// type time.Duration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// func (time.Duration) Hours() float64</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// func (time.Duration) Minutes() float64</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// func (time.Duration) Nanoseconds() int64</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// func (time.Duration) Seconds() float64</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// func (time.Duration) String() string</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">methods</span>.<span style="color:#a6e22e">Print</span>(new(<span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Replacer</span>))
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output:
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// type *strings.Replacer
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// func (*strings.Replacer) Replace(string) string
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// func (*strings.Replacer) WriteString(io.Writer, string) (int, error)
-</span></span></span></code></pre></div>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// type *strings.Replacer</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// func (*strings.Replacer) Replace(string) string</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// func (*strings.Replacer) WriteString(io.Writer, string) (int, error)</span>
+</span></span></code></pre></div>
 	</div>
 </div>
 

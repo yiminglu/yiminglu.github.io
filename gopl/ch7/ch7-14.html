@@ -113,33 +113,33 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">xml</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Local</span> <span style="color:#66d9ef">string</span> <span style="color:#75715e">// e.g., &#34;Title&#34; or &#34;id&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Local</span> <span style="color:#66d9ef">string</span> <span style="color:#75715e">// e.g., &#34;Title&#34; or &#34;id&#34;</span>
+</span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Attr</span> <span style="color:#66d9ef">struct</span> { <span style="color:#75715e">// e.g., name=&#34;value&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Name</span>  <span style="color:#a6e22e">Name</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Attr</span> <span style="color:#66d9ef">struct</span> { <span style="color:#75715e">// e.g., name=&#34;value&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Name</span>  <span style="color:#a6e22e">Name</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">string</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// A Token includes StartElement, EndElement, CharData,
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// and Comment, plus a few esoteric types (not shown).
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Token</span> <span style="color:#66d9ef">interface</span>{}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">StartElement</span> <span style="color:#66d9ef">struct</span> { <span style="color:#75715e">// e.g., &lt;name&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Name</span> <span style="color:#a6e22e">Name</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// A Token includes StartElement, EndElement, CharData,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// and Comment, plus a few esoteric types (not shown).</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Token</span> <span style="color:#66d9ef">interface</span>{}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">StartElement</span> <span style="color:#66d9ef">struct</span> { <span style="color:#75715e">// e.g., &lt;name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Name</span> <span style="color:#a6e22e">Name</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Attr</span> []<span style="color:#a6e22e">Attr</span>
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">EndElement</span> <span style="color:#66d9ef">struct</span> { <span style="color:#a6e22e">Name</span> <span style="color:#a6e22e">Name</span> } <span style="color:#75715e">// e.g., &lt;/name&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CharData</span> []<span style="color:#66d9ef">byte</span>                 <span style="color:#75715e">// e.g., &lt;p&gt;CharData&lt;/p&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Comment</span> []<span style="color:#66d9ef">byte</span>                  <span style="color:#75715e">// e.g., &lt;!-- Comment --&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">EndElement</span> <span style="color:#66d9ef">struct</span> { <span style="color:#a6e22e">Name</span> <span style="color:#a6e22e">Name</span> } <span style="color:#75715e">// e.g., &lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CharData</span> []<span style="color:#66d9ef">byte</span>                 <span style="color:#75715e">// e.g., &lt;p&gt;CharData&lt;/p&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Comment</span> []<span style="color:#66d9ef">byte</span>                  <span style="color:#75715e">// e.g., &lt;!-- Comment --&gt;</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Decoder</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#75715e">/* ... */</span> }
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewDecoder</span>(<span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Reader</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Decoder</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">Decoder</span>) <span style="color:#a6e22e">Token</span>() (<span style="color:#a6e22e">Token</span>, <span style="color:#66d9ef">error</span>) <span style="color:#75715e">// returns next Token in sequence
-</span></span></span></code></pre></div><p>这个没有方法的Token接口也是一个可识别联合的例子。传统的接口如io.Reader的目的是隐藏满足它的具体类型的细节，这样就可以创造出新的实现：在这个实现中每个具体类型都被统一地对待。相反，满足可识别联合的具体类型的集合被设计为确定和暴露，而不是隐藏。可识别联合的类型几乎没有方法，操作它们的函数使用一个类型分支的case集合来进行表述，这个case集合中每一个case都有不同的逻辑。</p>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">Decoder</span>) <span style="color:#a6e22e">Token</span>() (<span style="color:#a6e22e">Token</span>, <span style="color:#66d9ef">error</span>) <span style="color:#75715e">// returns next Token in sequence</span>
+</span></span></code></pre></div><p>这个没有方法的Token接口也是一个可识别联合的例子。传统的接口如io.Reader的目的是隐藏满足它的具体类型的细节，这样就可以创造出新的实现：在这个实现中每个具体类型都被统一地对待。相反，满足可识别联合的具体类型的集合被设计为确定和暴露，而不是隐藏。可识别联合的类型几乎没有方法，操作它们的函数使用一个类型分支的case集合来进行表述，这个case集合中每一个case都有不同的逻辑。</p>
 <p>下面的xmlselect程序获取和打印在一个XML文档树中确定的元素下找到的文本。使用上面的API，它可以在输入上一次完成它的工作而从来不要实例化这个文档树。</p>
 <p><u><i>gopl.io/ch7/xmlselect</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Xmlselect prints the text of selected elements of an XML document.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Xmlselect prints the text of selected elements of an XML document.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
 </span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;encoding/xml&#34;</span>
@@ -151,8 +151,8 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">dec</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">NewDecoder</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdin</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stack</span> []<span style="color:#66d9ef">string</span> <span style="color:#75715e">// stack of element names
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stack</span> []<span style="color:#66d9ef">string</span> <span style="color:#75715e">// stack of element names</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> {
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">tok</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">dec</span>.<span style="color:#a6e22e">Token</span>()
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">EOF</span> {
 </span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">break</span>
@@ -162,10 +162,10 @@
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">tok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tok</span>.(<span style="color:#66d9ef">type</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">StartElement</span>:
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">stack</span> = append(<span style="color:#a6e22e">stack</span>, <span style="color:#a6e22e">tok</span>.<span style="color:#a6e22e">Name</span>.<span style="color:#a6e22e">Local</span>) <span style="color:#75715e">// push
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">EndElement</span>:
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">stack</span> = <span style="color:#a6e22e">stack</span>[:len(<span style="color:#a6e22e">stack</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#75715e">// pop
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">CharData</span>:
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">stack</span> = append(<span style="color:#a6e22e">stack</span>, <span style="color:#a6e22e">tok</span>.<span style="color:#a6e22e">Name</span>.<span style="color:#a6e22e">Local</span>) <span style="color:#75715e">// push</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">EndElement</span>:
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">stack</span> = <span style="color:#a6e22e">stack</span>[:len(<span style="color:#a6e22e">stack</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#75715e">// pop</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">CharData</span>:
 </span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">containsAll</span>(<span style="color:#a6e22e">stack</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Args</span>[<span style="color:#ae81ff">1</span>:]) {
 </span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s: %s\n&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">stack</span>, <span style="color:#e6db74">&#34; &#34;</span>), <span style="color:#a6e22e">tok</span>)
 </span></span><span style="display:flex;"><span>			}
@@ -173,8 +173,8 @@
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// containsAll reports whether x contains the elements of y, in order.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">containsAll</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// containsAll reports whether x contains the elements of y, in order.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">containsAll</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> len(<span style="color:#a6e22e">y</span>) <span style="color:#f92672">&lt;=</span> len(<span style="color:#a6e22e">x</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">y</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
 </span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
@@ -207,8 +207,8 @@ html body div div h2: B Definitions for Character Normalization
 <p>你可能发现下面的定义会对你有帮助。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;encoding/xml&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">interface</span>{} <span style="color:#75715e">// CharData or *Element
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">interface</span>{} <span style="color:#75715e">// CharData or *Element</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CharData</span> <span style="color:#66d9ef">string</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Element</span> <span style="color:#66d9ef">struct</span> {

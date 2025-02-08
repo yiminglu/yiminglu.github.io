@@ -126,16 +126,16 @@
 <p>即使Fprintf函数中的第一个参数也不是一个文件类型。它是io.Writer类型，这是一个接口类型定义如下：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">io</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Writer is the interface that wraps the basic Write method.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Writer</span> <span style="color:#66d9ef">interface</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Write writes len(p) bytes from p to the underlying data stream.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// It returns the number of bytes written from p (0 &lt;= n &lt;= len(p))
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// and any error encountered that caused the write to stop early.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// Write must return a non-nil error if it returns n &lt; len(p).
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// Write must not modify the slice data, even temporarily.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">//
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// Implementations must not retain p.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">p</span> []<span style="color:#66d9ef">byte</span>) (<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Writer is the interface that wraps the basic Write method.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Writer</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Write writes len(p) bytes from p to the underlying data stream.</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// It returns the number of bytes written from p (0 &lt;= n &lt;= len(p))</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// and any error encountered that caused the write to stop early.</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Write must return a non-nil error if it returns n &lt; len(p).</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Write must not modify the slice data, even temporarily.</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Implementations must not retain p.</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">p</span> []<span style="color:#66d9ef">byte</span>) (<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>io.Writer类型定义了函数Fprintf和这个函数调用者之间的约定。一方面这个约定需要调用者提供具体类型的值就像<code>*os.File</code>和<code>*bytes.Buffer</code>，这些类型都有一个特定签名和行为的Write的函数。另一方面这个约定保证了Fprintf接受任何满足io.Writer接口的值都可以工作。Fprintf函数可能没有假定写入的是一个文件或是一段内存，而是写入一个可以调用Write函数的值。</p>
 <p>因为fmt.Fprintf函数没有对具体操作的值做任何假设，而是仅仅通过io.Writer接口的约定来保证行为，所以第一个参数可以安全地传入一个只需要满足io.Writer接口的任意具体类型的值。一个类型可以自由地被另一个满足相同接口的类型替换，被称作可替换性（LSP里氏替换）。这是一个面向对象的特征。</p>
@@ -144,24 +144,24 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ByteCounter</span> <span style="color:#66d9ef">int</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ByteCounter</span>) <span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">p</span> []<span style="color:#66d9ef">byte</span>) (<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">error</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#f92672">*</span><span style="color:#a6e22e">c</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">ByteCounter</span>(len(<span style="color:#a6e22e">p</span>)) <span style="color:#75715e">// convert int to ByteCounter
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">p</span>), <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">*</span><span style="color:#a6e22e">c</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">ByteCounter</span>(len(<span style="color:#a6e22e">p</span>)) <span style="color:#75715e">// convert int to ByteCounter</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">p</span>), <span style="color:#66d9ef">nil</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>因为*ByteCounter满足io.Writer的约定，我们可以把它传入Fprintf函数中；Fprintf函数执行字符串格式化的过程不会去关注ByteCounter正确的累加结果的长度。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">ByteCounter</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#e6db74">&#34;hello&#34;</span>))
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">c</span>) <span style="color:#75715e">// &#34;5&#34;, = len(&#34;hello&#34;)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">c</span> = <span style="color:#ae81ff">0</span>          <span style="color:#75715e">// reset the counter
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;Dolly&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">c</span>) <span style="color:#75715e">// &#34;5&#34;, = len(&#34;hello&#34;)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">c</span> = <span style="color:#ae81ff">0</span>          <span style="color:#75715e">// reset the counter</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;Dolly&#34;</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">c</span>, <span style="color:#e6db74">&#34;hello, %s&#34;</span>, <span style="color:#a6e22e">name</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">c</span>) <span style="color:#75715e">// &#34;12&#34;, = len(&#34;hello, Dolly&#34;)
-</span></span></span></code></pre></div><p>除了io.Writer这个接口类型，还有另一个对fmt包很重要的接口类型。Fprintf和Fprintln函数向类型提供了一种控制它们值输出的途径。在2.5节中，我们为Celsius类型提供了一个String方法以便于可以打印成这样&quot;100°C&quot; ，在6.5节中我们给*IntSet添加一个String方法，这样集合可以用传统的符号来进行表示就像&quot;{1 2 3}&quot;。给一个类型定义String方法，可以让它满足最广泛使用之一的接口类型fmt.Stringer：</p>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">c</span>) <span style="color:#75715e">// &#34;12&#34;, = len(&#34;hello, Dolly&#34;)</span>
+</span></span></code></pre></div><p>除了io.Writer这个接口类型，还有另一个对fmt包很重要的接口类型。Fprintf和Fprintln函数向类型提供了一种控制它们值输出的途径。在2.5节中，我们为Celsius类型提供了一个String方法以便于可以打印成这样&quot;100°C&quot; ，在6.5节中我们给*IntSet添加一个String方法，这样集合可以用传统的符号来进行表示就像&quot;{1 2 3}&quot;。给一个类型定义String方法，可以让它满足最广泛使用之一的接口类型fmt.Stringer：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">fmt</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// The String method is used to print values passed
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// as an operand to any format that accepts a string
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// or to an unformatted printer such as Print.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Stringer</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// The String method is used to print values passed</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// as an operand to any format that accepts a string</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// or to an unformatted printer such as Print.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Stringer</span> <span style="color:#66d9ef">interface</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">String</span>() <span style="color:#66d9ef">string</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>我们会在7.10节解释fmt包怎么发现哪些值是满足这个接口类型的。</p>

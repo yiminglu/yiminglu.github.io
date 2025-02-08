@@ -110,9 +110,9 @@
 <p>对文件做拷贝、打印、搜索、排序、统计或类似事情的程序都有一个差不多的程序结构：一个处理输入的循环，在每个元素上执行计算处理，在处理的同时或最后产生输出。我们会展示一个名为<code>dup</code>的程序的三个版本；灵感来自于Unix的<code>uniq</code>命令，其寻找相邻的重复行。该程序使用的结构和包是个参考范例，可以方便地修改。</p>
 <p><code>dup</code>的第一个版本打印标准输入中多次出现的行，以重复次数开头。该程序将引入<code>if</code>语句，<code>map</code>数据类型以及<code>bufio</code>包。</p>
 <p><u><i>gopl.io/ch1/dup1</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Dup1 prints the text of each line that appears more than
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// once in the standard input, preceded by its count.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Dup1 prints the text of each line that appears more than</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// once in the standard input, preceded by its count.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
 </span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;bufio&#34;</span>
@@ -126,8 +126,8 @@
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Scan</span>() {
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">counts</span>[<span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Text</span>()]<span style="color:#f92672">++</span>
 </span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// NOTE: ignoring potential errors from input.Err()
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">line</span>, <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">counts</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// NOTE: ignoring potential errors from input.Err()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">line</span>, <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">counts</span> {
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> &gt; <span style="color:#ae81ff">1</span> {
 </span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d\t%s\n&#34;</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">line</span>)
 </span></span><span style="display:flex;"><span>		}
@@ -160,9 +160,9 @@
 </code></pre><p><code>dup1</code>的格式字符串中还含有制表符<code>\t</code>和换行符<code>\n</code>。字符串字面上可能含有这些代表不可见字符的<strong>转义字符（escape sequences）</strong>。默认情况下，<code>Printf</code>不会换行。按照惯例，以字母<code>f</code>结尾的格式化函数，如<code>log.Printf</code>和<code>fmt.Errorf</code>，都采用<code>fmt.Printf</code>的格式化准则。而以<code>ln</code>结尾的格式化函数，则遵循<code>Println</code>的方式，以跟<code>%v</code>差不多的方式格式化参数，并在最后添加一个换行符。（译注：后缀<code>f</code>指<code>format</code>，<code>ln</code>指<code>line</code>。）</p>
 <p>很多程序要么从标准输入中读取数据，如上面的例子所示，要么从一系列具名文件中读取数据。<code>dup</code>程序的下个版本读取标准输入或是使用<code>os.Open</code>打开各个具名文件，并操作它们。</p>
 <p><u><i>gopl.io/ch1/dup2</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Dup2 prints the count and text of lines that appear more than once
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// in the input.  It reads from stdin or from a list of named files.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Dup2 prints the count and text of lines that appear more than once</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// in the input.  It reads from stdin or from a list of named files.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
 </span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;bufio&#34;</span>
@@ -198,8 +198,8 @@
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Scan</span>() {
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">counts</span>[<span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Text</span>()]<span style="color:#f92672">++</span>
 </span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// NOTE: ignoring potential errors from input.Err()
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// NOTE: ignoring potential errors from input.Err()</span>
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p><code>os.Open</code>函数返回两个值。第一个值是被打开的文件(<code>*os.File</code>），其后被<code>Scanner</code>读取。</p>
 <p><code>os.Open</code>返回的第二个值是内置<code>error</code>类型的值。如果<code>err</code>等于内置值<code>nil</code>（译注：相当于其它语言里的NULL），那么文件被成功打开。读取文件，直到文件结束，然后调用<code>Close</code>关闭该文件，并释放占用的所有资源。相反的话，如果<code>err</code>的值不是<code>nil</code>，说明打开文件时出错了。这种情况下，错误值描述了所遇到的问题。我们的错误处理非常简单，只是使用<code>Fprintf</code>与表示任意类型默认格式值的动词<code>%v</code>，向标准错误流打印一条信息，然后<code>dup</code>继续处理下一个文件；<code>continue</code>语句直接跳到<code>for</code>循环的下个迭代开始执行。</p>
 <p>为了使示例代码保持合理的大小，本书开始的一些示例有意简化了错误处理，显而易见的是，应该检查<code>os.Open</code>返回的错误值，然而，使用<code>input.Scan</code>读取文件过程中，不大可能出现错误，因此我们忽略了错误处理。我们会在跳过错误检查的地方做说明。5.4节中深入介绍错误处理。</p>

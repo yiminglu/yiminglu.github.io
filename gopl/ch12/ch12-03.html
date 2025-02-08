@@ -158,8 +158,8 @@
 </span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s.type = %s\n&#34;</span>, <span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Elem</span>().<span style="color:#a6e22e">Type</span>())
 </span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">display</span>(<span style="color:#a6e22e">path</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;.value&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Elem</span>())
 </span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">default</span>: <span style="color:#75715e">// basic types, channels, funcs
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s = %s\n&#34;</span>, <span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">formatAtom</span>(<span style="color:#a6e22e">v</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">default</span>: <span style="color:#75715e">// basic types, channels, funcs</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s = %s\n&#34;</span>, <span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">formatAtom</span>(<span style="color:#a6e22e">v</span>))
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>让我们针对不同类型分别讨论。</p>
@@ -219,12 +219,12 @@
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">strangelove</span>.<span style="color:#a6e22e">Sequel</span> = <span style="color:#66d9ef">nil</span>
 </span></span></code></pre></div><p>我们也可以使用Display函数来显示标准库中类型的内部结构，例如<code>*os.File</code>类型：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">Display</span>(<span style="color:#e6db74">&#34;os.Stderr&#34;</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output:
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Display os.Stderr (*os.File):
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// (*(*os.Stderr).file).fd = 2
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// (*(*os.Stderr).file).name = &#34;/dev/stderr&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// (*(*os.Stderr).file).nepipe = 0
-</span></span></span></code></pre></div><p>可以看出，反射能够访问到结构体中未导出的成员。需要当心的是这个例子的输出在不同操作系统上可能是不同的，并且随着标准库的发展也可能导致结果不同。（这也是将这些成员定义为私有成员的原因之一！）我们甚至可以用Display函数来显示reflect.Value 的内部构造（在这里设置为<code>*os.File</code>的类型描述体）。<code>Display(&quot;rV&quot;, reflect.ValueOf(os.Stderr))</code>调用的输出如下，当然不同环境得到的结果可能有差异：</p>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Display os.Stderr (*os.File):</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// (*(*os.Stderr).file).fd = 2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// (*(*os.Stderr).file).name = &#34;/dev/stderr&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// (*(*os.Stderr).file).nepipe = 0</span>
+</span></span></code></pre></div><p>可以看出，反射能够访问到结构体中未导出的成员。需要当心的是这个例子的输出在不同操作系统上可能是不同的，并且随着标准库的发展也可能导致结果不同。（这也是将这些成员定义为私有成员的原因之一！）我们甚至可以用Display函数来显示reflect.Value 的内部构造（在这里设置为<code>*os.File</code>的类型描述体）。<code>Display(&quot;rV&quot;, reflect.ValueOf(os.Stderr))</code>调用的输出如下，当然不同环境得到的结果可能有差异：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">Display</span> <span style="color:#a6e22e">rV</span> (<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>):
 </span></span><span style="display:flex;"><span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">rV</span>.<span style="color:#a6e22e">typ</span>).<span style="color:#a6e22e">size</span> = <span style="color:#ae81ff">8</span>
 </span></span><span style="display:flex;"><span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">rV</span>.<span style="color:#a6e22e">typ</span>).<span style="color:#a6e22e">hash</span> = <span style="color:#ae81ff">871609668</span>
@@ -241,20 +241,20 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">interface</span>{} = <span style="color:#ae81ff">3</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">Display</span>(<span style="color:#e6db74">&#34;i&#34;</span>, <span style="color:#a6e22e">i</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output:
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Display i (int):
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// i = 3
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Display i (int):</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// i = 3</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">Display</span>(<span style="color:#e6db74">&#34;&amp;i&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">i</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output:
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Display &amp;i (*interface {}):
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// (*&amp;i).type = int
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// (*&amp;i).value = 3
-</span></span></span></code></pre></div><p>在第一个例子中，Display函数调用reflect.ValueOf(i)，它返回一个Int类型的值。正如我们在12.2节中提到的，reflect.ValueOf总是返回一个具体类型的 Value，因为它是从一个接口值提取的内容。</p>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Display &amp;i (*interface {}):</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// (*&amp;i).type = int</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// (*&amp;i).value = 3</span>
+</span></span></code></pre></div><p>在第一个例子中，Display函数调用reflect.ValueOf(i)，它返回一个Int类型的值。正如我们在12.2节中提到的，reflect.ValueOf总是返回一个具体类型的 Value，因为它是从一个接口值提取的内容。</p>
 <p>在第二个例子中，Display函数调用的是reflect.ValueOf(&amp;i)，它返回一个指向i的指针，对应Ptr类型。在switch的Ptr分支中，对这个值调用 Elem 方法，返回一个Value来表示变量 i 本身，对应Interface类型。像这样一个间接获得的Value，可能代表任意类型的值，包括接口类型。display函数递归调用自身，这次它分别打印了这个接口的动态类型和值。</p>
 <p>对于目前的实现，如果遇到对象图中含有回环，Display将会陷入死循环，例如下面这个首尾相连的链表：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// a struct that points to itself
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Cycle</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">int</span>; <span style="color:#a6e22e">Tail</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Cycle</span> }
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// a struct that points to itself</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Cycle</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">int</span>; <span style="color:#a6e22e">Tail</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Cycle</span> }
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Cycle</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">c</span> = <span style="color:#a6e22e">Cycle</span>{<span style="color:#ae81ff">42</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">c</span>}
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">Display</span>(<span style="color:#e6db74">&#34;c&#34;</span>, <span style="color:#a6e22e">c</span>)

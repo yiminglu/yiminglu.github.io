@@ -108,43 +108,43 @@
 	<div class="wrapper">
 		<h2 id="79-示例-表达式求值">7.9. 示例: 表达式求值</h2>
 <p>在本节中，我们会构建一个简单算术表达式的求值器。我们将使用一个接口Expr来表示Go语言中任意的表达式。现在这个接口不需要有方法，但是我们后面会为它增加一些。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// An Expr is an arithmetic expression.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Expr</span> <span style="color:#66d9ef">interface</span>{}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// An Expr is an arithmetic expression.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Expr</span> <span style="color:#66d9ef">interface</span>{}
 </span></span></code></pre></div><p>我们的表达式语言由浮点数符号（小数点）；二元操作符+，-，*， 和/；一元操作符-x和+x；调用pow(x,y)，sin(x)，和sqrt(x)的函数；例如x和pi的变量；当然也有括号和标准的优先级运算符。所有的值都是float64类型。这下面是一些表达式的例子：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">A</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">pi</span>)
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">pow</span>(<span style="color:#a6e22e">x</span>, <span style="color:#ae81ff">3</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">pow</span>(<span style="color:#a6e22e">y</span>, <span style="color:#ae81ff">3</span>)
 </span></span><span style="display:flex;"><span>(<span style="color:#a6e22e">F</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">32</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">9</span>
 </span></span></code></pre></div><p>下面的五个具体类型表示了具体的表达式类型。Var类型表示对一个变量的引用。（我们很快会知道为什么它可以被输出。）literal类型表示一个浮点型常量。unary和binary类型表示有一到两个运算对象的运算符表达式，这些操作数可以是任意的Expr类型。call类型表示对一个函数的调用；我们限制它的fn字段只能是pow，sin或者sqrt。</p>
 <p><u><i>gopl.io/ch7/eval</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// A Var identifies a variable, e.g., x.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Var</span> <span style="color:#66d9ef">string</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// A Var identifies a variable, e.g., x.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Var</span> <span style="color:#66d9ef">string</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// A literal is a numeric constant, e.g., 3.141.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">literal</span> <span style="color:#66d9ef">float64</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// A literal is a numeric constant, e.g., 3.141.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">literal</span> <span style="color:#66d9ef">float64</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// A unary represents a unary operator expression, e.g., -x.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">unary</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">op</span> <span style="color:#66d9ef">rune</span> <span style="color:#75715e">// one of &#39;+&#39;, &#39;-&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">x</span>  <span style="color:#a6e22e">Expr</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// A unary represents a unary operator expression, e.g., -x.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">unary</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">op</span> <span style="color:#66d9ef">rune</span> <span style="color:#75715e">// one of &#39;+&#39;, &#39;-&#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">x</span>  <span style="color:#a6e22e">Expr</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// A binary represents a binary operator expression, e.g., x+y.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">binary</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">op</span>   <span style="color:#66d9ef">rune</span> <span style="color:#75715e">// one of &#39;+&#39;, &#39;-&#39;, &#39;*&#39;, &#39;/&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#a6e22e">Expr</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// A binary represents a binary operator expression, e.g., x+y.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">binary</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">op</span>   <span style="color:#66d9ef">rune</span> <span style="color:#75715e">// one of &#39;+&#39;, &#39;-&#39;, &#39;*&#39;, &#39;/&#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#a6e22e">Expr</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// A call represents a function call expression, e.g., sin(x).
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">call</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fn</span>   <span style="color:#66d9ef">string</span> <span style="color:#75715e">// one of &#34;pow&#34;, &#34;sin&#34;, &#34;sqrt&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">args</span> []<span style="color:#a6e22e">Expr</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// A call represents a function call expression, e.g., sin(x).</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">call</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fn</span>   <span style="color:#66d9ef">string</span> <span style="color:#75715e">// one of &#34;pow&#34;, &#34;sin&#34;, &#34;sqrt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">args</span> []<span style="color:#a6e22e">Expr</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>为了计算一个包含变量的表达式，我们需要一个environment变量将变量的名字映射成对应的值：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Env</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">float64</span>
 </span></span></code></pre></div><p>我们也需要每个表达式去定义一个Eval方法，这个方法会根据给定的environment变量返回表达式的值。因为每个表达式都必须提供这个方法，我们将它加入到Expr接口中。这个包只会对外公开Expr，Env，和Var类型。调用方不需要获取其它的表达式类型就可以使用这个求值器。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Expr</span> <span style="color:#66d9ef">interface</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Eval returns the value of this Expr in the environment env.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Eval returns the value of this Expr in the environment env.</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>下面给大家展示一个具体的Eval方法。Var类型的这个方法对一个environment变量进行查找，如果这个变量没有在environment中定义过这个方法会返回一个零值，literal类型的这个方法简单的返回它真实的值。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Var</span>) <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span> {
@@ -207,15 +207,15 @@
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">prevExpr</span> <span style="color:#66d9ef">string</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">test</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">tests</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// Print expr only when it changes.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">expr</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">prevExpr</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// Print expr only when it changes.</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">expr</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">prevExpr</span> {
 </span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;\n%s\n&#34;</span>, <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">expr</span>)
 </span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">prevExpr</span> = <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">expr</span>
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">expr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">expr</span>)
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">err</span>) <span style="color:#75715e">// parse error
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">err</span>) <span style="color:#75715e">// parse error</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">continue</span>
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">got</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%.6g&#34;</span>, <span style="color:#a6e22e">expr</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">env</span>))
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;\t%v =&gt; %s\n&#34;</span>, <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">env</span>, <span style="color:#a6e22e">got</span>)
@@ -244,8 +244,8 @@ pow(x, 3) + pow(y, 3)
 <p>让我们往Expr接口中增加另一个方法。Check方法对一个表达式语义树检查出静态错误。我们马上会说明它的vars参数。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Expr</span> <span style="color:#66d9ef">interface</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">env</span> <span style="color:#a6e22e">Env</span>) <span style="color:#66d9ef">float64</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Check reports errors in this Expr and adds its Vars to the set.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#66d9ef">error</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Check reports errors in this Expr and adds its Vars to the set.</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#66d9ef">error</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>具体的Check方法展示在下面。literal和Var类型的计算不可能失败，所以这些类型的Check方法会返回一个nil值。对于unary和binary的Check方法会首先检查操作符是否有效，然后递归的检查运算单元。相似地对于call的这个方法首先检查调用的函数是否已知并且有没有正确个数的参数，然后递归的检查每一个参数。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Var</span>) <span style="color:#a6e22e">Check</span>(<span style="color:#a6e22e">vars</span> <span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">Var</span>]<span style="color:#66d9ef">bool</span>) <span style="color:#66d9ef">error</span> {
@@ -335,8 +335,8 @@ sqrt(1, 2)          call to sqrt has 2 args, want 1
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Header</span>().<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;Content-Type&#34;</span>, <span style="color:#e6db74">&#34;image/svg+xml&#34;</span>)
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">surface</span>(<span style="color:#a6e22e">w</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">float64</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Hypot</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) <span style="color:#75715e">// distance from (0,0)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">expr</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">eval</span>.<span style="color:#a6e22e">Env</span>{<span style="color:#e6db74">&#34;x&#34;</span>: <span style="color:#a6e22e">x</span>, <span style="color:#e6db74">&#34;y&#34;</span>: <span style="color:#a6e22e">y</span>, <span style="color:#e6db74">&#34;r&#34;</span>: <span style="color:#a6e22e">r</span>})
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Hypot</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) <span style="color:#75715e">// distance from (0,0)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">expr</span>.<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">eval</span>.<span style="color:#a6e22e">Env</span>{<span style="color:#e6db74">&#34;x&#34;</span>: <span style="color:#a6e22e">x</span>, <span style="color:#e6db74">&#34;y&#34;</span>: <span style="color:#a6e22e">y</span>, <span style="color:#e6db74">&#34;r&#34;</span>: <span style="color:#a6e22e">r</span>})
 </span></span><span style="display:flex;"><span>	})
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p><img src="../images/ch7-07.png" alt=""></p>

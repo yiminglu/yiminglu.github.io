@@ -135,8 +135,8 @@ object          {&#34;year&#34;: 1980,
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Actors</span>: []<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;Paul Newman&#34;</span>}},
 </span></span><span style="display:flex;"><span>	{<span style="color:#a6e22e">Title</span>: <span style="color:#e6db74">&#34;Bullitt&#34;</span>, <span style="color:#a6e22e">Year</span>: <span style="color:#ae81ff">1968</span>, <span style="color:#a6e22e">Color</span>: <span style="color:#66d9ef">true</span>,
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Actors</span>: []<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;Steve McQueen&#34;</span>, <span style="color:#e6db74">&#34;Jacqueline Bisset&#34;</span>}},
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ...</span>
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>这样的数据结构特别适合JSON格式，并且在两者之间相互转换也很容易。将一个Go语言中类似movies的结构体slice转为JSON的过程叫编组（marshaling）。编组通过调用json.Marshal函数完成：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Marshal</span>(<span style="color:#a6e22e">movies</span>)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
@@ -192,12 +192,12 @@ Color bool `json:&#34;color,omitempty&#34;`
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Unmarshal</span>(<span style="color:#a6e22e">data</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">titles</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;JSON unmarshaling failed: %s&#34;</span>, <span style="color:#a6e22e">err</span>)
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">titles</span>) <span style="color:#75715e">// &#34;[{Casablanca} {Cool Hand Luke} {Bullitt}]&#34;
-</span></span></span></code></pre></div><p>许多web服务都提供JSON接口，通过HTTP接口发送JSON格式请求并返回JSON格式的信息。为了说明这一点，我们通过Github的issue查询服务来演示类似的用法。首先，我们要定义合适的类型和常量：</p>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">titles</span>) <span style="color:#75715e">// &#34;[{Casablanca} {Cool Hand Luke} {Bullitt}]&#34;</span>
+</span></span></code></pre></div><p>许多web服务都提供JSON接口，通过HTTP接口发送JSON格式请求并返回JSON格式的信息。为了说明这一点，我们通过Github的issue查询服务来演示类似的用法。首先，我们要定义合适的类型和常量：</p>
 <p><u><i>gopl.io/ch4/github</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// Package github provides a Go API for the GitHub issue tracker.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// See https://developer.github.com/v3/search/#search-issues.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">github</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// Package github provides a Go API for the GitHub issue tracker.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// See https://developer.github.com/v3/search/#search-issues.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">github</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;time&#34;</span>
 </span></span><span style="display:flex;"><span>
@@ -215,8 +215,8 @@ Color bool `json:&#34;color,omitempty&#34;`
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">State</span>     <span style="color:#66d9ef">string</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">User</span>      <span style="color:#f92672">*</span><span style="color:#a6e22e">User</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">CreatedAt</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span> <span style="color:#e6db74">`json:&#34;created_at&#34;`</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Body</span>      <span style="color:#66d9ef">string</span>    <span style="color:#75715e">// in Markdown format
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Body</span>      <span style="color:#66d9ef">string</span>    <span style="color:#75715e">// in Markdown format</span>
+</span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Login</span>   <span style="color:#66d9ef">string</span>
@@ -235,17 +235,17 @@ Color bool `json:&#34;color,omitempty&#34;`
 </span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;strings&#34;</span>
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// SearchIssues queries the GitHub issue tracker.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">SearchIssues</span>(<span style="color:#a6e22e">terms</span> []<span style="color:#66d9ef">string</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">IssuesSearchResult</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// SearchIssues queries the GitHub issue tracker.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">SearchIssues</span>(<span style="color:#a6e22e">terms</span> []<span style="color:#66d9ef">string</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">IssuesSearchResult</span>, <span style="color:#66d9ef">error</span>) {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">QueryEscape</span>(<span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">terms</span>, <span style="color:#e6db74">&#34; &#34;</span>))
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">resp</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">IssuesURL</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;?q=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">q</span>)
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// We must close resp.Body on all execution paths.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// (Chapter 5 presents &#39;defer&#39;, which makes this simpler.)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">StatusCode</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// We must close resp.Body on all execution paths.</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// (Chapter 5 presents &#39;defer&#39;, which makes this simpler.)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">StatusCode</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span> {
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Close</span>()
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;search query failed: %s&#34;</span>, <span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Status</span>)
 </span></span><span style="display:flex;"><span>	}
@@ -261,8 +261,8 @@ Color bool `json:&#34;color,omitempty&#34;`
 </span></span></code></pre></div><p>在早些的例子中，我们使用了json.Unmarshal函数来将JSON格式的字符串解码为字节slice。但是这个例子中，我们使用了基于流式的解码器json.Decoder，它可以从一个输入流解码JSON数据，尽管这不是必须的。如您所料，还有一个针对输出流的json.Encoder编码对象。</p>
 <p>我们调用Decode方法来填充变量。这里有多种方法可以格式化结构。下面是最简单的一种，以一个固定宽度打印每个issue，但是在下一节我们将看到如何利用模板来输出复杂的格式。</p>
 <p><u><i>gopl.io/ch4/issues</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// Issues prints a table of GitHub issues matching the search terms.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// Issues prints a table of GitHub issues matching the search terms.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
 </span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>

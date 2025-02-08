@@ -113,8 +113,8 @@
 <p>os.Args的第一个元素：os.Args[0]，是命令本身的名字；其它的元素则是程序启动时传给它的参数。s[m:n]形式的切片表达式，产生从第m个元素到第n-1个元素的切片，下个例子用到的元素包含在os.Args[1:len(os.Args)]切片中。如果省略切片表达式的m或n，会默认传入0或len(s)，因此前面的切片可以简写成os.Args[1:]。</p>
 <p>下面是Unix里echo命令的一份实现，echo把它的命令行参数打印成一行。程序导入了两个包，用括号把它们括起来写成列表形式，而没有分开写成独立的<code>import</code>声明。两种形式都合法，列表形式习惯上用得多。包导入顺序并不重要；gofmt工具格式化时按照字母顺序对包名排序。（示例有多个版本时，我们会对示例编号，这样可以明确当前正在讨论的是哪个。）</p>
 <p><u><i>gopl.io/ch1/echo1</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Echo1 prints its command-line arguments.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Echo1 prints its command-line arguments.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
 </span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
@@ -143,25 +143,25 @@
 <p>自增语句<code>i++</code>给<code>i</code>加1；这和<code>i += 1</code>以及<code>i = i + 1</code>都是等价的。对应的还有<code>i--</code>给<code>i</code>减1。它们是语句，而不像C系的其它语言那样是表达式。所以<code>j = i++</code>非法，而且++和&ndash;都只能放在变量名后面，因此<code>--i</code>也非法。</p>
 <p>Go语言只有for循环这一种循环语句。for循环有多种形式，其中一种如下所示：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">initialization</span>; <span style="color:#a6e22e">condition</span>; <span style="color:#a6e22e">post</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// zero or more statements
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// zero or more statements</span>
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>for循环三个部分不需括号包围。大括号强制要求，左大括号必须和<em>post</em>语句在同一行。</p>
 <p><em>initialization</em>语句是可选的，在循环开始前执行。<em>initalization</em>如果存在，必须是一条<em>简单语句</em>（simple statement），即，短变量声明、自增语句、赋值语句或函数调用。<code>condition</code>是一个布尔表达式（boolean expression），其值在每次循环迭代开始时计算。如果为<code>true</code>则执行循环体语句。<code>post</code>语句在循环体执行结束后执行，之后再次对<code>condition</code>求值。<code>condition</code>值为<code>false</code>时，循环结束。</p>
 <p>for循环的这三个部分每个都可以省略，如果省略<code>initialization</code>和<code>post</code>，分号也可以省略：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// a traditional &#34;while&#34; loop
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">condition</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// a traditional &#34;while&#34; loop</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">condition</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ...</span>
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>如果连<code>condition</code>也省略了，像下面这样：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// a traditional infinite loop
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// a traditional infinite loop</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ...</span>
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>这就变成一个无限循环，尽管如此，还可以用其他方式终止循环，如一条<code>break</code>或<code>return</code>语句。</p>
 <p><code>for</code>循环的另一种形式，在某种数据类型的区间（range）上遍历，如字符串或切片。<code>echo</code>的第二版本展示了这种形式：</p>
 <p><u><i>gopl.io/ch1/echo2</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Echo2 prints its command-line arguments.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Echo2 prints its command-line arguments.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
 </span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>

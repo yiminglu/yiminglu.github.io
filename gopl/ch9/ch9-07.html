@@ -120,18 +120,18 @@
 </span></span></code></pre></div><p>最后一行稍微隐藏了一些细节。ReadAll会返回两个结果，一个[]byte数组和一个错误，不过这两个对象可以被赋值给httpGetBody的返回声明里的interface{}和error类型，所以我们也就可以这样返回结果并且不需要额外的工作了。我们在httpGetBody中选用这种返回类型是为了使其可以与缓存匹配。</p>
 <p>下面是我们要设计的cache的第一个“草稿”：</p>
 <p><u><i>gopl.io/ch9/memo1</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Package memo provides a concurrency-unsafe
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// memoization of a function of type Func.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">memo</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Package memo provides a concurrency-unsafe</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// memoization of a function of type Func.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">memo</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// A Memo caches the results of calling a Func.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Memo</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// A Memo caches the results of calling a Func.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Memo</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">f</span>     <span style="color:#a6e22e">Func</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cache</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">result</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Func is the type of the function to memoize.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Func</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">interface</span>{}, <span style="color:#66d9ef">error</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Func is the type of the function to memoize.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Func</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">interface</span>{}, <span style="color:#66d9ef">error</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">result</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">value</span> <span style="color:#66d9ef">interface</span>{}
@@ -142,8 +142,8 @@
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Memo</span>{<span style="color:#a6e22e">f</span>: <span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">cache</span>: make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">result</span>)}
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// NOTE: not concurrency-safe!
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">memo</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Memo</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">interface</span>{}, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// NOTE: not concurrency-safe!</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">memo</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Memo</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">interface</span>{}, <span style="color:#66d9ef">error</span>) {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">cache</span>[<span style="color:#a6e22e">key</span>]
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">f</span>(<span style="color:#a6e22e">key</span>)
@@ -228,12 +228,12 @@ FAIL    gopl.io/ch9/memo1   2.393s
 <p><u><i>gopl.io/ch9/memo2</i></u></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Memo</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">f</span>     <span style="color:#a6e22e">Func</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mu</span>    <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span> <span style="color:#75715e">// guards cache
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">cache</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">result</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mu</span>    <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span> <span style="color:#75715e">// guards cache</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cache</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">result</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Get is concurrency-safe.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">memo</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Memo</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">value</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Get is concurrency-safe.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">memo</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Memo</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">value</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Lock</span>()
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">cache</span>[<span style="color:#a6e22e">key</span>]
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
@@ -253,9 +253,9 @@ FAIL    gopl.io/ch9/memo1   2.393s
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">f</span>(<span style="color:#a6e22e">key</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// Between the two critical sections, several goroutines
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">// may race to compute f(key) and update the map.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Lock</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// Between the two critical sections, several goroutines</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// may race to compute f(key) and update the map.</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Lock</span>()
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">cache</span>[<span style="color:#a6e22e">key</span>] = <span style="color:#a6e22e">res</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Unlock</span>()
 </span></span><span style="display:flex;"><span>	}
@@ -266,8 +266,8 @@ FAIL    gopl.io/ch9/memo1   2.393s
 <p><u><i>gopl.io/ch9/memo4</i></u></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">entry</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">res</span>   <span style="color:#a6e22e">result</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ready</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{} <span style="color:#75715e">// closed when res is ready
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ready</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{} <span style="color:#75715e">// closed when res is ready</span>
+</span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">f</span> <span style="color:#a6e22e">Func</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Memo</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Memo</span>{<span style="color:#a6e22e">f</span>: <span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">cache</span>: make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">entry</span>)}
@@ -275,30 +275,30 @@ FAIL    gopl.io/ch9/memo1   2.393s
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Memo</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">f</span>     <span style="color:#a6e22e">Func</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mu</span>    <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span> <span style="color:#75715e">// guards cache
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">cache</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">entry</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mu</span>    <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span> <span style="color:#75715e">// guards cache</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cache</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">entry</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">memo</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Memo</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">value</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Lock</span>()
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">cache</span>[<span style="color:#a6e22e">key</span>]
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// This is the first request for this key.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">// This goroutine becomes responsible for computing
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">// the value and broadcasting the ready condition.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">e</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">entry</span>{<span style="color:#a6e22e">ready</span>: make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{})}
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// This is the first request for this key.</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// This goroutine becomes responsible for computing</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// the value and broadcasting the ready condition.</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">e</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">entry</span>{<span style="color:#a6e22e">ready</span>: make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{})}
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">cache</span>[<span style="color:#a6e22e">key</span>] = <span style="color:#a6e22e">e</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Unlock</span>()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">f</span>(<span style="color:#a6e22e">key</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		close(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">ready</span>) <span style="color:#75715e">// broadcast ready condition
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	} <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// This is a repeat request for this key.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Unlock</span>()
+</span></span><span style="display:flex;"><span>		close(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">ready</span>) <span style="color:#75715e">// broadcast ready condition</span>
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// This is a repeat request for this key.</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Unlock</span>()
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">ready</span> <span style="color:#75715e">// wait for ready condition
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	}
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">ready</span> <span style="color:#75715e">// wait for ready condition</span>
+</span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">err</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>现在Get函数包括下面这些步骤了：获取互斥锁来保护共享变量cache map，查询map中是否存在指定条目，如果没有找到那么分配空间插入一个新条目，释放互斥锁。如果存在条目的话且其值没有写入完成（也就是有其它的goroutine在调用f这个慢函数）时，goroutine必须等待值ready之后才能读到条目的结果。而想知道是否ready的话，可以直接从ready channel中读取，由于这个读取操作在channel关闭之前一直是阻塞。</p>
@@ -307,30 +307,30 @@ FAIL    gopl.io/ch9/memo1   2.393s
 <p>这样并发、不重复、无阻塞的cache就完成了。</p>
 <p>上面这样Memo的实现使用了一个互斥量来保护多个goroutine调用Get时的共享map变量。不妨把这种设计和前面提到的把map变量限制在一个单独的monitor goroutine的方案做一些对比，后者在调用Get时需要发消息。</p>
 <p>Func、result和entry的声明和之前保持一致：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Func is the type of the function to memoize.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Func</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">interface</span>{}, <span style="color:#66d9ef">error</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Func is the type of the function to memoize.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Func</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">interface</span>{}, <span style="color:#66d9ef">error</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// A result is the result of calling a Func.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">result</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// A result is the result of calling a Func.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">result</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">value</span> <span style="color:#66d9ef">interface</span>{}
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span>   <span style="color:#66d9ef">error</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">entry</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">res</span>   <span style="color:#a6e22e">result</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ready</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{} <span style="color:#75715e">// closed when res is ready
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ready</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{} <span style="color:#75715e">// closed when res is ready</span>
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>然而Memo类型现在包含了一个叫做requests的channel，Get的调用方用这个channel来和monitor goroutine来通信。requests channel中的元素类型是request。Get的调用方会把这个结构中的两组key都填充好，实际上用这两个变量来对函数进行缓存的。另一个叫response的channel会被拿来发送响应结果。这个channel只会传回一个单独的值。</p>
 <p><u><i>gopl.io/ch9/memo5</i></u></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// A request is a message requesting that the Func be applied to key.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">request</span> <span style="color:#66d9ef">struct</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// A request is a message requesting that the Func be applied to key.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">request</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">key</span>      <span style="color:#66d9ef">string</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">response</span> <span style="color:#66d9ef">chan</span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">result</span> <span style="color:#75715e">// the client wants a single result
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">response</span> <span style="color:#66d9ef">chan</span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">result</span> <span style="color:#75715e">// the client wants a single result</span>
+</span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Memo</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">requests</span> <span style="color:#66d9ef">chan</span> <span style="color:#a6e22e">request</span> }
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// New returns a memoization of f.  Clients must subsequently call Close.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">f</span> <span style="color:#a6e22e">Func</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Memo</span> {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// New returns a memoization of f.  Clients must subsequently call Close.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">f</span> <span style="color:#a6e22e">Func</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Memo</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">memo</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Memo</span>{<span style="color:#a6e22e">requests</span>: make(<span style="color:#66d9ef">chan</span> <span style="color:#a6e22e">request</span>)}
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">server</span>(<span style="color:#a6e22e">f</span>)
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">memo</span>
@@ -351,27 +351,27 @@ FAIL    gopl.io/ch9/memo1   2.393s
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">memo</span>.<span style="color:#a6e22e">requests</span> {
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cache</span>[<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">key</span>]
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// This is the first request for this key.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">e</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">entry</span>{<span style="color:#a6e22e">ready</span>: make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{})}
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// This is the first request for this key.</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">e</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">entry</span>{<span style="color:#a6e22e">ready</span>: make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{})}
 </span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">cache</span>[<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">key</span>] = <span style="color:#a6e22e">e</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">key</span>) <span style="color:#75715e">// call f(key)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		}
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">key</span>) <span style="color:#75715e">// call f(key)</span>
+</span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">deliver</span>(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">response</span>)
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">e</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">entry</span>) <span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">f</span> <span style="color:#a6e22e">Func</span>, <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Evaluate the function.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">f</span>(<span style="color:#a6e22e">key</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Broadcast the ready condition.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	close(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">ready</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Evaluate the function.</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">f</span>(<span style="color:#a6e22e">key</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Broadcast the ready condition.</span>
+</span></span><span style="display:flex;"><span>	close(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">ready</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">e</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">entry</span>) <span style="color:#a6e22e">deliver</span>(<span style="color:#a6e22e">response</span> <span style="color:#66d9ef">chan</span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">result</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Wait for the ready condition.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">ready</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Send the result to the client.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">response</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">res</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Wait for the ready condition.</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">ready</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Send the result to the client.</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">response</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">res</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>和基于互斥量的版本类似，第一个对某个key的请求需要负责去调用函数f并传入这个key，将结果存在条目里，并关闭ready channel来广播条目的ready消息。使用<code>(*entry).call</code>来完成上述工作。</p>
 <p>紧接着对同一个key的请求会发现map中已经有了存在的条目，然后会等待结果变为ready，并将结果从response发送给客户端的goroutien。上述工作是用<code>(*entry).deliver</code>来完成的。对call和deliver方法的调用必须让它们在自己的goroutine中进行以确保monitor goroutines不会因此而被阻塞住而没法处理新的请求。</p>

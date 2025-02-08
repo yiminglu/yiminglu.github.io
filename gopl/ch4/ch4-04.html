@@ -121,11 +121,11 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">dilbert</span> <span style="color:#a6e22e">Employee</span>
 </span></span></code></pre></div><p>dilbert结构体变量的成员可以通过点操作符访问，比如dilbert.Name和dilbert.DoB。因为dilbert是一个变量，它所有的成员也同样是变量，我们可以直接对每个成员赋值：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">dilbert</span>.<span style="color:#a6e22e">Salary</span> <span style="color:#f92672">-=</span> <span style="color:#ae81ff">5000</span> <span style="color:#75715e">// demoted, for writing too few lines of code
-</span></span></span></code></pre></div><p>或者是对成员取地址，然后通过指针访问：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">dilbert</span>.<span style="color:#a6e22e">Salary</span> <span style="color:#f92672">-=</span> <span style="color:#ae81ff">5000</span> <span style="color:#75715e">// demoted, for writing too few lines of code</span>
+</span></span></code></pre></div><p>或者是对成员取地址，然后通过指针访问：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">position</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">dilbert</span>.<span style="color:#a6e22e">Position</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">*</span><span style="color:#a6e22e">position</span> = <span style="color:#e6db74">&#34;Senior &#34;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">position</span> <span style="color:#75715e">// promoted, for outsourcing to Elbonia
-</span></span></span></code></pre></div><p>点操作符也可以和指向结构体的指针一起工作：</p>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">*</span><span style="color:#a6e22e">position</span> = <span style="color:#e6db74">&#34;Senior &#34;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">position</span> <span style="color:#75715e">// promoted, for outsourcing to Elbonia</span>
+</span></span></code></pre></div><p>点操作符也可以和指向结构体的指针一起工作：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">employeeOfTheMonth</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Employee</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">dilbert</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">employeeOfTheMonth</span>.<span style="color:#a6e22e">Position</span> <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34; (proactive team player)&#34;</span>
 </span></span></code></pre></div><p>相当于下面语句</p>
@@ -133,11 +133,11 @@
 </span></span></code></pre></div><p>下面的EmployeeByID函数将根据给定的员工ID返回对应的员工信息结构体的指针。我们可以使用点操作符来访问它里面的成员：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">EmployeeByID</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Employee</span> { <span style="color:#75715e">/* ... */</span> }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">EmployeeByID</span>(<span style="color:#a6e22e">dilbert</span>.<span style="color:#a6e22e">ManagerID</span>).<span style="color:#a6e22e">Position</span>) <span style="color:#75715e">// &#34;Pointy-haired boss&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">EmployeeByID</span>(<span style="color:#a6e22e">dilbert</span>.<span style="color:#a6e22e">ManagerID</span>).<span style="color:#a6e22e">Position</span>) <span style="color:#75715e">// &#34;Pointy-haired boss&#34;</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">id</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">dilbert</span>.<span style="color:#a6e22e">ID</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">EmployeeByID</span>(<span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Salary</span> = <span style="color:#ae81ff">0</span> <span style="color:#75715e">// fired for... no real reason
-</span></span></span></code></pre></div><p>后面的语句通过EmployeeByID返回的结构体指针更新了Employee结构体的成员。如果将EmployeeByID函数的返回值从<code>*Employee</code>指针类型改为Employee值类型，那么更新语句将不能编译通过，因为在赋值语句的左边并不确定是一个变量（译注：调用函数返回的是值，并不是一个可取地址的变量）。</p>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">EmployeeByID</span>(<span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Salary</span> = <span style="color:#ae81ff">0</span> <span style="color:#75715e">// fired for... no real reason</span>
+</span></span></code></pre></div><p>后面的语句通过EmployeeByID返回的结构体指针更新了Employee结构体的成员。如果将EmployeeByID函数的返回值从<code>*Employee</code>指针类型改为Employee值类型，那么更新语句将不能编译通过，因为在赋值语句的左边并不确定是一个变量（译注：调用函数返回的是值，并不是一个可取地址的变量）。</p>
 <p>通常一行对应一个结构体成员，成员的名字在前类型在后，不过如果相邻的成员类型如果相同的话可以被合并到一行，就像下面的Name和Address成员那样：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Employee</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ID</span>            <span style="color:#66d9ef">int</span>
@@ -157,8 +157,8 @@
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">right</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tree</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Sort sorts values in place.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">values</span> []<span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Sort sorts values in place.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">values</span> []<span style="color:#66d9ef">int</span>) {
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">root</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tree</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">values</span> {
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">root</span> = <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">root</span>, <span style="color:#a6e22e">v</span>)
@@ -166,9 +166,9 @@
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">appendValues</span>(<span style="color:#a6e22e">values</span>[:<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">root</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// appendValues appends the elements of t to values in order
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// and returns the resulting slice.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">appendValues</span>(<span style="color:#a6e22e">values</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tree</span>) []<span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// appendValues appends the elements of t to values in order</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// and returns the resulting slice.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">appendValues</span>(<span style="color:#a6e22e">values</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tree</span>) []<span style="color:#66d9ef">int</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">values</span> = <span style="color:#a6e22e">appendValues</span>(<span style="color:#a6e22e">values</span>, <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">left</span>)
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">values</span> = append(<span style="color:#a6e22e">values</span>, <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">value</span>)
@@ -179,8 +179,8 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tree</span>, <span style="color:#a6e22e">value</span> <span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">tree</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// Equivalent to return &amp;tree{value: value}.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">t</span> = new(<span style="color:#a6e22e">tree</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// Equivalent to return &amp;tree{value: value}.</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">t</span> = new(<span style="color:#a6e22e">tree</span>)
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">value</span> = <span style="color:#a6e22e">value</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">t</span>
 </span></span><span style="display:flex;"><span>	}
@@ -193,12 +193,12 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>结构体类型的零值是每个成员都是零值。通常会将零值作为最合理的默认值。例如，对于bytes.Buffer类型，结构体初始值就是一个随时可用的空缓存，还有在第9章将会讲到的sync.Mutex的零值也是有效的未锁定状态。有时候这种零值可用的特性是自然获得的，但是也有些类型需要一些额外的工作。</p>
 <p>如果结构体没有任何成员的话就是空结构体，写作struct{}。它的大小为0，也不包含任何信息，但是有时候依然是有价值的。有些Go语言程序员用map来模拟set数据结构时，用它来代替map中布尔类型的value，只是强调key的重要性，但是因为节约的空间有限，而且语法比较复杂，所以我们通常会避免这样的用法。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">seen</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">struct</span>{}) <span style="color:#75715e">// set of strings
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">seen</span>[<span style="color:#a6e22e">s</span>]; !<span style="color:#a6e22e">ok</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">seen</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">struct</span>{}) <span style="color:#75715e">// set of strings</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ...</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">seen</span>[<span style="color:#a6e22e">s</span>]; !<span style="color:#a6e22e">ok</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">seen</span>[<span style="color:#a6e22e">s</span>] = <span style="color:#66d9ef">struct</span>{}{}
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ...first time seeing s...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ...first time seeing s...</span>
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h3 id="441-结构体字面值">4.4.1. 结构体字面值</h3>
 <p>结构体值也可以用结构体字面值表示，结构体字面值可以指定每个成员的值。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Point</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">Y</span> <span style="color:#66d9ef">int</span> }
@@ -210,20 +210,20 @@
 </span></span></code></pre></div><p>在这种形式的结构体字面值写法中，如果成员被忽略的话将默认用零值。因为提供了成员的名字，所以成员出现的顺序并不重要。</p>
 <p>两种不同形式的写法不能混合使用。而且，你不能企图在外部包中用第一种顺序赋值的技巧来偷偷地初始化结构体中未导出的成员。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">p</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span> } <span style="color:#75715e">// a and b are not exported
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span> } <span style="color:#75715e">// a and b are not exported</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">q</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;p&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">T</span>{<span style="color:#a6e22e">a</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">b</span>: <span style="color:#ae81ff">2</span>} <span style="color:#75715e">// compile error: can&#39;t reference a, b
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">T</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}       <span style="color:#75715e">// compile error: can&#39;t reference a, b
-</span></span></span></code></pre></div><p>虽然上面最后一行代码的编译错误信息中并没有显式提到未导出的成员，但是这样企图隐式使用未导出成员的行为也是不允许的。</p>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">T</span>{<span style="color:#a6e22e">a</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">b</span>: <span style="color:#ae81ff">2</span>} <span style="color:#75715e">// compile error: can&#39;t reference a, b</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">T</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}       <span style="color:#75715e">// compile error: can&#39;t reference a, b</span>
+</span></span></code></pre></div><p>虽然上面最后一行代码的编译错误信息中并没有显式提到未导出的成员，但是这样企图隐式使用未导出成员的行为也是不允许的。</p>
 <p>结构体可以作为函数的参数和返回值。例如，这个Scale函数将Point类型的值缩放后返回：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Scale</span>(<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Point</span>, <span style="color:#a6e22e">factor</span> <span style="color:#66d9ef">int</span>) <span style="color:#a6e22e">Point</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Point</span>{<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">X</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">factor</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Y</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">factor</span>}
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Scale</span>(<span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}, <span style="color:#ae81ff">5</span>)) <span style="color:#75715e">// &#34;{5 10}&#34;
-</span></span></span></code></pre></div><p>如果考虑效率的话，较大的结构体通常会用指针的方式传入和返回，</p>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Scale</span>(<span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}, <span style="color:#ae81ff">5</span>)) <span style="color:#75715e">// &#34;{5 10}&#34;</span>
+</span></span></code></pre></div><p>如果考虑效率的话，较大的结构体通常会用指针的方式传入和返回，</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Bonus</span>(<span style="color:#a6e22e">e</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Employee</span>, <span style="color:#a6e22e">percent</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Salary</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">percent</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">100</span>
 </span></span><span style="display:flex;"><span>}
@@ -243,9 +243,9 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">X</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">X</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Y</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Y</span>) <span style="color:#75715e">// &#34;false&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">q</span>)                   <span style="color:#75715e">// &#34;false&#34;
-</span></span></span></code></pre></div><p>可比较的结构体类型和其他可比较的类型一样，可以用于map的key类型。</p>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">X</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">X</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Y</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Y</span>) <span style="color:#75715e">// &#34;false&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">q</span>)                   <span style="color:#75715e">// &#34;false&#34;</span>
+</span></span></code></pre></div><p>可比较的结构体类型和其他可比较的类型一样，可以用于map的key类型。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">address</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">hostname</span> <span style="color:#66d9ef">string</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">port</span>     <span style="color:#66d9ef">int</span>
@@ -301,15 +301,15 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>得益于匿名嵌入的特性，我们可以直接访问叶子属性而不需要给出完整的路径：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">w</span> <span style="color:#a6e22e">Wheel</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">X</span> = <span style="color:#ae81ff">8</span>            <span style="color:#75715e">// equivalent to w.Circle.Point.X = 8
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Y</span> = <span style="color:#ae81ff">8</span>            <span style="color:#75715e">// equivalent to w.Circle.Point.Y = 8
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Radius</span> = <span style="color:#ae81ff">5</span>       <span style="color:#75715e">// equivalent to w.Circle.Radius = 5
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Spokes</span> = <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">X</span> = <span style="color:#ae81ff">8</span>            <span style="color:#75715e">// equivalent to w.Circle.Point.X = 8</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Y</span> = <span style="color:#ae81ff">8</span>            <span style="color:#75715e">// equivalent to w.Circle.Point.Y = 8</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Radius</span> = <span style="color:#ae81ff">5</span>       <span style="color:#75715e">// equivalent to w.Circle.Radius = 5</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Spokes</span> = <span style="color:#ae81ff">20</span>
 </span></span></code></pre></div><p>在右边的注释中给出的显式形式访问这些叶子成员的语法依然有效，因此匿名成员并不是真的无法访问了。其中匿名成员Circle和Point都有自己的名字——就是命名的类型名字——但是这些名字在点操作符中是可选的。我们在访问子成员的时候可以忽略任何匿名成员部分。</p>
 <p>不幸的是，结构体字面值并没有简短表示匿名成员的语法， 因此下面的语句都不能编译通过：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">w</span> = <span style="color:#a6e22e">Wheel</span>{<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">20</span>}                       <span style="color:#75715e">// compile error: unknown fields
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">w</span> = <span style="color:#a6e22e">Wheel</span>{<span style="color:#a6e22e">X</span>: <span style="color:#ae81ff">8</span>, <span style="color:#a6e22e">Y</span>: <span style="color:#ae81ff">8</span>, <span style="color:#a6e22e">Radius</span>: <span style="color:#ae81ff">5</span>, <span style="color:#a6e22e">Spokes</span>: <span style="color:#ae81ff">20</span>} <span style="color:#75715e">// compile error: unknown fields
-</span></span></span></code></pre></div><p>结构体字面值必须遵循形状类型声明时的结构，所以我们只能用下面的两种语法，它们彼此是等价的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">w</span> = <span style="color:#a6e22e">Wheel</span>{<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">20</span>}                       <span style="color:#75715e">// compile error: unknown fields</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">w</span> = <span style="color:#a6e22e">Wheel</span>{<span style="color:#a6e22e">X</span>: <span style="color:#ae81ff">8</span>, <span style="color:#a6e22e">Y</span>: <span style="color:#ae81ff">8</span>, <span style="color:#a6e22e">Radius</span>: <span style="color:#ae81ff">5</span>, <span style="color:#a6e22e">Spokes</span>: <span style="color:#ae81ff">20</span>} <span style="color:#75715e">// compile error: unknown fields</span>
+</span></span></code></pre></div><p>结构体字面值必须遵循形状类型声明时的结构，所以我们只能用下面的两种语法，它们彼此是等价的：</p>
 <p><u><i>gopl.io/ch4/embed</i></u></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">w</span> = <span style="color:#a6e22e">Wheel</span>{<span style="color:#a6e22e">Circle</span>{<span style="color:#a6e22e">Point</span>{<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">8</span>}, <span style="color:#ae81ff">5</span>}, <span style="color:#ae81ff">20</span>}
 </span></span><span style="display:flex;"><span>
@@ -318,22 +318,22 @@
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Point</span>:  <span style="color:#a6e22e">Point</span>{<span style="color:#a6e22e">X</span>: <span style="color:#ae81ff">8</span>, <span style="color:#a6e22e">Y</span>: <span style="color:#ae81ff">8</span>},
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Radius</span>: <span style="color:#ae81ff">5</span>,
 </span></span><span style="display:flex;"><span>	},
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Spokes</span>: <span style="color:#ae81ff">20</span>, <span style="color:#75715e">// NOTE: trailing comma necessary here (and at Radius)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Spokes</span>: <span style="color:#ae81ff">20</span>, <span style="color:#75715e">// NOTE: trailing comma necessary here (and at Radius)</span>
+</span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%#v\n&#34;</span>, <span style="color:#a6e22e">w</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output:
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Wheel{Circle:Circle{Point:Point{X:8, Y:8}, Radius:5}, Spokes:20}
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Wheel{Circle:Circle{Point:Point{X:8, Y:8}, Radius:5}, Spokes:20}</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">X</span> = <span style="color:#ae81ff">42</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%#v\n&#34;</span>, <span style="color:#a6e22e">w</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output:
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Wheel{Circle:Circle{Point:Point{X:42, Y:8}, Radius:5}, Spokes:20}
-</span></span></span></code></pre></div><p>需要注意的是Printf函数中%v参数包含的#副词，它表示用和Go语言类似的语法打印值。对于结构体类型来说，将包含每个成员的名字。</p>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Wheel{Circle:Circle{Point:Point{X:42, Y:8}, Radius:5}, Spokes:20}</span>
+</span></span></code></pre></div><p>需要注意的是Printf函数中%v参数包含的#副词，它表示用和Go语言类似的语法打印值。对于结构体类型来说，将包含每个成员的名字。</p>
 <p>因为匿名成员也有一个隐式的名字，因此不能同时包含两个类型相同的匿名成员，这会导致名字冲突。同时，因为成员的名字是由其类型隐式地决定的，所以匿名成员也有可见性的规则约束。在上面的例子中，Point和Circle匿名成员都是导出的。即使它们不导出（比如改成小写字母开头的point和circle），我们依然可以用简短形式访问匿名成员嵌套的成员</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">X</span> = <span style="color:#ae81ff">8</span> <span style="color:#75715e">// equivalent to w.circle.point.X = 8
-</span></span></span></code></pre></div><p>但是在包外部，因为circle和point没有导出，不能访问它们的成员，因此简短的匿名成员访问语法也是禁止的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">X</span> = <span style="color:#ae81ff">8</span> <span style="color:#75715e">// equivalent to w.circle.point.X = 8</span>
+</span></span></code></pre></div><p>但是在包外部，因为circle和point没有导出，不能访问它们的成员，因此简短的匿名成员访问语法也是禁止的。</p>
 <p>到目前为止，我们看到匿名成员特性只是对访问嵌套成员的点运算符提供了简短的语法糖。稍后，我们将会看到匿名成员并不要求是结构体类型；其实任何命名的类型都可以作为结构体的匿名成员。但是为什么要嵌入一个没有任何子成员类型的匿名成员类型呢？</p>
 <p>答案是匿名类型的方法集。简短的点运算符语法可以用于选择匿名成员嵌套的成员，也可以用于访问它们的方法。实际上，外层的结构体不仅仅是获得了匿名成员类型的所有成员，而且也获得了该类型导出的全部的方法。这个机制可以用于将一些有简单行为的对象组合成有复杂行为的对象。组合是Go语言中面向对象编程的核心，我们将在6.3节中专门讨论。</p>
 
