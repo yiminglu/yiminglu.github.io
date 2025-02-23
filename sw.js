@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-bae8ef2495f56b89ff2cb2642af8ad2b944d6ee0';
+const cacheName = 'sr-precache-3617fdae82f90d0ffbe887aed54b5a0904f406b6';
 
 const PrecacheList = [
   "/",
@@ -62,13 +62,17 @@ const PrecacheList = [
   "/post/2023/zibo-yantai.html",
   "/post/2024/beijing-library.html",
   "/post/2024/first-snow.html",
+  "/post/2024/grand-canal-museum.html",
   "/post/2024/gu-an-hot-spring.html",
+  "/post/2024/hebi-zhengzhou.html",
   "/post/2024/hongkong.html",
   "/post/2024/lifes-fragile.html",
   "/post/2024/mushrooms.html",
   "/post/2024/northern-xinjiang.html",
   "/post/2024/weihai-rushan.html",
   "/post/2024/why-working-hard.html",
+  "/post/2024/wuhan.html",
+  "/post/2024/xuzhou.html",
   "/images/logo/daisy.png",
   "/images/logo/leaf-1.png",
   "/images/logo/leaf-2.png",
