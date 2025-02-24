@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-3ebd222bc7d578f9fc6d1202d67ff7a46f69f88b';
+const cacheName = 'sr-precache-30968e6b7fe7056ab339f0ef443e20d582572f60';
 
 const PrecacheList = [
   "/",
@@ -66,6 +66,8 @@ const PrecacheList = [
   "/post/2024/gu-an-hot-spring.html",
   "/post/2024/hebi-zhengzhou.html",
   "/post/2024/hongkong.html",
+  "/post/2024/jinhaihu-trail.html",
+  "/post/2024/jinshanling-aranya.html",
   "/post/2024/lifes-fragile.html",
   "/post/2024/mount-taishan.html",
   "/post/2024/mushrooms.html",
