@@ -2,4 +2,3 @@ User-agent: *
 Disallow: /billing/
 Disallow: /imggps/
 
-Disallow: /images/*
