@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-78c01e0a7c5a199988f7828c3092e389c7025024';
+const cacheName = 'sr-precache-beb5847d3da65ee48106716302122e79cd8903ac';
 
 const PrecacheList = [
   "/",
@@ -25,20 +25,13 @@ const PrecacheList = [
   "/imggps/static/js/27.3da58fbf.chunk.js",
   "/imggps/static/js/428.296e3334.chunk.js",
   "/imggps/static/js/main.b53710ec.js",
-  "/post/2009/luck.html",
-  "/post/2009/yuanyuan.html",
   "/post/2013/git-config.html",
   "/post/2013/live-in-beijing.html",
   "/post/2013/not-a-good-ending.html",
-  "/post/2014/a-dark-room.html",
   "/post/2014/markdown-syntax.html",
   "/post/2015/connect-ipv6.html",
   "/post/2015/crossroads.html",
-  "/post/2015/ftf-to-zip.html",
-  "/post/2015/git-best-practices.html",
   "/post/2015/go-chase-our-dreams.html",
-  "/post/2015/responsive-design.html",
-  "/post/2016/ssot.html",
   "/post/2018/feelings-of-leaving.html",
   "/post/2018/migration-to-https.html",
   "/post/2018/pwa-integration.html",
@@ -46,7 +39,6 @@ const PrecacheList = [
   "/post/2019/over-concern.html",
   "/post/2019/the-2nd-birthday.html",
   "/post/2020/choice-about-responsibility.html",
-  "/post/2020/enable-ntfs-mac.html",
   "/post/2020/fifth-huluversary.html",
   "/post/2020/hevcify-camera-videos.html",
   "/post/2020/ncee-delayed.html",
