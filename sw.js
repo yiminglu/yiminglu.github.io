@@ -1,10 +1,10 @@
-const cacheName = 'sr-precache-79e757a142ab22830196e222663ff981dbcb6a4c';
+const cacheName = 'sr-precache-0e46ffccec6ce096fda5c969850df164aba58cfb';
 
 const PrecacheList = [
   "/",
   "/index.html",
-  "/css/main.min.css?rev=79e757a142",
-  "/js/main.min.js?rev=79e757a142",
+  "/css/main.min.css",
+  "/js/main.min.js",
   "/js/ga.js",
   "/posts.html",
   "/about.html",
