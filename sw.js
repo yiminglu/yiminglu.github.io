@@ -12,7 +12,7 @@ const PrecacheList = [
   "/manifest.json",
   "/favicon.ico",
   "/billing/assets/index-B3SPYhgV.css",
-  "/billing/assets/index-COLJdjvc.js",
+  "/billing/assets/index-DFqG7l9t.js",
   "/billing/index.html",
   "/imggps/index.html",
   "/imggps/static/css/main.5f9444b5.css",
