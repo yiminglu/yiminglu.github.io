@@ -1,4 +1,4 @@
-const cacheName = 'sr-precache-930b19252a1b9302206d24b27a15f51e32cc96dc';
+const cacheName = 'sr-precache-6bbf8c9096ec69c63fff614048c4f4e7d00c1e87';
 
 const PrecacheList = [
   "/",
@@ -13,7 +13,7 @@ const PrecacheList = [
   "/favicon.ico",
   "/billing/",
   "/billing/assets/index-C-Vja75j.css",
-  "/billing/assets/index-NeOiveCA.js",
+  "/billing/assets/index-DYf9PqNo.js",
   "/noise/",
   "/noise/assets/index-DsK_ihyV.js",
   "/noise/assets/index-nitH70Yu.css",
