@@ -13,7 +13,7 @@
     <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
 
     
-    <link rel="stylesheet" href="/css/main.min.cd417cd21c587098cf612abd9c106353f6f17b947ee29994e379d79aaac02c87.css" integrity="sha256-zUF80hxYcJjPYSq9nBBjU/bxe5R&#43;4pmU43nXmqrALIc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/main.min.028975ca4d1d09e96c73ba1218e01c4f2303c5e8e5e7e3faa3e47be2537934c3.css" integrity="sha256-Aol1yk0dCelsc7oSGOAcTyMDxejl5&#43;P6o&#43;R74lN5NMM=" crossorigin="anonymous">
 
     <link rel="manifest" href="/manifest.json">
     <link rel="canonical" href="https://seasonsroad.com/gopl/ch2/ch2-05.html">
@@ -96,7 +96,7 @@
         </ul>
       </div>
     </div>
-    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+    <a class="site-logo" href="/index.html"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
   </div>
 </header>
 <div id="main-content"></div>
@@ -115,7 +115,8 @@
 <p>译注：对于中文汉字，Unicode标志都作为小写字母处理，因此中文的命名默认不能导出；不过国内的用户针对该问题提出了不同的看法，根据RobPike的回复，在Go2中有可能会将中日韩等字符当作大写字母处理。下面是RobPik在 <a href="https://github.com/golang/go/issues/5763">Issue763</a> 的回复：</p>
 <blockquote>
 <p>A solution that&rsquo;s been kicking around for a while:</p>
-<p>For Go 2 (can&rsquo;t do it before then): Change the definition to “lower case letters and _ are package-local; all else is exported”. Then with non-cased languages, such as Japanese, we can write 日本语 for an exported name and _日本语 for a local name. This rule has no effect, relative to the Go 1 rule, with cased languages. They behave exactly the same.</p></blockquote>
+<p>For Go 2 (can&rsquo;t do it before then): Change the definition to “lower case letters and _ are package-local; all else is exported”. Then with non-cased languages, such as Japanese, we can write 日本语 for an exported name and _日本语 for a local name. This rule has no effect, relative to the Go 1 rule, with cased languages. They behave exactly the same.</p>
+</blockquote>
 <p>为了说明类型声明，我们将不同温度单位分别定义为不同的类型：</p>
 <p><u><i>gopl.io/ch2/tempconv0</i></u></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#75715e">// Package tempconv performs Celsius and Fahrenheit temperature computations.</span>

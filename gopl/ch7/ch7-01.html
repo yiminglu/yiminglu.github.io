@@ -13,7 +13,7 @@
     <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
 
     
-    <link rel="stylesheet" href="/css/main.min.cd417cd21c587098cf612abd9c106353f6f17b947ee29994e379d79aaac02c87.css" integrity="sha256-zUF80hxYcJjPYSq9nBBjU/bxe5R&#43;4pmU43nXmqrALIc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/main.min.028975ca4d1d09e96c73ba1218e01c4f2303c5e8e5e7e3faa3e47be2537934c3.css" integrity="sha256-Aol1yk0dCelsc7oSGOAcTyMDxejl5&#43;P6o&#43;R74lN5NMM=" crossorigin="anonymous">
 
     <link rel="manifest" href="/manifest.json">
     <link rel="canonical" href="https://seasonsroad.com/gopl/ch7/ch7-01.html">
@@ -96,7 +96,7 @@
         </ul>
       </div>
     </div>
-    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+    <a class="site-logo" href="/index.html"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
   </div>
 </header>
 <div id="main-content"></div>
@@ -133,8 +133,8 @@
 </span></span><span style="display:flex;"><span>	<span style="color:#75715e">// and any error encountered that caused the write to stop early.</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Write must return a non-nil error if it returns n &lt; len(p).</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Write must not modify the slice data, even temporarily.</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Implementations must not retain p.</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	// Implementations must not retain p.</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">p</span> []<span style="color:#66d9ef">byte</span>) (<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>io.Writer类型定义了函数Fprintf和这个函数调用者之间的约定。一方面这个约定需要调用者提供具体类型的值就像<code>*os.File</code>和<code>*bytes.Buffer</code>，这些类型都有一个特定签名和行为的Write的函数。另一方面这个约定保证了Fprintf接受任何满足io.Writer接口的值都可以工作。Fprintf函数可能没有假定写入的是一个文件或是一段内存，而是写入一个可以调用Write函数的值。</p>

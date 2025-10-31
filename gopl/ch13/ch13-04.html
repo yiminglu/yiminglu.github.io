@@ -13,7 +13,7 @@
     <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
 
     
-    <link rel="stylesheet" href="/css/main.min.cd417cd21c587098cf612abd9c106353f6f17b947ee29994e379d79aaac02c87.css" integrity="sha256-zUF80hxYcJjPYSq9nBBjU/bxe5R&#43;4pmU43nXmqrALIc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/main.min.028975ca4d1d09e96c73ba1218e01c4f2303c5e8e5e7e3faa3e47be2537934c3.css" integrity="sha256-Aol1yk0dCelsc7oSGOAcTyMDxejl5&#43;P6o&#43;R74lN5NMM=" crossorigin="anonymous">
 
     <link rel="manifest" href="/manifest.json">
     <link rel="canonical" href="https://seasonsroad.com/gopl/ch13/ch13-04.html">
@@ -96,7 +96,7 @@
         </ul>
       </div>
     </div>
-    <a class="site-logo" href="/"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
+    <a class="site-logo" href="/index.html"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
   </div>
 </header>
 <div id="main-content"></div>
@@ -120,12 +120,12 @@
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// printings did not comply with the proposed rules for passing</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// pointers between Go and C, described here:</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// https://github.com/golang/proposal/blob/master/design/12416-cgo-pointers.md</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// The rules forbid a C function like bz2compress from storing &#39;in&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// The rules forbid a C function like bz2compress from storing &#39;in&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// and &#39;out&#39; (pointers to variables allocated by Go) into the Go</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// variable &#39;s&#39;, even temporarily.</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// The version below, which appears in the third printing, has been</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// The version below, which appears in the third printing, has been</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// corrected.  To comply with the rules, the bz_stream variable must</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// be allocated by C code.  We have introduced two C functions,</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// bz2alloc and bz2free, to allocate and free instances of the</span>
