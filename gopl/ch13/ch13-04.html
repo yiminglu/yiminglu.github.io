@@ -120,12 +120,12 @@
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// printings did not comply with the proposed rules for passing</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// pointers between Go and C, described here:</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// https://github.com/golang/proposal/blob/master/design/12416-cgo-pointers.md</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// The rules forbid a C function like bz2compress from storing &#39;in&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// The rules forbid a C function like bz2compress from storing &#39;in&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// and &#39;out&#39; (pointers to variables allocated by Go) into the Go</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// variable &#39;s&#39;, even temporarily.</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// The version below, which appears in the third printing, has been</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// The version below, which appears in the third printing, has been</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// corrected.  To comply with the rules, the bz_stream variable must</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// be allocated by C code.  We have introduced two C functions,</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// bz2alloc and bz2free, to allocate and free instances of the</span>
