@@ -1,142 +1,133 @@
-const cacheName = 'sr-precache-8c66d7de8cfb5f740bfb62d4ac1b038c2c2474f5';
+/*
+ * Service worker template. scripts/generateSW.js fills in the revision and the
+ * precache-list placeholders and writes the result to public/sw.js — never edit
+ * the generated file by hand.
+ *
+ * Strategy:
+ *   - install:  precache the app shell atomically, bypassing the HTTP cache.
+ *   - activate: drop only OUR older precache versions, then claim clients.
+ *   - fetch:    navigations are network-first (fresh HTML, cached copy or
+ *               /offline.html when the network fails); other same-origin GETs
+ *               are cache-first with a network fallback.
+ */
 
-const PrecacheList = [
+const CACHE_PREFIX = 'sr-precache-';
+const cacheName = CACHE_PREFIX + 'b8ee1c21b865';
+const OFFLINE_URL = '/offline.html';
+const PRECACHE = [
   "/",
-  "/index.html",
-  "/css/main.min.028975ca4d1d09e96c73ba1218e01c4f2303c5e8e5e7e3faa3e47be2537934c3.css",
-  "/js/main.min.js",
-  "/js/ga.js",
   "/posts.html",
   "/about.html",
-  "/404.html",
+  "/links.html",
+  "/offline.html",
+  "/css/main.min.fe85cf33fc3d25d4b0e92825ee051bc3e84485fc4482b3992406893b8959a029.css",
+  "/js/main.min.4691eb0679edb07512a91bf1a38ba304b0ce53b5b4caefa49bf558c9ac1ac584.js",
   "/manifest.json",
   "/favicon.ico",
-  "/billing/",
-  "/billing/assets/index-CKArpnzf.css",
-  "/billing/assets/index-DdOeyMFC.js",
-  "/post/2013/git-config.html",
-  "/post/2013/live-in-beijing.html",
-  "/post/2013/not-a-good-ending.html",
-  "/post/2014/markdown-syntax.html",
-  "/post/2015/connect-ipv6.html",
-  "/post/2015/crossroads.html",
-  "/post/2015/go-chase-our-dreams.html",
-  "/post/2018/feelings-of-leaving.html",
-  "/post/2018/migration-to-https.html",
-  "/post/2018/pwa-integration.html",
-  "/post/2019/adding-dark-mode.html",
-  "/post/2019/over-concern.html",
-  "/post/2019/the-2nd-birthday.html",
-  "/post/2020/choice-about-responsibility.html",
-  "/post/2020/fifth-huluversary.html",
-  "/post/2020/hevcify-camera-videos.html",
-  "/post/2020/ncee-delayed.html",
-  "/post/2023/beihai.html",
-  "/post/2023/eighth-huluversary.html",
-  "/post/2023/guizhou.html",
-  "/post/2023/hulun-buir.html",
-  "/post/2023/lifes-hard.html",
-  "/post/2023/ningxia.html",
-  "/post/2023/qing-gan-grand-loop.html",
-  "/post/2023/ulan-buh.html",
-  "/post/2023/universal-studios-beijing.html",
-  "/post/2023/wucaiqianshan.html",
-  "/post/2023/zibo-yantai.html",
-  "/post/2024/beijing-library.html",
-  "/post/2024/first-snow.html",
-  "/post/2024/grand-canal-museum.html",
-  "/post/2024/gu-an-hot-spring.html",
-  "/post/2024/hebi-zhengzhou.html",
-  "/post/2024/hongkong.html",
-  "/post/2024/jinhaihu-trail.html",
-  "/post/2024/jinshanling-aranya.html",
-  "/post/2024/lantern-festival.html",
-  "/post/2024/lifes-fragile.html",
-  "/post/2024/mount-taishan.html",
-  "/post/2024/mushrooms.html",
-  "/post/2024/northern-xinjiang.html",
-  "/post/2024/pofengling2.0.html",
-  "/post/2024/weihai-rushan.html",
-  "/post/2024/why-working-hard.html",
-  "/post/2024/wuhan.html",
-  "/post/2024/xuzhou.html",
-  "/post/2025/arts-crafts.html",
-  "/post/2025/baihujian.html",
-  "/post/2025/blood-moon.html",
-  "/post/2025/chaoshan.html",
-  "/post/2025/cnfm.html",
-  "/post/2025/dajue-temple.html",
-  "/post/2025/dingdu-peak.html",
-  "/post/2025/guangxi-chongzuo.html",
-  "/post/2025/gubei-shuizhen.html",
-  "/post/2025/guizhou-xingyi.html",
-  "/post/2025/hebei-yuxian.html",
-  "/post/2025/heilongjiang-yichun.html",
-  "/post/2025/henan-anyang.html",
-  "/post/2025/i-see-u-yinshang.html",
-  "/post/2025/jiangxi.html",
-  "/post/2025/jianhe-park.html",
-  "/post/2025/jinhaihu-trail-2.html",
-  "/post/2025/moshikou.html",
-  "/post/2025/niulanshan-liquor-museum.html",
-  "/post/2025/olympic-forest-park.html",
-  "/post/2025/qinhuangdao-yutian.html",
-  "/post/2025/shandong-oulebao.html",
-  "/post/2025/shanxi-datong.html",
-  "/post/2025/shenyang.html",
-  "/post/2025/super-hopeson.html",
-  "/post/2025/tianjin-taida.html",
-  "/post/2025/tibet-linzhi.html",
-  "/post/2025/wangjing-flower-stream.html",
-  "/post/2025/xiyucun.html",
-  "/post/2025/yinshan-pagodas.html",
-  "/post/2025/yunnan3.0.html",
-  "/post/2025/zhejiang-lishui.html",
-  "/post/2026/bird-house.html",
+  "/favicon.svg",
   "/images/logo/SR-oneline.png",
   "/images/topbar/1.jpg",
   "/images/topbar/2.jpg",
-  "/images/topbar/3.jpg",
-  "/images/topbar/4.jpg",
-  "/images/topbar/5.jpg",
-  "/images/topbar/6.jpg"
+  "/images/topbar/3.jpg"
 ];
 
-
-self.addEventListener('install', function(e) {
-  console.log('[SW] Install');
+self.addEventListener('install', function (e) {
+  console.log('[SW] Install', cacheName);
   e.waitUntil(
-    caches.open(cacheName).then(function(cache) {
-      console.log('[SW] Caching all files.');
-      cache.addAll(PrecacheList);
-      console.log('[SW] SkipWaiting');
-      return self.skipWaiting();
-    })
+    caches.open(cacheName)
+      .then(function (cache) {
+        // { cache: 'reload' } goes to the network, so a stale HTTP cache can
+        // never be baked into a new precache version.
+        return cache.addAll(PRECACHE.map(function (url) {
+          return new Request(url, { cache: 'reload' });
+        }));
+      })
+      .then(function () {
+        return self.skipWaiting();
+      })
   );
 });
 
-
-self.addEventListener('activate', function(e) {
-  console.log('[SW] Activate');
+self.addEventListener('activate', function (e) {
+  console.log('[SW] Activate', cacheName);
   e.waitUntil(
-    caches.keys().then(function(keyList) {
-      return Promise.all(keyList.map(function(key) {
-        if (key !== cacheName) {
-          console.log('[SW] Removing old cache', key);
-          return caches.delete(key);
-        }
-      }));
-    })
-  );
-  return self.clients.claim();
-});
-
-
-self.addEventListener('fetch', function(e) {
-  e.respondWith(
-    caches.match(e.request).then(function(response) {
-      return response || fetch(e.request);
-    })
+    caches.keys()
+      .then(function (keys) {
+        return Promise.all(
+          keys
+            .filter(function (key) {
+              return key.startsWith(CACHE_PREFIX) && key !== cacheName;
+            })
+            .map(function (key) {
+              return caches.delete(key);
+            })
+        );
+      })
+      .then(function () {
+        return self.clients.claim();
+      })
   );
 });
 
+self.addEventListener('fetch', function (e) {
+  const request = e.request;
+
+  // Let the browser handle anything we do not want to serve from cache.
+  if (request.method !== 'GET') {
+    return;
+  }
+  if (new URL(request.url).origin !== self.location.origin) {
+    return;
+  }
+  // Firefox: fetch() throws for 'only-if-cached' unless mode is 'same-origin'.
+  if (request.cache === 'only-if-cached' && request.mode !== 'same-origin') {
+    return;
+  }
+
+  if (request.mode === 'navigate') {
+    e.respondWith(networkFirst(e, request));
+    return;
+  }
+
+  e.respondWith(cacheFirst(request));
+});
+
+function networkFirst(e, request) {
+  return fetch(request)
+    .then(function (response) {
+      if (response.ok) {
+        const copy = response.clone();
+        e.waitUntil(
+          caches.open(cacheName)
+            .then(function (cache) {
+              return cache.put(request, copy);
+            })
+            .catch(function () {
+              // A failed cache write must never break the navigation.
+            })
+        );
+      }
+      return response;
+    })
+    .catch(function () {
+      return caches.match(request, { ignoreSearch: true })
+        .then(function (cached) {
+          return cached || caches.match(OFFLINE_URL);
+        })
+        .then(function (fallback) {
+          return fallback || Response.error();
+        });
+    });
+}
+
+function cacheFirst(request) {
+  return caches.match(request)
+    .then(function (cached) {
+      return cached || fetch(request);
+    })
+    .catch(function () {
+      // Network failure with no cached copy: a plain network error, not an
+      // unhandled rejection.
+      return Response.error();
+    });
+}

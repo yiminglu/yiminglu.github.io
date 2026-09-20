@@ -1,323 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
-    <script src="/js/ga.js"></script>
-
-    <meta charset="utf-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title>Markdown 简要语法说明 - SeasonsRoad</title>
-    <meta name="description" content="The syntax of Markdown, in a simple way.">
-
-    
-    <link rel="stylesheet" href="/css/main.min.028975ca4d1d09e96c73ba1218e01c4f2303c5e8e5e7e3faa3e47be2537934c3.css" integrity="sha256-Aol1yk0dCelsc7oSGOAcTyMDxejl5&#43;P6o&#43;R74lN5NMM=" crossorigin="anonymous">
-
-    <link rel="manifest" href="/manifest.json">
-    <link rel="canonical" href="https://seasonsroad.com/post/2014/markdown-syntax.html">
-
-    <meta name="theme-color" content="#FFAA00">
-
-    <link rel="dns-prefetch" href="https://www.google-analytics.com">
-    <link rel="dns-prefetch" href="https://www.googleadservices.com">
-
-    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
-    
-
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-
-    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
-    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
-    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
-    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
-    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
-    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
-
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
-</head>
-
-  <body>
-    <header id="header">
-  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
-  <div class="wrapper">
-    <div id="site-nav">
-      <span id="menu-toggler">
-        <span class="top-bar"></span>
-        <span class="middle-bar"></span>
-        <span class="bottom-bar"></span>
-      </span>
-      <div id="menu">
-        <ul class="menu-list">
-          
-          <li class="menu-item">
-            <a href="/links.html" class="menu-link">
-              Links
-              
-            </a>
-            
-          </li>
-          
-          <li class="menu-item">
-            <a href="/billing/" class="menu-link">
-              Billing
-              
-            </a>
-            
-          </li>
-          
-          <li class="menu-item">
-            <a href="/imggps/" class="menu-link">
-              ImgGPS
-              
-            </a>
-            
-          </li>
-          
-          <li class="menu-item">
-            <a href="/about.html" class="menu-link">
-              About
-              
-            </a>
-            
-          </li>
-          
-        </ul>
-      </div>
-    </div>
-    <a class="site-logo" href="/index.html"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
-  </div>
-</header>
-<div id="main-content"></div>
-
-    
-    <div class="page-content">
-      <div class="wrapper">
-        
-<div class="post">
-  <header class="post-header">
-    <h1 class="post-title">Markdown 简要语法说明</h1>
-    <p class="post-meta">Dec 27, 2014</p>
-  </header>
-  <article class="post-content">
-    <h2 id="简述">简述</h2>
-<p>此页提供了Markdown的简单概念，语法说明页提供了完整详细的文档，说明了每项功能。但是Markdown其实很简单就可以上手，此页文档提供了一些范例，并且每个范例都会提供输出的HTML结果。</p>
-<p>其实直接试试看也是一个很不错的方法，Dingus是一个网页应用程序，你可以把自已编写的Markdown文档转成XHTML。</p>
-<h2 id="段落标题区块代码">段落、标题、区块代码</h2>
-<p>一个段落是由一个以上的连接的行句组成，而一个以上的空行则会划分出不同的段落（空行的定义是显示上看起来像是空行，就被视为空行，例如有一行只有空白和tab，那该行也会被视为空行），一般的段落不需要用空白或换行缩进。</p>
-<p>Markdown支持两种标题的语法，Setext和atx形式。Setext形式是用底线的形式，利用<code>=</code>（最高阶标题）和<code>-</code>（第二阶标题），Atx形式在行首插入1到6个<code>#</code>，对应到标题1到6阶。</p>
-<p>区块引用则使用email形式的<code>&gt;</code>角括号。</p>
-<p>Markdown 语法:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>A First Level Header
-</span></span><span style="display:flex;"><span>====================
-</span></span><span style="display:flex;"><span>A Second Level Header
-</span></span><span style="display:flex;"><span>---------------------
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Now is the time for all good men to come to
-</span></span><span style="display:flex;"><span>the aid of their country. This is just a
-</span></span><span style="display:flex;"><span>regular paragraph.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>The quick brown fox jumped over the lazy
-</span></span><span style="display:flex;"><span>dog&#39;s back.
-</span></span><span style="display:flex;"><span><span style="color:#75715e">### Header 3
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">&gt; </span><span style="font-style:italic">This is a blockquote.
-</span></span></span><span style="display:flex;"><span>&gt; 
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">&gt; </span><span style="font-style:italic">This is the second paragraph in the blockquote.
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">&gt;
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic">&gt; ## This is an H2 in a blockquote
-</span></span></span></code></pre></div><p>输出HTML为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">h1</span>&gt;A First Level Header&lt;/<span style="color:#f92672">h1</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">h2</span>&gt;A Second Level Header&lt;/<span style="color:#f92672">h2</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;Now is the time for all good men to come to
-</span></span><span style="display:flex;"><span>the aid of their country. This is just a
-</span></span><span style="display:flex;"><span>regular paragraph.&lt;/<span style="color:#f92672">p</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;The quick brown fox jumped over the lazy
-</span></span><span style="display:flex;"><span>dog&#39;s back.&lt;/<span style="color:#f92672">p</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">h3</span>&gt;Header 3&lt;/<span style="color:#f92672">h3</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">blockquote</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;This is a blockquote.&lt;/<span style="color:#f92672">p</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;This is the second paragraph in the blockquote.&lt;/<span style="color:#f92672">p</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">h2</span>&gt;This is an H2 in a blockquote&lt;/<span style="color:#f92672">h2</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">blockquote</span>&gt;
-</span></span></code></pre></div><h2 id="修辞和强调">修辞和强调</h2>
-<p>Markdown使用星号和底线来标记需要强调的区段。</p>
-<p>Markdown语法:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>Some of these words <span style="font-style:italic">*are emphasized*</span>. Some of these words <span style="font-style:italic">_are emphasized also_</span>.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Use two asterisks for <span style="font-weight:bold">**strong emphasis**</span>. Or, if you prefer, <span style="font-weight:bold">__use two underscores instead__</span>.
-</span></span></code></pre></div><p>输出HTML 为:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;Some of these words &lt;<span style="color:#f92672">em</span>&gt;are emphasized&lt;/<span style="color:#f92672">em</span>&gt;. Some of these words &lt;<span style="color:#f92672">em</span>&gt;are emphasized also&lt;/<span style="color:#f92672">em</span>&gt;.&lt;/<span style="color:#f92672">p</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;Use two asterisks for &lt;<span style="color:#f92672">strong</span>&gt;strong emphasis&lt;/<span style="color:#f92672">strong</span>&gt;. Or, if you prefer, &lt;<span style="color:#f92672">strong</span>&gt;use two underscores instead&lt;/<span style="color:#f92672">strong</span>&gt;.&lt;/<span style="color:#f92672">p</span>&gt;
-</span></span></code></pre></div><h2 id="列表">列表</h2>
-<p>无序列表使用星号、加号和减号来做为列表的项目标记，这些符号是都可以使用的，使用星号：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span><span style="color:#66d9ef">*</span> Candy.
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">*</span> Gum.
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">*</span> Booze.
-</span></span></code></pre></div><p>加号：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>+ Candy.
-</span></span><span style="display:flex;"><span>+ Gum.
-</span></span><span style="display:flex;"><span>+ Booze.
-</span></span></code></pre></div><p>和减号：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span><span style="color:#66d9ef">-</span> Candy.
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">-</span> Gum.
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">-</span> Booze.
-</span></span></code></pre></div><p>都会输出HTML为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">ul</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">li</span>&gt;Candy.&lt;/<span style="color:#f92672">li</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">li</span>&gt;Gum.&lt;/<span style="color:#f92672">li</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">li</span>&gt;Booze.&lt;/<span style="color:#f92672">li</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">ul</span>&gt;
-</span></span></code></pre></div><p>有序的列表则是使用一般的数字接着一个英文句点作为项目标记：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span><span style="color:#66d9ef">1.</span> Red
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">2.</span> Green
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">3.</span> Blue
-</span></span></code></pre></div><p>输出HTML为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">ol</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">li</span>&gt;Red&lt;/<span style="color:#f92672">li</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">li</span>&gt;Green&lt;/<span style="color:#f92672">li</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">li</span>&gt;Blue&lt;/<span style="color:#f92672">li</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">ol</span>&gt;
-</span></span></code></pre></div><p>如果你在项目之间插入空行，那项目的内容会用<code>&lt;p&gt;</code>包起来，你也可以在一个项目内放上多个段落，只要在它前面缩排4个空白或1个tab。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span><span style="color:#66d9ef">*</span> A list item.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    With multiple paragraphs.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">*</span> Another item in the list.
-</span></span></code></pre></div><p>输出 HTML 为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">ul</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">p</span>&gt;A list item.&lt;/<span style="color:#f92672">p</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;With multiple paragraphs.&lt;/<span style="color:#f92672">p</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">p</span>&gt;Another item in the list.&lt;/<span style="color:#f92672">p</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">ul</span>&gt;
-</span></span></code></pre></div><h2 id="链接">链接</h2>
-<p>Markdown支援两种形式的链接语法：<strong>行内</strong>和<strong>参考</strong>两种形式，两种都是使用角括号来把文字转成连结。</p>
-<p>行内形式是直接在后面用括号直接接上链接：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>This is an [<span style="color:#f92672">example link</span>](<span style="color:#a6e22e">http://example.com/</span>).
-</span></span></code></pre></div><p>输出HTML为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;This is an &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://example.com/&#34;</span>&gt;example link&lt;/<span style="color:#f92672">a</span>&gt;.&lt;/<span style="color:#f92672">p</span>&gt;
-</span></span></code></pre></div><p>你也可以选择性的加上 title 属性：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>This is an [<span style="color:#f92672">example link</span>](<span style="color:#a6e22e">http://example.com/ &#34;With a Title&#34;</span>).
-</span></span></code></pre></div><p>输出HTML为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;This is an &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://example.com/&#34;</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;With a Title&#34;</span>&gt;example link&lt;/<span style="color:#f92672">a</span>&gt;.&lt;/<span style="color:#f92672">p</span>&gt;
-</span></span></code></pre></div><p>参考形式的链接让你可以为链接定一个名称，之后你可以在文件的其他地方定义该链接的内容：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>I get 10 times more traffic from [Google][1] than from [Yahoo][2] or [MSN][3].
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[1]: http://google.com/ &#34;Google&#34;
-</span></span><span style="display:flex;"><span>[2]: http://search.yahoo.com/ &#34;Yahoo Search&#34;
-</span></span><span style="display:flex;"><span>[3]: http://search.msn.com/ &#34;MSN Search&#34;
-</span></span></code></pre></div><p>输出HTML为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;I get 10 times more traffic from &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://google.com/&#34;</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Google&#34;</span>&gt;Google&lt;/<span style="color:#f92672">a</span>&gt; than from &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://search.yahoo.com/&#34;</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Yahoo Search&#34;</span>&gt;Yahoo&lt;/<span style="color:#f92672">a</span>&gt; or &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://search.msn.com/&#34;</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;MSN Search&#34;</span>&gt;MSN&lt;/<span style="color:#f92672">a</span>&gt;.&lt;/<span style="color:#f92672">p</span>&gt;
-</span></span></code></pre></div><p>title属性是选择性的，链接名称可以用字母、数字和空格，但是不分大小写：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>I start my morning with a cup of coffee and [The New York Times][NY Times].
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[ny times]: http://www.nytimes.com/
-</span></span></code></pre></div><p>输出 HTML 为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;I start my morning with a cup of coffee and &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.nytimes.com/&#34;</span>&gt;The New York Times&lt;/<span style="color:#f92672">a</span>&gt;.&lt;/<span style="color:#f92672">p</span>&gt;
-</span></span></code></pre></div><h2 id="图片">图片</h2>
-<p>图片的语法和链接很像。</p>
-<p>行内形式（title是选择性的）：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>![<span style="color:#f92672">alt text</span>](<span style="color:#a6e22e">/path/to/img.jpg &#34;Title&#34;</span>)
-</span></span></code></pre></div><p>参考形式：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>![alt text][id]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[id]: /path/to/img.jpg &#34;Title&#34;
-</span></span></code></pre></div><p>上面两种方法都会输出 HTML 为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/path/to/img.jpg&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;alt text&#34;</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Title&#34;</span> /&gt;
-</span></span></code></pre></div><h2 id="代码">代码</h2>
-<p>在一般的段落文字中，你可以使用反引号<code>`</code>来标记代码区段，区段内的<code>&amp;</code>、<code>&lt;</code>和<code>&gt;</code>都会被自动的转换成HTML实体，这项特性让你可以很容易的在代码区段内插入HTML码：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>I strongly recommend against using any <span style="color:#e6db74">`&lt;blink&gt;`</span> tags.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>I wish SmartyPants used named entities like <span style="color:#e6db74">`&amp;mdash;`</span> instead of decimal-encoded entites like <span style="color:#e6db74">`&amp;#8212;`</span>.
-</span></span></code></pre></div><p>输出HTML为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>&lt;p&gt;I strongly recommend against using any&lt;code&gt;&amp;lt;blink&amp;gt;&lt;/code&gt; tags.&lt;/p&gt;
-</span></span><span style="display:flex;"><span>&lt;p&gt;I wish SmartyPants used named entities like&lt;code&gt;&amp;amp;mdash;&lt;/code&gt; instead of decimal-encoded entites like &lt;code&gt;&amp;amp;#8212;&lt;/code&gt;.&lt;/p&gt;
-</span></span></code></pre></div><p>如果要建立一个已经格式化好的代码区块，只要每行都缩进4个空格或是一个tab就可以了，而<code>&amp;</code>、<code>&lt;</code>和<code>&gt;</code>也一样会自动转成HTML实体。</p>
-<p>Markdown语法:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>If you want your page to validate under XHTML 1.0 Strict, you&#39;ve got to put paragraph tags in your blockquotes:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;blockquote&gt;
-</span></span><span style="display:flex;"><span>&lt;p&gt;For example.&lt;/p&gt;
-</span></span><span style="display:flex;"><span>&lt;/blockquote&gt;
-</span></span></code></pre></div><p>输出HTML为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>	&lt;<span style="color:#f92672">p</span>&gt;If you want your page to validate under XHTML 1.0 Strict, you&#39;ve got to put paragraph tags in your blockquotes:&lt;/<span style="color:#f92672">p</span>&gt;
-</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">pre</span>&gt;&lt;<span style="color:#f92672">code</span>&gt;&amp;lt;blockquote&amp;gt;
-</span></span><span style="display:flex;"><span>	&amp;lt;p&amp;gt;For example.&amp;lt;/p&amp;gt;
-</span></span><span style="display:flex;"><span>	&amp;lt;/blockquote&amp;gt;
-</span></span><span style="display:flex;"><span>	&lt;/<span style="color:#f92672">code</span>&gt;&lt;/<span style="color:#f92672">pre</span>&gt;
-</span></span></code></pre></div>
-  </article>
-  <div class="comments-container">
-  <div class="post-comments"><div id="vcomments"></div></div>
-  <span id="/post/2014/markdown-syntax.html" class="leancloud_visitors" data-flag-title="Markdown 简要语法说明">
-    <em class="post-meta-item-text">visitors: </em>
-    <i class="leancloud-visitors-count"></i>
-  </span>
-</div>
-
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-
-<script>
-  new Valine({
-    el: '#vcomments',
-    appId: 'iFyeulHQTSkRx8UzgfgXTsjA-gzGzoHsz',
-    appKey: 'gbmDrfTuEIIWnetK3iAQqmg8',
-    placeholder: '有什么想说的吗？',
-    requiredFields: ['nick'],
-    avatar: 'mp',
-    lang: 'zh-CN',
-    pageSize: 20,
-    visitor: true,
-    recordIP: true,
-    enableQQ: true,
-  });
-</script>
-
-</div>
-
-      </div>
-    </div>
-    <footer id="footer">
-  <div class="wrapper">
-    <div class="left">
-      
-      <span class="item">
-        <a href="https://github.com/yiminglu">
-          <span class="icon icon--github" aria-hidden="true">
-            <svg viewBox="0 0 16 16">
-              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
-            </svg>
-          </span>
-
-          <span class="username">yiminglu</span>
-        </a>
-      </span>
-      
-    </div>
-
-    <div class="right">
-      <span class="item">
-        &copy; SeasonsRoad
-      </span>
-    </div>
-  </div>
-
-  
-  
-  
-  <script src="/js/main.min.js"></script>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Markdown 简要语法说明 - SeasonsRoad</title><meta name=description content="The syntax of Markdown, in a simple way."><link rel=icon href=/favicon.svg type=image/svg+xml><link rel=icon href=/favicon.ico><link rel=stylesheet href=/css/main.min.fe85cf33fc3d25d4b0e92825ee051bc3e84485fc4482b3992406893b8959a029.css integrity="sha256-/oXPM/w9JdSw6Sgl7gUbw+hEhfxEgrOZJAaJO4lZoCk=" crossorigin=anonymous><link rel=manifest href=/manifest.json><link rel=canonical href=https://seasonsroad.com/post/2014/markdown-syntax.html><meta name=theme-color content="#FFAA00"><meta name=theme-color content="#000000" media="(prefers-color-scheme: dark)"><link rel=preconnect href=https://pix.seasonsroad.com><link rel=alternate href=https://seasonsroad.com/feed.xml type=application/rss+xml title="SeasonsRoad Blog Feed"><meta property="og:url" content="https://seasonsroad.com/post/2014/markdown-syntax.html"><meta property="og:site_name" content="SeasonsRoad"><meta property="og:title" content="Markdown 简要语法说明"><meta property="og:description" content="The syntax of Markdown, in a simple way."><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="article:section" content="post"><meta property="article:published_time" content="2014-12-27T00:00:00+08:00"><meta property="article:modified_time" content="2014-12-27T00:00:00+08:00"><meta property="og:image" content="https://seasonsroad.com/images/topbar/3.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://seasonsroad.com/images/topbar/3.jpg"><meta name=twitter:title content="Markdown 简要语法说明"><meta name=twitter:description content="简述 此页提供了Markdown的简单概念，语法说明页提供了完整详细的文档，说明了每项功能。但是Markdown其实很简单就可以上手，此页文档提供了一些范例，并且每个范例都会提供输出的HTML结果。"><meta name=mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-title content="SeasonsRoad"><meta name=apple-mobile-web-app-status-bar-style content="default"><link rel=apple-touch-icon href=/images/logo/opaque-128.png sizes=128x128><link rel=apple-touch-icon href=/images/logo/opaque-152.png sizes=152x152><link rel=apple-touch-icon href=/images/logo/opaque-167.png sizes=167x167><link rel=apple-touch-icon href=/images/logo/opaque-180.png sizes=180x180><link rel=apple-touch-icon href=/images/logo/opaque-256.png sizes=256x256><link rel=apple-touch-icon href=/images/logo/opaque-512.png sizes=512x512><link rel=apple-touch-startup-image href=/images/splashscreens/iphone6_splash.png media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"><link rel=apple-touch-startup-image href=/images/splashscreens/iphoneplus_splash.png media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)"><link rel=apple-touch-startup-image href=/images/splashscreens/iphonex_splash.png media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"><link rel=apple-touch-startup-image href=/images/splashscreens/iphonexr_splash.png media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"><link rel=apple-touch-startup-image href=/images/splashscreens/iphonexsmax_splash.png media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"><link rel=apple-touch-startup-image href=/images/splashscreens/ipad_splash.png media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"><link rel=apple-touch-startup-image href=/images/splashscreens/ipadpro1_splash.png media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"><link rel=apple-touch-startup-image href=/images/splashscreens/ipadpro2_splash.png media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"><link rel=apple-touch-startup-image href=/images/splashscreens/ipadpro3_splash.png media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)"></head><body><header id=header><a id=skiplink href=#main-content>Skip Navigation Links</a><div class=wrapper><div id=site-nav><span id=menu-toggler><span class=top-bar></span>
+<span class=middle-bar></span>
+<span class=bottom-bar></span></span><div id=menu><ul class=menu-list><li class=menu-item><a href=/links.html class=menu-link>Links</a></li><li class=menu-item><a href=/billing/ class=menu-link>Billing</a></li><li class=menu-item><a href=/imggps/ class=menu-link>ImgGPS</a></li><li class=menu-item><a href=/about.html class=menu-link>About</a></li></ul></div></div><a class=site-logo href=/><img src=/images/logo/SR-oneline.png alt=SeasonsRoad width=400 height=125></a></div></header><div id=main-content></div><div class=page-content><div class=wrapper><div class=post><header class=post-header><h1 class=post-title>Markdown 简要语法说明</h1><p class=post-meta>Dec 27, 2014</p></header><article class=post-content><h2 id=简述>简述</h2><p>此页提供了Markdown的简单概念，语法说明页提供了完整详细的文档，说明了每项功能。但是Markdown其实很简单就可以上手，此页文档提供了一些范例，并且每个范例都会提供输出的HTML结果。</p><p>其实直接试试看也是一个很不错的方法，Dingus是一个网页应用程序，你可以把自已编写的Markdown文档转成XHTML。</p><h2 id=段落标题区块代码>段落、标题、区块代码</h2><p>一个段落是由一个以上的连接的行句组成，而一个以上的空行则会划分出不同的段落（空行的定义是显示上看起来像是空行，就被视为空行，例如有一行只有空白和tab，那该行也会被视为空行），一般的段落不需要用空白或换行缩进。</p><p>Markdown支持两种标题的语法，Setext和atx形式。Setext形式是用底线的形式，利用<code>=</code>（最高阶标题）和<code>-</code>（第二阶标题），Atx形式在行首插入1到6个<code>#</code>，对应到标题1到6阶。</p><p>区块引用则使用email形式的<code>></code>角括号。</p><p>Markdown 语法:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>A First Level Header
+</span></span><span class=line><span class=cl>====================
+</span></span><span class=line><span class=cl>A Second Level Header
+</span></span><span class=line><span class=cl>---------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Now is the time for all good men to come to
+</span></span><span class=line><span class=cl>the aid of their country. This is just a
+</span></span><span class=line><span class=cl>regular paragraph.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>The quick brown fox jumped over the lazy
+</span></span><span class=line><span class=cl>dog&#39;s back.
+</span></span><span class=line><span class=cl><span class=gu>### Header 3
+</span></span></span><span class=line><span class=cl><span class=k>
+</span></span></span><span class=line><span class=cl><span class=k>&gt; </span><span class=ge>This is a blockquote.
+</span></span></span><span class=line><span class=cl>&gt; 
+</span></span><span class=line><span class=cl><span class=k>&gt; </span><span class=ge>This is the second paragraph in the blockquote.
+</span></span></span><span class=line><span class=cl><span class=k>&gt;
+</span></span></span><span class=line><span class=cl><span class=ge>&gt; ## This is an H2 in a blockquote
+</span></span></span></code></pre></div><p>输出HTML为：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>h1</span><span class=p>&gt;</span>A First Level Header<span class=p>&lt;/</span><span class=nt>h1</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>h2</span><span class=p>&gt;</span>A Second Level Header<span class=p>&lt;/</span><span class=nt>h2</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>Now is the time for all good men to come to
+</span></span><span class=line><span class=cl>the aid of their country. This is just a
+</span></span><span class=line><span class=cl>regular paragraph.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>The quick brown fox jumped over the lazy
+</span></span><span class=line><span class=cl>dog&#39;s back.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>h3</span><span class=p>&gt;</span>Header 3<span class=p>&lt;/</span><span class=nt>h3</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>blockquote</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>This is a blockquote.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>This is the second paragraph in the blockquote.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>h2</span><span class=p>&gt;</span>This is an H2 in a blockquote<span class=p>&lt;/</span><span class=nt>h2</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>blockquote</span><span class=p>&gt;</span>
+</span></span></code></pre></div><h2 id=修辞和强调>修辞和强调</h2><p>Markdown使用星号和底线来标记需要强调的区段。</p><p>Markdown语法:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>Some of these words <span class=ge>*are emphasized*</span>. Some of these words <span class=ge>_are emphasized also_</span>.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Use two asterisks for <span class=gs>**strong emphasis**</span>. Or, if you prefer, <span class=gs>__use two underscores instead__</span>.
+</span></span></code></pre></div><p>输出HTML 为:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>Some of these words <span class=p>&lt;</span><span class=nt>em</span><span class=p>&gt;</span>are emphasized<span class=p>&lt;/</span><span class=nt>em</span><span class=p>&gt;</span>. Some of these words <span class=p>&lt;</span><span class=nt>em</span><span class=p>&gt;</span>are emphasized also<span class=p>&lt;/</span><span class=nt>em</span><span class=p>&gt;</span>.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>Use two asterisks for <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;</span>strong emphasis<span class=p>&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>. Or, if you prefer, <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;</span>use two underscores instead<span class=p>&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span></code></pre></div><h2 id=列表>列表</h2><p>无序列表使用星号、加号和减号来做为列表的项目标记，这些符号是都可以使用的，使用星号：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl><span class=k>*</span> Candy.
+</span></span><span class=line><span class=cl><span class=k>*</span> Gum.
+</span></span><span class=line><span class=cl><span class=k>*</span> Booze.
+</span></span></code></pre></div><p>加号：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>+ Candy.
+</span></span><span class=line><span class=cl>+ Gum.
+</span></span><span class=line><span class=cl>+ Booze.
+</span></span></code></pre></div><p>和减号：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl><span class=k>-</span> Candy.
+</span></span><span class=line><span class=cl><span class=k>-</span> Gum.
+</span></span><span class=line><span class=cl><span class=k>-</span> Booze.
+</span></span></code></pre></div><p>都会输出HTML为：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Candy.<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Gum.<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Booze.<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span></code></pre></div><p>有序的列表则是使用一般的数字接着一个英文句点作为项目标记：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl><span class=k>1.</span> Red
+</span></span><span class=line><span class=cl><span class=k>2.</span> Green
+</span></span><span class=line><span class=cl><span class=k>3.</span> Blue
+</span></span></code></pre></div><p>输出HTML为：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>ol</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Red<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Green<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Blue<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>ol</span><span class=p>&gt;</span>
+</span></span></code></pre></div><p>如果你在项目之间插入空行，那项目的内容会用<code>&lt;p></code>包起来，你也可以在一个项目内放上多个段落，只要在它前面缩排4个空白或1个tab。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl><span class=k>*</span> A list item.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    With multiple paragraphs.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>*</span> Another item in the list.
+</span></span></code></pre></div><p>输出 HTML 为：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;&lt;</span><span class=nt>p</span><span class=p>&gt;</span>A list item.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>With multiple paragraphs.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;&lt;</span><span class=nt>p</span><span class=p>&gt;</span>Another item in the list.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span></code></pre></div><h2 id=链接>链接</h2><p>Markdown支援两种形式的链接语法：<strong>行内</strong>和<strong>参考</strong>两种形式，两种都是使用角括号来把文字转成连结。</p><p>行内形式是直接在后面用括号直接接上链接：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>This is an [<span class=nt>example link</span>](<span class=na>http://example.com/</span>).
+</span></span></code></pre></div><p>输出HTML为：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>This is an <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;http://example.com/&#34;</span><span class=p>&gt;</span>example link<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span></code></pre></div><p>你也可以选择性的加上 title 属性：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>This is an [<span class=nt>example link</span>](<span class=na>http://example.com/ &#34;With a Title&#34;</span>).
+</span></span></code></pre></div><p>输出HTML为：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>This is an <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;http://example.com/&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;With a Title&#34;</span><span class=p>&gt;</span>example link<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span></code></pre></div><p>参考形式的链接让你可以为链接定一个名称，之后你可以在文件的其他地方定义该链接的内容：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>I get 10 times more traffic from [Google][1] than from [Yahoo][2] or [MSN][3].
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>[1]: http://google.com/ &#34;Google&#34;
+</span></span><span class=line><span class=cl>[2]: http://search.yahoo.com/ &#34;Yahoo Search&#34;
+</span></span><span class=line><span class=cl>[3]: http://search.msn.com/ &#34;MSN Search&#34;
+</span></span></code></pre></div><p>输出HTML为：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>I get 10 times more traffic from <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;http://google.com/&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Google&#34;</span><span class=p>&gt;</span>Google<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span> than from <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;http://search.yahoo.com/&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Yahoo Search&#34;</span><span class=p>&gt;</span>Yahoo<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span> or <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;http://search.msn.com/&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;MSN Search&#34;</span><span class=p>&gt;</span>MSN<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span></code></pre></div><p>title属性是选择性的，链接名称可以用字母、数字和空格，但是不分大小写：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>I start my morning with a cup of coffee and [The New York Times][NY Times].
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>[ny times]: http://www.nytimes.com/
+</span></span></code></pre></div><p>输出 HTML 为：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>I start my morning with a cup of coffee and <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;http://www.nytimes.com/&#34;</span><span class=p>&gt;</span>The New York Times<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span></code></pre></div><h2 id=图片>图片</h2><p>图片的语法和链接很像。</p><p>行内形式（title是选择性的）：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>![<span class=nt>alt text</span>](<span class=na>/path/to/img.jpg &#34;Title&#34;</span>)
+</span></span></code></pre></div><p>参考形式：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>![alt text][id]
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>[id]: /path/to/img.jpg &#34;Title&#34;
+</span></span></code></pre></div><p>上面两种方法都会输出 HTML 为：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>img</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;/path/to/img.jpg&#34;</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;alt text&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Title&#34;</span> <span class=p>/&gt;</span>
+</span></span></code></pre></div><h2 id=代码>代码</h2><p>在一般的段落文字中，你可以使用反引号<code>`</code>来标记代码区段，区段内的<code>&</code>、<code>&lt;</code>和<code>></code>都会被自动的转换成HTML实体，这项特性让你可以很容易的在代码区段内插入HTML码：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>I strongly recommend against using any <span class=sb>`&lt;blink&gt;`</span> tags.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>I wish SmartyPants used named entities like <span class=sb>`&amp;mdash;`</span> instead of decimal-encoded entites like <span class=sb>`&amp;#8212;`</span>.
+</span></span></code></pre></div><p>输出HTML为：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>&lt;p&gt;I strongly recommend against using any&lt;code&gt;&amp;lt;blink&amp;gt;&lt;/code&gt; tags.&lt;/p&gt;
+</span></span><span class=line><span class=cl>&lt;p&gt;I wish SmartyPants used named entities like&lt;code&gt;&amp;amp;mdash;&lt;/code&gt; instead of decimal-encoded entites like &lt;code&gt;&amp;amp;<span class=ni>#8212</span>;&lt;/code&gt;.&lt;/p&gt;
+</span></span></code></pre></div><p>如果要建立一个已经格式化好的代码区块，只要每行都缩进4个空格或是一个tab就可以了，而<code>&</code>、<code>&lt;</code>和<code>></code>也一样会自动转成HTML实体。</p><p>Markdown语法:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>If you want your page to validate under XHTML 1.0 Strict, you&#39;ve got to put paragraph tags in your blockquotes:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>&lt;blockquote&gt;
+</span></span><span class=line><span class=cl>&lt;p&gt;For example.&lt;/p&gt;
+</span></span><span class=line><span class=cl>&lt;/blockquote&gt;
+</span></span></code></pre></div><p>输出HTML为：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl>	<span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>If you want your page to validate under XHTML 1.0 Strict, you&#39;ve got to put paragraph tags in your blockquotes:<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>	<span class=p>&lt;</span><span class=nt>pre</span><span class=p>&gt;&lt;</span><span class=nt>code</span><span class=p>&gt;</span><span class=ni>&amp;lt;</span>blockquote<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>	<span class=ni>&amp;lt;</span>p<span class=ni>&amp;gt;</span>For example.<span class=ni>&amp;lt;</span>/p<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>	<span class=ni>&amp;lt;</span>/blockquote<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>	<span class=p>&lt;/</span><span class=nt>code</span><span class=p>&gt;&lt;/</span><span class=nt>pre</span><span class=p>&gt;</span>
+</span></span></code></pre></div></article><div class=comments-container><div class=post-comments><div id=vcomments></div></div><span id=/post/2014/markdown-syntax.html class=leancloud_visitors data-flag-title="Markdown 简要语法说明"><em class=post-meta-item-text>visitors: </em><i class=leancloud-visitors-count></i></span></div><script defer src=https://cdn.jsdelivr.net/npm/valine@1.5.3/dist/Valine.min.js integrity=sha384-2kYfBDgv3d+ECiSUgAFBLe6CkLVFhsBw0irGNDeEgYPtG596fIvVf9TWrj2d69lm crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){if(typeof window.Valine!="function")return;new Valine({el:"#vcomments",appId:"iFyeulHQTSkRx8UzgfgXTsjA-gzGzoHsz",appKey:"gbmDrfTuEIIWnetK3iAQqmg8",placeholder:"有什么想说的吗？",requiredFields:["nick"],avatar:"mp",lang:"zh-CN",pageSize:20,visitor:!0,recordIP:!1,enableQQ:!1})})</script></div></div></div><footer id=footer><div class=wrapper><div class=left><span class=item><a href=https://github.com/yiminglu><span class="icon icon--github" aria-hidden=true><svg viewBox="0 0 16 16"><path d="M7.999.431C3.714.431.239 3.905.239 8.192c0 3.428 2.223 6.337 5.307 7.363.388.071.53-.168.53-.374.0-.184-.007-.672-.01-1.32-2.159.469-2.614-1.04-2.614-1.04-.353-.896-.862-1.135-.862-1.135-.705-.481.053-.472.053-.472.779.055 1.189.8 1.189.8.692 1.186 1.816.843 2.258.645.071-.502.271-.843.493-1.037C4.86 11.425 3.049 10.76 3.049 7.786c0-.847.302-1.54.799-2.082C3.768 5.507 3.501 4.718 3.924 3.65c0 0 .652-.209 2.134.796C6.677 4.273 7.34 4.187 8 4.184c.659.003 1.323.089 1.943.261 1.482-1.004 2.132-.796 2.132-.796.423 1.068.157 1.857.077 2.054.497.542.798 1.235.798 2.082.0 2.981-1.814 3.637-3.543 3.829.279.24.527.713.527 1.437.0 1.037-.01 1.874-.01 2.129.0.208.14.449.534.373 3.081-1.028 5.302-3.935 5.302-7.362.0-4.285-3.475-7.76-7.761-7.76z"/></svg>
+</span><span class=username>yiminglu</span></a></span></div><div class=right><span class=item>&copy; SeasonsRoad</span></div></div><script src=/js/main.min.4691eb0679edb07512a91bf1a38ba304b0ce53b5b4caefa49bf558c9ac1ac584.js integrity="sha256-RpHrBnntsHUSqRvxo4ujBLDOU7W0yu+km/VYyawaxYQ=" crossorigin=anonymous defer></script></footer></body></html>

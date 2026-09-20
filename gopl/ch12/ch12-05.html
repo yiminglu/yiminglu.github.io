@@ -1,202 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129076927-1"></script>
-    <script src="/js/ga.js"></script>
-
-    <meta charset="utf-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title> - SeasonsRoad</title>
-    <meta name="description" content="SeasonsRoad is the blog for interesting things happening around.">
-
-    
-    <link rel="stylesheet" href="/css/main.min.028975ca4d1d09e96c73ba1218e01c4f2303c5e8e5e7e3faa3e47be2537934c3.css" integrity="sha256-Aol1yk0dCelsc7oSGOAcTyMDxejl5&#43;P6o&#43;R74lN5NMM=" crossorigin="anonymous">
-
-    <link rel="manifest" href="/manifest.json">
-    <link rel="canonical" href="https://seasonsroad.com/gopl/ch12/ch12-05.html">
-
-    <meta name="theme-color" content="#FFAA00">
-
-    <link rel="dns-prefetch" href="https://www.google-analytics.com">
-    <link rel="dns-prefetch" href="https://www.googleadservices.com">
-
-    <link rel="alternate" href="https://seasonsroad.com/feed.xml" type="application/rss+xml" title="SeasonsRoad Blog Feed">
-    
-
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="SeasonsRoad">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-
-    <link rel="apple-touch-icon" href="/images/logo/opaque-128.png">
-    <link rel="apple-touch-icon" href="/images/logo/opaque-152.png" sizes="152x152">
-    <link rel="apple-touch-icon" href="/images/logo/opaque-167.png" sizes="167x167">
-    <link rel="apple-touch-icon" href="/images/logo/opaque-180.png" sizes="180x180">
-    <link rel="apple-touch-icon" href="/images/logo/opaque-256.png" sizes="256x256">
-    <link rel="apple-touch-icon" href="/images/logo/opaque-512.png" sizes="512x512">
-
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
-    <link rel="apple-touch-startup-image" href="/images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
-</head>
-
-	<body>
-		<header id="header">
-  <a id="skiplink" href="#main-content">Skip Navigation Links</a>
-  <div class="wrapper">
-    <div id="site-nav">
-      <span id="menu-toggler">
-        <span class="top-bar"></span>
-        <span class="middle-bar"></span>
-        <span class="bottom-bar"></span>
-      </span>
-      <div id="menu">
-        <ul class="menu-list">
-          
-          <li class="menu-item">
-            <a href="/links.html" class="menu-link">
-              Links
-              
-            </a>
-            
-          </li>
-          
-          <li class="menu-item">
-            <a href="/billing/" class="menu-link">
-              Billing
-              
-            </a>
-            
-          </li>
-          
-          <li class="menu-item">
-            <a href="/imggps/" class="menu-link">
-              ImgGPS
-              
-            </a>
-            
-          </li>
-          
-          <li class="menu-item">
-            <a href="/about.html" class="menu-link">
-              About
-              
-            </a>
-            
-          </li>
-          
-        </ul>
-      </div>
-    </div>
-    <a class="site-logo" href="/index.html"><img src="/images/logo/SR-oneline.png" alt="SeasonsRoad"></a>
-  </div>
-</header>
-<div id="main-content"></div>
-
-		
-
-
-<div class="page-content">
-	<div class="wrapper">
-		<h2 id="125-通过reflectvalue修改值">12.5. 通过reflect.Value修改值</h2>
-<p>到目前为止，反射还只是程序中变量的另一种读取方式。然而，在本节中我们将重点讨论如何通过反射机制来修改变量。</p>
-<p>回想一下，Go语言中类似x、x.f[1]和*p形式的表达式都可以表示变量，但是其它如x + 1和f(2)则不是变量。一个变量就是一个可寻址的内存空间，里面存储了一个值，并且存储的值可以通过内存地址来更新。</p>
-<p>对于reflect.Values也有类似的区别。有一些reflect.Values是可取地址的；其它一些则不可以。考虑以下的声明语句：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2</span>                   <span style="color:#75715e">// value   type    variable?</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#ae81ff">2</span>)  <span style="color:#75715e">// 2       int     no</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">x</span>)  <span style="color:#75715e">// 2       int     no</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">x</span>) <span style="color:#75715e">// &amp;x      *int    no</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Elem</span>()            <span style="color:#75715e">// 2       int     yes (x)</span>
-</span></span></code></pre></div><p>其中a对应的变量不可取地址。因为a中的值仅仅是整数2的拷贝副本。b中的值也同样不可取地址。c中的值还是不可取地址，它只是一个指针<code>&amp;x</code>的拷贝。实际上，所有通过reflect.ValueOf(x)返回的reflect.Value都是不可取地址的。但是对于d，它是c的解引用方式生成的，指向另一个变量，因此是可取地址的。我们可以通过调用reflect.ValueOf(&amp;x).Elem()，来获取任意变量x对应的可取地址的Value。</p>
-<p>我们可以通过调用reflect.Value的CanAddr方法来判断其是否可以被取地址：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">CanAddr</span>()) <span style="color:#75715e">// &#34;false&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">CanAddr</span>()) <span style="color:#75715e">// &#34;false&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">CanAddr</span>()) <span style="color:#75715e">// &#34;false&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">CanAddr</span>()) <span style="color:#75715e">// &#34;true&#34;</span>
-</span></span></code></pre></div><p>每当我们通过指针间接地获取的reflect.Value都是可取地址的，即使开始的是一个不可取地址的Value。在反射机制中，所有关于是否支持取地址的规则都是类似的。例如，slice的索引表达式e[i]将隐式地包含一个指针，它就是可取地址的，即使开始的e表达式不支持也没有关系。以此类推，reflect.ValueOf(e).Index(i)对应的值也是可取地址的，即使原始的reflect.ValueOf(e)不支持也没有关系。</p>
-<p>要从变量对应的可取地址的reflect.Value来访问变量需要三个步骤。第一步是调用Addr()方法，它返回一个Value，里面保存了指向变量的指针。然后是在Value上调用Interface()方法，也就是返回一个interface{}，里面包含指向变量的指针。最后，如果我们知道变量的类型，我们可以使用类型的断言机制将得到的interface{}类型的接口强制转为普通的类型指针。这样我们就可以通过这个普通指针来更新变量了：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">x</span>).<span style="color:#a6e22e">Elem</span>()   <span style="color:#75715e">// d refers to the variable x</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">px</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Addr</span>().<span style="color:#a6e22e">Interface</span>().(<span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>) <span style="color:#75715e">// px := &amp;x</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">*</span><span style="color:#a6e22e">px</span> = <span style="color:#ae81ff">3</span>                           <span style="color:#75715e">// x = 3</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">x</span>)                    <span style="color:#75715e">// &#34;3&#34;</span>
-</span></span></code></pre></div><p>或者，不使用指针，而是通过调用可取地址的reflect.Value的reflect.Value.Set方法来更新对应的值：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#ae81ff">4</span>))
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">x</span>) <span style="color:#75715e">// &#34;4&#34;</span>
-</span></span></code></pre></div><p>Set方法将在运行时执行和编译时进行类似的可赋值性约束的检查。以上代码，变量和值都是int类型，但是如果变量是int64类型，那么程序将抛出一个panic异常，所以关键问题是要确保改类型的变量可以接受对应的值：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(int64(<span style="color:#ae81ff">5</span>))) <span style="color:#75715e">// panic: int64 is not assignable to int</span>
-</span></span></code></pre></div><p>同样，对一个不可取地址的reflect.Value调用Set方法也会导致panic异常：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">x</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#ae81ff">3</span>)) <span style="color:#75715e">// panic: Set using unaddressable value</span>
-</span></span></code></pre></div><p>这里有很多用于基本数据类型的Set方法：SetInt、SetUint、SetString和SetFloat等。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">x</span>).<span style="color:#a6e22e">Elem</span>()
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">SetInt</span>(<span style="color:#ae81ff">3</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">x</span>) <span style="color:#75715e">// &#34;3&#34;</span>
-</span></span></code></pre></div><p>从某种程度上说，这些Set方法总是尽可能地完成任务。以SetInt为例，只要变量是某种类型的有符号整数就可以工作，即使是一些命名的类型、甚至只要底层数据类型是有符号整数就可以，而且如果对于变量类型值太大的话会被自动截断。但需要谨慎的是：对于一个引用interface{}类型的reflect.Value调用SetInt会导致panic异常，即使那个interface{}变量对于整数类型也不行。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">x</span>).<span style="color:#a6e22e">Elem</span>()
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rx</span>.<span style="color:#a6e22e">SetInt</span>(<span style="color:#ae81ff">2</span>)                     <span style="color:#75715e">// OK, x = 2</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rx</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#ae81ff">3</span>))       <span style="color:#75715e">// OK, x = 3</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rx</span>.<span style="color:#a6e22e">SetString</span>(<span style="color:#e6db74">&#34;hello&#34;</span>)            <span style="color:#75715e">// panic: string is not assignable to int</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rx</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#e6db74">&#34;hello&#34;</span>)) <span style="color:#75715e">// panic: string is not assignable to int</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">interface</span>{}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ry</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">y</span>).<span style="color:#a6e22e">Elem</span>()
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ry</span>.<span style="color:#a6e22e">SetInt</span>(<span style="color:#ae81ff">2</span>)                     <span style="color:#75715e">// panic: SetInt called on interface Value</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ry</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#ae81ff">3</span>))       <span style="color:#75715e">// OK, y = int(3)</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ry</span>.<span style="color:#a6e22e">SetString</span>(<span style="color:#e6db74">&#34;hello&#34;</span>)            <span style="color:#75715e">// panic: SetString called on interface Value</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ry</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#e6db74">&#34;hello&#34;</span>)) <span style="color:#75715e">// OK, y = &#34;hello&#34;</span>
-</span></span></code></pre></div><p>当我们用Display显示os.Stdout结构时，我们发现反射可以越过Go语言的导出规则的限制读取结构体中未导出的成员，比如在类Unix系统上os.File结构体中的fd int成员。然而，利用反射机制并不能修改这些未导出的成员：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">stdout</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>).<span style="color:#a6e22e">Elem</span>() <span style="color:#75715e">// *os.Stdout, an os.File var</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">stdout</span>.<span style="color:#a6e22e">Type</span>())                  <span style="color:#75715e">// &#34;os.File&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fd</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">stdout</span>.<span style="color:#a6e22e">FieldByName</span>(<span style="color:#e6db74">&#34;fd&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">fd</span>.<span style="color:#a6e22e">Int</span>()) <span style="color:#75715e">// &#34;1&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fd</span>.<span style="color:#a6e22e">SetInt</span>(<span style="color:#ae81ff">2</span>)          <span style="color:#75715e">// panic: unexported field</span>
-</span></span></code></pre></div><p>一个可取地址的reflect.Value会记录一个结构体成员是否是未导出成员，如果是的话则拒绝修改操作。因此，CanAddr方法并不能正确反映一个变量是否是可以被修改的。另一个相关的方法CanSet是用于检查对应的reflect.Value是否是可取地址并可被修改的：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">fd</span>.<span style="color:#a6e22e">CanAddr</span>(), <span style="color:#a6e22e">fd</span>.<span style="color:#a6e22e">CanSet</span>()) <span style="color:#75715e">// &#34;true false&#34;</span>
-</span></span></code></pre></div>
-	</div>
-</div>
-
-		<footer id="footer">
-  <div class="wrapper">
-    <div class="left">
-      
-      <span class="item">
-        <a href="https://github.com/yiminglu">
-          <span class="icon icon--github" aria-hidden="true">
-            <svg viewBox="0 0 16 16">
-              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
-            </svg>
-          </span>
-
-          <span class="username">yiminglu</span>
-        </a>
-      </span>
-      
-    </div>
-
-    <div class="right">
-      <span class="item">
-        &copy; SeasonsRoad
-      </span>
-    </div>
-  </div>
-
-  
-  
-  
-  <script src="/js/main.min.js"></script>
-</footer>
-
-	</body>
-</html>
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>12.5. 通过reflect.Value修改值 - SeasonsRoad</title><meta name=description content="SeasonsRoad is the blog for interesting things happening around."><link rel=icon href=/favicon.svg type=image/svg+xml><link rel=icon href=/favicon.ico><link rel=stylesheet href=/css/main.min.fe85cf33fc3d25d4b0e92825ee051bc3e84485fc4482b3992406893b8959a029.css integrity="sha256-/oXPM/w9JdSw6Sgl7gUbw+hEhfxEgrOZJAaJO4lZoCk=" crossorigin=anonymous><link rel=manifest href=/manifest.json><link rel=canonical href=https://seasonsroad.com/gopl/ch12/ch12-05.html><meta name=theme-color content="#FFAA00"><meta name=theme-color content="#000000" media="(prefers-color-scheme: dark)"><link rel=preconnect href=https://pix.seasonsroad.com><link rel=alternate href=https://seasonsroad.com/feed.xml type=application/rss+xml title="SeasonsRoad Blog Feed"><meta property="og:url" content="https://seasonsroad.com/gopl/ch12/ch12-05.html"><meta property="og:site_name" content="SeasonsRoad"><meta property="og:title" content="12.5. 通过reflect.Value修改值"><meta property="og:description" content="SeasonsRoad is the blog for interesting things happening around."><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="article:section" content="gopl"><meta property="og:image" content="https://seasonsroad.com/images/topbar/3.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://seasonsroad.com/images/topbar/3.jpg"><meta name=twitter:title content="12.5. 通过reflect.Value修改值"><meta name=twitter:description content="12.5. 通过reflect.Value修改值 到目前为止，反射还只是程序中变量的另一种读取方式。然而，在本节中我们将重点讨论如何通过反射机制来修改变量。"><meta name=mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-title content="SeasonsRoad"><meta name=apple-mobile-web-app-status-bar-style content="default"><link rel=apple-touch-icon href=/images/logo/opaque-128.png sizes=128x128><link rel=apple-touch-icon href=/images/logo/opaque-152.png sizes=152x152><link rel=apple-touch-icon href=/images/logo/opaque-167.png sizes=167x167><link rel=apple-touch-icon href=/images/logo/opaque-180.png sizes=180x180><link rel=apple-touch-icon href=/images/logo/opaque-256.png sizes=256x256><link rel=apple-touch-icon href=/images/logo/opaque-512.png sizes=512x512><link rel=apple-touch-startup-image href=/images/splashscreens/iphone6_splash.png media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"><link rel=apple-touch-startup-image href=/images/splashscreens/iphoneplus_splash.png media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)"><link rel=apple-touch-startup-image href=/images/splashscreens/iphonex_splash.png media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"><link rel=apple-touch-startup-image href=/images/splashscreens/iphonexr_splash.png media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"><link rel=apple-touch-startup-image href=/images/splashscreens/iphonexsmax_splash.png media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"><link rel=apple-touch-startup-image href=/images/splashscreens/ipad_splash.png media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"><link rel=apple-touch-startup-image href=/images/splashscreens/ipadpro1_splash.png media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"><link rel=apple-touch-startup-image href=/images/splashscreens/ipadpro2_splash.png media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"><link rel=apple-touch-startup-image href=/images/splashscreens/ipadpro3_splash.png media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)"></head><body><header id=header><a id=skiplink href=#main-content>Skip Navigation Links</a><div class=wrapper><div id=site-nav><span id=menu-toggler><span class=top-bar></span>
+<span class=middle-bar></span>
+<span class=bottom-bar></span></span><div id=menu><ul class=menu-list><li class=menu-item><a href=/links.html class=menu-link>Links</a></li><li class=menu-item><a href=/billing/ class=menu-link>Billing</a></li><li class=menu-item><a href=/imggps/ class=menu-link>ImgGPS</a></li><li class=menu-item><a href=/about.html class=menu-link>About</a></li></ul></div></div><a class=site-logo href=/><img src=/images/logo/SR-oneline.png alt=SeasonsRoad width=400 height=125></a></div></header><div id=main-content></div><div class=page-content><div class=wrapper><h2 id=125-通过reflectvalue修改值>12.5. 通过reflect.Value修改值</h2><p>到目前为止，反射还只是程序中变量的另一种读取方式。然而，在本节中我们将重点讨论如何通过反射机制来修改变量。</p><p>回想一下，Go语言中类似x、x.f[1]和*p形式的表达式都可以表示变量，但是其它如x + 1和f(2)则不是变量。一个变量就是一个可寻址的内存空间，里面存储了一个值，并且存储的值可以通过内存地址来更新。</p><p>对于reflect.Values也有类似的区别。有一些reflect.Values是可取地址的；其它一些则不可以。考虑以下的声明语句：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>x</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>2</span><span class=w>                   </span><span class=c1>// value   type    variable?</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>a</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span><span class=w>  </span><span class=c1>// 2       int     no</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>b</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=nx>x</span><span class=p>)</span><span class=w>  </span><span class=c1>// 2       int     no</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>c</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>x</span><span class=p>)</span><span class=w> </span><span class=c1>// &amp;x      *int    no</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>d</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>c</span><span class=p>.</span><span class=nf>Elem</span><span class=p>()</span><span class=w>            </span><span class=c1>// 2       int     yes (x)</span><span class=w>
+</span></span></span></code></pre></div><p>其中a对应的变量不可取地址。因为a中的值仅仅是整数2的拷贝副本。b中的值也同样不可取地址。c中的值还是不可取地址，它只是一个指针<code>&amp;x</code>的拷贝。实际上，所有通过reflect.ValueOf(x)返回的reflect.Value都是不可取地址的。但是对于d，它是c的解引用方式生成的，指向另一个变量，因此是可取地址的。我们可以通过调用reflect.ValueOf(&amp;x).Elem()，来获取任意变量x对应的可取地址的Value。</p><p>我们可以通过调用reflect.Value的CanAddr方法来判断其是否可以被取地址：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>a</span><span class=p>.</span><span class=nf>CanAddr</span><span class=p>())</span><span class=w> </span><span class=c1>// &#34;false&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>b</span><span class=p>.</span><span class=nf>CanAddr</span><span class=p>())</span><span class=w> </span><span class=c1>// &#34;false&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>c</span><span class=p>.</span><span class=nf>CanAddr</span><span class=p>())</span><span class=w> </span><span class=c1>// &#34;false&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>d</span><span class=p>.</span><span class=nf>CanAddr</span><span class=p>())</span><span class=w> </span><span class=c1>// &#34;true&#34;</span><span class=w>
+</span></span></span></code></pre></div><p>每当我们通过指针间接地获取的reflect.Value都是可取地址的，即使开始的是一个不可取地址的Value。在反射机制中，所有关于是否支持取地址的规则都是类似的。例如，slice的索引表达式e[i]将隐式地包含一个指针，它就是可取地址的，即使开始的e表达式不支持也没有关系。以此类推，reflect.ValueOf(e).Index(i)对应的值也是可取地址的，即使原始的reflect.ValueOf(e)不支持也没有关系。</p><p>要从变量对应的可取地址的reflect.Value来访问变量需要三个步骤。第一步是调用Addr()方法，它返回一个Value，里面保存了指向变量的指针。然后是在Value上调用Interface()方法，也就是返回一个interface{}，里面包含指向变量的指针。最后，如果我们知道变量的类型，我们可以使用类型的断言机制将得到的interface{}类型的接口强制转为普通的类型指针。这样我们就可以通过这个普通指针来更新变量了：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>x</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>d</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>x</span><span class=p>).</span><span class=nf>Elem</span><span class=p>()</span><span class=w>   </span><span class=c1>// d refers to the variable x</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>px</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>d</span><span class=p>.</span><span class=nf>Addr</span><span class=p>().</span><span class=nf>Interface</span><span class=p>().(</span><span class=o>*</span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=c1>// px := &amp;x</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=o>*</span><span class=nx>px</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=mi>3</span><span class=w>                           </span><span class=c1>// x = 3</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>x</span><span class=p>)</span><span class=w>                    </span><span class=c1>// &#34;3&#34;</span><span class=w>
+</span></span></span></code></pre></div><p>或者，不使用指针，而是通过调用可取地址的reflect.Value的reflect.Value.Set方法来更新对应的值：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>d</span><span class=p>.</span><span class=nf>Set</span><span class=p>(</span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=mi>4</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>x</span><span class=p>)</span><span class=w> </span><span class=c1>// &#34;4&#34;</span><span class=w>
+</span></span></span></code></pre></div><p>Set方法将在运行时执行和编译时进行类似的可赋值性约束的检查。以上代码，变量和值都是int类型，但是如果变量是int64类型，那么程序将抛出一个panic异常，所以关键问题是要确保改类型的变量可以接受对应的值：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>d</span><span class=p>.</span><span class=nf>Set</span><span class=p>(</span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=nb>int64</span><span class=p>(</span><span class=mi>5</span><span class=p>)))</span><span class=w> </span><span class=c1>// panic: int64 is not assignable to int</span><span class=w>
+</span></span></span></code></pre></div><p>同样，对一个不可取地址的reflect.Value调用Set方法也会导致panic异常：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>x</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>b</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=nx>x</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>b</span><span class=p>.</span><span class=nf>Set</span><span class=p>(</span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=mi>3</span><span class=p>))</span><span class=w> </span><span class=c1>// panic: Set using unaddressable value</span><span class=w>
+</span></span></span></code></pre></div><p>这里有很多用于基本数据类型的Set方法：SetInt、SetUint、SetString和SetFloat等。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>d</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>x</span><span class=p>).</span><span class=nf>Elem</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>d</span><span class=p>.</span><span class=nf>SetInt</span><span class=p>(</span><span class=mi>3</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>x</span><span class=p>)</span><span class=w> </span><span class=c1>// &#34;3&#34;</span><span class=w>
+</span></span></span></code></pre></div><p>从某种程度上说，这些Set方法总是尽可能地完成任务。以SetInt为例，只要变量是某种类型的有符号整数就可以工作，即使是一些命名的类型、甚至只要底层数据类型是有符号整数就可以，而且如果对于变量类型值太大的话会被自动截断。但需要谨慎的是：对于一个引用interface{}类型的reflect.Value调用SetInt会导致panic异常，即使那个interface{}变量对于整数类型也不行。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>x</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>rx</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>x</span><span class=p>).</span><span class=nf>Elem</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>rx</span><span class=p>.</span><span class=nf>SetInt</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span><span class=w>                     </span><span class=c1>// OK, x = 2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>rx</span><span class=p>.</span><span class=nf>Set</span><span class=p>(</span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=mi>3</span><span class=p>))</span><span class=w>       </span><span class=c1>// OK, x = 3</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>rx</span><span class=p>.</span><span class=nf>SetString</span><span class=p>(</span><span class=s>&#34;hello&#34;</span><span class=p>)</span><span class=w>            </span><span class=c1>// panic: string is not assignable to int</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>rx</span><span class=p>.</span><span class=nf>Set</span><span class=p>(</span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=s>&#34;hello&#34;</span><span class=p>))</span><span class=w> </span><span class=c1>// panic: string is not assignable to int</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>y</span><span class=w> </span><span class=kd>interface</span><span class=p>{}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>ry</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>y</span><span class=p>).</span><span class=nf>Elem</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>ry</span><span class=p>.</span><span class=nf>SetInt</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span><span class=w>                     </span><span class=c1>// panic: SetInt called on interface Value</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>ry</span><span class=p>.</span><span class=nf>Set</span><span class=p>(</span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=mi>3</span><span class=p>))</span><span class=w>       </span><span class=c1>// OK, y = int(3)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>ry</span><span class=p>.</span><span class=nf>SetString</span><span class=p>(</span><span class=s>&#34;hello&#34;</span><span class=p>)</span><span class=w>            </span><span class=c1>// panic: SetString called on interface Value</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>ry</span><span class=p>.</span><span class=nf>Set</span><span class=p>(</span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=s>&#34;hello&#34;</span><span class=p>))</span><span class=w> </span><span class=c1>// OK, y = &#34;hello&#34;</span><span class=w>
+</span></span></span></code></pre></div><p>当我们用Display显示os.Stdout结构时，我们发现反射可以越过Go语言的导出规则的限制读取结构体中未导出的成员，比如在类Unix系统上os.File结构体中的fd int成员。然而，利用反射机制并不能修改这些未导出的成员：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>stdout</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=nx>os</span><span class=p>.</span><span class=nx>Stdout</span><span class=p>).</span><span class=nf>Elem</span><span class=p>()</span><span class=w> </span><span class=c1>// *os.Stdout, an os.File var</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>stdout</span><span class=p>.</span><span class=nf>Type</span><span class=p>())</span><span class=w>                  </span><span class=c1>// &#34;os.File&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>fd</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>stdout</span><span class=p>.</span><span class=nf>FieldByName</span><span class=p>(</span><span class=s>&#34;fd&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>fd</span><span class=p>.</span><span class=nf>Int</span><span class=p>())</span><span class=w> </span><span class=c1>// &#34;1&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>fd</span><span class=p>.</span><span class=nf>SetInt</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span><span class=w>          </span><span class=c1>// panic: unexported field</span><span class=w>
+</span></span></span></code></pre></div><p>一个可取地址的reflect.Value会记录一个结构体成员是否是未导出成员，如果是的话则拒绝修改操作。因此，CanAddr方法并不能正确反映一个变量是否是可以被修改的。另一个相关的方法CanSet是用于检查对应的reflect.Value是否是可取地址并可被修改的：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Go data-lang=Go><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>fd</span><span class=p>.</span><span class=nf>CanAddr</span><span class=p>(),</span><span class=w> </span><span class=nx>fd</span><span class=p>.</span><span class=nf>CanSet</span><span class=p>())</span><span class=w> </span><span class=c1>// &#34;true false&#34;</span><span class=w>
+</span></span></span></code></pre></div></div></div><footer id=footer><div class=wrapper><div class=left><span class=item><a href=https://github.com/yiminglu><span class="icon icon--github" aria-hidden=true><svg viewBox="0 0 16 16"><path d="M7.999.431C3.714.431.239 3.905.239 8.192c0 3.428 2.223 6.337 5.307 7.363.388.071.53-.168.53-.374.0-.184-.007-.672-.01-1.32-2.159.469-2.614-1.04-2.614-1.04-.353-.896-.862-1.135-.862-1.135-.705-.481.053-.472.053-.472.779.055 1.189.8 1.189.8.692 1.186 1.816.843 2.258.645.071-.502.271-.843.493-1.037C4.86 11.425 3.049 10.76 3.049 7.786c0-.847.302-1.54.799-2.082C3.768 5.507 3.501 4.718 3.924 3.65c0 0 .652-.209 2.134.796C6.677 4.273 7.34 4.187 8 4.184c.659.003 1.323.089 1.943.261 1.482-1.004 2.132-.796 2.132-.796.423 1.068.157 1.857.077 2.054.497.542.798 1.235.798 2.082.0 2.981-1.814 3.637-3.543 3.829.279.24.527.713.527 1.437.0 1.037-.01 1.874-.01 2.129.0.208.14.449.534.373 3.081-1.028 5.302-3.935 5.302-7.362.0-4.285-3.475-7.76-7.761-7.76z"/></svg>
+</span><span class=username>yiminglu</span></a></span></div><div class=right><span class=item>&copy; SeasonsRoad</span></div></div><script src=/js/main.min.4691eb0679edb07512a91bf1a38ba304b0ce53b5b4caefa49bf558c9ac1ac584.js integrity="sha256-RpHrBnntsHUSqRvxo4ujBLDOU7W0yu+km/VYyawaxYQ=" crossorigin=anonymous defer></script></footer></body></html>

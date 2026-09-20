@@ -1,4 +1,6 @@
 User-agent: *
 Disallow: /billing/
 Disallow: /imggps/
+Disallow: /noise/
 
+Sitemap: https://seasonsroad.com/sitemap.xml

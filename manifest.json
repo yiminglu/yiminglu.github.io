@@ -1,6 +1,9 @@
 {
+  "id": "/?utm_source=a2hs",
   "name": "Seasons Road",
   "short_name": "SeasonsRoad",
+  "description": "SeasonsRoad 博客",
+  "lang": "zh-CN",
   "icons": [
     {
       "src": "/images/logo/transparent-512.png",
@@ -23,13 +26,9 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/?utm_source=a2hs",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#FFFFFF",
-  "theme_color": "#FFAA00",
-  "serviceworker": {
-    "src": "/sw.js",
-    "scope": "/",
-    "update_via_cache": "none"
-  }
+  "theme_color": "#FFAA00"
 }
