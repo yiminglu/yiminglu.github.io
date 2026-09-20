@@ -12,7 +12,7 @@
  */
 
 const CACHE_PREFIX = 'sr-precache-';
-const cacheName = CACHE_PREFIX + 'b8ee1c21b865';
+const cacheName = CACHE_PREFIX + '5b052c53c001';
 const OFFLINE_URL = '/offline.html';
 const PRECACHE = [
   "/",
@@ -20,7 +20,7 @@ const PRECACHE = [
   "/about.html",
   "/links.html",
   "/offline.html",
-  "/css/main.min.fe85cf33fc3d25d4b0e92825ee051bc3e84485fc4482b3992406893b8959a029.css",
+  "/css/main.min.0766c2f724c20fa75a56ba0d7b21b04cf5bfb897ac58146a46c6684fa7e7d35b.css",
   "/js/main.min.4691eb0679edb07512a91bf1a38ba304b0ce53b5b4caefa49bf558c9ac1ac584.js",
   "/manifest.json",
   "/favicon.ico",
